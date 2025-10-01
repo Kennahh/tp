@@ -1,4 +1,4 @@
-# John Doe - Project Portfolio Page
+# Goh Sze Anh - Project Portfolio Page
 
 ## Overview
 
