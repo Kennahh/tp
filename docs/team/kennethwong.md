@@ -1,4 +1,4 @@
-# John Doe - Project Portfolio Page
+# Kenneth Wong - Project Portfolio Page
 
 ## Overview
 
