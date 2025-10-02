@@ -1,4 +1,8 @@
-package command;
+package astra.command;
+
+import astra.activity.ActivityList;
+import astra.data.Notebook;
+import astra.ui.Ui;
 
 import java.time.LocalTime;
 
@@ -9,7 +13,7 @@ public class AddTutorialCommand extends AddCommand {
     private LocalTime endTime;
 
     @Override
-    public void execute() {
-
+    public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        return false;
     }
 }

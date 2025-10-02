@@ -1,6 +1,8 @@
 package astra;
 
+import astra.data.Notebook;
 import astra.ui.Ui;
+import astra.activity.*;
 import astra.parser.Parser;
 import astra.command.Command;
 import astra.exception.InputException;
@@ -14,10 +16,18 @@ public class Astra {
     /** Scanner for reading user input from console */
     private final Scanner scanner;
 
+    /** Storage handler for saving and loading of activities */
+    private final Notebook notebook;
+
+    /** Stores user activities during runtime */
+    private final ActivityList activities;
+
     /** Initializes the Astra application with necessary components. */
     public Astra(String filePath) {
         this.ui = new Ui();
         this.scanner = new Scanner(System.in);
+        this.notebook = new Notebook();
+        this.activities = new ActivityList();
     }
 
     /**
@@ -34,7 +44,7 @@ public class Astra {
                 String input = scanner.nextLine();
 
                 Command command = Parser.parse(input);
-                boolean shouldExit = command.execute(/*activities, ui, notebook*/);
+                boolean shouldExit = command.execute(activities, ui, notebook);
                 if (shouldExit) {
                     ui.showEnd();
                     isRunning = false;

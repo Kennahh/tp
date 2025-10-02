@@ -1,7 +1,9 @@
 package astra.parser;
 
 import astra.command.Command;
+import astra.command.DeleteCommand;
 import astra.command.ExitCommand;
+import astra.command.ListCommand;
 import astra.exception.InputException;
 
 /**
@@ -28,6 +30,10 @@ public class Parser {
         switch (commandWord) {
             case "close":
                 return new ExitCommand();
+            case "delete":
+                return new DeleteCommand();
+            case "list":
+                return new ListCommand();
             default:
                 throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
                         "    [ASTRA] Please use a valid command word:" +

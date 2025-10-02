@@ -1,4 +1,4 @@
-package activity;
+package astra.activity;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
