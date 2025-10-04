@@ -106,20 +106,20 @@ public class Ui {
                 Available Commands:
 
                 1. Add/Create Task
-                create <description> /by <deadline>
-                Example: create CS2113 Quiz /by 18 Sep 2030h
+                create <description> /by <Date> <DateTime>
+                Example: create CS2113 Quiz /by 2025-10-10 23:59
 
                 2. Add Lecture
                 lecture <description> /place <venue> /day <day> /from <start_time> /to <end_time>
-                Example: lecture CS2113 /place LT9 /day Friday /from 1600 /to 1800
+                Example: lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
 
                 3. Add Tutorial
                 tutorial <description> /place <venue> /day <day> /from <start_time> /to <end_time>
-                Example: tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 1200 /to 1300
+                Example: tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
 
                 4. Add Exam
                 exam <description> /date <date> /from <start_time> /to <end_time>
-                Example: exam CS2107 Midterm /date 20 Oct /from 1000 /to 1200
+                Example: exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
 
                 5. List Tasks
                 listtask
