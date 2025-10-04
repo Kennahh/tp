@@ -8,7 +8,9 @@ import astra.exception.InputException;
 import astra.parser.Parser;
 import astra.ui.Ui;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 public class AddTaskCommand extends AddCommand {
@@ -21,38 +23,25 @@ public class AddTaskCommand extends AddCommand {
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
-            String[] splitInput = inputHandler();
+            String[] parts = input.split(" ", 2);
+            String args = parts[1];
+            String[] tokens = args.split(" /by ");
+            String description = tokens[0].trim();
+            String deadlineStr = tokens[1].trim(); // "2025-10-10 23:59"
 
-            LocalDateTime byDate = Parser.parseDateTime(splitInput[1].trim());
-            Task temp = new Task(splitInput[0].trim(), byDate);
-            activities.addActivity(temp);
-            System.out.println("Task " + temp + " has been added!");
+            String[] deadlineParts = deadlineStr.split(" ");
+            String deadlineDateStr = deadlineParts[0];
+            String deadlineTimeStr = deadlineParts[1];
 
-        } catch (InputException e) {
-            ui.showError(e.getMessage());
-        } catch (DateTimeParseException e) {
-            ui.showError("Error: date format incorrect, use yyyy/mm/dd hhmm");
+            LocalDate deadlineDate = LocalDate.parse(deadlineDateStr);
+            LocalTime deadlineTime = LocalTime.parse(deadlineTimeStr);
+
+            Task task = new Task(description, deadlineDate, deadlineTime);
+            activities.addActivity(task);
+            ui.showMessage(task.toString());
+        } catch (Exception e) {
+            ui.showError("Invalid task command format.");
         }
-//        ui.printCorrectUsage(CommandType.DEADLINE, false);
         return false;
-    }
-
-    private String[] inputHandler() throws InputException {
-        String[] splitInput;
-
-        if (!input.contains("/by")) {
-            throw new InputException("Insufficient arguments!");
-        }
-
-        splitInput = input.split("/by", 2);
-
-        if (splitInput[0].trim().isEmpty()) {
-            throw new InputException("Description cannot be empty!");
-        }
-
-        if (splitInput[1].trim().isEmpty()) {
-            throw new InputException("Deadline cannot be empty!");
-        }
-        return splitInput;
     }
 }

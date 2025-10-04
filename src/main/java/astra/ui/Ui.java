@@ -88,4 +88,84 @@ public class Ui {
         System.out.println(END_COMMAND);
         showDash();
     }
+
+    /**
+     * Displays list of commands available to the user.
+     */
+    public void showHelp() {
+        String helpMessage = """
+                ======================================
+                    ASTRA - Command Help
+                ======================================
+                General Notes:
+                - Commands are case-insensitive for the first word.
+                - Use spaces between arguments and prefixes.
+                - Time format: HHmm (e.g., 1400 for 2 PM).
+                - Date format: DD MMM (e.g., 18 Sep).
+
+                Available Commands:
+
+                1. Add/Create Task
+                create <description> /by <Date> <DateTime>
+                Example: create CS2113 Quiz /by 2025-10-10 23:59
+
+                2. Add Lecture
+                lecture <description> /place <venue> /day <day> /from <start_time> /to <end_time>
+                Example: lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
+
+                3. Add Tutorial
+                tutorial <description> /place <venue> /day <day> /from <start_time> /to <end_time>
+                Example: tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
+
+                4. Add Exam
+                exam <description> /date <date> /from <start_time> /to <end_time>
+                Example: exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
+
+                5. List Tasks
+                listtask
+                listtask -deadline   (sort by nearest deadline)
+                listtask -priority   (sort by priority)
+
+                6. Delete Task
+                delete <index>
+                Example: delete 2
+
+                7. Mark/Unmark Task
+                complete <index>     (mark as complete)
+                unmark <index>       (mark as incomplete)
+
+                8. Change Deadline
+                changedeadline <index> /to <new_deadline>
+                Example: changedeadline 1 /to 25 Sep 2359h
+
+                9. Check Examinations
+                checkexam
+                Lists all upcoming exams with date and duration.
+
+                10. Check Lectures
+                    checklecture <day>
+                    Example: checklecture Friday
+
+                11. Check Tutorials
+                    checktutorial <day>
+                    Example: checktutorial Wednesday
+
+                12. Check Next Task
+                    checkcurrent
+                    Shows the immediate upcoming task.
+
+                13. Set Task Priority
+                    setpriority <index> as <priority>
+                    Example: setpriority 1 as 2
+
+                14. Display help menu
+                    help
+
+                15. Exit application
+                    close
+
+                ======================================
+                """;
+        System.out.println(helpMessage);
+    }
 }
