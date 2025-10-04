@@ -3,8 +3,9 @@ package astra.command;
 import astra.activity.ActivityList;
 import astra.activity.Task;
 import astra.data.Notebook;
-import astra.exception.MissingArgumentException;
-import astra.exception.MissingDescriptionException;
+import astra.exception.InputException;
+
+import astra.parser.Parser;
 import astra.ui.Ui;
 
 import java.time.LocalDate;
@@ -13,7 +14,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 public class AddTaskCommand extends AddCommand {
-    private LocalTime deadline;
     private final String input;
 
     public AddTaskCommand(String input) {
@@ -44,5 +44,4 @@ public class AddTaskCommand extends AddCommand {
         }
         return false;
     }
-
 }
