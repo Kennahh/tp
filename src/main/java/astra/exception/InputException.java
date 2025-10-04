@@ -10,7 +10,5 @@ public class InputException extends Exception {
      *
      * @param message Error message.
      */
-    public InputException(String message) {
-        super(message);
-    }
+    public InputException(String message) {super(message);}
 }
