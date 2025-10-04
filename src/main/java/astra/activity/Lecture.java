@@ -1,6 +1,7 @@
 package astra.activity;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Lecture extends SchoolActivity {
     private String Day;
@@ -11,5 +12,17 @@ public class Lecture extends SchoolActivity {
         this.Day = Day;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + " | "
+                + Day
+                + " | Duration: "
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + "H to "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + "H";
     }
 }

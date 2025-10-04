@@ -11,6 +11,11 @@ public class AddLectureCommand extends AddCommand {
     private String venue;
     private LocalTime startTime;
     private LocalTime endTime;
+    private final String input;
+
+    public AddLectureCommand(String input) {
+        this.input = input;
+    }
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
