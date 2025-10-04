@@ -46,6 +46,8 @@ public class Parser {
             return new DeleteCommand(input);
         case "list":
             return new ListCommand();
+        case "help":
+            return new HelpCommand();
         default:
             throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
                     "    [ASTRA] Please use a valid command word:" +

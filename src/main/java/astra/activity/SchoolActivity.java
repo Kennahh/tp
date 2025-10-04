@@ -7,4 +7,8 @@ public abstract class SchoolActivity extends Activity {
     protected String venue;
     protected LocalTime startTime;
     protected LocalTime endTime;
+
+    public SchoolActivity(String description) {
+        super(description);
+    }
 }

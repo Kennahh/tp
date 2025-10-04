@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 public class Exam extends SchoolActivity {
     private LocalDate date;
 
-    public Exam(String venue, LocalDate date, LocalTime startTime, LocalTime endTime) {
+    public Exam(String description, String venue, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        super(description);
         this.venue = venue;
         this.date = date;
         this.startTime = startTime;
