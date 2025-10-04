@@ -7,7 +7,8 @@ public class Lecture extends SchoolActivity {
     private String Day;
 
 
-    public Lecture(String venue, String Day, LocalTime startTime, LocalTime endTime) {
+    public Lecture(String description, String venue, String Day, LocalTime startTime, LocalTime endTime) {
+        super(description);
         this.venue = venue;
         this.Day = Day;
         this.startTime = startTime;

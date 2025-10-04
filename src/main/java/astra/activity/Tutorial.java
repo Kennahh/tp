@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class Tutorial extends SchoolActivity{
     private String day;
 
-    public Tutorial(String venue,String day, LocalTime startTime, LocalTime endTime) {
+    public Tutorial(String description, String venue, String day, LocalTime startTime, LocalTime endTime) {
+        super(description);
         this.venue = venue;
         this.day = day;
         this.startTime = startTime;
@@ -23,5 +24,4 @@ public class Tutorial extends SchoolActivity{
                 + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H";
     }
-
 }
