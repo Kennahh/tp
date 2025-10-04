@@ -3,6 +3,10 @@ package astra.parser;
 import astra.command.*;
 import astra.exception.InputException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Handles all user raw command line strings into commands.
  */
@@ -57,5 +61,21 @@ public class Parser {
     private static String getCommandWord(String input) {
         String[] splitString = input.split(" ", 2);
         return splitString[0];
+    }
+
+    /**
+     * Parses date and time string provided by user into date and time format
+     * @param dateAndTime user provided string
+     * @return parsed user provided date and time into LocalDateTime format
+     * @throws DateTimeParseException when the provided date and time does not match the expected formatting
+     */
+    public static LocalDateTime parseDateTime(String dateAndTime) throws DateTimeParseException {
+        // append 00:00 to the end of the string if no timing is provided
+        if (!dateAndTime.contains(" ")) { // no space, likely no timing, defaults to 2359H
+            dateAndTime += " 2359";
+        }
+        // the only accepted format is ISO and whatever is written below
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        return LocalDateTime.parse(dateAndTime, formatter);
     }
 }
