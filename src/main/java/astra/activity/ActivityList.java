@@ -9,6 +9,10 @@ public class ActivityList {
         ACTIVITIES = new ArrayList<>();
     }
 
+    public Activity getActivity(int index){
+        return ACTIVITIES.get(index);
+    }
+
     /** adds activities to ArrayList*/
     public void addActivity(Activity activity) {
         ACTIVITIES.add(activity);
