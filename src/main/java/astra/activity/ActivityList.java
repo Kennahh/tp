@@ -30,4 +30,17 @@ public class ActivityList {
             }
         }
     }
+
+    /**
+     * Getter of the size of ACTIVITIES
+     *
+     * @return size of the ArrayList
+     */
+    public int getListSize() {
+        return ACTIVITIES.size();
+    }
+
+    public Activity getAnActivity(int index) {
+        return ACTIVITIES.get(index);
+    }
 }

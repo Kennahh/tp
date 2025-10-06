@@ -14,6 +14,10 @@ public class Tutorial extends SchoolActivity{
         this.endTime = endTime;
     }
 
+    public String getDay() {
+        return day;
+    }
+
     public String toString() {
         return super.toString()
                 + " | "

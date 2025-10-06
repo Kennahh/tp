@@ -15,6 +15,10 @@ public class Lecture extends SchoolActivity {
         this.endTime = endTime;
     }
 
+    public String getDay() {
+        return Day;
+    }
+
     @Override
     public String toString() {
         return super.toString()
