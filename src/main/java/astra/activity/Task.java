@@ -26,6 +26,12 @@ public class Task extends Activity {
     public void  clearIsComplete(){
         isComplete = false;
     }
+
+    public void setDeadline(LocalDate newDate, LocalTime newTime) {
+        this.deadline_date = newDate;
+        this.deadline_time = newTime;
+    }
+
     @Override
     public String toString() {
         return "["
