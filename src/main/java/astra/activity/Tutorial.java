@@ -20,6 +20,8 @@ public class Tutorial extends SchoolActivity{
 
     public String toString() {
         return super.toString()
+                + " | Venue: "
+                + venue
                 + " | "
                 + day
                 + " | Duration: "
