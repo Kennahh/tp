@@ -48,6 +48,8 @@ public class Parser {
             return new ListCommand();
         case "help":
             return new HelpCommand();
+        case "changedeadline":
+            return new ChangeDeadlineCommand(input);
         default:
             throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
                     "    [ASTRA] Please use a valid command word:" +
