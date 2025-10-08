@@ -32,6 +32,14 @@ public class Task extends Activity {
         this.deadline_time = newTime;
     }
 
+    public LocalDate getDeadlineDate() {
+        return deadline_date;
+    }
+
+    public LocalTime getDeadlineTime() {
+        return deadline_time;
+    }
+
     @Override
     public String toString() {
         return "["

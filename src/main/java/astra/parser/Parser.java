@@ -24,7 +24,7 @@ public class Parser {
             throw new InputException("    [ERROR] Oh no your wish is an empty input! Please tell me your wish.");
         }
         if (input.trim().isEmpty()) {
-            throw new InputException("    [ERROR] Empty wish?!. Please tell me your wish.");
+            throw new InputException("    [ERROR] Empty wish?! Please tell me your wish :(");
         }
 
         String commandWord = getCommandWord(input).trim().toLowerCase();
@@ -34,7 +34,7 @@ public class Parser {
         switch (commandWord) {
         case "close":
             return new ExitCommand();
-        case "create":
+        case "task":
             return new AddTaskCommand(input);
         case "lecture":
             return new AddLectureCommand(input);
@@ -50,6 +50,34 @@ public class Parser {
             return new HelpCommand();
         case "changedeadline":
             return new ChangeDeadlineCommand(input);
+        case "complete":
+            return new CompleteCommand(input);
+        case "unmark":
+            return new UnmarkCommand(input);
+        case "checkexam":
+            return new CheckExamCommand();
+        case "checklecture": {
+            String[] parts = input.split("\\s+", 2);
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new InputException("Please provide a day: checklecture <day>");
+            }
+            return new CheckLecturesCommand(parts[1].trim());
+        }
+        case "checktutorial":
+            String[] parts = input.split("\\s+", 2);
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new InputException("Please provide a day: checktutorial <day>");
+            }
+            return new CheckTutorialsCommand(parts[1].trim());
+        default:
+            throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
+                    "    [ASTRA] Please use a valid command word:" + "    (known commands by me, a small digital notebook: close).\n");
+        }
+    }
+
+    /**
++            return new CheckTutorialsCommand(parts[1].trim());
++        }
         default:
             throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
                     "    [ASTRA] Please use a valid command word:" +
