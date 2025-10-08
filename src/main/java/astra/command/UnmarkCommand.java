@@ -7,7 +7,10 @@ import astra.data.Notebook;
 import astra.ui.Ui;
 
 public class UnmarkCommand implements Command {
-    private int index;
+    private final String input;
+    public UnmarkCommand(String input) {
+        this.input = input;
+    }
     //private ActivityList activities;
 
     /**
@@ -16,7 +19,13 @@ public class UnmarkCommand implements Command {
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
-            Activity currActivity = activities.getActivity(index);
+            String[] parts = input.split("\\s+", 2);
+            if (parts.length < 2) {
+                ui.showError("Provide an index: unmark <index>");
+                return false;
+            }
+            int index = Integer.parseInt(parts[1].trim());
+            Activity currActivity = activities.getActivity(index - 1);
             if (!(currActivity instanceof Task)) {
                 ui.showError("Activity at index " + index + " is not a Task");
                 return false;
@@ -26,9 +35,11 @@ public class UnmarkCommand implements Command {
                 return false;
             }
             ((Task) currActivity).clearIsComplete();
-            ui.showMessage("Successfully unmarked task at index " + index);
+            ui.showMessage("Unmarked: #" + index + " " + currActivity.toString());
+        } catch (NumberFormatException e) {
+            ui.showError("Index provided is not a number!");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("index " + index + " is out of bounds.");
+            ui.showError("Index out of bounds.");
         }
         return false;
     }

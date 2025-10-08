@@ -6,7 +6,9 @@ import astra.activity.*;
 import astra.parser.Parser;
 import astra.command.Command;
 import astra.exception.InputException;
+import astra.exception.FileSystemException;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Astra {
@@ -16,7 +18,7 @@ public class Astra {
     /** Scanner for reading user input from console */
     private final Scanner scanner;
 
-    /** Storage handler for saving and loading of activities */
+    /** Storage handler for saving and loading of activithelpies */
     private final Notebook notebook;
 
     /** Stores user activities during runtime */
@@ -26,8 +28,16 @@ public class Astra {
     public Astra(String filePath) {
         this.ui = new Ui();
         this.scanner = new Scanner(System.in);
-        this.notebook = new Notebook();
-        this.activities = new ActivityList();
+        this.notebook = new Notebook(filePath);
+        this.activities = new ActivityList(); // relook into whether can just pass `notebook` in
+        try {
+            List<Activity> loaded = notebook.loadFromFile();
+            for (Activity activity : loaded) {
+                this.activities.addActivity(activity);
+            }
+        } catch (FileSystemException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -42,17 +52,22 @@ public class Astra {
             try {
                 ui.showPrompt();
                 String input = scanner.nextLine();
+                ui.showDash();
 
                 Command command = Parser.parse(input);
                 boolean shouldExit = command.execute(activities, ui, notebook);
+                if (!shouldExit) {
+                    notebook.writeToFile(activities.toList());
+                }
                 if (shouldExit) {
                     ui.showEnd();
                     isRunning = false;
                     break;
                 }
-            } catch (InputException e) {
+            } catch (InputException | FileSystemException e) {
                 ui.showError(e.getMessage());
             }
+            ui.showDone();
         }
         scanner.close();
     }

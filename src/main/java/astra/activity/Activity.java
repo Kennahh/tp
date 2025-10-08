@@ -11,4 +11,8 @@ public abstract class Activity {
         return description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
 }

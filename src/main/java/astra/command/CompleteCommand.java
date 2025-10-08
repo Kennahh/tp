@@ -6,9 +6,11 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
-public class MarkCommand implements Command {
-    private int index;
-    //private ActivityList activities;
+public class CompleteCommand implements Command {
+    private final String input;
+    public CompleteCommand(String input) {
+        this.input = input;
+    }
 
     /**
      * Only works if the Activity is an instanceof Task.
@@ -16,7 +18,13 @@ public class MarkCommand implements Command {
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
-            Activity currActivity = activities.getActivity(index);
+            String[] parts = input.split("\\s+", 2);
+            if (parts.length < 2) {
+                ui.showError("Please provide an index: complete <index>");
+                return false;
+            }
+            int index = Integer.parseInt(parts[1].trim());
+            Activity currActivity = activities.getActivity(index-1);
             if (!(currActivity instanceof Task)) {
                 ui.showError("Activity at index " + index + " is not a Task");
                 return false;
@@ -26,9 +34,9 @@ public class MarkCommand implements Command {
                 return false;
             }
             ((Task) currActivity).setIsComplete();
-            ui.showMessage("Successfully marked task at index " + index);
+            ui.showMessage("Marked complete: #" + index + " " + currActivity.toString());
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("index " + index + " is out of bounds.");
+            ui.showError("index out of bounds.");
         }
         return false;
     }
