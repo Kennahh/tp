@@ -135,8 +135,8 @@ public class Ui {
                 unmark <index>       (mark as incomplete)
 
                 8. Change Deadline
-                changedeadline <index> /to <new_deadline>
-                Example: changedeadline 1 /to 25 Sep 2359h
+                changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
+                Example: changedeadline 1 /to 2025-10-31 14:00
 
                 9. Check Examinations
                 checkexam

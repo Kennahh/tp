@@ -9,6 +9,10 @@ public class ActivityList {
         ACTIVITIES = new ArrayList<>();
     }
 
+    public Activity getActivity(int index){
+        return ACTIVITIES.get(index);
+    }
+
     /** adds activities to ArrayList*/
     public void addActivity(Activity activity) {
         ACTIVITIES.add(activity);
@@ -29,5 +33,18 @@ public class ActivityList {
                 System.out.println(ACTIVITIES.get(index).toString());
             }
         }
+    }
+
+    /**
+     * Getter of the size of ACTIVITIES
+     *
+     * @return size of the ArrayList
+     */
+    public int getListSize() {
+        return ACTIVITIES.size();
+    }
+
+    public Activity getAnActivity(int index) {
+        return ACTIVITIES.get(index);
     }
 }
