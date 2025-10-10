@@ -6,6 +6,7 @@ import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -83,13 +84,15 @@ public class AddLectureCommand extends AddCommand {
             Lecture lecture = new Lecture(description, venue, day, startTime, endTime);
             activities.addActivity(lecture);
             ui.showMessage(lecture.toString());
-
+            notebook.saveToFile(activities);
+            
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
         } catch (Exception e) {
             ui.showError("Invalid lecture command format.");
         } 
-
         return false;
     }
 }

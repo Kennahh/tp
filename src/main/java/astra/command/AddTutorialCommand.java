@@ -6,6 +6,7 @@ import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -83,11 +84,14 @@ public class AddTutorialCommand extends AddCommand {
             Tutorial tutorial = new Tutorial(description, venue, day, startTime, endTime);
             activities.addActivity(tutorial);
             ui.showMessage(tutorial.toString());
+            notebook.saveToFile(activities);
 
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid tutorial command format.");
+            ui.showError("Invalid exam command format.");
         }
         
         return false;

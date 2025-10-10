@@ -11,6 +11,8 @@ public abstract class Activity {
         return description;
     }
 
+    public abstract String writeToFile();
+  
     public String getDescription() {
         return description;
     }
