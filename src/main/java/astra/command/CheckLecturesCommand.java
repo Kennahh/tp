@@ -37,9 +37,11 @@ public class CheckLecturesCommand extends CheckCommand {
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        ui.showDash();
         ActivityList filteredList = filterList(activities);
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " lecture(s) on " + day);
+        ui.showDash();
         return false;
     }
 }

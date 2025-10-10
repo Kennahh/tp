@@ -30,4 +30,14 @@ public class Exam extends SchoolActivity {
                 + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H";
     }
+
+    @Override
+    public String writeToFile() {
+        return "Exam, "
+                + description + ", "
+                + venue + ", "
+                + date.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+    }
 }

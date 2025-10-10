@@ -5,6 +5,8 @@ import astra.activity.ActivityList;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
+import java.io.IOException;
+
 public class DeleteCommand implements Command{
     private final String input;
 
@@ -23,11 +25,14 @@ public class DeleteCommand implements Command{
             Activity removed = activities.getActivity(index - 1);
             activities.deleteActivity(index - 1);
             ui.showMessage("Erased: #" + index + " " + removed.toString());
+            notebook.saveToFile(activities);
             return false;
         } catch (NumberFormatException e) {
             ui.showError("Index provided is not a number!");
         } catch (IndexOutOfBoundsException e) {
             ui.showError("Activity of matching index does not exist/No index provided!");
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         }
         return false;
     }
