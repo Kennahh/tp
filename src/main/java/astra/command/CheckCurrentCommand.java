@@ -63,7 +63,13 @@ public class CheckCurrentCommand implements Command {
         return new ArrayList<>(closestTasks.subList(0, Math.min(count, closestTasks.size())));
     }
 
-
+    /*
+     * Executes the command to check the closest task deadlines.
+     * @param activities The list of activities.
+     * @param ui The user interface for displaying messages.
+     * @param notebook The notebook for data storage (not used in this command).
+     * @return false to indicate the application should continue running.
+     */
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
 
