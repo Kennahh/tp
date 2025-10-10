@@ -59,6 +59,8 @@ public class Parser {
             return new UnmarkCommand(input);
         case "checkexam":
             return new CheckExamCommand();
+        case "checkcurrent":
+            return new CheckCurrentCommand(input);
         case "checklecture": {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
