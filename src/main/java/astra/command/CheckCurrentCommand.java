@@ -28,16 +28,21 @@ class SortByDeadline implements Comparator<Task> {
 
 public class CheckCurrentCommand implements Command {
 
-    private final int count;
+    private int count;
 
     /*
      * Constructor for CheckCurrentCommand.
-     * @param input The full user input string.
+     * @param input Entire user input string.
      */
     public CheckCurrentCommand(String input) {
         String[] parts = input.split(" ");
         if (parts.length > 1) {
-            this.count = Integer.parseInt(parts[1].trim());
+            try {
+                this.count = Integer.parseInt(parts[1].trim());
+            } catch (NumberFormatException e) {
+                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for checkcurrent, e.g., 'checkcurrent 3'");
+                this.count = 1; // fallback value
+            }
         } else {
             this.count = 1;
         }
