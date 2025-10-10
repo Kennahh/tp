@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -60,17 +61,21 @@ public class Notebook {
         String[] splitLine = line.split(",", 2);
         String type = splitLine[0].trim().toLowerCase();
         String[] details = splitLine[1].split(",");
+        DayOfWeek day;
         switch (type) {
         case "lecture":
             // type, description, venue, day, start time, end time
-            Lecture lecture = new Lecture(details[0].trim(), details[1].trim(), details[2].trim(),
+            day = DayOfWeek.of(Integer.parseInt(details[2].trim()));
+            Lecture lecture = new Lecture(details[0].trim(), details[1].trim(), day,
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
             activities.addActivity(lecture);
+            break;
         case "exam":
             // type, description, venue, day, start time, end time
             Exam exam = new Exam(details[0].trim(), details[1].trim(), LocalDate.parse(details[2].trim()),
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
             activities.addActivity(exam);
+            break;
         case "task":
             // type, description, deadline date, deadline time, isComplete
             Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), LocalTime.parse(details[2].trim()));
@@ -78,11 +83,14 @@ public class Notebook {
                 task.setComplete(true);
             }
             activities.addActivity(task);
+            break;
         case "tutorial":
             // type, description, venue, day, start time, end time
-            Tutorial tutorial = new Tutorial(details[0].trim(), details[1].trim(), details[2].trim(),
+            day = DayOfWeek.of(Integer.parseInt(details[2].trim()));
+            Tutorial tutorial = new Tutorial(details[0].trim(), details[1].trim(), day,
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
             activities.addActivity(tutorial);
+            break;
         default:
             throw new FileNotFoundException("Invalid activity type in text file.");
         }
@@ -189,7 +197,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
             }
-            String desc = parts[2], venue = parts[3], day = parts[4];
+            String desc = parts[2], venue = parts[3];
+            DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
             Lecture lec = new Lecture(desc, venue, day, start, end);
@@ -201,7 +210,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid tutorial: " + line);
             }
-            String desc = parts[2], venue = parts[3], day = parts[4];
+            String desc = parts[2], venue = parts[3];
+            DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
             Tutorial tut = new Tutorial(desc, venue, day, start, end);
@@ -237,12 +247,12 @@ public class Notebook {
         if (a instanceof Lecture) {
             Lecture l = (Lecture) a;
             return String.join(SEP, "LECTURE", done,
-                safe(l.getDescription()), safe(l.getVenue()), safe(l.getDay()),
+                safe(l.getDescription()), safe(l.getVenue()), safe(String.valueOf(l.getDay().getValue())),
                 safe(l.getStartTime().toString()), safe(l.getEndTime().toString()));
         } else if (a instanceof Tutorial) {
             Tutorial t = (Tutorial) a;
             return String.join(SEP, "TUTORIAL", done,
-                safe(t.getDescription()), safe(t.getVenue()), safe(t.getDay()),
+                safe(t.getDescription()), safe(t.getVenue()), safe(String.valueOf(t.getDay().getValue())),
                 safe(t.getStartTime().toString()), safe(t.getEndTime().toString()));
         } else if (a instanceof Exam) {
             Exam ex = (Exam) a;

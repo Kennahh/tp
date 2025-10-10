@@ -17,7 +17,7 @@ public class CheckLecturesCommand extends CheckCommand {
 
     private boolean filterActivity(Activity activity) {
         if (activity instanceof Lecture) {
-            if (Objects.equals(((Lecture) activity).getDay(), day)) {
+            if (Objects.equals(((Lecture) activity).getDayString(), day)) {
                 return true;
             }
         }
