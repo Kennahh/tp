@@ -28,4 +28,14 @@ public class Tutorial extends SchoolActivity{
                 + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H";
     }
+
+    @Override
+    public String writeToFile() {
+        return "Tutorial, "
+                + description + ", "
+                + venue + ", "
+                + day + ", "
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+    }
 }
