@@ -8,6 +8,7 @@ import astra.exception.InputException;
 import astra.parser.Parser;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -39,8 +40,11 @@ public class AddTaskCommand extends AddCommand {
             Task task = new Task(description, deadlineDate, deadlineTime);
             activities.addActivity(task);
             ui.showMessage(task.toString());
+            notebook.saveToFile(activities);
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid task command format.");
+            ui.showError("Invalid exam command format.");
         }
         return false;
     }

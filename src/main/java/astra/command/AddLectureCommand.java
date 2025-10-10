@@ -5,6 +5,7 @@ import astra.activity.Lecture;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalTime;
 
 public class AddLectureCommand extends AddCommand {
@@ -45,10 +46,13 @@ public class AddLectureCommand extends AddCommand {
             Lecture lecture = new Lecture(description, venue, day, startTime, endTime);
             activities.addActivity(lecture);
             ui.showMessage(lecture.toString());
+            notebook.saveToFile(activities);
             
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid lecture command format.");
-        } 
+            ui.showError("Invalid exam command format.");
+        }
         return false;
     }
 }
