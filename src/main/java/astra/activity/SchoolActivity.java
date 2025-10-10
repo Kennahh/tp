@@ -11,4 +11,14 @@ public abstract class SchoolActivity extends Activity {
     public SchoolActivity(String description) {
         super(description);
     }
+
+    public String getVenue() {
+        return venue;
+    }
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+    public LocalTime getEndTime() {
+        return endTime;
+    }
 }

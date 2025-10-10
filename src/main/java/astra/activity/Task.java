@@ -15,6 +15,30 @@ public class Task extends Activity {
         this.deadline_date = deadline_date;
         this.deadline_time = deadline_time;
     }
+    public boolean getIsComplete(){
+        return isComplete;
+    }
+
+    public void setIsComplete(){
+        isComplete = true;
+    }
+
+    public void  clearIsComplete(){
+        isComplete = false;
+    }
+
+    public void setDeadline(LocalDate newDate, LocalTime newTime) {
+        this.deadline_date = newDate;
+        this.deadline_time = newTime;
+    }
+
+    public LocalDate getDeadlineDate() {
+        return deadline_date;
+    }
+
+    public LocalTime getDeadlineTime() {
+        return deadline_time;
+    }
 
     @Override
     public String toString() {

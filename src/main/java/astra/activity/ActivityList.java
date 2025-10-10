@@ -1,12 +1,17 @@
 package astra.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityList {
     private final ArrayList<Activity> ACTIVITIES;
 
     public ActivityList() {
         ACTIVITIES = new ArrayList<>();
+    }
+
+    public Activity getActivity(int index){
+        return ACTIVITIES.get(index);
     }
 
     /** adds activities to ArrayList*/
@@ -42,5 +47,10 @@ public class ActivityList {
 
     public Activity getAnActivity(int index) {
         return ACTIVITIES.get(index);
+    }
+
+    /** Provide a copy for persistence */
+    public List<Activity> toList() {
+        return new ArrayList<>(ACTIVITIES);
     }
 }

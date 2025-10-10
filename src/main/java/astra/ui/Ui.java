@@ -10,10 +10,11 @@ public class Ui {
             "! Your friendly digital academic notebook :)\n" +
             "I am here to support your academic universe!\n"
     );
-    private static final String PROMPT_COMMAND = ("[ASTRA] Monitoring your deepest wishes..." +
-            "Speak and you shall receive!\n" +
+    private static final String PROMPT_COMMAND = ("[ASTRA] Ready to help you stay on top of your academic game!\n" +
+            ">>     Type in a command for me to fulfill your wish!\n" +
+            ">>     Type 'help' to see the list of wishes I can fulfill!\n" +
             ">>     Type 'close' to close this digital notebook of yours.\n" +
-            "[ASTRA] Ready to help you stay on top of your academic game!\n"
+            "[ASTRA] Monitoring your deepest wishes..."
     );
     private static final String DONE_COMMAND = "[ASTRA] Done! Now, what's your next wish...\n";
     private static final String END_COMMAND = "[ASTRA] Keep up the great work! Your academic triumph awaits!";
@@ -95,76 +96,46 @@ public class Ui {
     public void showHelp() {
         String helpMessage = """
                 ======================================
-                    ASTRA - Command Help
+                    ASTRA - Notebook Possibilities!
                 ======================================
                 General Notes:
                 - Commands are case-insensitive for the first word.
                 - Use spaces between arguments and prefixes.
                 - Time format: HHmm (e.g., 1400 for 2 PM).
-                - Date format: DD MMM (e.g., 18 Sep).
+                - Date format: YYYY-MM-DD (e.g., 2025-12-10 for 10th December 2025).
 
-                Available Commands:
+                Adding entries to Astra:
+                - task <description> /by <YYYY-MM-DD> <HH:MM>
+                - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
+                - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
+                - exam <description> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
+                    
+                    Example: task CS2113 Quiz /by 2025-10-10 23:59
+                             lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
+                             tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
+                             exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
 
-                1. Add/Create Task
-                create <description> /by <Date> <DateTime>
-                Example: create CS2113 Quiz /by 2025-10-10 23:59
+                Listing and Checking Tasks:
+                - checkcurrent                     (Shows the immediate upcoming task)
+                - listtask [-deadline] [-priority] (lists all tasks only, [by nearest deadline] or [by priority])
+                - checkexam                        (lists all upcoming exams with date and duration) 
+                - checklecture <day>               (lists all lectures on a specific day)
+                - checktutorial <day>              (lists all tutorials on a specific day)  
 
-                2. Add Lecture
-                lecture <description> /place <venue> /day <day> /from <start_time> /to <end_time>
-                Example: lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
+                Editing entries in Astra:
+                - delete <index>
+                - complete <index>                                      (mark as complete)
+                - unmark <index>                                        (mark as incomplete)
+                - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
+                    Example: changedeadline 1 /to 2025-10-31 14:00
 
-                3. Add Tutorial
-                tutorial <description> /place <venue> /day <day> /from <start_time> /to <end_time>
-                Example: tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
-
-                4. Add Exam
-                exam <description> /date <date> /from <start_time> /to <end_time>
-                Example: exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
-
-                5. List Tasks
-                listtask
-                listtask -deadline   (sort by nearest deadline)
-                listtask -priority   (sort by priority)
-
-                6. Delete Task
-                delete <index>
-                Example: delete 2
-
-                7. Mark/Unmark Task
-                complete <index>     (mark as complete)
-                unmark <index>       (mark as incomplete)
-
-                8. Change Deadline
-                changedeadline <index> /to <new_deadline>
-                Example: changedeadline 1 /to 25 Sep 2359h
-
-                9. Check Examinations
-                checkexam
-                Lists all upcoming exams with date and duration.
-
-                10. Check Lectures
-                    checklecture <day>
-                    Example: checklecture Friday
-
-                11. Check Tutorials
-                    checktutorial <day>
-                    Example: checktutorial Wednesday
-
-                12. Check Next Task
-                    checkcurrent
-                    Shows the immediate upcoming task.
-
-                13. Set Task Priority
-                    setpriority <index> as <priority>
+                Setting Task Priority
+                - setpriority <index> as <priority>
                     Example: setpriority 1 as 2
 
-                14. Display help menu
-                    help
-
-                15. Exit application
-                    close
-
-                ======================================
+                Help/Exit:
+                - help
+                - close
                 """;
         System.out.println(helpMessage);
     }

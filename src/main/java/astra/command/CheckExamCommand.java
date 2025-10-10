@@ -20,10 +20,8 @@ public class CheckExamCommand extends CheckCommand {
     }
 
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
-        ui.showDash();
         ActivityList filteredList = filterExams(activities);
         filteredList.listActivities();
-        ui.showDash();
         return false;
     }
 }

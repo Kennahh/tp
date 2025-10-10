@@ -3,16 +3,14 @@ package astra.command;
 import astra.activity.ActivityList;
 import astra.activity.Lecture;
 import astra.data.Notebook;
+import astra.exception.InputException;
 import astra.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class AddLectureCommand extends AddCommand {
-    private String day;
-    private String venue;
-    private LocalTime startTime;
-    private LocalTime endTime;
     private final String input;
 
     public AddLectureCommand(String input) {
@@ -23,10 +21,21 @@ public class AddLectureCommand extends AddCommand {
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
             String[] parts = input.split(" ", 2);
+            if (parts.length != 2) {
+                throw new InputException("Missing lecture description and details. Use: lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>");
+            }
+
             String args = parts[1];
             String[] details = args.split("/");
             String description = details[0].trim();
-            String venue = "", day = "", startTimeStr = "", endTimeStr = "";
+            if (description.isEmpty()) {
+                throw new InputException("Lecture description is missing");
+            }
+
+            String venue = ""; 
+            String day = ""; 
+            String startTimeStr = ""; 
+            String endTimeStr = "";
 
             for (String detail : details) {
                 if (detail.startsWith("place ")) {
@@ -40,8 +49,37 @@ public class AddLectureCommand extends AddCommand {
                 }
             }
 
-            LocalTime startTime = LocalTime.parse(startTimeStr);
-            LocalTime endTime = LocalTime.parse(endTimeStr);
+            if (venue.isEmpty()) {
+                throw new InputException("Missing venue. Use: /place <venue>");
+            }
+            if (day.isEmpty()) {
+                throw new InputException("Missing day. Use: /day <day>");
+            }
+            if (startTimeStr.isEmpty()) {
+                throw new InputException("Missing start time. Use: /from <HH:MM>");
+            }
+            if (endTimeStr.isEmpty()) {
+                throw new InputException("Missing end time. Use: /to <HH:MM>");
+            }
+                
+            LocalTime startTime;
+            LocalTime endTime;
+
+            try {
+                startTime = LocalTime.parse(startTimeStr);
+            } catch (DateTimeParseException e) {
+                throw new InputException("Invalid start time format. Use HH:MM (24-hour).");
+            }
+
+            try {
+                endTime = LocalTime.parse(endTimeStr);
+            } catch (DateTimeParseException e) {
+                throw new InputException("Invalid end time format. Use HH:MM (24-hour).");
+            }
+
+            if (!endTime.isAfter(startTime)) {
+                throw new InputException("End time must be after start time.");
+            }
 
             Lecture lecture = new Lecture(description, venue, day, startTime, endTime);
             activities.addActivity(lecture);
@@ -50,9 +88,11 @@ public class AddLectureCommand extends AddCommand {
             
         } catch (IOException e) {
             ui.showError(e.getMessage());
+        } catch (InputException formatError) {
+            ui.showError(formatError.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid exam command format.");
-        }
+            ui.showError("Invalid lecture command format.");
+        } 
         return false;
     }
 }

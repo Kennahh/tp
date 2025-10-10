@@ -22,6 +22,8 @@ public class Lecture extends SchoolActivity {
     @Override
     public String toString() {
         return super.toString()
+                + " | Venue: "
+                + venue
                 + " | "
                 + Day
                 + " | Duration: "

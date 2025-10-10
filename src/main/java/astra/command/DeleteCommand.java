@@ -1,5 +1,6 @@
 package astra.command;
 
+import astra.activity.Activity;
 import astra.activity.ActivityList;
 import astra.data.Notebook;
 import astra.ui.Ui;
@@ -21,8 +22,9 @@ public class DeleteCommand implements Command{
 
             // todo: combine with search function when that is implemented
             index = Integer.parseInt(arguments);
-            activities.deleteActivity(index);
-            ui.showMessage("[ASTRA] This activity has been erased");
+            Activity removed = activities.getActivity(index - 1);
+            activities.deleteActivity(index - 1);
+            ui.showMessage("Erased: #" + index + " " + removed.toString());
             notebook.saveToFile(activities);
             return false;
         } catch (NumberFormatException e) {

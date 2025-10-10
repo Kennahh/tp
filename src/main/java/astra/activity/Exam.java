@@ -15,6 +15,10 @@ public class Exam extends SchoolActivity {
         this.endTime = endTime;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return super.toString()
