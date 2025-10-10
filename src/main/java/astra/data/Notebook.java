@@ -6,6 +6,7 @@ import astra.activity.Exam;
 import astra.activity.Lecture;
 import astra.activity.Task;
 import astra.activity.Tutorial;
+import astra.exception.FileSystemException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Notebook {
@@ -84,19 +87,19 @@ public class Notebook {
             throw new FileNotFoundException("Invalid activity type in text file.");
         }
     }
-    private final String filePath;
+//    private final String filePath;
     // Delimiters
     private static final String SEP = " | ";
     private static final String SPLIT_REGEX = "\\s*\\|\\s*";
 
-    /**
-     * Creates a Notebook bound to a file path.
-     *
-     * @param filePath Path of the data file.
-     */
-    public Notebook(String filePath) {
-        this.filePath = filePath;
-    }   
+//    /**
+//     * Creates a Notebook bound to a file path.
+//     *
+//     * @param filePath Path of the data file.
+//     */
+//    public Notebook(String filePath) {
+//        this.filePath = filePath;
+//    }
 
     /**
      * Loads tasks from the file system.
