@@ -16,7 +16,9 @@ public class CheckExamCommand extends CheckCommand {
                 filteredList.addActivity(activity);
             }
         }
+        return filteredList;
     }
+
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         ui.showDash();
         ActivityList filteredList = filterExams(activities);
