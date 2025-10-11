@@ -5,20 +5,24 @@ import astra.activity.ActivityList;
 import astra.activity.Lecture;
 import astra.activity.Tutorial;
 import astra.data.Notebook;
+import astra.exception.InputException;
+import astra.parser.Parser;
 import astra.ui.Ui;
 
+import java.time.DayOfWeek;
 import java.util.Objects;
 
 public class CheckTutorialsCommand extends CheckCommand {
-    private String day;
+    private String input;
+    private DayOfWeek day;
 
-    public CheckTutorialsCommand(String day) {
-        this.day = day;
+    public CheckTutorialsCommand(String input) {
+        this.input = input;
     }
 
     private boolean filterActivity(Activity activity) {
         if (activity instanceof Tutorial) {
-            if (Objects.equals(((Tutorial) activity).getDayString(), day)) {
+            if (Objects.equals(((Tutorial) activity).getDay(), day)) {
                 return true;
             }
         }
@@ -38,6 +42,11 @@ public class CheckTutorialsCommand extends CheckCommand {
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        try {
+            this.day = Parser.dayOfWeekParser(this.input);
+        } catch (InputException e) {
+            ui.showError(e.getMessage());
+        }
         ui.showDash();
         ActivityList filteredList = filterList(activities);
         filteredList.listActivities();
