@@ -185,4 +185,30 @@ public class AstraParserTest {
         }
         tearDown();
     }
+
+    @Test
+    public void testUnmark_validInput_expectSuccess() {
+        setup();
+        String addTaskInput = "task test /by 2025-12-12 14:00";
+        try {
+            Command addTaskCommand = Parser.parse(addTaskInput);
+            boolean addResult = addTaskCommand.execute(activities, ui, notebook);
+            assertEquals(1, activities.getListSize(), "Task should be added to the list");
+
+            Task task = (Task) activities.getActivity(0);
+            assertTrue(!task.getIsComplete(), "Task should not be completed");
+
+            Command completeCommand = Parser.parse("Complete 1");
+            boolean completeResult = completeCommand.execute(activities, ui, notebook);
+            assertTrue(task.getIsComplete(), "Task should be completed");
+
+            Command unmarkCommand = Parser.parse("Unmark 1");
+            boolean unmarkResult = unmarkCommand.execute(activities, ui, notebook);
+            assertTrue(!task.getIsComplete(), "Task should not be completed");
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
+        }
+        tearDown();
+    }
+
 }
