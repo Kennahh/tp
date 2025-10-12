@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+import astra.activity.Activity;
 import astra.activity.ActivityList;
+import astra.activity.Task;
+import astra.activity.Tutorial;
+import astra.command.AddTaskCommand;
 import astra.command.Command;
 import astra.data.Notebook;
 import astra.exception.FileSystemException;
@@ -89,6 +93,27 @@ public class AstraParserTest {
         try {
             Command command = Parser.parse(inputString);
             assertEquals(false, command.execute(activities, ui, notebook));
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
+        }
+        tearDown();
+    }
+
+    @Test
+    public void testComplete_validInput_expectSuccess() {
+        setup();
+        String addTaskInput = "task test /by 2025-12-12 14:00";
+        try {
+            Command addTaskCommand = Parser.parse(addTaskInput);
+            boolean addResult = addTaskCommand.execute(activities, ui, notebook);
+            assertEquals(1, activities.getListSize(), "Task should be added to the list");
+
+            Task task = (Task) activities.getActivity(0);
+            assertTrue(!task.getIsComplete(), "Task should not be completed");
+
+            Command completeCommand = Parser.parse("Complete 1");
+            boolean completeResult = completeCommand.execute(activities, ui, notebook);
+            assertTrue(task.getIsComplete(), "Task should be completed");
         } catch (InputException e) {
             System.out.println(e.getMessage());
         }
