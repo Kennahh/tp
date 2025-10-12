@@ -21,7 +21,7 @@ public class UnmarkCommand implements Command {
         try {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2) {
-                ui.showError("Provide an index: unmark <index>");
+                ui.showError("Please provide an index: unmark <index>");
                 return false;
             }
             int index = Integer.parseInt(parts[1].trim());
