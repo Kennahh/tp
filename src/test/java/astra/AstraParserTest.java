@@ -119,4 +119,70 @@ public class AstraParserTest {
         }
         tearDown();
     }
+
+    @Test
+    public void testComplete_inputLengthLessThan2_expectErrorMessage() {
+        setup();
+        String addTaskInput = "task test /by 2025-12-12 14:00";
+        try {
+            Command addTaskCommand = Parser.parse(addTaskInput);
+            boolean addResult = addTaskCommand.execute(activities, ui, notebook);
+            assertEquals(1, activities.getListSize(), "Task should be added to the list");
+
+            Task task = (Task) activities.getActivity(0);
+            assertTrue(!task.getIsComplete(), "Task should not be completed");
+
+            Command completeCommand = Parser.parse("Complete");
+            boolean completeResult = completeCommand.execute(activities, ui, notebook);
+            String output =  outContent.toString().trim();
+            assertTrue(output.contains("Please provide an index: complete <index>"));
+
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
+        }
+        tearDown();
+    }
+
+    @Test
+    public void testComplete_completeAlreadyCompletedTask_expectErrorMessage() {
+        setup();
+        String addTaskInput = "task test /by 2025-12-12 14:00";
+        try {
+            Command addTaskCommand = Parser.parse(addTaskInput);
+            boolean addResult = addTaskCommand.execute(activities, ui, notebook);
+            assertEquals(1, activities.getListSize(), "Task should be added to the list");
+
+            Task task = (Task) activities.getActivity(0);
+            assertTrue(!task.getIsComplete(), "Task should not be completed");
+
+            Command completeCommand = Parser.parse("Complete 1");
+            boolean completeResult = completeCommand.execute(activities, ui, notebook);
+            completeResult = completeCommand.execute(activities, ui, notebook);
+            String output =  outContent.toString().trim();
+            assertTrue(output.contains("Activity at index 1 has already completed"));
+
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
+        }
+        tearDown();
+    }
+
+    @Test
+    public void testComplete_instanceNotTask_expectErrorMessage() {
+        setup();
+        String addTutorialInput = "tutorial cs2113 /place com1 /day Mon /from 10:00 /to 11:00";
+        try{
+            Command addTutorialCommand = Parser.parse(addTutorialInput);
+            boolean addResult = addTutorialCommand.execute(activities, ui, notebook);
+            Activity currActivity = activities.getActivity(0);
+            assertTrue(currActivity instanceof Tutorial);
+            Command completeCommand = Parser.parse("Complete 1");
+            boolean completeResult = completeCommand.execute(activities, ui, notebook);
+            String output = outContent.toString().trim();
+            assertTrue(output.contains("Activity at index 1 is not a Task"));
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
+        }
+        tearDown();
+    }
 }
