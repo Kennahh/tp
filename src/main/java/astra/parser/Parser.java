@@ -59,7 +59,7 @@ public class Parser {
         case "tutorial":
             return new AddTutorialCommand(input);
         case "exam":
-            return new AddExamCommand(input);
+                return new AddExamCommand(input);
         case "delete":
             return new DeleteCommand(input);
         case "list":
