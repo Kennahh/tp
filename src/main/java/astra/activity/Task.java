@@ -10,10 +10,10 @@ public class Task extends Activity {
     private LocalTime deadlineTime;
     private boolean isComplete = false;
 
-    public Task(String description, LocalDate deadline_date, LocalTime deadline_time) {
+    public Task(String description, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(description);
-        this.deadlineDate = deadline_date;
-        this.deadlineTime = deadline_time;
+        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
     }
     public boolean getIsComplete(){
 

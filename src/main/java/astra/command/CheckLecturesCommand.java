@@ -15,7 +15,9 @@ public class CheckLecturesCommand extends CheckCommand {
     private String input;
     private DayOfWeek day;
 
-    public CheckLecturesCommand(String input) {this.input = input;}
+    public CheckLecturesCommand(String input) {
+        this.input = input;
+    }
 
     private boolean filterActivity(Activity activity) {
         if (activity instanceof Lecture) {

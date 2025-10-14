@@ -24,7 +24,8 @@ public class AddLectureCommand extends AddCommand {
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
-                throw new InputException("Missing lecture description and details. Use: lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>");
+                throw new InputException("Missing lecture description and details. Use: lecture <description> " +
+                        "/place <venue> /day <day> /from <HH:MM> /to <HH:MM>");
             }
 
             String args = parts[1];

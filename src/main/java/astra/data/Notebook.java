@@ -20,9 +20,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Notebook {
+    // Delimiters
+    private static final String SEP = " | ";
+    private static final String SPLIT_REGEX = "\\s*\\|\\s*";
+
     private String filePath;
 
     public Notebook(String filePath) {
+
         this.filePath = filePath;
     }
 
@@ -98,9 +103,6 @@ public class Notebook {
         }
     }
 
-    // Delimiters
-    private final static String SEP = " | ";
-    private final static String SPLIT_REGEX = "\\s*\\|\\s*";
 
     /**
      * Loads tasks from the file system.
@@ -192,7 +194,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -205,7 +208,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid tutorial: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -218,7 +222,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid exam: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             LocalDate date = LocalDate.parse(parts[4]);
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -267,5 +272,7 @@ public class Notebook {
         }
     }
 
-    private static String safe(String s) { return s == null ? "" : s; }
+    private static String safe(String s) {
+        return s == null ? "" : s;
+    }
 }
