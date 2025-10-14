@@ -3,9 +3,12 @@ package astra.parser;
 import astra.command.*;
 import astra.exception.InputException;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles all user raw command line strings into commands.
@@ -56,6 +59,8 @@ public class Parser {
             return new UnmarkCommand(input);
         case "checkexam":
             return new CheckExamCommand();
+        case "checkcurrent":
+            return new CheckCurrentCommand(input);
         case "checklecture": {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -93,6 +98,43 @@ public class Parser {
     private static String getCommandWord(String input) {
         String[] splitString = input.split(" ", 2);
         return splitString[0];
+    }
+
+    private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
+
+    static {
+        for (DayOfWeek day : DayOfWeek.values()) {
+            String full = day.name().toLowerCase();  // e.g. "monday"
+            String shortForm = full.substring(0, 3); // e.g. "mon"
+            dayMap.put(shortForm, day);
+        }
+    }
+
+    public static DayOfWeek dayOfWeekParser(String input) throws InputException{
+
+        String sanitisedInput = input.trim().toLowerCase();
+
+        if (sanitisedInput == null || sanitisedInput.isEmpty()) {
+            throw new InputException("Day string cannot be null");
+        }
+        // input not empty
+
+        if (input.matches("[1-7]")) {
+            int number = Integer.parseInt(sanitisedInput);
+            return DayOfWeek.of(number);
+        }
+
+        if (input.trim().length() < 3) {
+            throw new InputException("Provide at least 3 letters to specify day");
+        }
+        // input is at least 3 letters long
+        DayOfWeek day;
+        day = dayMap.get(input.trim().toLowerCase().substring(0,3));
+        if (day == null) {
+            throw new InputException("This is not a valid day!");
+        }
+
+        return day;
     }
 
     /**

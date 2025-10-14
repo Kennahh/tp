@@ -8,6 +8,7 @@ import astra.exception.InputException;
 import astra.parser.Parser;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,7 +26,8 @@ public class AddTaskCommand extends AddCommand {
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
-                throw new InputException("Missing task description and deadline. Use: create <description> /by <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Missing task description and deadline. " +
+                        "Use: create <description> /by <YYYY-MM-DD> <HH:MM>");
             }
 
             String args = parts[1].trim();
@@ -38,15 +40,20 @@ public class AddTaskCommand extends AddCommand {
             if (description.isEmpty()) {
                 throw new InputException("Task description is missing.");
             }
-            String deadlineStr = tokens[1].trim(); // "2025-10-10 23:59"
 
-            String[] deadlineParts = deadlineStr.split(" ", 2);
-            if (deadlineParts.length != 2) {
+            String deadlineStr = tokens[1].trim(); // "2025-10-10 23:59"
+            if (deadlineStr.isEmpty()) {
                 throw new InputException("Missing deadline entry. Use: /by <YYYY-MM-DD> <HH:MM>");
             }
+
+            String[] deadlineParts = deadlineStr.split(" ", 2);
+
             
             String deadlineDateStr = deadlineParts[0];
-            String deadlineTimeStr = deadlineParts[1];
+            String deadlineTimeStr = "23:59"; // default to 2359 if no time is provided
+            if (deadlineParts.length > 1) {
+                deadlineTimeStr = deadlineParts[1];
+            }
 
             LocalDate deadlineDate;
             LocalTime deadlineTime;
@@ -66,11 +73,13 @@ public class AddTaskCommand extends AddCommand {
             Task task = new Task(description, deadlineDate, deadlineTime);
             activities.addActivity(task);
             ui.showMessage(task.toString());
-
+            notebook.saveToFile(activities);
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid task command format.");
+            ui.showError("Invalid exam command format.");
         }
         return false;
     }

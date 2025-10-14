@@ -1,23 +1,28 @@
 package astra.activity;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Lecture extends SchoolActivity {
-    private String Day;
+    private DayOfWeek day;
 
 
-    public Lecture(String description, String venue, String Day, LocalTime startTime, LocalTime endTime) {
+    public Lecture(String description, String venue, DayOfWeek day, LocalTime startTime, LocalTime endTime) {
         super(description);
         this.venue = venue;
-        this.Day = Day;
+        this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getDay() {
-        return Day;
+    public String getDayString() {
+        String dayString = day.toString().substring(0,1)
+                + day.toString().substring(1).toLowerCase();
+        return dayString;
     }
+
+    public DayOfWeek getDay() {return day;}
 
     @Override
     public String toString() {
@@ -25,11 +30,21 @@ public class Lecture extends SchoolActivity {
                 + " | Venue: "
                 + venue
                 + " | "
-                + Day
+                + getDayString()
                 + " | Duration: "
                 + startTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H to "
                 + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H";
+    }
+
+    @Override
+    public String writeToFile() {
+        return "Lecture, "
+                + description + ", "
+                + venue + ", "
+                + day + ", "
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 }

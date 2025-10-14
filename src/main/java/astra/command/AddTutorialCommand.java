@@ -4,8 +4,11 @@ import astra.activity.ActivityList;
 import astra.activity.Tutorial;
 import astra.data.Notebook;
 import astra.exception.InputException;
+import astra.parser.Parser;
 import astra.ui.Ui;
 
+import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -32,7 +35,7 @@ public class AddTutorialCommand extends AddCommand {
             }
 
             String venue = ""; 
-            String day = ""; 
+            DayOfWeek day = null;
             String startTimeStr = ""; 
             String endTimeStr = "";
 
@@ -40,7 +43,7 @@ public class AddTutorialCommand extends AddCommand {
                 if (detail.startsWith("place ")) {
                     venue = detail.substring(6).trim();
                 } else if (detail.startsWith("day ")) {
-                    day = detail.substring(4).trim();
+                    day = Parser.dayOfWeekParser(detail.substring(4).trim());
                 } else if (detail.startsWith("from ")) {
                     startTimeStr = detail.substring(5).trim();
                 } else if (detail.startsWith("to ")) {
@@ -51,7 +54,7 @@ public class AddTutorialCommand extends AddCommand {
             if (venue.isEmpty()) {
                 throw new InputException("Missing venue. Use: /place <venue>");
             }
-            if (day.isEmpty()) {
+            if (day == null) {
                 throw new InputException("Missing day. Use: /day <day>");
             }
             if (startTimeStr.isEmpty()) {
@@ -83,11 +86,14 @@ public class AddTutorialCommand extends AddCommand {
             Tutorial tutorial = new Tutorial(description, venue, day, startTime, endTime);
             activities.addActivity(tutorial);
             ui.showMessage(tutorial.toString());
+            notebook.saveToFile(activities);
 
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
         } catch (Exception e) {
-            ui.showError("Invalid tutorial command format.");
+            ui.showError("Invalid exam command format.");
         }
         
         return false;

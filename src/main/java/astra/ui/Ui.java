@@ -116,7 +116,7 @@ public class Ui {
                              exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
 
                 Listing and Checking Tasks:
-                - checkcurrent                     (Shows the immediate upcoming task)
+                - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
                 - listtask [-deadline] [-priority] (lists all tasks only, [by nearest deadline] or [by priority])
                 - checkexam                        (lists all upcoming exams with date and duration) 
                 - checklecture <day>               (lists all lectures on a specific day)

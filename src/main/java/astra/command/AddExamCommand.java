@@ -6,6 +6,7 @@ import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -86,12 +87,15 @@ public class AddExamCommand extends AddCommand {
             Exam exam = new Exam(description, "", date, startTime, endTime);
             activities.addActivity(exam);
             ui.showMessage(exam.toString());
+            notebook.saveToFile(activities);
 
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
         } catch (Exception e) {
             ui.showError("Invalid exam command format.");
-        }
+        } 
         return false;
     }
 }
