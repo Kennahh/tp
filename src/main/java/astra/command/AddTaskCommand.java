@@ -25,12 +25,12 @@ public class AddTaskCommand extends AddCommand {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
                 throw new InputException("Missing task description and deadline. " +
-                        "Use: task <description> /by <YYYY-MM-DD> <HH:MM>");
+                        "Use: create <description> /by <YYYY-MM-DD> <HH:MM>");
             }
 
             String args = parts[1].trim();
             if (!args.contains("/by")) {
-                throw new InputException("Missing '/by' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Missing '/by' keyword. Use: create <description> /by <YYYY-MM-DD> <HH:MM>");
             }
 
             String[] tokens = args.split("/by", 2);

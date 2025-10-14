@@ -25,7 +25,7 @@ public class AddExamCommand extends AddCommand {
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
-                throw new InputException("Missing exam description and Datetime details. Use: exam <description> " +
+                throw new InputException("Missing exam description and Datetime details. Use: addexam <description> " +
                         "/date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>");
             }
 
