@@ -34,10 +34,12 @@ public class AddExamCommand extends AddCommand {
             if (description.isEmpty()) {
                 throw new InputException("Exam description is empty!!!");
             }
-            String dateStr = "", startTimeStr = "", endTimeStr = "";
+            String venue = "", dateStr = "", startTimeStr = "", endTimeStr = "";
 
             for (String detail : details) {
-                if (detail.startsWith("date ")) {
+                if (detail.startsWith("place ")) {
+                    venue = detail.substring(6).trim();
+                } else if (detail.startsWith("date ")) {
                     dateStr = detail.substring(5).trim();
                 } else if (detail.startsWith("from ")) {
                     startTimeStr = detail.substring(5).trim();
@@ -84,7 +86,7 @@ public class AddExamCommand extends AddCommand {
             }
 
             // If you want to support venue, parse it here. Otherwise, pass "".
-            Exam exam = new Exam(description, "", date, startTime, endTime);
+            Exam exam = new Exam(description, venue, date, startTime, endTime);
             activities.addActivity(exam);
             ui.showMessage(exam.toString());
             notebook.saveToFile(activities);

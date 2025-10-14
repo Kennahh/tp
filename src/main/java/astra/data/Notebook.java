@@ -147,7 +147,7 @@ public class Notebook {
     /**
      * Save all tasks to file (overwrite)
      *
-     * @param tasks List of tasks to save.
+     * @param activities List of tasks to save.
      * @throws FileSystemException If writing fails.
      */
     public void writeToFile(List<Activity> activities) throws FileSystemException {
@@ -240,7 +240,7 @@ public class Notebook {
     /** 
      * Convert Task object into a file line
      *
-     * @param t Task object to serialize.
+     * @param a Task object to serialize.
      * @return String representation for file storage.
      */
     private String serializeActivity(Activity a) {

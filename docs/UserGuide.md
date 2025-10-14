@@ -84,7 +84,7 @@ CS2107 | Venue: LT16 | Monday | Duration: 1400H to 1600H
 ### Adding an Exam
 Adds a new exam to the ActivityList with the input **description**, **date**, **exam duration**
 
-Format: `exam <description> /date <YYYY-MMM-DD> /from <HH:mm> /to <HH:mm>`
+Format: `exam <description> /place <venue> /date <YYYY-MMM-DD> /from <HH:mm> /to <HH:mm>`
 
 Example of usage:
 
@@ -93,7 +93,7 @@ Input: `exam CS2040C finals /place mpsh5 /date 2025-11-29 /from 09:00 /to 11:00`
 Output:
 ```
 ------------------------------------------------------------
-CS2040C finals | Date: 29 Nov | Duration: 0900H to 1100H
+CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -125,7 +125,7 @@ Output:
  2. [ ]tutorial assignment | Deadline: 3 Apr, 1000H
  3. CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
  4. CS2107 | Venue: LT16 | Monday | Duration: 1400H to 1600H
- 5. CS2040C finals | Date: 29 Nov | Duration: 0900H to 1100H
+ 5. CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ------------------------------------------------------------
 ```
 ### Deleting an Activity
@@ -235,12 +235,12 @@ Adding entries to Astra:
 - task <description> /by <YYYY-MM-DD> <HH:MM>
 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
-- exam <description> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
+- exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
 
     Example: task CS2113 Quiz /by 2025-10-10 23:59
              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
-             exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
+             exam CS2107 Midterm /place mpsh1 /date 2025-10-10 /from 10:00 /to 12:00
 
 Listing and Checking Tasks:
 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
