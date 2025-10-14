@@ -1,6 +1,11 @@
 package astra.data;
+import astra.activity.ActivityList;
+import astra.activity.Activity;
+import astra.activity.Lecture;
+import astra.activity.Task;
+import astra.activity.Tutorial;
+import astra.activity.Exam;
 
-import astra.activity.*;
 import astra.exception.FileSystemException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,10 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class NotebookTest {
 
-    @TempDir Path temp;
+    @TempDir
+    Path temp;
 
     @Test
-    public void writeThenLoad_pipeFormat_roundTrip_ok() throws Exception {
+    public void writeThenLoad_pipeFormat_roundTripOk() throws Exception {
         String path = temp.resolve("pipe.txt").toString();
         Notebook nb = new Notebook(path);
 
@@ -29,9 +35,16 @@ public class NotebookTest {
         Task t = new Task("Do HW", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"));
         t.setIsComplete();
         Lecture l = new Lecture("Lecture", "LT19", DayOfWeek.MONDAY, LocalTime.parse("10:00"), LocalTime.parse("12:00"));
-        Tutorial tut = new Tutorial("Tutorial", "COM1", DayOfWeek.FRIDAY, LocalTime.parse("14:00"), LocalTime.parse("15:00"));
-        Exam ex = new Exam("Finals", "MPSH", LocalDate.parse("2025-11-25"), LocalTime.parse("09:00"), LocalTime.parse("11:00"));
-        list.addActivity(t); list.addActivity(l); list.addActivity(tut); list.addActivity(ex);
+        Tutorial tut = new Tutorial("Tutorial", "COM1",
+                DayOfWeek.FRIDAY, LocalTime.parse("14:00"), LocalTime.parse("15:00"));
+
+        Exam ex = new Exam("Finals", "MPSH",
+                LocalDate.parse("2025-11-25"), LocalTime.parse("09:00"), LocalTime.parse("11:00"));
+
+        list.addActivity(t);
+        list.addActivity(l);
+        list.addActivity(tut);
+        list.addActivity(ex);
 
         nb.writeToFile(list.toList());
         List<Activity> loaded = new Notebook(path).loadFromFile();
@@ -52,7 +65,7 @@ public class NotebookTest {
     }
 
     @Test
-    public void load_csvFormat_manualContent_ok() throws Exception {
+    public void load_csvFormat_manualContentOk() throws Exception {
         Path p = temp.resolve("csv.txt");
         // Matches loadFile() expectations (note: DayOfWeek as number; date/time ISO)
         String content = String.join(System.lineSeparator(),
@@ -73,7 +86,7 @@ public class NotebookTest {
     }
 
     @Test
-    public void loadFromFile_corruptedLine_throws() throws Exception {
+    public void loadFromFile_corruptedLine_throwsFileSystemException() throws Exception {
         Path p = temp.resolve("bad.txt");
         Files.writeString(p, "BAD | 0 | x");
         Notebook nb = new Notebook(p.toString());
