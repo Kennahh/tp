@@ -5,7 +5,6 @@ import astra.data.Notebook;
 import astra.ui.Ui;
 
 public abstract class CheckCommand implements Command {
-    private String type;
     //private ActivityList activities;
 
     @Override

@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityList {
-    private final ArrayList<Activity> ACTIVITIES;
+    private final ArrayList<Activity> activities;
 
     public ActivityList() {
-        ACTIVITIES = new ArrayList<>();
+        activities = new ArrayList<>();
     }
 
     public Activity getActivity(int index){
-        return ACTIVITIES.get(index);
+        return activities.get(index);
     }
 
     /** adds activities to ArrayList*/
     public void addActivity(Activity activity) {
-        ACTIVITIES.add(activity);
+        activities.add(activity);
     }
 
     /** deletes task of specified index*/
     public void deleteActivity(int index) {
-        ACTIVITIES.remove(index);
+        activities.remove(index);
     }
 
     /** lists all activities in ArrayList */
     public void listActivities() {
-        if (ACTIVITIES.isEmpty()) {
+        if (activities.isEmpty()) {
             System.out.println(" No activities have been added!");
         } else {
-            for (int index = 0; index < ACTIVITIES.size(); index++) {
+            for (int index = 0; index < activities.size(); index++) {
                 System.out.print(" " + (index + 1) + ". ");
-                System.out.println(ACTIVITIES.get(index).toString());
+                System.out.println(activities.get(index).toString());
             }
         }
     }
@@ -42,15 +42,15 @@ public class ActivityList {
      * @return size of the ArrayList
      */
     public int getListSize() {
-        return ACTIVITIES.size();
+        return activities.size();
     }
 
     public Activity getAnActivity(int index) {
-        return ACTIVITIES.get(index);
+        return activities.get(index);
     }
 
     /** Provide a copy for persistence */
     public List<Activity> toList() {
-        return new ArrayList<>(ACTIVITIES);
+        return new ArrayList<>(activities);
     }
 }

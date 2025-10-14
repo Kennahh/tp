@@ -1,6 +1,10 @@
 package astra.command;
 
-import astra.activity.*;
+import astra.activity.ActivityList;
+import astra.activity.Exam;
+import astra.activity.Lecture;
+import astra.activity.Task;
+import astra.activity.Tutorial;
 import astra.data.Notebook;
 import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;

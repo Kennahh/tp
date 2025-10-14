@@ -6,38 +6,43 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Task extends Activity {
-    private LocalDate deadline_date;
-    private LocalTime deadline_time;
+    private LocalDate deadlineDate;
+    private LocalTime deadlineTime;
     private boolean isComplete = false;
 
     public Task(String description, LocalDate deadline_date, LocalTime deadline_time) {
         super(description);
-        this.deadline_date = deadline_date;
-        this.deadline_time = deadline_time;
+        this.deadlineDate = deadline_date;
+        this.deadlineTime = deadline_time;
     }
     public boolean getIsComplete(){
+
         return isComplete;
     }
 
     public void setIsComplete(){
+
         isComplete = true;
     }
 
     public void  clearIsComplete(){
+
         isComplete = false;
     }
 
     public void setDeadline(LocalDate newDate, LocalTime newTime) {
-        this.deadline_date = newDate;
-        this.deadline_time = newTime;
+        this.deadlineDate = newDate;
+        this.deadlineTime = newTime;
     }
 
     public LocalDate getDeadlineDate() {
-        return deadline_date;
+
+        return deadlineDate;
     }
 
     public LocalTime getDeadlineTime() {
-        return deadline_time;
+
+        return deadlineTime;
     }
 
     @Override
@@ -47,9 +52,9 @@ public class Task extends Activity {
                 + "]"
                 + description
                 + " | Deadline: "
-                + deadline_date.format(DateTimeFormatter.ofPattern("d MMM"))
+                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM"))
                 + ", "
-                + deadline_time.format(DateTimeFormatter.ofPattern("HHmm"))
+                + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm"))
                 + "H";
     }
 
@@ -62,6 +67,7 @@ public class Task extends Activity {
     }
 
     public void setComplete(boolean complete) {
+
         isComplete = complete;
     }
 
@@ -69,8 +75,8 @@ public class Task extends Activity {
     public String writeToFile() {
         return "Task, "
                 + description + ", "
-                + deadline_date.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
-                + deadline_time.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
+                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
+                + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
                 + statusInIcon();
     }
 }

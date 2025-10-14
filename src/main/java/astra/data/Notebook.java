@@ -79,7 +79,8 @@ public class Notebook {
             break;
         case "task":
             // type, description, deadline date, deadline time, isComplete
-            Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), LocalTime.parse(details[2].trim()));
+            Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), 
+                    LocalTime.parse(details[2].trim()));
             if (details[3].trim().equals("1")) {
                 task.setComplete(true);
             }
@@ -96,19 +97,10 @@ public class Notebook {
             throw new FileNotFoundException("Invalid activity type in text file.");
         }
     }
-//    private final String filePath;
-    // Delimiters
-    private static final String SEP = " | ";
-    private static final String SPLIT_REGEX = "\\s*\\|\\s*";
 
-//    /**
-//     * Creates a Notebook bound to a file path.
-//     *
-//     * @param filePath Path of the data file.
-//     */
-//    public Notebook(String filePath) {
-//        this.filePath = filePath;
-//    }
+    // Delimiters
+    private final static String SEP = " | ";
+    private final static String SPLIT_REGEX = "\\s*\\|\\s*";
 
     /**
      * Loads tasks from the file system.
@@ -145,9 +137,9 @@ public class Notebook {
     }
 
     /**
-     * Save all tasks to file (overwrite)
+     * Save all activities to file (overwrite)
      *
-     * @param tasks List of tasks to save.
+     * @param activities List of activities to save.
      * @throws FileSystemException If writing fails.
      */
     public void writeToFile(List<Activity> activities) throws FileSystemException {
@@ -190,7 +182,9 @@ public class Notebook {
             LocalDate d = LocalDate.parse(parts[3]);
             LocalTime tm = LocalTime.parse(parts[4]);
             Task t = new Task(description, d, tm);
-            if (done) t.setIsComplete();
+            if (done) {
+                t.setIsComplete();
+            }
             return t;
         case "LECTURE":
         case "LEC": {
