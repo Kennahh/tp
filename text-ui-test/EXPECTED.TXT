@@ -1,9 +1,19 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+              __________________________________________
+             /\         _____ _______ _____        /\
+            /  \      / ____|__   __|  __  \      /  \
+           / /\ \    || (___   | |  | |__) |     / /\ \
+          / /  \ \   \ ___  \  | |  |  _  /     / /  \ \
+         /_/____\_\   ____) |  | |  | |  \ \   /_/____\_\
+        /_/______\_\ |_____/   |_|  |_|   \_\ /_/______\_\
 
-What is your name?
-Hello James Gosling
+[ASTRA] Hello! I am Astra! Your friendly digital academic notebook :)
+I am here to support your academic universe!
+
+[ASTRA] Ready to help you stay on top of your academic game!
+>>     Type in a command for me to fulfill your wish!
+>>     Type 'help' to see the list of wishes I can fulfill!
+>>     Type 'close' to close this digital notebook of yours.
+[ASTRA] Monitoring your deepest wishes...
+------------------------------------------------------------
+[ASTRA] Keep up the great work! Your academic triumph awaits!
+------------------------------------------------------------

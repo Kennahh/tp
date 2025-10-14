@@ -22,7 +22,9 @@ public class Lecture extends SchoolActivity {
         return dayString;
     }
 
-    public DayOfWeek getDay() {return day;}
+    public DayOfWeek getDay() {
+        return day;
+    }
 
     @Override
     public String toString() {

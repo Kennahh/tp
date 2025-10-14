@@ -21,7 +21,9 @@ public class Tutorial extends SchoolActivity{
         return dayString;
     }
 
-    public DayOfWeek getDay() {return day;}
+    public DayOfWeek getDay() {
+        return day;
+    }
 
     public String toString() {
         return super.toString()

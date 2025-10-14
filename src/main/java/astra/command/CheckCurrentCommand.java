@@ -36,7 +36,8 @@ public class CheckCurrentCommand implements Command {
             try {
                 this.count = Integer.parseInt(parts[1].trim());
             } catch (NumberFormatException e) {
-                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for checkcurrent, e.g., 'checkcurrent 3'");
+                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for " +
+                        "checkcurrent, e.g., 'checkcurrent 3'");
                 this.count = 1; // fallback value
             }
         } else {
@@ -51,8 +52,8 @@ public class CheckCurrentCommand implements Command {
         for (int i = 0; i < activities.getListSize(); i++) {
             Activity activity = activities.getAnActivity(i);
             if (activity instanceof Task) {
-                Task temp_task = (Task) activity;
-                LocalDateTime taskDeadline = LocalDateTime.of(temp_task.getDeadlineDate(), temp_task.getDeadlineTime());
+                Task tempTask = (Task) activity;
+                LocalDateTime taskDeadline = LocalDateTime.of(tempTask.getDeadlineDate(), tempTask.getDeadlineTime());
                 if (taskDeadline.isAfter(now)){
                     closestTasks.add((Task) activity);
                 }
