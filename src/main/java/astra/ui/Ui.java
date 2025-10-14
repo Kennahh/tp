@@ -101,7 +101,7 @@ public class Ui {
                 General Notes:
                 - Commands are case-insensitive for the first word.
                 - Use spaces between arguments and prefixes.
-                - Time format: HHmm (e.g., 1400 for 2 PM).
+                - Time format: HH:mm (e.g., 14:00 for 2 PM).
                 - Date format: YYYY-MM-DD (e.g., 2025-12-10 for 10th December 2025).
 
                 Adding entries to Astra:

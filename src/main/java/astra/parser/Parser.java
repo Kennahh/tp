@@ -76,17 +76,8 @@ public class Parser {
             return new CheckTutorialsCommand(parts[1].trim());
         default:
             throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
-                    "    [ASTRA] Please use a valid command word:" + "    (known commands by me, a small digital notebook: close).\n");
-        }
-    }
-
-    /**
-+            return new CheckTutorialsCommand(parts[1].trim());
-+        }
-        default:
-            throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
-                    "    [ASTRA] Please use a valid command word:" +
-                    "    (known commands by me, a small digital notebook: close).\n");
+                    "    [ASTRA] Please use a valid command word:" + 
+                    "    (use `help` to check known commands by me, a small digital notebook :( ).\n");
         }
     }
 
