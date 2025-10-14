@@ -76,7 +76,6 @@ public class CheckCurrentCommand implements Command {
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
 
         List<Task> closestTasks = getClosestTasks(activities, this.count);
-//        ui.showDash();
         if (closestTasks.isEmpty()) {
             ui.showMessage("[ASTRA] No tasks found!");
         } else {
@@ -85,7 +84,6 @@ public class CheckCurrentCommand implements Command {
                 ui.showMessage(task.toString());
             }
         }
-//        ui.showDash();
         return false;
     }
     
