@@ -2,7 +2,6 @@ package astra.command;
 
 import astra.activity.Activity;
 import astra.activity.ActivityList;
-import astra.activity.Lecture;
 import astra.activity.Tutorial;
 import astra.data.Notebook;
 import astra.exception.InputException;

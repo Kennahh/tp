@@ -53,6 +53,7 @@ public class Notebook {
             line = fileReader.nextLine();
             addTaskFromFile(line, activities);
         }
+        fileReader.close();
         return activities;
     }
 
