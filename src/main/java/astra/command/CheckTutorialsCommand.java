@@ -46,11 +46,9 @@ public class CheckTutorialsCommand extends CheckCommand {
         } catch (InputException e) {
             ui.showError(e.getMessage());
         }
-        ui.showDash();
         ActivityList filteredList = filterList(activities);
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " tutorial(s) on " + day);
-        ui.showDash();
         return false;
     }
 }

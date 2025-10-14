@@ -47,11 +47,9 @@ public class CheckLecturesCommand extends CheckCommand {
             ui.showError(e.getMessage());
             return false;
         }
-        ui.showDash();
         ActivityList filteredList = filterList(activities);
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " lecture(s) on " + day);
-        ui.showDash();
         return false;
     }
 }

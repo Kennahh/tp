@@ -27,7 +27,7 @@ public class ActivityList {
     /** lists all activities in ArrayList */
     public void listActivities() {
         if (activities.isEmpty()) {
-            System.out.println(" No activities have been added!");
+            System.out.println("No activities have been added!");
         } else {
             for (int index = 0; index < activities.size(); index++) {
                 System.out.print(" " + (index + 1) + ". ");
