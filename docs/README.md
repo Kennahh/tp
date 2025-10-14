@@ -1,4 +1,4 @@
-# Duke
+# ASTRA
 
 {Give product intro here}
 
