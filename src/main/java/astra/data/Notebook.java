@@ -37,12 +37,12 @@ public class Notebook {
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        FileWriter fw = new FileWriter(filePath);
-        for (int i = 0; i < activities.getListSize(); i++) {
-            Activity activity = activities.getAnActivity(i);
-            fw.write(activity.writeToFile() + "\n");
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (int i = 0; i < activities.getListSize(); i++) {
+                Activity activity = activities.getAnActivity(i);
+                fw.write(activity.writeToFile() + "\n");
+            }
         }
-        fw.close();
     }
 
     public ActivityList loadFile() throws FileNotFoundException {
@@ -52,13 +52,15 @@ public class Notebook {
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        Scanner fileReader = new Scanner(file);
-        String line;
-        while (fileReader.hasNext()) {
-            line = fileReader.nextLine();
-            addTaskFromFile(line, activities);
+        if (!file.exists()) {
+            return activities;
         }
-        fileReader.close();
+        try (Scanner fileReader = new Scanner(file)) {
+            while (fileReader.hasNext()) {
+                String line = fileReader.nextLine();
+                addTaskFromFile(line, activities);
+            }
+        }
         return activities;
     }
 
@@ -124,17 +126,17 @@ public class Notebook {
                 f.createNewFile();
                 return activities; // empty list
             }
-
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                activities.add(parseLine(line));
+            try (Scanner s = new Scanner(f)) {
+                while (s.hasNextLine()) {
+                    String line = s.nextLine();
+                    activities.add(parseLine(line));
+                }
             }
-            s.close();
-        } catch(IOException e) {
+        } catch (FileSystemException e) {
+            throw e;
+        } catch (IOException e) {
             throw new FileSystemException("[ERROR] Failed to read file: " + e.getMessage());
         }
-
         return activities;
     }
 
