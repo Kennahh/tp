@@ -22,7 +22,6 @@ class SortByDeadline implements Comparator<Task> {
     }
 }
 
-
 public class CheckCurrentCommand implements Command {
 
     private int count;
