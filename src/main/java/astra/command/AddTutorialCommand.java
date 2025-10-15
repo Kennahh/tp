@@ -24,7 +24,8 @@ public class AddTutorialCommand extends AddCommand {
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new InputException("Missing tutorial description and details. Use: tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>");
+                throw new InputException("Missing tutorial description and details. Use: tutorial <description> /" +
+                        "place <venue> /day <day> /from <HH:MM> /to <HH:MM>");
             }
             String args = parts[1].trim();
 
