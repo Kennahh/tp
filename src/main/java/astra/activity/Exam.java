@@ -22,6 +22,8 @@ public class Exam extends SchoolActivity {
     @Override
     public String toString() {
         return super.toString()
+                + " | Venue: "
+                + venue
                 + " | Date: "
                 + date.format(DateTimeFormatter.ofPattern("d MMM"))
                 + " | Duration: "
