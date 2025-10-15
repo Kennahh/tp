@@ -37,7 +37,7 @@ public class ChangeDeadlineCommand extends AddCommand {
             String args = parts[1].trim();
             // Parse task index from new timestamp
             String[] tokens = args.split(" /to ");
-            
+
             if (tokens.length != 2) {
                 throw new InputException("Task index or new timestamp missing. Use: changedeadline <task number> " +
                         "/to <YYYY-MM-DD> <HH:MM>");
@@ -72,7 +72,7 @@ public class ChangeDeadlineCommand extends AddCommand {
             if (taskNumber <= 0 || taskNumber > activities.getListSize()) {
                 throw new InputException("Task number out of range.");
             }
-            
+
             // Find the task index and check if it is a Task instance
             Activity activity = activities.getActivity(taskNumber - 1);
             if (!(activity instanceof Task)) {
