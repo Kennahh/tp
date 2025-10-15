@@ -43,7 +43,8 @@ public class ListHelpExitTest {
 
     @Test
     public void exit_returnsTrue() {
-        boolean shouldExit = new ExitCommand().execute(new ActivityList(), new TestUi(), new Notebook(temp.resolve("d.txt").toString()));
+        boolean shouldExit = new ExitCommand().execute(new ActivityList(), new TestUi(),
+                new Notebook(temp.resolve("d.txt").toString()));
         assertTrue(shouldExit);
     }
 }

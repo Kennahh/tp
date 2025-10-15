@@ -36,8 +36,7 @@ public class CheckCurrentCommand implements Command {
             try {
                 this.count = Integer.parseInt(parts[1].trim());
             } catch (NumberFormatException e) {
-                System.out.println("[ASTRA] Defaulting to 1 upcoming task. " +
-                        "Please enter a whole number for checkcurrent, e.g., 'checkcurrent 3'");
+                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for checkcurrent, e.g., 'checkcurrent 3'");
                 this.count = 1; // fallback value
             }
         } else {

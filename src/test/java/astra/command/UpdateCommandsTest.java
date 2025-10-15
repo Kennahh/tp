@@ -1,6 +1,7 @@
 package astra.command;
 
-import astra.activity.*;
+import astra.activity.ActivityList;
+import astra.activity.Task;
 import astra.data.Notebook;
 import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class UpdateCommandsTest {
     }
 
     @Test
-    public void complete_and_unmark_toggleFlags() {
+    public void completeAndUnmark_toggleFlags_toggledStatus() {
         ActivityList list = new ActivityList();
         list.addActivity(new Task("A", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59")));
         TestUi ui = new TestUi();

@@ -20,9 +20,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Notebook {
+    // Delimiters
+    private static final String SEP = " | ";
+    private static final String SPLIT_REGEX = "\\s*\\|\\s*";
+
     private String filePath;
 
     public Notebook(String filePath) {
+
         this.filePath = filePath;
     }
 
@@ -32,12 +37,12 @@ public class Notebook {
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        FileWriter fw = new FileWriter(filePath);
-        for (int i = 0; i < activities.getListSize(); i++) {
-            Activity activity = activities.getAnActivity(i);
-            fw.write(activity.writeToFile() + "\n");
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (int i = 0; i < activities.getListSize(); i++) {
+                Activity activity = activities.getAnActivity(i);
+                fw.write(activity.writeToFile() + "\n");
+            }
         }
-        fw.close();
     }
 
     public ActivityList loadFile() throws FileNotFoundException {
@@ -47,13 +52,15 @@ public class Notebook {
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        Scanner fileReader = new Scanner(file);
-        String line;
-        while (fileReader.hasNext()) {
-            line = fileReader.nextLine();
-            addTaskFromFile(line, activities);
+        if (!file.exists()) {
+            return activities;
         }
-        fileReader.close();
+        try (Scanner fileReader = new Scanner(file)) {
+            while (fileReader.hasNext()) {
+                String line = fileReader.nextLine();
+                addTaskFromFile(line, activities);
+            }
+        }
         return activities;
     }
 
@@ -79,7 +86,8 @@ public class Notebook {
             break;
         case "task":
             // type, description, deadline date, deadline time, isComplete
-            Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), LocalTime.parse(details[2].trim()));
+            Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), 
+                    LocalTime.parse(details[2].trim()));
             if (details[3].trim().equals("1")) {
                 task.setComplete(true);
             }
@@ -96,19 +104,7 @@ public class Notebook {
             throw new FileNotFoundException("Invalid activity type in text file.");
         }
     }
-//    private final String filePath;
-    // Delimiters
-    private static final String SEP = " | ";
-    private static final String SPLIT_REGEX = "\\s*\\|\\s*";
 
-//    /**
-//     * Creates a Notebook bound to a file path.
-//     *
-//     * @param filePath Path of the data file.
-//     */
-//    public Notebook(String filePath) {
-//        this.filePath = filePath;
-//    }
 
     /**
      * Loads tasks from the file system.
@@ -130,24 +126,24 @@ public class Notebook {
                 f.createNewFile();
                 return activities; // empty list
             }
-
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                activities.add(parseLine(line));
+            try (Scanner s = new Scanner(f)) {
+                while (s.hasNextLine()) {
+                    String line = s.nextLine();
+                    activities.add(parseLine(line));
+                }
             }
-            s.close();
-        } catch(IOException e) {
+        } catch (FileSystemException e) {
+            throw e;
+        } catch (IOException e) {
             throw new FileSystemException("[ERROR] Failed to read file: " + e.getMessage());
         }
-
         return activities;
     }
 
     /**
-     * Save all tasks to file (overwrite)
+     * Save all activities to file (overwrite)
      *
-     * @param tasks List of tasks to save.
+     * @param activities List of activities to save.
      * @throws FileSystemException If writing fails.
      */
     public void writeToFile(List<Activity> activities) throws FileSystemException {
@@ -190,7 +186,9 @@ public class Notebook {
             LocalDate d = LocalDate.parse(parts[3]);
             LocalTime tm = LocalTime.parse(parts[4]);
             Task t = new Task(description, d, tm);
-            if (done) t.setIsComplete();
+            if (done) {
+                t.setIsComplete();
+            }
             return t;
         case "LECTURE":
         case "LEC": {
@@ -198,7 +196,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -211,7 +210,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid tutorial: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -224,7 +224,8 @@ public class Notebook {
             if (parts.length < 7) {
                 throw new FileSystemException("[ERROR] Corrupted. Invalid exam: " + line);
             }
-            String desc = parts[2], venue = parts[3];
+            String desc = parts[2];
+            String venue = parts[3];
             LocalDate date = LocalDate.parse(parts[4]);
             LocalTime start = LocalTime.parse(parts[5]);
             LocalTime end = LocalTime.parse(parts[6]);
@@ -273,5 +274,7 @@ public class Notebook {
         }
     }
 
-    private static String safe(String s) { return s == null ? "" : s; }
+    private static String safe(String s) {
+        return s == null ? "" : s;
+    }
 }

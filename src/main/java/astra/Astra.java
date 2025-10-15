@@ -2,7 +2,8 @@ package astra;
 
 import astra.data.Notebook;
 import astra.ui.Ui;
-import astra.activity.*;
+import astra.activity.Activity;
+import astra.activity.ActivityList;
 import astra.parser.Parser;
 import astra.command.Command;
 import astra.exception.InputException;

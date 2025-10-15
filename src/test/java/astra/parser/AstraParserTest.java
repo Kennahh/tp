@@ -1,6 +1,9 @@
 package astra.parser;
 
-import astra.activity.*;
+import astra.activity.ActivityList;
+import astra.activity.Exam;
+import astra.activity.Task;
+import astra.activity.Tutorial;
 import astra.command.Command;
 import astra.data.Notebook;
 import astra.exception.InputException;
@@ -14,7 +17,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class AstraParserTest {
@@ -96,7 +101,7 @@ public class AstraParserTest {
     }
 
     @Test
-    public void complete_twice_sameIndex_errorShown() throws Exception {
+    public void completeTwice_sameIndex_errorShown() throws Exception {
         Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);

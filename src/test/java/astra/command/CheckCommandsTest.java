@@ -1,6 +1,10 @@
 package astra.command;
 
-import astra.activity.*;
+import astra.activity.ActivityList;
+import astra.activity.Exam;
+import astra.activity.Lecture;
+import astra.activity.Task;
+import astra.activity.Tutorial;
 import astra.data.Notebook;
 import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
@@ -35,8 +39,10 @@ public class CheckCommandsTest {
     @Test
     public void checkLectures_dayFilter_messageCount() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Lecture("L1", "LT", DayOfWeek.MONDAY, LocalTime.parse("10:00"), LocalTime.parse("12:00")));
-        list.addActivity(new Lecture("L2", "LT", DayOfWeek.FRIDAY, LocalTime.parse("10:00"), LocalTime.parse("12:00")));
+        list.addActivity(new Lecture("L1", "LT", DayOfWeek.MONDAY, LocalTime.parse("10:00"),
+                LocalTime.parse("12:00")));
+        list.addActivity(new Lecture("L2", "LT", DayOfWeek.FRIDAY, LocalTime.parse("10:00"),
+                LocalTime.parse("12:00")));
         TestUi ui = new TestUi();
         new CheckLecturesCommand("Mon").execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("lecture(s)")));
@@ -45,8 +51,10 @@ public class CheckCommandsTest {
     @Test
     public void checkTutorials_dayFilter_messageCount() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Tutorial("T1", "COM1", DayOfWeek.FRIDAY, LocalTime.parse("14:00"), LocalTime.parse("15:00")));
-        list.addActivity(new Tutorial("T2", "COM1", DayOfWeek.MONDAY, LocalTime.parse("14:00"), LocalTime.parse("15:00")));
+        list.addActivity(new Tutorial("T1", "COM1", DayOfWeek.FRIDAY, LocalTime.parse("14:00"),
+                LocalTime.parse("15:00")));
+        list.addActivity(new Tutorial("T2", "COM1", DayOfWeek.MONDAY, LocalTime.parse("14:00"),
+                LocalTime.parse("15:00")));
         TestUi ui = new TestUi();
         new CheckTutorialsCommand("Fri").execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("tutorial(s)")));
@@ -56,8 +64,10 @@ public class CheckCommandsTest {
     public void checkCurrent_showsTopN() {
         ActivityList list = new ActivityList();
         // Deadlines in the future (adjust if needed)
-        list.addActivity(new Task("Sooner", LocalDate.now().plusDays(1), LocalTime.parse("08:00")));
-        list.addActivity(new Task("Later", LocalDate.now().plusDays(5), LocalTime.parse("09:00")));
+        list.addActivity(new Task("Sooner", LocalDate.now().plusDays(1),
+                LocalTime.parse("08:00")));
+        list.addActivity(new Task("Later", LocalDate.now().plusDays(5),
+                LocalTime.parse("09:00")));
         TestUi ui = new TestUi();
         new CheckCurrentCommand("checkcurrent 1").execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("Top 1 closest tasks")));

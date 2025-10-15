@@ -1,11 +1,6 @@
 # ASTRA ChatBot
 
-## Introduction
 
-ASTRA, also known as your **A**cademic **S**cheduler, **T**ask,
-**R**eminders **A**ssistant, is a CLI Chatbot which can help you track school activities such as Tutorials,
-Lectures and Exams. It even helps you keep track on your tasks/assignments so that you can priorities and 
-plan your schedule.
 
 ## Quick Start
 
@@ -103,7 +98,7 @@ Prints a list of activities of the specified class and date which are in the Act
 
 Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, default to 1
 
-Task: `listtask` lists all tasks only
+Task: `list` lists all tasks only
 
 Tutorial:`checktutorial <day>` lists all tutorials on the specific day of the week
 
@@ -244,7 +239,7 @@ Adding entries to Astra:
 
 Listing and Checking Tasks:
 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
-- listtask [-deadline] [-priority] (lists all tasks only, [by nearest deadline] or [by priority])
+- list                             (lists all tasks only)
 - checkexam                        (lists all upcoming exams with date and duration)
 - checklecture <day>               (lists all lectures on a specific day)
 - checktutorial <day>              (lists all tutorials on a specific day)
@@ -255,10 +250,6 @@ Editing entries in Astra:
 - unmark <index>                                        (mark as incomplete)
 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
     Example: changedeadline 1 /to 2025-10-31 14:00
-
-Setting Task Priority
-- setpriority <index> as <priority>
-    Example: setpriority 1 as 2
 
 Help/Exit:
 - help
