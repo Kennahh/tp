@@ -23,13 +23,15 @@ public class ChangeDeadlineCommand extends AddCommand {
         try {
             // Split input into command and arguments
             if (!input.contains("/to")) {
-                throw new InputException("Missing '/to' keyword. Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Missing '/to' keyword. " +
+                        "Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
             }
 
             int taskNumber;
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
-                throw new InputException("Argument missing. Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Argument missing. " +
+                        "Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
             }
             // Parse command from task index and new timestamp
             String args = parts[1].trim();
@@ -37,12 +39,14 @@ public class ChangeDeadlineCommand extends AddCommand {
             String[] tokens = args.split(" /to ");
             
             if (tokens.length != 2) {
-                throw new InputException("Task index or new timestamp missing. Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Task index or new timestamp missing. " +
+                        "Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
             }
 
             String[] deadlineParts = tokens[1].split(" ");
             if (deadlineParts.length != 2) {
-                throw new InputException("Date or Timestamp Missing. Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
+                throw new InputException("Date or Timestamp Missing. " +
+                        "Use: changedeadline <task number> /to <YYYY-MM-DD> <HH:MM>");
             }
             String newDateStr = deadlineParts[0];
             String newTimeStr = deadlineParts[1];
@@ -54,7 +58,8 @@ public class ChangeDeadlineCommand extends AddCommand {
                 newDate = LocalDate.parse(newDateStr);
                 newTime = LocalTime.parse(newTimeStr);
             } catch (DateTimeParseException e) {
-                throw new InputException("Invalid date and/or time format. Use YYYY-MM-DD for date and HH:MM for time.");
+                throw new InputException("Invalid date and/or time format. " +
+                        "Use YYYY-MM-DD for date and HH:MM for time.");
             }
 
             try {
@@ -73,14 +78,13 @@ public class ChangeDeadlineCommand extends AddCommand {
             if (!(activity instanceof Task)) {
                 throw new InputException("The selected activity is not a task.");
             }
-                Task task = (Task) activity;
-                task.setDeadline(newDate, newTime);
-                ui.showMessage("Deadline updated for task: " + task.toString());
-
-            } catch (InputException formatError) {
-                ui.showError(formatError.getMessage());
-            } catch (Exception e) {
-                ui.showError("Invalid changedeadline command format or index.");
+            Task task = (Task) activity;
+            task.setDeadline(newDate, newTime);
+            ui.showMessage("Deadline updated for task: " + task.toString());
+        } catch (InputException formatError) {
+            ui.showError(formatError.getMessage());
+        } catch (Exception e) {
+            ui.showError("Invalid changedeadline command format or index.");
         }
         return false;
     }
