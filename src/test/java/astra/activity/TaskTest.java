@@ -2,7 +2,8 @@ package astra.activity;
 
 import org.junit.jupiter.api.Test;
 
-import src.main.java.astra.activity.Task;
+// import src.main.java.astra.activity.Task;
+import astra.activity.Task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

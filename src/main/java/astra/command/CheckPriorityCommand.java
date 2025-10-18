@@ -34,3 +34,4 @@ public class CheckPriorityCommand implements Command {
         return false;
     }
 }
+
