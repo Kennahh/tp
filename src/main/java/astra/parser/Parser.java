@@ -10,6 +10,7 @@ import astra.command.CheckCurrentCommand;
 import astra.command.CheckExamCommand;
 import astra.command.CheckLecturesCommand;
 import astra.command.CheckTutorialsCommand;
+import astra.command.CheckPriorityCommand;
 import astra.command.CompleteCommand;
 import astra.command.DeleteCommand;
 import astra.command.ExitCommand;
@@ -77,6 +78,8 @@ public class Parser {
             return new CheckExamCommand();
         case "checkcurrent":
             return new CheckCurrentCommand(input);
+        case "checkpriority":
+            return new CheckPriorityCommand();
         case "changepriority":
             return new ChangePriorityCommand(input);
         case "checklecture": {

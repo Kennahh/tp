@@ -13,18 +13,18 @@ import astra.ui.Ui;
 * Format: changepriority <task number> /to <new priority>
   */
   public class ChangePriorityCommand extends AddCommand {
-  private final String input;
+    private final String input;
 
-  public ChangePriorityCommand(String input) {
-  this.input = input;
-  }
+    public ChangePriorityCommand(String input) {
+        this.input = input;
+    }
 
-  @Override
-  public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
-    try {
-        if (!input.contains("/to")) {
-            throw new InputException("Missing '/to' keyword. Use: changepriority <task number> /to <priority>");
-        }
+    @Override
+    public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        try {
+            if (!input.contains("/to")) {
+                throw new InputException("Missing '/to' keyword. Use: changepriority <task number> /to <priority>");
+            }
 
         String[] parts = input.split(" ", 2);
         if (parts.length != 2) {
@@ -41,6 +41,7 @@ import astra.ui.Ui;
         int taskNumber;
         int newPriority;
 
+
         try {
             taskNumber = Integer.parseInt(tokens[0].trim());
         } catch (NumberFormatException e) {
@@ -53,10 +54,8 @@ import astra.ui.Ui;
             throw new InputException("New priority must be an integer.");
         }
 
-        // Check if index is within valid range
-        if (taskNumber <= 0 || taskNumber > activities.getListSize()) {
-            throw new InputException("Task number out of range.");
-        }
+        assert taskNumber > 0 : "Task number should always be positive."; 
+        assert newPriority > 0 : "New priority should always be positive.";
 
         // Check that the selected activity is a task
         Activity activity = activities.getActivity(taskNumber - 1);
