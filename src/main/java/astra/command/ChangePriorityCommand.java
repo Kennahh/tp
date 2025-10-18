@@ -9,7 +9,7 @@ import astra.ui.Ui;
 
 /**
  * Handles the "changepriority" command, which allows the user to change the priority of a task.
- * Format: changepriority <task number> /to <new priority>
+ * Format: changepriority {@code <task number>} /to {@code <new priority>}
  */
 public class ChangePriorityCommand extends AddCommand {
 
@@ -121,3 +121,4 @@ public class ChangePriorityCommand extends AddCommand {
         return false;
     }
 }
+
