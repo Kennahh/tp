@@ -15,7 +15,7 @@ I am here to support your academic universe!
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-[ ]Task A | Deadline: 1 Dec, 2359H
+[ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -25,7 +25,7 @@ I am here to support your academic universe!
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-[ ]Task B | Deadline: 2 Dec, 2359H
+[ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -95,8 +95,8 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
- 1. [ ]Task A | Deadline: 1 Dec, 2359H
- 2. [ ]Task B | Deadline: 2 Dec, 2359H
+ 1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
+ 2. [ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
  3. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
  4. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
  5. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
@@ -113,7 +113,7 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 [ASTRA] Top 1 closest tasks:
-[ ]Task A | Deadline: 1 Dec, 2359H
+[ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -124,8 +124,8 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 [ASTRA] Top 2 closest tasks:
-[ ]Task A | Deadline: 1 Dec, 2359H
-[ ]Task B | Deadline: 2 Dec, 2359H
+[ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
+[ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -192,7 +192,7 @@ You have 2 tutorial(s) on TUESDAY
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-Marked complete: #1 [X]Task A | Deadline: 1 Dec, 2359H
+Marked complete: #1 [X]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -202,7 +202,7 @@ Marked complete: #1 [X]Task A | Deadline: 1 Dec, 2359H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-Marked complete: #2 [X]Task B | Deadline: 2 Dec, 2359H
+Marked complete: #2 [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -212,7 +212,7 @@ Marked complete: #2 [X]Task B | Deadline: 2 Dec, 2359H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H
+Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -222,8 +222,8 @@ Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
- 1. [ ]Task A | Deadline: 1 Dec, 2359H
- 2. [X]Task B | Deadline: 2 Dec, 2359H
+ 1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
+ 2. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
  3. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
  4. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
  5. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
@@ -239,7 +239,7 @@ Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-Deadline updated for task: [ ]Task A | Deadline: 12 Dec, 2359H
+Deadline updated for task: [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -259,8 +259,8 @@ Erased: #6 T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
- 1. [ ]Task A | Deadline: 12 Dec, 2359H
- 2. [X]Task B | Deadline: 2 Dec, 2359H
+ 1. [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
+ 2. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
  3. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
  4. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
  5. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
