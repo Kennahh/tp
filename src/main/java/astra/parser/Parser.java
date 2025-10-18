@@ -1,6 +1,21 @@
 package astra.parser;
 
-import astra.command.*;
+import astra.command.AddExamCommand;
+import astra.command.AddLectureCommand;
+import astra.command.AddTaskCommand;
+import astra.command.AddTutorialCommand;
+import astra.command.ChangeDeadlineCommand;
+import astra.command.CheckCurrentCommand;
+import astra.command.CheckExamCommand;
+import astra.command.CheckLecturesCommand;
+import astra.command.CheckTutorialsCommand;
+import astra.command.CompleteCommand;
+import astra.command.DeleteCommand;
+import astra.command.ExitCommand;
+import astra.command.HelpCommand;
+import astra.command.ListCommand;
+import astra.command.UnmarkCommand;
+import astra.command.Command;
 import astra.exception.InputException;
 
 import java.time.DayOfWeek;
@@ -14,7 +29,7 @@ import java.util.Map;
  * Handles all user raw command line strings into commands.
  */
 public class Parser {
-
+    private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
     /**
      * Parses a line of user input.
      *
@@ -91,8 +106,6 @@ public class Parser {
         return splitString[0];
     }
 
-    private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
-
     static {
         for (DayOfWeek day : DayOfWeek.values()) {
             String full = day.name().toLowerCase();  // e.g. "monday"
@@ -105,7 +118,7 @@ public class Parser {
 
         String sanitisedInput = input.trim().toLowerCase();
 
-        if (sanitisedInput == null || sanitisedInput.isEmpty()) {
+        if (sanitisedInput.isEmpty()) {
             throw new InputException("Day string cannot be null");
         }
         // input not empty

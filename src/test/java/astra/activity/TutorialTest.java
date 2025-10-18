@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TutorialTest {
 
     @Test
-    public void fields_toString_writeToFile_ok() {
+    public void fields_toString_writeToFileOk() {
         Tutorial tut = new Tutorial("CS2113", "COM1", DayOfWeek.FRIDAY,
                 LocalTime.parse("14:00"), LocalTime.parse("15:00"));
         assertEquals(DayOfWeek.FRIDAY, tut.getDay());

@@ -1,1 +1,24 @@
-James Gosling
+task Task A /by 2025-12-01 23:59
+task Task B /by 2025-12-02
+lecture Lec A /place LT9 /day 1 /from 12:00 /to 14:00
+lecture Lec B /place LT27 /day mon /from 16:00 /to 18:00
+tutorial T1 /place COM 1 /day 2 /from 11:00 /to 12:00
+tutorial T2 /place COM 2 /day tues /from 13:00 /to 14:30
+exam Midterm A /date 2025-10-09 /from 14:15 /to 15:15
+exam Midterm B /date 2025-12-05 /from 09:00 /to 10:30
+list
+checkcurrent
+checkcurrent 2
+checkexam
+checklecture mon
+checklecture tues
+checktutorial mon
+checktutorial tues
+complete 1
+complete 2
+unmark 1
+list
+changedeadline 1 /to 2025-12-12 23:59
+delete 6
+list
+close

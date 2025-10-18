@@ -26,7 +26,7 @@ public class CheckCurrentCommand implements Command {
 
     private int count;
 
-    /*
+    /**
      * Constructor for CheckCurrentCommand.
      * @param input Entire user input string.
      */
@@ -36,7 +36,8 @@ public class CheckCurrentCommand implements Command {
             try {
                 this.count = Integer.parseInt(parts[1].trim());
             } catch (NumberFormatException e) {
-                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for checkcurrent, e.g., 'checkcurrent 3'");
+                System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for " +
+                        "checkcurrent, e.g., 'checkcurrent 3'");
                 this.count = 1; // fallback value
             }
         } else {
@@ -51,8 +52,8 @@ public class CheckCurrentCommand implements Command {
         for (int i = 0; i < activities.getListSize(); i++) {
             Activity activity = activities.getAnActivity(i);
             if (activity instanceof Task) {
-                Task temp_task = (Task) activity;
-                LocalDateTime taskDeadline = LocalDateTime.of(temp_task.getDeadlineDate(), temp_task.getDeadlineTime());
+                Task tempTask = (Task) activity;
+                LocalDateTime taskDeadline = LocalDateTime.of(tempTask.getDeadlineDate(), tempTask.getDeadlineTime());
                 if (taskDeadline.isAfter(now)){
                     closestTasks.add((Task) activity);
                 }
@@ -64,7 +65,7 @@ public class CheckCurrentCommand implements Command {
         return new ArrayList<>(closestTasks.subList(0, Math.min(count, closestTasks.size())));
     }
 
-    /*
+    /**
      * Executes the command to check the closest task deadlines.
      * @param activities The list of activities.
      * @param ui The user interface for displaying messages.
@@ -75,7 +76,6 @@ public class CheckCurrentCommand implements Command {
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
 
         List<Task> closestTasks = getClosestTasks(activities, this.count);
-        ui.showDash();
         if (closestTasks.isEmpty()) {
             ui.showMessage("[ASTRA] No tasks found!");
         } else {
@@ -84,7 +84,6 @@ public class CheckCurrentCommand implements Command {
                 ui.showMessage(task.toString());
             }
         }
-        ui.showDash();
         return false;
     }
     
