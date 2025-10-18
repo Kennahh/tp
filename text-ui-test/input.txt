@@ -1,7 +1,5 @@
-task Task A /by 2025-12-01 23:59
-1
-task Task B /by 2025-12-02
-2
+task Task A /by 2025-12-01 23:59 /priority 1
+task Task B /by 2025-12-02 /priority 2
 lecture Lec A /place LT9 /day 1 /from 12:00 /to 14:00
 lecture Lec B /place LT27 /day mon /from 16:00 /to 18:00
 tutorial T1 /place COM 1 /day 2 /from 11:00 /to 12:00
