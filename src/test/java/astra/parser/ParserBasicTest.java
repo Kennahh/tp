@@ -1,6 +1,19 @@
 package astra.parser;
 
-import astra.command.*;
+import astra.command.AddExamCommand;
+import astra.command.AddLectureCommand;
+import astra.command.AddTaskCommand;
+import astra.command.AddTutorialCommand;
+import astra.command.ChangeDeadlineCommand;
+import astra.command.CheckExamCommand;
+import astra.command.CheckLecturesCommand;
+import astra.command.CheckTutorialsCommand;
+import astra.command.CompleteCommand;
+import astra.command.DeleteCommand;
+import astra.command.ExitCommand;
+import astra.command.HelpCommand;
+import astra.command.ListCommand;
+import astra.command.UnmarkCommand;
 import astra.exception.InputException;
 import org.junit.jupiter.api.Test;
 
@@ -63,3 +76,4 @@ public class ParserBasicTest {
         assertEquals(59, dt2.getMinute());
     }
 }
+

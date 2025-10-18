@@ -69,6 +69,7 @@ public class Notebook {
         String[] splitLine = line.split(",", 2);
         String type = splitLine[0].trim().toLowerCase();
         String[] details = splitLine[1].split(",");
+
         DayOfWeek day;
         switch (type) {
         case "lecture":
@@ -86,11 +87,30 @@ public class Notebook {
             break;
         case "task":
             // type, description, deadline date, deadline time, isComplete, priority
-            Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), 
-                    LocalTime.parse(details[2].trim()), Integer.parseInt(details[4].trim()));
-            if (details[3].trim().equals("1")) {
-                task.setComplete(true);
+            String desc = details[0].trim();
+            LocalDate date = LocalDate.parse(details[1].trim());
+            LocalTime time = LocalTime.parse(details[2].trim());
+
+            boolean isComplete = false;
+            int priority = 3; // default (normal priority)
+
+            if (details.length >= 4) {
+                try {
+                    // If the 4th element is boolean-ish (0/1), treat it as complete flag
+                    if (details[3].trim().equals("1") || details[3].trim().equalsIgnoreCase("true")) {
+                        isComplete = true;
+                    }
+                    // If there are 5 or more elements, treat the 5th as priority
+                    if (details.length >= 5) {
+                        priority = Integer.parseInt(details[4].trim());
+                    }
+                } catch (NumberFormatException e) {
+                    // If malformed priority, keep default 3
+                    priority = 3;
+                }
             }
+            Task task = new Task(desc, date, time, priority);
+            task.setComplete(isComplete);
             activities.addActivity(task);
             break;
         case "tutorial":
