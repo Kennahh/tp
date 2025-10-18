@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class AddTaskCommand extends AddCommand {
     private final String input;
@@ -18,6 +19,7 @@ public class AddTaskCommand extends AddCommand {
     public AddTaskCommand(String input) {
         this.input = input;
     }
+
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
@@ -68,8 +70,37 @@ public class AddTaskCommand extends AddCommand {
                 throw new InputException("Invalid time format. Use: HH:MM");
             }
 
-            Task task = new Task(description, deadlineDate, deadlineTime);
-            activities.addActivity(task);
+            int priority = 1;
+            int taskCount = 0;
+            for (int i = 0; i < activities.getListSize(); i++) {
+                if (activities.getAnActivity(i) instanceof Task) {
+                    taskCount++;
+                }
+            }
+
+            if (taskCount > 0) {
+                Scanner scanner = new Scanner(System.in);
+                Boolean integerValid = false;
+
+                while (!integerValid) {
+                    ui.showMessage("Enter priority number for this task (1 to " + (taskCount + 1) + "): ");
+                    String priorityInput = scanner.nextLine().trim();
+
+                    try {
+                        priority = Integer.parseInt(priorityInput);
+                        if (priority < 1 || priority > taskCount + 1) {
+                            ui.showMessage("Priority must be between 1 and " + (taskCount + 1) + ".");
+                        } else {
+                            integerValid = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        ui.showMessage("Priority index must be an integer!");
+                    }
+                }
+            }
+
+            Task task = new Task(description, deadlineDate, deadlineTime, priority);
+            activities.addTaskWithPriority(task, priority);
             ui.showMessage(task.toString());
             notebook.saveToFile(activities);
         } catch (IOException e) {

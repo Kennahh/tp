@@ -5,6 +5,7 @@ import astra.command.AddLectureCommand;
 import astra.command.AddTaskCommand;
 import astra.command.AddTutorialCommand;
 import astra.command.ChangeDeadlineCommand;
+import astra.command.ChangePriorityCommand;
 import astra.command.CheckCurrentCommand;
 import astra.command.CheckExamCommand;
 import astra.command.CheckLecturesCommand;
@@ -76,6 +77,8 @@ public class Parser {
             return new CheckExamCommand();
         case "checkcurrent":
             return new CheckCurrentCommand(input);
+        case "changepriority":
+            return new ChangePriorityCommand(input);
         case "checklecture": {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -94,6 +97,7 @@ public class Parser {
                     "    [ASTRA] Please use a valid command word:" + 
                     "    (use `help` to check known commands by me, a small digital notebook :( ).\n");
         }
+
     }
 
     /**

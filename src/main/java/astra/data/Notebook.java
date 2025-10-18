@@ -85,9 +85,9 @@ public class Notebook {
             activities.addActivity(exam);
             break;
         case "task":
-            // type, description, deadline date, deadline time, isComplete
+            // type, description, deadline date, deadline time, isComplete, priority
             Task task = new Task(details[0].trim(), LocalDate.parse(details[1].trim()), 
-                    LocalTime.parse(details[2].trim()));
+                    LocalTime.parse(details[2].trim()), Integer.parseInt(details[4].trim()));
             if (details[3].trim().equals("1")) {
                 task.setComplete(true);
             }
@@ -185,7 +185,8 @@ public class Notebook {
             }
             LocalDate d = LocalDate.parse(parts[3]);
             LocalTime tm = LocalTime.parse(parts[4]);
-            Task t = new Task(description, d, tm);
+            Integer priority = Integer.parseInt(parts[5]);
+            Task t = new Task(description, d, tm, priority);
             if (done) {
                 t.setIsComplete();
             }
@@ -267,7 +268,8 @@ public class Notebook {
             return String.join(SEP, "TASK", done,
                 safe(t.getDescription()),
                 safe(t.getDeadlineDate().toString()),
-                safe(t.getDeadlineTime().toString()));
+                safe(t.getDeadlineTime().toString()),
+                safe(String.valueOf(t.getPriority())));
         } else {
             // Generic fallback
             return String.join(SEP, "TASK", done, safe(a.toString()));

@@ -9,12 +9,15 @@ public class Task extends Activity {
     private LocalDate deadlineDate;
     private LocalTime deadlineTime;
     private boolean isComplete = false;
+    private int priority = 1;
 
-    public Task(String description, LocalDate deadlineDate, LocalTime deadlineTime) {
+    public Task(String description, LocalDate deadlineDate, LocalTime deadlineTime, int priority) {
         super(description);
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;
+        this.priority = priority;
     }
+
     public boolean getIsComplete(){
 
         return isComplete;
@@ -45,6 +48,14 @@ public class Task extends Activity {
         return deadlineTime;
     }
 
+    public int getPriority() {
+        return priority;
+    } 
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     @Override
     public String toString() {
         return "["
@@ -52,10 +63,12 @@ public class Task extends Activity {
                 + "]"
                 + description
                 + " | Deadline: "
-                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM"))
+                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM uuuu"))
                 + ", "
                 + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm"))
-                + "H";
+                + "H"
+                + " | Priority: "
+                + priority;
     }
 
     public String statusInIcon() {
@@ -77,6 +90,6 @@ public class Task extends Activity {
                 + description + ", "
                 + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
                 + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
-                + statusInIcon();
+                + priority;
     }
 }
