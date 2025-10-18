@@ -116,11 +116,12 @@ public class Ui {
                              exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
 
                 Listing and Checking Tasks:
-                - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
                 - list                             (lists all tasks only)
                 - checkexam                        (lists all upcoming exams with date and duration) 
                 - checklecture <day>               (lists all lectures on a specific day)
                 - checktutorial <day>              (lists all tutorials on a specific day)  
+                - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
+                - checkpriority                    (Shows all tasks, sorted by priority from highest to lowest)
 
                 Editing entries in Astra:
                 - delete <index>
@@ -128,6 +129,8 @@ public class Ui {
                 - unmark <index>                                        (mark as incomplete)
                 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
                     Example: changedeadline 1 /to 2025-10-31 14:00
+                - changepriority <task index> /to <new priority>
+                    Example: changepriority 2 /to 3
 
                 Help/Exit:
                 - help
