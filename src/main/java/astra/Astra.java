@@ -47,6 +47,7 @@ public class Astra {
     public void run() {
         ui.showLogo();
         ui.showBotIntro();
+        activities.deadlineReminder();
 
         boolean isRunning = true;
         while (isRunning) {
