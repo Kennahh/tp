@@ -26,7 +26,7 @@ public class UpdateCommandsTest {
     @Test
     public void completeAndUnmark_toggleFlags_toggledStatus() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("A", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59")));
+        list.addActivity(new Task("A", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
         TestUi ui = new TestUi();
 
         new CompleteCommand("complete 1").execute(list, ui, nb());
@@ -39,8 +39,8 @@ public class UpdateCommandsTest {
     @Test
     public void delete_valid_removesItem() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("C", LocalDate.parse("2025-10-10"), LocalTime.parse("12:00")));
-        list.addActivity(new Task("D", LocalDate.parse("2025-10-11"), LocalTime.parse("13:00")));
+        list.addActivity(new Task("C", LocalDate.parse("2025-10-10"), LocalTime.parse("12:00"), 2));
+        list.addActivity(new Task("D", LocalDate.parse("2025-10-11"), LocalTime.parse("13:00"), 3));
         TestUi ui = new TestUi();
 
         new DeleteCommand("delete 1").execute(list, ui, nb());
@@ -51,7 +51,7 @@ public class UpdateCommandsTest {
     @Test
     public void changeDeadline_valid_updatesDateTime() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("B", LocalDate.parse("2025-10-10"), LocalTime.parse("12:00")));
+        list.addActivity(new Task("B", LocalDate.parse("2025-10-10"), LocalTime.parse("12:00"), 4));
         TestUi ui = new TestUi();
 
         new ChangeDeadlineCommand("changedeadline 1 /to 2025-12-31 18:45").execute(list, ui, nb());

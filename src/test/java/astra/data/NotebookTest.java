@@ -31,7 +31,7 @@ public class NotebookTest {
         Notebook nb = new Notebook(path);
 
         ActivityList list = new ActivityList();
-        Task t = new Task("Do HW", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"));
+        Task t = new Task("Do HW", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1);
         t.setIsComplete();
         Lecture l = new Lecture("Lecture", "LT19", DayOfWeek.MONDAY, LocalTime.parse("10:00"),
                 LocalTime.parse("12:00"));
