@@ -25,68 +25,77 @@ public class AddTaskCommand extends AddCommand {
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
-                throw new InputException("Missing task description and deadline. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
+                throw new InputException(
+                    "Missing task description and deadline. "
+                    + "Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
             String args = parts[1].trim();
             if (!args.contains("/by")) {
-                throw new InputException("Missing '/by' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
+                throw new InputException(
+                    "Missing '/by' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
-            
             if (!args.contains("/priority")) {
-                throw new InputException("Missing '/priority' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
+                throw new InputException(
+                    "Missing '/priority' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
-            // Parse the arguments to extract description, deadline, and priority (all inline, not interactively)
             String[] tokens = args.split("/by", 2);
             if (tokens.length != 2) {
-                throw new InputException("Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
+                throw new InputException(
+                    "Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
             String description = tokens[0].trim();
             if (description.isEmpty()) {
-                throw new InputException("Task description is missing.");
+                throw new InputException(
+                    "Task description is missing.");
             }
-
             String deadlineAndPriority = tokens[1].trim();
-            
-            // Split by /priority to get deadline and priority
             String[] priorityParts = deadlineAndPriority.split("/priority", 2);
             if (priorityParts.length != 2) {
-                throw new InputException("Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
+                throw new InputException(
+                    "Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
             String deadlineStr = priorityParts[0].trim();
             String priorityStr = priorityParts[1].trim();
             if (deadlineStr.isEmpty()) {
-                throw new InputException("Missing deadline entry. Use: /by <YYYY-MM-DD> <HH:MM>");
+                throw new InputException(
+                    "Missing deadline entry. Use: /by <YYYY-MM-DD> <HH:MM>");
             }
             if (priorityStr.isEmpty()) {
-                throw new InputException("Priority value is missing. Use: /priority <number>");
+                throw new InputException(
+                    "Priority value is missing. Use: /priority <number>");
             }
-            
             int priority;
             try {
                 priority = Integer.parseInt(priorityStr);
                 if (priority < 1) {
-                    throw new InputException("Priority must be a positive integer.");
+                    throw new InputException(
+                        "Priority must be a positive integer.");
                 }
             } catch (NumberFormatException e) {
-                throw new InputException("Priority must be a valid integer.");
+                throw new InputException(
+                    "Priority must be a valid integer.");
             }
             String[] deadlineParts = deadlineStr.split(" ", 2);
             String deadlineDateStr = deadlineParts[0];
             String deadlineTimeStr = "23:59"; // default
-            if (deadlineParts.length > 1) deadlineTimeStr = deadlineParts[1];
+            if (deadlineParts.length > 1) {
+                deadlineTimeStr = deadlineParts[1];
+            }
             LocalDate deadlineDate;
             LocalTime deadlineTime;
             try {
                 deadlineDate = LocalDate.parse(deadlineDateStr);
             } catch (DateTimeParseException e) {
-                throw new InputException("Invalid date format. Use: YYYY-MM-DD");
+                throw new InputException(
+                    "Invalid date format. Use: YYYY-MM-DD");
             }
             try {
                 deadlineTime = LocalTime.parse(deadlineTimeStr);
             } catch (DateTimeParseException e) {
-                throw new InputException("Invalid time format. Use: HH:MM");
+                throw new InputException(
+                    "Invalid time format. Use: HH:MM");
             }
-            Task task = new Task(description, deadlineDate, deadlineTime, 1); 
+            Task task = new Task(description, deadlineDate, deadlineTime, 1);
             activities.addTaskWithPriority(task, priority);
             ui.showMessage(task.toString());
             notebook.saveToFile(activities);
