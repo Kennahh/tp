@@ -27,7 +27,7 @@ public class CreateCommandsTest {
     public void addTask_valid_adds() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
-        new AddTaskCommand("task Read /by 2025-10-10 23:59").execute(list, ui, nb());
+        new AddTaskCommand("task Read /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
         assertEquals(1, list.getListSize());
         assertTrue(list.getActivity(0) instanceof Task);
     }

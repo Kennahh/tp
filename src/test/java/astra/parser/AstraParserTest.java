@@ -49,7 +49,7 @@ public class AstraParserTest {
     @Test
     public void testAddTask_validInput_expectSuccess() {
         setup();
-        String inputString = "task test /by 2025-12-12 14:00";
+        String inputString = "task test /by 2025-12-12 14:00 /priority 1";
         try {
             Command command = Parser.parse(inputString);
             assertEquals(false, command.execute(activities, ui, notebook)); // this is not a good method of testing
@@ -61,7 +61,7 @@ public class AstraParserTest {
 
     @Test
     public void addTask_valid_success() throws Exception {
-        Command c = Parser.parse("task test /by 2025-12-12 14:00");
+        Command c = Parser.parse("task test /by 2025-12-12 14:00 /priority 1");
         c.execute(activities, ui, notebook);
         assertEquals(1, activities.getListSize());
         assertTrue(activities.getActivity(0) instanceof Task);
@@ -85,7 +85,7 @@ public class AstraParserTest {
 
     @Test
     public void complete_valid_marksComplete() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Task t = (Task) activities.getActivity(0);
         assertFalse(t.getIsComplete());
         Parser.parse("complete 1").execute(activities, ui, notebook);
@@ -94,7 +94,7 @@ public class AstraParserTest {
 
     @Test
     public void complete_missingIndex_showsError() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("complete").execute(activities, ui, notebook);
         String output = outContent.toString();
         assertTrue(output.contains("Please provide an index: complete <index>"));
@@ -102,7 +102,7 @@ public class AstraParserTest {
 
     @Test
     public void completeTwice_sameIndex_errorShown() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         String output = outContent.toString();
@@ -119,7 +119,7 @@ public class AstraParserTest {
 
     @Test
     public void unmark_valid_togglesOff() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         Parser.parse("unmark 1").execute(activities, ui, notebook);
         Task t = (Task) activities.getActivity(0);
@@ -127,7 +127,7 @@ public class AstraParserTest {
     }
     @Test
     public void unmark_missingIndex_errorShown() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("unmark").execute(activities, ui, notebook);
         String output = outContent.toString();
         assertTrue(output.contains("Please provide an index: unmark <index>"));
@@ -135,7 +135,7 @@ public class AstraParserTest {
 
     @Test
     public void unmark_alreadyUnmarked_showsError() throws Exception {
-        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("unmark 1").execute(activities, ui, notebook);
         String output = outContent.toString();
         assertTrue(output.contains("Activity at index 1 is already unmarked"));
