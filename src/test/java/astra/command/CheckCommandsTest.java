@@ -31,7 +31,7 @@ public class CheckCommandsTest {
         ActivityList list = new ActivityList();
         list.addActivity(new Exam("X", "MPSH", LocalDate.parse("2025-11-25"),
                 LocalTime.parse("09:00"), LocalTime.parse("11:00")));
-        list.addActivity(new Task("T", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00")));
+        list.addActivity(new Task("T", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00"), 1));
         new CheckExamCommand().execute(list, new TestUi(), nb());
         assertEquals(2, list.getListSize());
     }
@@ -65,9 +65,9 @@ public class CheckCommandsTest {
         ActivityList list = new ActivityList();
         // Deadlines in the future (adjust if needed)
         list.addActivity(new Task("Sooner", LocalDate.now().plusDays(1),
-                LocalTime.parse("08:00")));
+                LocalTime.parse("08:00"), 1));
         list.addActivity(new Task("Later", LocalDate.now().plusDays(5),
-                LocalTime.parse("09:00")));
+                LocalTime.parse("09:00"), 2));
         TestUi ui = new TestUi();
         new CheckCurrentCommand("checkcurrent 1").execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("Top 1 closest tasks")));

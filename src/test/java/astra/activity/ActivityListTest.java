@@ -14,7 +14,7 @@ public class ActivityListTest {
         ActivityList list = new ActivityList();
         assertEquals(0, list.getListSize());
 
-        Task t = new Task("Do CS", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"));
+        Task t = new Task("Do CS", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1);
         list.addActivity(t);
         assertEquals(1, list.getListSize());
         assertSame(t, list.getActivity(0));

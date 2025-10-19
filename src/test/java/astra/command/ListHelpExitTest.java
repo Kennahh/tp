@@ -22,7 +22,7 @@ public class ListHelpExitTest {
     @Test
     public void list_printsToStdout() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("X", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00")));
+        list.addActivity(new Task("X", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00"), 1));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream prev = System.out;
         System.setOut(new PrintStream(out));
