@@ -93,6 +93,27 @@ public class AstraParserTest {
     }
 
     @Test
+    public void addTask_missingPriority_failsAndPrintsError() throws Exception {
+        Parser.parse("task t /by 2025-12-12 14:00").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("Missing '/priority'"));
+    }
+
+    @Test
+    public void addTask_invalidPriorityNonInteger_errorShown() throws Exception {
+        Parser.parse("task t /by 2025-12-12 14:00 /priority xyz").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("Priority must be a valid integer"));
+    }
+
+    @Test
+    public void addTask_invalidPriorityNegative_errorShown() throws Exception {
+        Parser.parse("task t /by 2025-12-12 14:00 /priority -2").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("Priority must be a positive integer"));
+    }
+
+    @Test
     public void complete_missingIndex_showsError() throws Exception {
         Parser.parse("task t /by 2025-12-12 14:00 /priority 1").execute(activities, ui, notebook);
         Parser.parse("complete").execute(activities, ui, notebook);
@@ -148,4 +169,5 @@ public class AstraParserTest {
         String output = outContent.toString();
         assertTrue(output.contains("is not a Task"));
     }
+
 }
