@@ -50,9 +50,8 @@ public class ActivityList {
     /**
      * Prints all tasks in ArrayList that is due within 3 days
      */
-    public void deadlineReminder() {
+    public void deadlineReminder(LocalDate today) {
         Ui ui = new Ui();
-        LocalDate today = LocalDate.now();
         System.out.println();
         ui.showReminderMessage();
         ui.showDash();
