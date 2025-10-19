@@ -59,16 +59,13 @@ public class Task extends Activity {
     @Override
     public String toString() {
         return "["
-                + (isComplete ? "X" : " ")
-                + "]"
-                + description
-                + " | Deadline: "
-                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM uuuu"))
-                + ", "
-                + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm"))
-                + "H"
-                + " | Priority: "
-                + priority;
+            + (isComplete ? "X" : " ")
+            + "]" + description
+            + " | Deadline: "
+            + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM")) // No year!
+            + ", "
+            + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm")) + "H"
+            + " | Priority: " + priority;
     }
 
     public String statusInIcon() {
