@@ -51,8 +51,7 @@ public class Astra {
         LocalDate today = LocalDate.now();
         activities.deadlineReminder(today);
 
-        boolean isRunning = true;
-        while (isRunning) {
+        while (true) {
             try {
                 ui.showPrompt();
                 String input = scanner.nextLine();
@@ -65,7 +64,6 @@ public class Astra {
                 }
                 if (shouldExit) {
                     ui.showEnd();
-                    isRunning = false;
                     break;
                 }
             } catch (InputException | FileSystemException e) {
