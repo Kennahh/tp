@@ -1,7 +1,12 @@
 package astra.activity;
 
+import astra.ui.Ui;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ActivityList {
     private final ArrayList<Activity> activities;
@@ -10,16 +15,20 @@ public class ActivityList {
         activities = new ArrayList<>();
     }
 
-    public Activity getActivity(int index){
+    public Activity getActivity(int index) {
         return activities.get(index);
     }
 
-    /** adds activities to ArrayList*/
+    /**
+     * adds activities to ArrayList
+     */
     public void addActivity(Activity activity) {
         activities.add(activity);
     }
 
-    /** deletes task of specified index*/
+    /**
+     * deletes task of specified index
+     */
     public void deleteActivity(int index) {
         Activity removed = activities.get(index);
         activities.remove(index);
@@ -38,7 +47,9 @@ public class ActivityList {
         }
     }
 
-    /** lists all activities in ArrayList */
+    /**
+     * lists all activities in ArrayList
+     */
     public void listActivities() {
         if (activities.isEmpty()) {
             System.out.println("No activities have been added!");
@@ -48,6 +59,32 @@ public class ActivityList {
                 System.out.println(activities.get(index).toString());
             }
         }
+    }
+
+    /**
+     * Prints all tasks in ArrayList that is due within 3 days
+     */
+    public void deadlineReminder(LocalDate today) {
+        Ui ui = new Ui();
+        System.out.println();
+        ui.showReminderMessage();
+        ui.showDash();
+        int count = 0;
+        for (int index = 0; index < activities.size(); index++) {
+            if (getAnActivity(index) instanceof Task) {
+                Task currTask = (Task) getAnActivity(index);
+                long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());
+                if (daysBetween <= 3) {
+                    count += 1;
+                    System.out.println(count + ". " + currTask.getDescription() + " | Days left: " + daysBetween);
+                }
+            }
+        }
+        if (count == 0) {
+            System.out.println("No task due for the next 3 days");
+        }
+        ui.showDash();
+        System.out.println();
     }
 
     /**
@@ -63,7 +100,9 @@ public class ActivityList {
         return activities.get(index);
     }
 
-    /** Provide a copy for persistence */
+    /**
+     * Provide a copy for persistence
+     */
     public List<Activity> toList() {
         return new ArrayList<>(activities);
     }

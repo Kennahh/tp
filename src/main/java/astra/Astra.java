@@ -9,6 +9,7 @@ import astra.command.Command;
 import astra.exception.InputException;
 import astra.exception.FileSystemException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,6 +48,8 @@ public class Astra {
     public void run() {
         ui.showLogo();
         ui.showBotIntro();
+        LocalDate today = LocalDate.now();
+        activities.deadlineReminder(today);
 
         boolean isRunning = true;
         while (isRunning) {
