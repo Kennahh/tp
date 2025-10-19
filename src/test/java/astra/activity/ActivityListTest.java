@@ -68,7 +68,7 @@ public class ActivityListTest {
         String expectedOutput1 = ("These tasks are due soon. Reminder to complete them!");
         String expectedOutput2 = ("1. Read | Days left: 2");
 
-        new AddTaskCommand("task Read /by 2025-10-20 23:59").execute(result.list(), result.ui(), nb());
+        new AddTaskCommand("task Read /by 2025-10-20 23:59 /priority 1").execute(result.list(), result.ui(), nb());
         assertTrue(result.list().getActivity(0) instanceof Task);
 
         result.list().deadlineReminder(date);
