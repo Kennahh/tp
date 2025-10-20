@@ -61,9 +61,14 @@ public class Ui {
     /**
      * Displays Empty list text
      */
-    public void showEmptyList() { System.out.println(EMPTY_LIST_MESSAGE); }
+    public void showEmptyList() {
+        System.out.println(EMPTY_LIST_MESSAGE);
+    }
 
-    public void showReminderMessage() { System.out.println(REMINDER_MESSAGE); }
+    public void showReminderMessage() {
+        System.out.println(REMINDER_MESSAGE);
+    }
+
     /**
      * Displays a general message to the user.
      *
@@ -116,12 +121,12 @@ public class Ui {
                 - task <description> /by <YYYY-MM-DD> <HH:MM>
                 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
-                - exam <description> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
+                - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
                     
                     Example: task CS2113 Quiz /by 2025-10-10 23:59
                              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
                              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
-                             exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
+                             exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00
 
                 Listing and Checking Tasks:
                 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)

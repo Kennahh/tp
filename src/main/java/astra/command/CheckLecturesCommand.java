@@ -19,6 +19,12 @@ public class CheckLecturesCommand extends CheckCommand {
         this.input = input;
     }
 
+    /**
+     * check whether an activity is an instance of Lecture
+     *
+     * @param activity an activity of a certain type
+     * @return true if the activity is of type Lecture, false otherwise
+     */
     private boolean filterActivity(Activity activity) {
         if (activity instanceof Lecture) {
             if (Objects.equals(((Lecture) activity).getDay(), day)) {
@@ -28,6 +34,12 @@ public class CheckLecturesCommand extends CheckCommand {
         return false;
     }
 
+    /**
+     * Filter the activities list for lectures.
+     *
+     * @param activities activities list of all types of activities
+     * @return an ActivityList containing exams only
+     */
     private ActivityList filterList(ActivityList activities) {
         ActivityList filteredList = new ActivityList();
         for (int i = 0; i < activities.getListSize(); i++) {
@@ -48,6 +60,10 @@ public class CheckLecturesCommand extends CheckCommand {
             return false;
         }
         ActivityList filteredList = filterList(activities);
+        if (filteredList.getListSize() == 0) {
+            ui.showMessage("You have no lecture on " + day);
+            return false;
+        }
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " lecture(s) on " + day);
         return false;

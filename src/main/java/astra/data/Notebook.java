@@ -31,6 +31,12 @@ public class Notebook {
         this.filePath = filePath;
     }
 
+    /**
+     * Rewrite the data file according to the activities list.
+     *
+     * @param activities list of activities to be written to the text file
+     * @throws IOException if the file is not found
+     */
     public void saveToFile(ActivityList activities) throws IOException{
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -45,7 +51,13 @@ public class Notebook {
         }
     }
 
-    public ActivityList loadFile() throws FileNotFoundException {
+    /**
+     * Load the text file containing activities
+     *
+     * @return an ActivityList containing all the activities in the text file
+     * @throws FileNotFoundException if the text file is not found
+     */
+    public ActivityList loadFile() throws FileSystemException, FileNotFoundException {
         ActivityList activities = new ActivityList();
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -64,8 +76,15 @@ public class Notebook {
         return activities;
     }
 
+    /**
+     * Add one activity to the activities list
+     *
+     * @param line one line in the text file
+     * @param activities the target activities list to add an activity
+     * @throws FileSystemException if the type of the activity is not among Lecture, Exam, Task and Tutorial
+     */
     // type, description,...
-    private void addTaskFromFile(String line, ActivityList activities) throws FileNotFoundException {
+    private void addTaskFromFile(String line, ActivityList activities) throws FileSystemException {
         String[] splitLine = line.split(",", 2);
         String type = splitLine[0].trim().toLowerCase();
         String[] details = splitLine[1].split(",");
@@ -121,7 +140,7 @@ public class Notebook {
             activities.addActivity(tutorial);
             break;
         default:
-            throw new FileNotFoundException("Invalid activity type in text file.");
+            throw new FileSystemException("Invalid activity type in text file.");
         }
     }
 
@@ -262,7 +281,7 @@ public class Notebook {
     /** 
      * Convert Task object into a file line
      *
-     * @param t Task object to serialize.
+     * @param a Task object to serialize.
      * @return String representation for file storage.
      */
     private String serializeActivity(Activity a) {

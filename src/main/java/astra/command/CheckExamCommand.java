@@ -8,6 +8,12 @@ import astra.ui.Ui;
 
 public class CheckExamCommand extends CheckCommand {
 
+    /**
+     * Filter the activities list for exams.
+     *
+     * @param activities activities list of all types of activities
+     * @return an ActivityList containing exams only
+     */
     private ActivityList filterExams(ActivityList activities) {
         ActivityList filteredList = new ActivityList();
         for (int i = 0; i < activities.getListSize(); i++) {
@@ -21,7 +27,12 @@ public class CheckExamCommand extends CheckCommand {
 
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         ActivityList filteredList = filterExams(activities);
+        if (filteredList.getListSize() == 0) {
+            ui.showMessage("No exams in your list!");
+            return false;
+        }
         filteredList.listActivities();
+        ui.showMessage("You have " + filteredList.getListSize() + " exam(s)");
         return false;
     }
 }
