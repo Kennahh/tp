@@ -16,6 +16,8 @@ public class Ui {
             ">>     Type 'close' to close this digital notebook of yours.\n" +
             "[ASTRA] Monitoring your deepest wishes..."
     );
+    private static final String REMINDER_MESSAGE = ("These tasks are due soon. Reminder to complete them!");
+    private static final String EMPTY_LIST_MESSAGE = ("List is Empty...");
     private static final String DONE_COMMAND = "[ASTRA] Done! Now, what's your next wish...\n";
     private static final String END_COMMAND = "[ASTRA] Keep up the great work! Your academic triumph awaits!";
     private static final String ASTRA_LOGO = """
@@ -56,6 +58,12 @@ public class Ui {
         System.out.println(PROMPT_COMMAND);
     }
 
+    /**
+     * Displays Empty list text
+     */
+    public void showEmptyList() { System.out.println(EMPTY_LIST_MESSAGE); }
+
+    public void showReminderMessage() { System.out.println(REMINDER_MESSAGE); }
     /**
      * Displays a general message to the user.
      *
@@ -105,33 +113,29 @@ public class Ui {
                 - Date format: YYYY-MM-DD (e.g., 2025-12-10 for 10th December 2025).
 
                 Adding entries to Astra:
-                - task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>
+                - task <description> /by <YYYY-MM-DD> <HH:MM>
                 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - exam <description> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
                     
-                    Example: task CS2113 Quiz /by 2025-10-10 23:59 /priority 2
-                             task CS2113 Assignment /by 2025-10-15 23:59 /priority 1
+                    Example: task CS2113 Quiz /by 2025-10-10 23:59
                              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
                              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
                              exam CS2107 Midterm /date 2025-10-10 /from 10:00 /to 12:00
 
                 Listing and Checking Tasks:
+                - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
                 - list                             (lists all tasks only)
                 - checkexam                        (lists all upcoming exams with date and duration) 
                 - checklecture <day>               (lists all lectures on a specific day)
                 - checktutorial <day>              (lists all tutorials on a specific day)  
-                - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
-                - checkpriority                    (Shows all tasks, sorted by priority from highest to lowest)
-
+                
                 Editing entries in Astra:
                 - delete <index>
                 - complete <index>                                      (mark as complete)
                 - unmark <index>                                        (mark as incomplete)
                 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
                     Example: changedeadline 1 /to 2025-10-31 14:00
-                - changepriority <task index> /to <new priority>
-                    Example: changepriority 2 /to 3
 
                 Help/Exit:
                 - help

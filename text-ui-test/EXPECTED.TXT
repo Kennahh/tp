@@ -9,6 +9,12 @@
 [ASTRA] Hello! I am Astra! Your friendly digital academic notebook :)
 I am here to support your academic universe!
 
+
+These tasks are due soon. Reminder to complete them!
+------------------------------------------------------------
+No task due for the next 3 days
+------------------------------------------------------------
+
 [ASTRA] Ready to help you stay on top of your academic game!
 >>     Type in a command for me to fulfill your wish!
 >>     Type 'help' to see the list of wishes I can fulfill!
