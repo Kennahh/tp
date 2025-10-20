@@ -20,10 +20,10 @@ public class DeleteCommand implements Command{
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         int index;
         try {
-            String arguments = input.split(" ", 2)[1];
-            if (arguments.isEmpty()) {
+            if (input.split(" ").length <= 1) {
                 throw new InputException("Task number can't be empty!");
             }
+            String arguments = input.split(" ", 2)[1];
             String[] taskNumbers = arguments.split(" ");
             assert taskNumbers.length >= 1: "There should be at least one task number.";
             int[] numbers = new int[taskNumbers.length];
