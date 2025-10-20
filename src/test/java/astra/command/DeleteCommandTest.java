@@ -2,9 +2,7 @@ package astra.command;
 
 import astra.activity.ActivityList;
 import astra.activity.Lecture;
-import astra.activity.Task;
 import astra.data.Notebook;
-import astra.exception.InputException;
 import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
