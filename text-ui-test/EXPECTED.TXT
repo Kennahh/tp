@@ -165,7 +165,7 @@ You have 2 lecture(s) on MONDAY
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 No activities have been added!
-You have 0 lecture(s) on TUESDAY
+You have no lecture on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -176,7 +176,7 @@ You have 0 lecture(s) on TUESDAY
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 No activities have been added!
-You have 0 tutorial(s) on MONDAY
+You have no tutorial on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 

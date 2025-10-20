@@ -32,6 +32,7 @@ public class CheckExamCommand extends CheckCommand {
             return false;
         }
         filteredList.listActivities();
+        ui.showMessage("You have " + filteredList.getListSize() + " exam(s)");
         return false;
     }
 }
