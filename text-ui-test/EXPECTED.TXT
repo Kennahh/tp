@@ -266,7 +266,7 @@ Erased: #1 [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
- 1. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
+ 1. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 1
  2. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
  3. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
  4. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H

@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class DeleteCommand implements Command{
     private final String input;
 
-    public DeleteCommand(String input){
+    public DeleteCommand(String input) {
         this.input = input;
     }
 

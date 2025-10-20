@@ -3,6 +3,7 @@ package astra.activity;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Exam extends SchoolActivity {
     private LocalDate date;
@@ -25,11 +26,11 @@ public class Exam extends SchoolActivity {
                 + " | Venue: "
                 + venue
                 + " | Date: "
-                + date.format(DateTimeFormatter.ofPattern("d MMM"))
+                + date.format(DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH))
                 + " | Duration: "
-                + startTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH))
                 + "H to "
-                + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH))
                 + "H";
     }
 
@@ -38,8 +39,8 @@ public class Exam extends SchoolActivity {
         return "Exam, "
                 + description + ", "
                 + venue + ", "
-                + date.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
-                + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
-                + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+                + date.format(DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH)) + ", "
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH)) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH));
     }
 }

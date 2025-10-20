@@ -4,6 +4,7 @@ package astra.activity;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Task extends Activity {
     private LocalDate deadlineDate;
@@ -62,9 +63,9 @@ public class Task extends Activity {
             + (isComplete ? "X" : " ")
             + "]" + description
             + " | Deadline: "
-            + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM")) // No year!
+            + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH)) // No year!
             + ", "
-            + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm")) + "H"
+            + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH)) + "H"
             + " | Priority: " + priority;
     }
 
@@ -85,8 +86,8 @@ public class Task extends Activity {
     public String writeToFile() {
         return "Task, "
                 + description + ", "
-                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM")) + ", "
-                + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
+                + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH)) + ", "
+                + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH)) + ", "
                 + priority;
     }
 }
