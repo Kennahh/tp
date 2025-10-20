@@ -38,7 +38,7 @@ public class CheckLecturesCommand extends CheckCommand {
      * Filter the activities list for lectures.
      *
      * @param activities activities list of all types of activities
-     * @return an ActivityList containing exams only
+     * @return an ActivityList containing lectures only
      */
     private ActivityList filterList(ActivityList activities) {
         ActivityList filteredList = new ActivityList();

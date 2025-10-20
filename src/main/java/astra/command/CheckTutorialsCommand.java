@@ -38,7 +38,7 @@ public class CheckTutorialsCommand extends CheckCommand {
      * Filter the activities list for tutorials.
      *
      * @param activities activities list of all types of activities
-     * @return an ActivityList containing exams only
+     * @return an ActivityList containing tutorials only
      */
     private ActivityList filterList(ActivityList activities) {
         ActivityList filteredList = new ActivityList();
