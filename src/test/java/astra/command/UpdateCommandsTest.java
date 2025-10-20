@@ -11,9 +11,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UpdateCommandsTest {
 
@@ -58,5 +56,42 @@ public class UpdateCommandsTest {
         Task t = (Task) list.getActivity(0);
         assertEquals(LocalDate.parse("2025-12-31"), t.getDeadlineDate());
         assertEquals(LocalTime.parse("18:45"), t.getDeadlineTime());
+    }
+
+    @Test
+    public void changePriority_valid_success() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-11-11 23:59 /priority 2").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 1 /to 2").execute(list, ui, nb());
+        Task t = (Task) list.getActivity(0);
+        assertEquals(2, t.getPriority());
+    }
+
+    @Test
+    public void changePriority_invalidPriority_failure() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        try {
+            new ChangePriorityCommand("changepriority 1 /to -1").execute(list, ui, nb());
+            fail("Index should be positive assertion expected");
+        } catch (AssertionError e) {
+            assertEquals("New priority should always be positive.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void changePriority_invalidIndex_failure() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        try {
+            new ChangePriorityCommand("changepriority 2 /to 1").execute(list, ui, nb());
+            fail("Index should be positive assertion expected");
+        } catch (AssertionError e) {
+            assertEquals("Task number should always be positive.", e.getMessage());
+        }
     }
 }
