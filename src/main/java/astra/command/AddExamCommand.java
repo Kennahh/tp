@@ -10,7 +10,6 @@ import astra.ui.Ui;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 public class AddExamCommand extends AddCommand {
     // private LocalTime startTime;

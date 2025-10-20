@@ -2,7 +2,6 @@ package astra.parser;
 
 import astra.exception.InputException;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,30 +13,30 @@ import java.util.Locale;
 
 public class DateTimeParser {
     private static String[] DATE_FORMATS_FULL = {
-            "yyyy-MM-dd","yyyy-MMM-dd","yyyy-MMMM-dd","yyyy-MM-d","yyyy-MMM-d","yyyy-MMMM-d",
-            "yyyy/MM/dd","yyyy/MMM/dd","yyyy/MMMM/dd","yyyy/MM/d","yyyy/MMM/d","yyyy/MMMM/d",
-            "yyyy MM dd","yyyy MMM dd","yyyy MMMM dd","yyyy MM d","yyyy MMM d","yyyy MMMM d",
-            "dd-MM-yyyy","dd-MMM-yyyy","dd-MMMM-yyyy","d-MM-yyyy","d-MMM-yyyy","d-MMMM-yyyy",
-            "dd/MM/yyyy","dd/MMM/yyyy","dd/MMMM/yyyy","d/MM/yyyy","d/MMM/yyyy","d/MMMM/yyyy",
-            "dd MM yyyy","dd MMM yyyy","dd MMMM yyyy","d MM yyyy","d MMM yyyy","d MMMM yyyy",
-            "MM-dd-yyyy","MMM-dd-yyyy","MMMM-dd-yyyy","MM-d-yyyy","MMM-d-yyyy","MMMM-d-yyyy",
-            "MM/dd/yyyy","MMM/dd/yyyy","MMMM/dd/yyyy","MM/d/yyyy","MMM/d/yyyy","MMMM/d/yyyy",
-            "MM dd yyyy","MMM dd yyyy","MMMM dd yyyy","MM d yyyy","MMM d yyyy","MMMM d yyyy"
+        "yyyy-MM-dd","yyyy-MMM-dd","yyyy-MMMM-dd","yyyy-MM-d","yyyy-MMM-d","yyyy-MMMM-d",
+        "yyyy/MM/dd","yyyy/MMM/dd","yyyy/MMMM/dd","yyyy/MM/d","yyyy/MMM/d","yyyy/MMMM/d",
+        "yyyy MM dd","yyyy MMM dd","yyyy MMMM dd","yyyy MM d","yyyy MMM d","yyyy MMMM d",
+        "dd-MM-yyyy","dd-MMM-yyyy","dd-MMMM-yyyy","d-MM-yyyy","d-MMM-yyyy","d-MMMM-yyyy",
+        "dd/MM/yyyy","dd/MMM/yyyy","dd/MMMM/yyyy","d/MM/yyyy","d/MMM/yyyy","d/MMMM/yyyy",
+        "dd MM yyyy","dd MMM yyyy","dd MMMM yyyy","d MM yyyy","d MMM yyyy","d MMMM yyyy",
+        "MM-dd-yyyy","MMM-dd-yyyy","MMMM-dd-yyyy","MM-d-yyyy","MMM-d-yyyy","MMMM-d-yyyy",
+        "MM/dd/yyyy","MMM/dd/yyyy","MMMM/dd/yyyy","MM/d/yyyy","MMM/d/yyyy","MMMM/d/yyyy",
+        "MM dd yyyy","MMM dd yyyy","MMMM dd yyyy","MM d yyyy","MMM d yyyy","MMMM d yyyy"
     };
 
     private static String[] DATE_FORMATS_DAY_MONTH = {
-            "d-MMM","dd-MMM","d-MMMM","dd-MMMM","d-MM","dd-MM",
-            "d MMM","dd MMM","d MMMM","dd MMMM","d MM","dd MM",
-            "d/MMM","dd/MMM","d/MMMM","dd/MMMM","d/MM","dd/MM",
-            "MMM-d","MMM-dd","MMMM-d","MMMM-dd","MM-d","MM-dd",
-            "MMM d","MMM dd","MMMM d","MMMM dd","MM d","MM dd",
-            "MMM/d","MMM/dd","MMMM/d","MMMM/dd","MM/d","MM/dd"
+        "d-MMM","dd-MMM","d-MMMM","dd-MMMM","d-MM","dd-MM",
+        "d MMM","dd MMM","d MMMM","dd MMMM","d MM","dd MM",
+        "d/MMM","dd/MMM","d/MMMM","dd/MMMM","d/MM","dd/MM",
+        "MMM-d","MMM-dd","MMMM-d","MMMM-dd","MM-d","MM-dd",
+        "MMM d","MMM dd","MMMM d","MMMM dd","MM d","MM dd",
+        "MMM/d","MMM/dd","MMMM/d","MMMM/dd","MM/d","MM/dd"
     };
 
     private static String[] TIME_FORMATS = {
-            "HHmm",
-            "HH:mm",
-            "HH mm"
+        "HHmm",
+        "HH:mm",
+        "HH mm"
     };
 
     /**

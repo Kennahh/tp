@@ -2,7 +2,6 @@ package astra.command;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 import astra.activity.Activity;
 import astra.activity.ActivityList;
@@ -10,7 +9,6 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.parser.DateTimeParser;
-import astra.parser.Parser;
 import astra.ui.Ui;
 
 public class ChangeDeadlineCommand extends AddCommand {

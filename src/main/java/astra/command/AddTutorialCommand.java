@@ -11,7 +11,6 @@ import astra.ui.Ui;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 public class AddTutorialCommand extends AddCommand {
     private final String input;
