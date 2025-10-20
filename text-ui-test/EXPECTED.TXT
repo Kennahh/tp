@@ -143,6 +143,7 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
  1. Midterm A | Venue:  | Date: 9 Oct | Duration: 1415H to 1515H
  2. Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
+ You have 2 exam(s)
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
