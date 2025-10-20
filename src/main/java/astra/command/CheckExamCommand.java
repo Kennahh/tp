@@ -27,6 +27,10 @@ public class CheckExamCommand extends CheckCommand {
 
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         ActivityList filteredList = filterExams(activities);
+        if (filteredList.getListSize() == 0) {
+            ui.showMessage("No exams in your list!");
+            return false;
+        }
         filteredList.listActivities();
         return false;
     }

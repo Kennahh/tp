@@ -57,7 +57,7 @@ public class Notebook {
      * @return an ActivityList containing all the activities in the text file
      * @throws FileNotFoundException if the text file is not found
      */
-    public ActivityList loadFile() throws FileSystemException {
+    public ActivityList loadFile() throws FileSystemException, FileNotFoundException {
         ActivityList activities = new ActivityList();
         File file = new File(filePath);
         File directory = file.getParentFile();

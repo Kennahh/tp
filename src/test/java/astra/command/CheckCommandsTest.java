@@ -10,6 +10,8 @@ import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -34,6 +36,20 @@ public class CheckCommandsTest {
         list.addActivity(new Task("T", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00"), 1));
         new CheckExamCommand().execute(list, new TestUi(), nb());
         assertEquals(2, list.getListSize());
+    }
+
+    @Test
+    public void checkExam_noExamInList_noExamMessage() {
+        ActivityList list = new ActivityList();
+        list.addActivity(new Task("T", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00"), 1));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+        String expectedOutput = "No exams in your list!";
+        new CheckExamCommand().execute(list, new TestUi(), nb());
+        String output = outContent.toString();
+        System.setOut(originalOut);
+        assertTrue(output.equals(expectedOutput));
     }
 
     @Test
