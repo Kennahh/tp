@@ -61,9 +61,14 @@ public class Ui {
     /**
      * Displays Empty list text
      */
-    public void showEmptyList() { System.out.println(EMPTY_LIST_MESSAGE); }
+    public void showEmptyList() {
+        System.out.println(EMPTY_LIST_MESSAGE);
+    }
 
-    public void showReminderMessage() { System.out.println(REMINDER_MESSAGE); }
+    public void showReminderMessage() {
+        System.out.println(REMINDER_MESSAGE);
+    }
+
     /**
      * Displays a general message to the user.
      *
