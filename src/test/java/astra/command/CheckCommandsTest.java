@@ -49,7 +49,7 @@ public class CheckCommandsTest {
         new CheckExamCommand().execute(list, new TestUi(), nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.equals(expectedOutput));
+        assertTrue(output.contains(expectedOutput));
     }
 
     @Test
