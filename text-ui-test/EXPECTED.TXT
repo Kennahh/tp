@@ -164,7 +164,6 @@ You have 2 lecture(s) on MONDAY
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-No activities have been added!
 You have no lecture on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
@@ -175,7 +174,6 @@ You have no lecture on TUESDAY
 >>     Type 'close' to close this digital notebook of yours.
 [ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
-No activities have been added!
 You have no tutorial on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
