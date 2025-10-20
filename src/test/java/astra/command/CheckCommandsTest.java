@@ -41,15 +41,14 @@ public class CheckCommandsTest {
     @Test
     public void checkExam_noExamInList_noExamMessage() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("T", LocalDate.parse("2025-10-10"), LocalTime.parse("23:00"), 1));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        String expectedOutput = "No exams in your list!";
-        new CheckExamCommand().execute(list, new TestUi(), nb());
-        String output = outContent.toString();
-        System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput));
+        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
+        list.addActivity(new Lecture("CS2113", "LT9", DayOfWeek.FRIDAY, LocalTime.parse("16:00"),
+                LocalTime.parse("18:00")));
+        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY, LocalTime.parse("12:00"),
+                LocalTime.parse("13:00")));
+        TestUi ui  = new TestUi();
+        new CheckExamCommand().execute(list, ui, nb());
+        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("No exams")));
     }
 
     @Test
