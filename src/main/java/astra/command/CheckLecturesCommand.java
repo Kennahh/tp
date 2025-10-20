@@ -60,6 +60,10 @@ public class CheckLecturesCommand extends CheckCommand {
             return false;
         }
         ActivityList filteredList = filterList(activities);
+        if (filteredList.getListSize() == 0) {
+            ui.showMessage("You have no lecture on " + day);
+            return false;
+        }
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " lecture(s) on " + day);
         return false;
