@@ -10,6 +10,8 @@ import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -37,15 +39,86 @@ public class CheckCommandsTest {
     }
 
     @Test
+    public void checkExam_noExamInList_noExamMessage() {
+        ActivityList list = new ActivityList();
+        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
+        list.addActivity(new Lecture("CS2113", "LT9", DayOfWeek.FRIDAY, LocalTime.parse("16:00"),
+                LocalTime.parse("18:00")));
+        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY, LocalTime.parse("12:00"),
+                LocalTime.parse("13:00")));
+        TestUi ui  = new TestUi();
+        new CheckExamCommand().execute(list, ui, nb());
+        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("No exams")));
+    }
+
+    @Test
+    public void checkExam_singleExam_success() {
+        ActivityList list = new ActivityList();
+        list.addActivity(new Exam("CS2107 midterm", "MPSH1", LocalDate.parse("2025-10-20"),
+                LocalTime.parse("14:00"), LocalTime.parse("15:00")));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+        String expectedOutput_1 = "CS2107 midterm";
+        String expectedOutput_2 = " MPSH1";
+
+        TestUi ui = new TestUi();
+        new CheckExamCommand().execute(list, ui, nb());
+        String output = outContent.toString();
+        System.setOut(originalOut);
+        assertTrue(output.contains(expectedOutput_1));
+        assertTrue(output.contains(expectedOutput_2));
+    }
+
+    @Test
+    public void checkLectures_noLectureOnDay_noLectureMessage() {
+        ActivityList list = new ActivityList();
+        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
+        list.addActivity(new Exam("CS2107 midterm", "MPSH1", LocalDate.parse("2025-10-20"),
+                LocalTime.parse("14:00"), LocalTime.parse("15:00")));
+        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY, LocalTime.parse("12:00"),
+                LocalTime.parse("13:00")));
+        list.addActivity(new Lecture("CS2113", "LT9", DayOfWeek.FRIDAY, LocalTime.parse("16:00"),
+                LocalTime.parse("18:00")));
+        TestUi ui  = new TestUi();
+        new CheckLecturesCommand("Mon").execute(list, ui, nb());
+        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("no lecture")));
+    }
+
+    @Test
     public void checkLectures_dayFilter_messageCount() {
         ActivityList list = new ActivityList();
         list.addActivity(new Lecture("L1", "LT", DayOfWeek.MONDAY, LocalTime.parse("10:00"),
                 LocalTime.parse("12:00")));
         list.addActivity(new Lecture("L2", "LT", DayOfWeek.FRIDAY, LocalTime.parse("10:00"),
                 LocalTime.parse("12:00")));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+        String expectedOutput_1 = "L1";
+        String expectedOutput_2 = "LT";
+
         TestUi ui = new TestUi();
         new CheckLecturesCommand("Mon").execute(list, ui, nb());
-        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("lecture(s)")));
+        String output = outContent.toString();
+        System.setOut(originalOut);
+        assertTrue(output.contains(expectedOutput_1));
+        assertTrue(output.contains(expectedOutput_2));
+    }
+
+    @Test
+    public void checkTutorials_noTutorialOnDay_noTutorialMessage() {
+        ActivityList list = new ActivityList();
+        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
+        list.addActivity(new Exam("CS2107 midterm", "MPSH1", LocalDate.parse("2025-10-20"),
+                LocalTime.parse("14:00"), LocalTime.parse("15:00")));
+        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY, LocalTime.parse("12:00"),
+                LocalTime.parse("13:00")));
+        list.addActivity(new Lecture("CS2113", "LT9", DayOfWeek.FRIDAY, LocalTime.parse("16:00"),
+                LocalTime.parse("18:00")));
+        TestUi ui  = new TestUi();
+        new CheckTutorialsCommand("Mon").execute(list, ui, nb());
+        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("no tutorial")));
     }
 
     @Test
@@ -55,9 +128,18 @@ public class CheckCommandsTest {
                 LocalTime.parse("15:00")));
         list.addActivity(new Tutorial("T2", "COM1", DayOfWeek.MONDAY, LocalTime.parse("14:00"),
                 LocalTime.parse("15:00")));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+        String expectedOutput_1 = "T1";
+        String expectedOutput_2 = "COM1";
+
         TestUi ui = new TestUi();
         new CheckTutorialsCommand("Fri").execute(list, ui, nb());
-        assertTrue(ui.messages.stream().anyMatch(s -> s.contains("tutorial(s)")));
+        String output = outContent.toString();
+        System.setOut(originalOut);
+        assertTrue(output.contains(expectedOutput_1));
+        assertTrue(output.contains(expectedOutput_2));
     }
 
     @Test
