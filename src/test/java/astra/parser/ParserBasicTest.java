@@ -61,4 +61,5 @@ public class ParserBasicTest {
         assertThrows(InputException.class, () -> Parser.dayOfWeekParser("x"));
         assertThrows(InputException.class, () -> Parser.dayOfWeekParser("mo"));
     }
+}
 
