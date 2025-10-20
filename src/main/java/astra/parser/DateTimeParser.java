@@ -12,7 +12,7 @@ import java.time.temporal.ChronoField;
 import java.util.Locale;
 
 public class DateTimeParser {
-    private static String[] DATE_FORMATS_FULL = {
+    private static final String[] DATE_FORMATS_FULL = {
         "yyyy-MM-dd","yyyy-MMM-dd","yyyy-MMMM-dd","yyyy-MM-d","yyyy-MMM-d","yyyy-MMMM-d",
         "yyyy/MM/dd","yyyy/MMM/dd","yyyy/MMMM/dd","yyyy/MM/d","yyyy/MMM/d","yyyy/MMMM/d",
         "yyyy MM dd","yyyy MMM dd","yyyy MMMM dd","yyyy MM d","yyyy MMM d","yyyy MMMM d",
@@ -24,7 +24,7 @@ public class DateTimeParser {
         "MM dd yyyy","MMM dd yyyy","MMMM dd yyyy","MM d yyyy","MMM d yyyy","MMMM d yyyy"
     };
 
-    private static String[] DATE_FORMATS_DAY_MONTH = {
+    private static final String[] DATE_FORMATS_DAY_MONTH = {
         "d-MMM","dd-MMM","d-MMMM","dd-MMMM","d-MM","dd-MM",
         "d MMM","dd MMM","d MMMM","dd MMMM","d MM","dd MM",
         "d/MMM","dd/MMM","d/MMMM","dd/MMMM","d/MM","dd/MM",
@@ -33,7 +33,7 @@ public class DateTimeParser {
         "MMM/d","MMM/dd","MMMM/d","MMMM/dd","MM/d","MM/dd"
     };
 
-    private static String[] TIME_FORMATS = {
+    private static final String[] TIME_FORMATS = {
         "HHmm",
         "HH:mm",
         "HH mm"
