@@ -57,7 +57,7 @@ public class Notebook {
      * @return an ActivityList containing all the activities in the text file
      * @throws FileNotFoundException if the text file is not found
      */
-    public ActivityList loadFile() throws FileNotFoundException {
+    public ActivityList loadFile() throws FileSystemException {
         ActivityList activities = new ActivityList();
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -281,7 +281,7 @@ public class Notebook {
     /** 
      * Convert Task object into a file line
      *
-     * @param t Task object to serialize.
+     * @param a Task object to serialize.
      * @return String representation for file storage.
      */
     private String serializeActivity(Activity a) {
