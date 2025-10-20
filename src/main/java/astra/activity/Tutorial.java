@@ -3,6 +3,7 @@ package astra.activity;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Tutorial extends SchoolActivity{
     private DayOfWeek day;
@@ -32,9 +33,9 @@ public class Tutorial extends SchoolActivity{
                 + " | "
                 + getDayString()
                 + " | Duration: "
-                + startTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH))
                 + "H to "
-                + endTime.format(DateTimeFormatter.ofPattern("HHmm"))
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH))
                 + "H";
     }
 
@@ -44,7 +45,7 @@ public class Tutorial extends SchoolActivity{
                 + description + ", "
                 + venue + ", "
                 + day + ", "
-                + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + ", "
-                + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+                + startTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH)) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH));
     }
 }

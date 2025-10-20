@@ -19,6 +19,6 @@ complete 2
 unmark 1
 list
 changedeadline 1 /to 2025-12-12 23:59
-delete 6
+delete 1 6
 list
 close

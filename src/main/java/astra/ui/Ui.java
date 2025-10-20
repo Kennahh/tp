@@ -129,16 +129,16 @@ public class Ui {
                 - Date format: YYYY-MM-DD (e.g., 2025-12-10 for 10th December 2025).
                 
                 Adding entries to Astra:
-                - task <description> /by <YYYY-MM-DD> <HH:MM>
+                - task <description> /by <YYYY-MM-DD> <HH:MM> /priority <priority number>
                 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
-                
-                    Example: task CS2113 Quiz /by 2025-10-10 23:59
+                    
+                    Example: task CS2113 Quiz /by 2025-10-10 23:59 /priority 1
                              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
                              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
                              exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00
-                
+
                 Listing and Checking Tasks:
                 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
                 - list                             (lists all tasks only)
@@ -147,7 +147,7 @@ public class Ui {
                 - checktutorial <day>              (lists all tutorials on a specific day)  
                 
                 Editing entries in Astra:
-                - delete <index>
+                - delete <index_1> <index_2> <...>                      (can delete multiple tasks)
                 - complete <index>                                      (mark as complete)
                 - unmark <index>                                        (mark as incomplete)
                 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
