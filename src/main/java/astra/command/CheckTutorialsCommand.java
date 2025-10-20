@@ -59,6 +59,10 @@ public class CheckTutorialsCommand extends CheckCommand {
             ui.showError(e.getMessage());
         }
         ActivityList filteredList = filterList(activities);
+        if (filteredList.getListSize() == 0) {
+            ui.showMessage("You have no tutorial on " + day);
+            return false;
+        }
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " tutorial(s) on " + day);
         return false;
