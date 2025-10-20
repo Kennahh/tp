@@ -140,9 +140,11 @@ public class ActivityListTest {
         String expectedOutput2 = ("1. Read");
         String expectedOutput3 = ("2. CS2113 assignment");
 
-        new AddTaskCommand("task Read /by 2025-10-10 23:59 /priority 1").execute(result.list(), result.ui(), nb());
+        new AddTaskCommand("task Read /by 2025-10-10 23:59 /priority 1")
+                .execute(result.list(), result.ui(), nb());
         assertTrue(result.list().getActivity(0) instanceof Task);
-        new AddTaskCommand("task CS2113 assignment /by 2024-02-02 /priority 2" ).execute(result.list(), result.ui(), nb());
+        new AddTaskCommand("task CS2113 assignment /by 2024-02-02 /priority 2")
+                .execute(result.list(), result.ui(), nb());
         assertTrue(result.list().getActivity(1) instanceof Task);
         assertTrue(result.list().getListSize() == 2);
 
@@ -156,7 +158,7 @@ public class ActivityListTest {
     }
 
     @Test
-    public void listAndDeleteOverDueTasks_OneTutorial_printNoTask() {
+    public void listAndDeleteOverDueTasks_oneTutorial_printNoTask() {
         testSetup result = startSetup();
 
         LocalDate date = LocalDate.of(2025, 10, 18);
