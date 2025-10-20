@@ -9,6 +9,8 @@ import astra.activity.ActivityList;
 import astra.activity.Task;
 import astra.data.Notebook;
 import astra.exception.InputException;
+import astra.parser.DateTimeParser;
+import astra.parser.Parser;
 import astra.ui.Ui;
 
 public class ChangeDeadlineCommand extends AddCommand {
@@ -44,20 +46,19 @@ public class ChangeDeadlineCommand extends AddCommand {
             }
 
             String[] deadlineParts = tokens[1].split(" ");
-            if (deadlineParts.length != 2) {
-                throw new InputException("Date or Timestamp Missing. Use: changedeadline <task number> " +
-                        "/to <YYYY-MM-DD> <HH:MM>");
-            }
             String newDateStr = deadlineParts[0];
-            String newTimeStr = deadlineParts[1];
+            String newTimeStr = "23:59";
+            if (deadlineParts.length > 1) {
+                newTimeStr = deadlineParts[1];
+            }
 
             LocalDate newDate;
             LocalTime newTime;
 
             try {
-                newDate = LocalDate.parse(newDateStr);
-                newTime = LocalTime.parse(newTimeStr);
-            } catch (DateTimeParseException e) {
+                newDate = DateTimeParser.parseDate(newDateStr.trim());
+                newTime = DateTimeParser.parseTime(newTimeStr.trim());
+            } catch (InputException e) {
                 throw new InputException("Invalid date and/or time format. " +
                         "Use YYYY-MM-DD for date and HH:MM for time.");
             }

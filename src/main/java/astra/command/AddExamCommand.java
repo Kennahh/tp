@@ -4,6 +4,7 @@ import astra.activity.ActivityList;
 import astra.activity.Exam;
 import astra.data.Notebook;
 import astra.exception.InputException;
+import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 
 import java.io.IOException;
@@ -67,20 +68,20 @@ public class AddExamCommand extends AddCommand {
             LocalTime endTime;
 
             try {
-                date = LocalDate.parse(dateStr);
-            } catch (DateTimeParseException e) {
+                date = DateTimeParser.parseDate(dateStr);
+            } catch (InputException e) {
                 throw new InputException("Invalid date format. Use YYYY-MM-DD.");
             }
 
             try {
-                startTime = LocalTime.parse(startTimeStr);
-            } catch (DateTimeParseException e) {
+                startTime = DateTimeParser.parseTime(startTimeStr);
+            } catch (InputException e) {
                 throw new InputException("Invalid start time format. Use HH:MM.");
             }
 
             try {
-                endTime = LocalTime.parse(endTimeStr);
-            } catch (DateTimeParseException e) {
+                endTime = DateTimeParser.parseTime(endTimeStr);
+            } catch (InputException e) {
                 throw new InputException("Invalid end time format. Use HH:MM.");
             }
 
