@@ -10,6 +10,12 @@
 I am here to support your academic universe!
 
 
+These tasks are overdue and have been removed from the list
+------------------------------------------------------------
+No overdue tasks have been deleted!
+------------------------------------------------------------
+
+
 These tasks are due soon. Reminder to complete them!
 ------------------------------------------------------------
 No task due for the next 3 days
