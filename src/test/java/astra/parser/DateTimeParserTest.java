@@ -4,6 +4,7 @@ import astra.exception.InputException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,4 +61,19 @@ public class DateTimeParserTest {
         assertEquals(month, dt.getMonthValue());
         assertEquals(day, dt.getDayOfMonth());
     }
+
+    @Test
+    public void parseDateTime_formats_successAndDefault() {
+        LocalDateTime dt = DateTimeParser.parseDateTime("2025/12/10 0815");
+        assertEquals(2025, dt.getYear());
+        assertEquals(12, dt.getMonthValue());
+        assertEquals(10, dt.getDayOfMonth());
+        assertEquals(8, dt.getHour());
+        assertEquals(15, dt.getMinute());
+
+        LocalDateTime dt2 = DateTimeParser.parseDateTime("2025/12/10");
+        assertEquals(23, dt2.getHour());
+        assertEquals(59, dt2.getMinute());
+    }
+}
 }

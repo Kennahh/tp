@@ -62,18 +62,3 @@ public class ParserBasicTest {
         assertThrows(InputException.class, () -> Parser.dayOfWeekParser("mo"));
     }
 
-    @Test
-    public void parseDateTime_formats_successAndDefault() {
-        LocalDateTime dt = Parser.parseDateTime("2025/12/10 0815");
-        assertEquals(2025, dt.getYear());
-        assertEquals(12, dt.getMonthValue());
-        assertEquals(10, dt.getDayOfMonth());
-        assertEquals(8, dt.getHour());
-        assertEquals(15, dt.getMinute());
-
-        LocalDateTime dt2 = Parser.parseDateTime("2025/12/10");
-        assertEquals(23, dt2.getHour());
-        assertEquals(59, dt2.getMinute());
-    }
-}
-
