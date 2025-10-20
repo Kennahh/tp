@@ -8,6 +8,12 @@ import astra.ui.Ui;
 
 public class CheckExamCommand extends CheckCommand {
 
+    /**
+     * Filter the activities list for exams.
+     *
+     * @param activities activities list of all types of activities
+     * @return an ActivityList containing exams only
+     */
     private ActivityList filterExams(ActivityList activities) {
         ActivityList filteredList = new ActivityList();
         for (int i = 0; i < activities.getListSize(); i++) {

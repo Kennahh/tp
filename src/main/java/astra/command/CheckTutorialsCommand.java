@@ -19,6 +19,12 @@ public class CheckTutorialsCommand extends CheckCommand {
         this.input = input;
     }
 
+    /**
+     * check whether an activity is an instance of Tutorial
+     *
+     * @param activity an activity of a certain type
+     * @return true if the activity is of type Tutorial, false otherwise
+     */
     private boolean filterActivity(Activity activity) {
         if (activity instanceof Tutorial) {
             if (Objects.equals(((Tutorial) activity).getDay(), day)) {
@@ -28,6 +34,12 @@ public class CheckTutorialsCommand extends CheckCommand {
         return false;
     }
 
+    /**
+     * Filter the activities list for tutorials.
+     *
+     * @param activities activities list of all types of activities
+     * @return an ActivityList containing exams only
+     */
     private ActivityList filterList(ActivityList activities) {
         ActivityList filteredList = new ActivityList();
         for (int i = 0; i < activities.getListSize(); i++) {
