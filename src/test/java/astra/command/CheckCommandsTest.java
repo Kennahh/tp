@@ -10,8 +10,6 @@ import astra.testutil.TestUi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
