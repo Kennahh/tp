@@ -13,11 +13,15 @@ import astra.command.CheckTutorialsCommand;
 import astra.command.CheckPriorityCommand;
 import astra.command.CompleteCommand;
 import astra.command.DeleteCommand;
+import astra.command.DeleteGpaCommand;
 import astra.command.ExitCommand;
 import astra.command.HelpCommand;
 import astra.command.ListCommand;
+import astra.command.ListGpaCommand;
 import astra.command.UnmarkCommand;
 import astra.command.Command;
+import astra.command.AddGpaCommand;
+import astra.command.ComputeGpaCommand;
 import astra.exception.InputException;
 
 import java.time.DayOfWeek;
@@ -45,7 +49,22 @@ public class Parser {
             throw new InputException("    [ERROR] Empty wish?! Please tell me your wish :(");
         }
 
-        String commandWord = getCommandWord(input).trim().toLowerCase();
+        String trimmed = input.trim();
+        String commandWord = getCommandWord(trimmed).trim().toLowerCase();
+
+        // GPA special-case commands that share base words
+        if (commandWord.equals("add") && trimmed.toLowerCase().startsWith("add gpa")) {
+            return new AddGpaCommand(trimmed);
+        }
+        if (commandWord.equals("list") && trimmed.toLowerCase().startsWith("list gpa")) {
+            return new ListGpaCommand();
+        }
+        if (commandWord.equals("delete") && trimmed.toLowerCase().startsWith("delete gpa")) {
+            return new DeleteGpaCommand(trimmed);
+        }
+        if (commandWord.equals("gpa")) {
+            return new ComputeGpaCommand();
+        }
 
         // further parsing and error checking of input arguments to be handled by individual commands
 

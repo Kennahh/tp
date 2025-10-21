@@ -7,6 +7,8 @@ import astra.activity.Lecture;
 import astra.activity.Task;
 import astra.activity.Tutorial;
 import astra.exception.FileSystemException;
+import astra.gpa.GpaEntry;
+import astra.gpa.GpaList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,9 +28,31 @@ public class Notebook {
 
     private String filePath;
 
+    // GPA related
+    private final String gpaTxtPath;
+    private final String gpaCsvPath;
+    private final GpaList gpaList = new GpaList();
+
     public Notebook(String filePath) {
 
         this.filePath = filePath;
+
+        // derive GPA file paths in same directory
+        File f = new File(filePath);
+        File dir = f.getParentFile();
+        String baseDir = dir == null ? "." : dir.getPath();
+        this.gpaTxtPath = baseDir + File.separator + "gpa.txt";
+        this.gpaCsvPath = baseDir + File.separator + "gpa.csv";
+
+        // attempt to load existing GPA entries
+        try {
+            List<GpaEntry> loadedGpa = loadGpaFromFile();
+            for (GpaEntry e : loadedGpa) {
+                gpaList.add(e);
+            }
+        } catch (FileSystemException e) {
+            // ignore load errors but keep list empty; caller side handles messages if needed
+        }
     }
 
     /**
@@ -187,11 +211,17 @@ public class Notebook {
      */
     public void writeToFile(List<Activity> activities) throws FileSystemException {
         try {
-            FileWriter writer = new FileWriter(filePath); // overwrite
-            for (Activity a : activities) {
-                writer.write(serializeActivity(a) + System.lineSeparator());
+            // ensure directory exists
+            File f = new File(filePath);
+            File parent = f.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
             }
-            writer.close();
+            try (FileWriter writer = new FileWriter(filePath)) { // overwrite
+                for (Activity a : activities) {
+                    writer.write(serializeActivity(a) + System.lineSeparator());
+                }
+            }
         } catch (IOException e) {
             throw new FileSystemException("[ERROR] Failed to save activities: " + e.getMessage());
         }
@@ -317,5 +347,89 @@ public class Notebook {
 
     private static String safe(String s) {
         return s == null ? "" : s;
+    }
+
+    // GPA persistence and accessors
+    public GpaList getGpaList() {
+        return gpaList;
+    }
+
+    public List<GpaEntry> loadGpaFromFile() throws FileSystemException {
+        List<GpaEntry> list = new ArrayList<>();
+        File f = new File(gpaTxtPath);
+        try {
+            if (!f.exists()) {
+                File parent = f.getParentFile();
+                if (parent != null && !parent.exists()) {
+                    parent.mkdirs();
+                }
+                f.createNewFile();
+                return list;
+            }
+            try (Scanner s = new Scanner(f)) {
+                while (s.hasNextLine()) {
+                    String line = s.nextLine().trim();
+                    if (line.isEmpty()) {
+                        continue;
+                    }
+                    String[] parts = line.split(SPLIT_REGEX);
+                    if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
+                        throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
+                    }
+                    String subject = parts[1].trim();
+                    String grade = parts[2].trim();
+                    int mc = Integer.parseInt(parts[3].trim());
+                    list.add(new GpaEntry(subject, grade, mc));
+                }
+            }
+        } catch (IOException | RuntimeException e) {
+            if (e instanceof FileSystemException) {
+                throw (FileSystemException) e;
+            }
+            throw new FileSystemException("[ERROR] Failed to read GPA: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public void writeGpaToFile(List<GpaEntry> entries) throws FileSystemException {
+        try {
+            File f = new File(gpaTxtPath);
+            File parent = f.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+            try (FileWriter w = new FileWriter(gpaTxtPath)) {
+                for (GpaEntry e : entries) {
+                    w.write(e.toPipe());
+                    w.write(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            throw new FileSystemException("[ERROR] Failed to save GPA: " + e.getMessage());
+        }
+    }
+
+    public void writeGpaCsv(List<GpaEntry> entries) throws FileSystemException {
+        try {
+            File f = new File(gpaCsvPath);
+            File parent = f.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+            try (FileWriter w = new FileWriter(gpaCsvPath)) {
+                w.write("Subject,Grade,MC\n");
+                for (GpaEntry e : entries) {
+                    w.write(e.toCsv());
+                    w.write(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            throw new FileSystemException("[ERROR] Failed to save GPA CSV: " + e.getMessage());
+        }
+    }
+
+    public void saveGpa() throws FileSystemException {
+        writeGpaToFile(gpaList.toList());
+        writeGpaCsv(gpaList.toList());
     }
 }

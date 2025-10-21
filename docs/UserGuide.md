@@ -199,6 +199,30 @@ Deadline updated for task: [ ]tutorial assignment | Deadline: 31 Oct, 1400H
 [ASTRA] Done! Now, what's your next wish...
 ```
 
+### GPA Tracker
+Track modules and compute GPA in real-time. Grades are uppercased and S/U entries are excluded from GPA calculation.
+
+- Add GPA entry 
+  - Format: `add gpa <SUBJECT> <GRADE> <MC>`
+  - Example: `add gpa CS2040C A+ 4mc`
+  - Example: `add gpa ma1521 s 4` (case-insensitive)
+- List GPA entries
+  - Format: `list gpa`
+- Compute current GPA
+  - Format: `gpa`
+  - Output is to 2 decimal places
+- Delete a GPA entry by index
+  - Format: `delete gpa <INDEX>`
+
+Allowed grades: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (stored but not counted).
+
+### Storage
+- Activities: `data/tasks.txt`
+- GPA: `data/gpa.txt` (pipe format) and `data/gpa.csv` (CSV)
+- 
+Note: since all storage files update during runtime, do NOT manually edit the contents of those files during runtime. 
+Users can edit before launch or after termination of astra instead.
+
 ### Exiting Astra
 Exits out of the program
 
@@ -232,11 +256,13 @@ Adding entries to Astra:
 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
+- add gpa <SUBJECT> <GRADE> <MC>
 
     Example: task CS2113 Quiz /by 2025-10-10 23:59
              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
              exam CS2107 Midterm /place mpsh1 /date 2025-10-10 /from 10:00 /to 12:00
+             add gpa CS2040C A+ 4mc
 
 Listing and Checking Tasks:
 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
@@ -244,9 +270,12 @@ Listing and Checking Tasks:
 - checkexam                        (lists all upcoming exams with date and duration)
 - checklecture <day>               (lists all lectures on a specific day)
 - checktutorial <day>              (lists all tutorials on a specific day)
+- list gpa                         (lists all GPA entries)
+- gpa                              (computes current GPA)
 
 Editing entries in Astra:
 - delete <index_1> <index_2> <...>                      (can delete multiple tasks)
+- delete gpa <INDEX>                                    (delete GPA entry)
 - complete <index>                                      (mark as complete)
 - unmark <index>                                        (mark as incomplete)
 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
@@ -258,4 +287,3 @@ Help/Exit:
 
 ------------------------------------------------------------
 ```
-

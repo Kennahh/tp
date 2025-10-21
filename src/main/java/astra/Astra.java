@@ -65,6 +65,7 @@ public class Astra {
         while (true) {
             try {
                 ui.showPrompt();
+                ui.showDash();
                 String input = scanner.nextLine();
                 ui.showDash();
 
