@@ -22,7 +22,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void deleteCommand_noTaskNumberInput_InputException() {
+    public void deleteCommand_noTaskNumberInput_inputException() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
         new DeleteCommand("delete").execute(list, ui, nb());
@@ -30,7 +30,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void deleteCommand_indexOutOfBound_IndexOutOfBoundException() {
+    public void deleteCommand_indexOutOfBound_indexOutOfBoundException() {
         ActivityList list = new ActivityList();
         list.addActivity(new Lecture("L1", "LT", DayOfWeek.MONDAY, LocalTime.parse("10:00"),
                 LocalTime.parse("12:00")));
@@ -41,7 +41,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    public void deleteCommand_indexFormatError_NumberFormatException() {
+    public void deleteCommand_indexFormatError_numberFormatException() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
         new DeleteCommand("delete a").execute(list, ui, nb());
