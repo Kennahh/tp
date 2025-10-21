@@ -2,6 +2,40 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+## What is ASTRA
+ASTRA is your Academic Scheduler, Tasks, Reminders Assistant. It helps track tasks, lectures, tutorials and exams, and now includes a GPA tracker that computes your current GPA from your modules and grades.
+
+## Quick start (CLI)
+- Build and run tests:
+  - Windows (cmd):
+    - gradlew.bat test
+  - macOS/Linux:
+    - ./gradlew test
+- Run the app (prints the ASTRA logo and intro):
+  - Windows (cmd):
+    - gradlew.bat run
+  - Or run the packaged jar (if built):
+    - java -jar build/libs/Astra.jar
+
+## GPA Tracker (new)
+- Add an entry
+  - add gpa <SUBJECT> <GRADE> <MC>
+  - Example: add gpa CS2040C A+ 4mc
+- List entries
+  - list gpa
+- Compute current GPA
+  - gpa
+  - Printed to 2 decimal places; S/U entries are excluded
+- Delete an entry by index
+  - delete gpa <INDEX>
+
+Notes
+- Inputs are case-insensitive for the first word; subject and grade are uppercased on storage.
+- Allowed grades: A+, A, A-, B+, B, B-, C+, C, D+, D, F; S or U are stored but excluded from GPA.
+- Storage
+  - Activities: data/tasks.txt
+  - GPA: data/gpa.txt (pipe format) and data/gpa.csv (CSV)
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 17 (use the exact version), update Intellij to the most recent version.
