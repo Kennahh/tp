@@ -59,15 +59,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "CS2107 midterm";
-        String expectedOutput_2 = " MPSH1";
+        String expectedOutput1 = "CS2107 midterm";
+        String expectedOutput2 = " MPSH1";
 
         TestUi ui = new TestUi();
         new CheckExamCommand().execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test
@@ -95,15 +95,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "L1";
-        String expectedOutput_2 = "LT";
+        String expectedOutput1 = "L1";
+        String expectedOutput2 = "LT";
 
         TestUi ui = new TestUi();
         new CheckLecturesCommand("Mon").execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test
@@ -131,15 +131,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "T1";
-        String expectedOutput_2 = "COM1";
+        String expectedOutput1 = "T1";
+        String expectedOutput2 = "COM1";
 
         TestUi ui = new TestUi();
         new CheckTutorialsCommand("Fri").execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test
