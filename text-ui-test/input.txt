@@ -21,4 +21,23 @@ list
 changedeadline 1 /to 2025-12-12 23:59
 delete 1 6
 list
+add gpa CFG1002 S 2
+add gpa CG1111A A+ 4
+add gpa CS1010 S 4
+add gpa EG1311 A 4
+add gpa MA1511 A 2
+add gpa MA1512 S 2
+add gpa UTW1001I A 4
+add gpa CG2111A A- 4
+add gpa CS1231 S 4
+add gpa CS2040C A 4
+add gpa DTK1234 A 4
+add gpa GEA1000 S 4
+add gpa MA1508E S 4
+add gpa PF1101 A 4
+add gpa UTC1702F S 4
+list gpa
+gpa
+delete gpa 4
+list gpa
 close
