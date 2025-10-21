@@ -66,11 +66,17 @@ public class UpdateCommandsTest {
     public void changePriority_valid_success() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
-        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
-        new AddTaskCommand("task B /by 2025-11-11 23:59 /priority 2").execute(list, ui, nb());
+        new AddTaskCommand("task A /by 2025-10-10 21:59 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-11-11 22:59 /priority 2").execute(list, ui, nb());
+        new AddTaskCommand("task C /by 2025-12-12 23:59 /priority 3").execute(list, ui, nb());
         new ChangePriorityCommand("changepriority 1 /to 2").execute(list, ui, nb());
-        Task t = (Task) list.getActivity(0);
-        assertEquals(2, t.getPriority());
+        new ChangePriorityCommand("changepriority 3 /to 2").execute(list, ui, nb());
+        Task t1 = (Task) list.getActivity(0);
+        assertEquals(3, t1.getPriority());
+        Task t2 = (Task) list.getActivity(1);
+        assertEquals(1, t2.getPriority());
+        Task t3 = (Task) list.getActivity(2);
+        assertEquals(2, t3.getPriority());
     }
 
     @Test
@@ -97,5 +103,67 @@ public class UpdateCommandsTest {
         } catch (AssertionError e) {
             assertEquals("Task number should always be positive.", e.getMessage());
         }
+    }
+
+    @Test
+    public void changePriority_missingToFlag_exception() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 1").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "Missing '/to' keyword. Use: changepriority <task number> /to <priority>")));
+    }
+
+    @Test
+    public void changePriority_invalidTaskNumber_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority A /to 1").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "Task number must be an integer.")));
+    }
+
+    @Test
+    public void changePriority_invalidPriorityNumber_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 1 /to A").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "New priority must be an integer.")));
+    }
+
+    @Test
+    public void changePriority_outOfRange_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 2 /to 1").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "Task number out of range.")));
+    }
+
+    @Test
+    public void changePriority_samePriority_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-11-11 22:59 /priority 2").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 1 /to 1").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "The task already has this priority.")));
+    }
+
+    @Test
+    public void changePriority_nonTaskActivity_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddLectureCommand("lecture A /place LT9 /day fri /from 1600 /to 1800").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
+        new ChangePriorityCommand("changepriority 1 /to 1").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
+                "The selected activity is not a task.")));
     }
 }
