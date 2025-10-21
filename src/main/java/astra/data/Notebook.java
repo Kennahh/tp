@@ -32,18 +32,21 @@ public class Notebook {
     }
 
     /**
-     * Rewrite the data file according to the activities list.
+     * Rewrite the data file according to the activities list in csv format.
      *
      * @param activities list of activities to be written to the text file
      * @throws IOException if the file is not found
      */
     public void saveToFile(ActivityList activities) throws IOException{
-        File file = new File(filePath);
+        String csvFilePath = filePath.substring(0, filePath.length() - 3) + "csv";
+        File file = new File(csvFilePath);
         File directory = file.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        try (FileWriter fw = new FileWriter(filePath)) {
+        try (FileWriter fw = new FileWriter(csvFilePath)) {
+            fw.write("Task, Description, Deadline Date, Deadline Time, Priority, Status" + "\n");
+            fw.write("Other Types, Description, Venue, Date or Day, Start Time, End Time" + "\n\n");
             for (int i = 0; i < activities.getListSize(); i++) {
                 Activity activity = activities.getAnActivity(i);
                 fw.write(activity.writeToFile() + "\n");
@@ -52,7 +55,7 @@ public class Notebook {
     }
 
     /**
-     * Load the text file containing activities
+     * Load the text file (csv) containing activities
      *
      * @return an ActivityList containing all the activities in the text file
      * @throws FileNotFoundException if the text file is not found
@@ -93,6 +96,7 @@ public class Notebook {
         switch (type) {
         case "lecture":
             // type, description, venue, day, start time, end time
+            assert details.length == 5: "Number of details for a lecture should be 5.";
             day = DayOfWeek.of(Integer.parseInt(details[2].trim()));
             Lecture lecture = new Lecture(details[0].trim(), details[1].trim(), day,
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
@@ -100,6 +104,7 @@ public class Notebook {
             break;
         case "exam":
             // type, description, venue, day, start time, end time
+            assert details.length == 5: "Number of details for an exam should be 5.";
             Exam exam = new Exam(details[0].trim(), details[1].trim(), LocalDate.parse(details[2].trim()),
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
             activities.addActivity(exam);
@@ -134,6 +139,7 @@ public class Notebook {
             break;
         case "tutorial":
             // type, description, venue, day, start time, end time
+            assert details.length == 5: "Number of details for a tutorial should be 5.";
             day = DayOfWeek.of(Integer.parseInt(details[2].trim()));
             Tutorial tutorial = new Tutorial(details[0].trim(), details[1].trim(), day,
                     LocalTime.parse(details[3].trim()), LocalTime.parse(details[4].trim()));
