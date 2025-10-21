@@ -80,7 +80,7 @@ public class UpdateCommandsTest {
         new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
         try {
             new ChangePriorityCommand("changepriority 1 /to -1").execute(list, ui, nb());
-            fail("Index should be positive assertion expected");
+            fail("New priority should always be positive.");
         } catch (AssertionError e) {
             assertEquals("New priority should always be positive.", e.getMessage());
         }
@@ -92,8 +92,8 @@ public class UpdateCommandsTest {
         TestUi ui = new TestUi();
         new AddTaskCommand("task A /by 2025-10-10 23:59 /priority 1").execute(list, ui, nb());
         try {
-            new ChangePriorityCommand("changepriority 2 /to 1").execute(list, ui, nb());
-            fail("Index should be positive assertion expected");
+            new ChangePriorityCommand("changepriority -1 /to 1").execute(list, ui, nb());
+            fail("Task number should always be positive.");
         } catch (AssertionError e) {
             assertEquals("Task number should always be positive.", e.getMessage());
         }
