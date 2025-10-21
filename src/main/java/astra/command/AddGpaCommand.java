@@ -13,11 +13,11 @@ import java.util.Locale;
 import java.util.Set;
 
 public class AddGpaCommand implements Command {
-    private final String input;
-
     private static final Set<String> VALID_GRADES = new HashSet<>(Arrays.asList(
             "A+","A","A-","B+","B","B-","C+","C","D+","D","F","S","U"
     ));
+
+    private final String input;
 
     public AddGpaCommand(String input) {
         this.input = input;

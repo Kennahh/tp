@@ -41,20 +41,36 @@ public class GpaEntry {
     }
 
     public double gradePoints() {
-        return switch (grade) {
-            case "A+", "A" -> 5.0;
-            case "A-" -> 4.5;
-            case "B+" -> 4.0;
-            case "B" -> 3.5;
-            case "B-" -> 3.0;
-            case "C+" -> 2.5;
-            case "C" -> 2.0;
-            case "D+" -> 1.5;
-            case "D" -> 1.0;
-            case "F" -> 0.0;
-            case "S", "U" -> Double.NaN; // indicates excluded
-            default -> throw new GpaInputException("Invalid grade: " + grade);
-        };
+        switch (grade) {
+        case "A+":
+        // fallthrough
+        case "A":
+            return 5.0;
+        case "A-":
+            return 4.5;
+        case "B+":
+            return 4.0;
+        case "B":
+            return 3.5;
+        case "B-":
+            return 3.0;
+        case "C+":
+            return 2.5;
+        case "C":
+            return 2.0;
+        case "D+":
+            return 1.5;
+        case "D":
+            return 1.0;
+        case "F":
+            return 0.0;
+        case "S":
+        // fallthrough
+        case "U":
+            return Double.NaN; // indicates excluded
+        default:
+            throw new GpaInputException("Invalid grade: " + grade);
+        }
     }
 
     public String toPipe() {

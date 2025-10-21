@@ -360,14 +360,18 @@ public class Notebook {
         try {
             if (!f.exists()) {
                 File parent = f.getParentFile();
-                if (parent != null && !parent.exists()) parent.mkdirs();
+                if (parent != null && !parent.exists()) {
+                    parent.mkdirs();
+                }
                 f.createNewFile();
                 return list;
             }
             try (Scanner s = new Scanner(f)) {
                 while (s.hasNextLine()) {
                     String line = s.nextLine().trim();
-                    if (line.isEmpty()) continue;
+                    if (line.isEmpty()) {
+                        continue;
+                    }
                     String[] parts = line.split(SPLIT_REGEX);
                     if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
                         throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
@@ -379,7 +383,9 @@ public class Notebook {
                 }
             }
         } catch (IOException | RuntimeException e) {
-            if (e instanceof FileSystemException) throw (FileSystemException) e;
+            if (e instanceof FileSystemException) {
+                throw (FileSystemException) e;
+            }
             throw new FileSystemException("[ERROR] Failed to read GPA: " + e.getMessage());
         }
         return list;
@@ -389,7 +395,9 @@ public class Notebook {
         try {
             File f = new File(gpaTxtPath);
             File parent = f.getParentFile();
-            if (parent != null && !parent.exists()) parent.mkdirs();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
             try (FileWriter w = new FileWriter(gpaTxtPath)) {
                 for (GpaEntry e : entries) {
                     w.write(e.toPipe());
@@ -405,7 +413,9 @@ public class Notebook {
         try {
             File f = new File(gpaCsvPath);
             File parent = f.getParentFile();
-            if (parent != null && !parent.exists()) parent.mkdirs();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
             try (FileWriter w = new FileWriter(gpaCsvPath)) {
                 w.write("Subject,Grade,MC\n");
                 for (GpaEntry e : entries) {

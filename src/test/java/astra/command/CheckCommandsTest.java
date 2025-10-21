@@ -41,11 +41,12 @@ public class CheckCommandsTest {
     @Test
     public void checkExam_noExamInList_noExamMessage() {
         ActivityList list = new ActivityList();
-        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"), LocalTime.parse("23:59"), 1));
+        list.addActivity(new Task("submit report", LocalDate.parse("2025-10-10"),
+                LocalTime.parse("23:59"), 1));
         list.addActivity(new Lecture("CS2113", "LT9", DayOfWeek.FRIDAY, LocalTime.parse("16:00"),
                 LocalTime.parse("18:00")));
-        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY, LocalTime.parse("12:00"),
-                LocalTime.parse("13:00")));
+        list.addActivity(new Tutorial("CS2113 T1", "COM1", DayOfWeek.WEDNESDAY,
+                LocalTime.parse("12:00"), LocalTime.parse("13:00")));
         TestUi ui  = new TestUi();
         new CheckExamCommand().execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("No exams")));
@@ -59,15 +60,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "CS2107 midterm";
-        String expectedOutput_2 = " MPSH1";
+        String expectedOutput1 = "CS2107 midterm";
+        String expectedOutput2 = " MPSH1";
 
         TestUi ui = new TestUi();
         new CheckExamCommand().execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test
@@ -95,15 +96,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "L1";
-        String expectedOutput_2 = "LT";
+        String expectedOutput1 = "L1";
+        String expectedOutput2 = "LT";
 
         TestUi ui = new TestUi();
         new CheckLecturesCommand("Mon").execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test
@@ -131,15 +132,15 @@ public class CheckCommandsTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        String expectedOutput_1 = "T1";
-        String expectedOutput_2 = "COM1";
+        String expectedOutput1 = "T1";
+        String expectedOutput2 = "COM1";
 
         TestUi ui = new TestUi();
         new CheckTutorialsCommand("Fri").execute(list, ui, nb());
         String output = outContent.toString();
         System.setOut(originalOut);
-        assertTrue(output.contains(expectedOutput_1));
-        assertTrue(output.contains(expectedOutput_2));
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
     }
 
     @Test

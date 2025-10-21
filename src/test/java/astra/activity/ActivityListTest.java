@@ -62,7 +62,7 @@ public class ActivityListTest {
 
     @Test
     public void deadlineReminder_singleTaskDueSoon_success() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
 
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are due soon. Reminder to complete them!");
@@ -81,7 +81,7 @@ public class ActivityListTest {
 
     @Test
     public void deadlineReminder_singleTutorialInTaskList_success() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
 
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are due soon. Reminder to complete them!");
@@ -100,7 +100,7 @@ public class ActivityListTest {
 
     @Test
     public void listAndDeleteOverdueTasks_emptyList_printNoTask() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
 
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
@@ -115,7 +115,7 @@ public class ActivityListTest {
 
     @Test
     public void listAndDeleteOverdueTasks_singleTaskNotOverdue_printNoTask() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
         String expectedOutput2 = ("No overdue tasks have been deleted!");
@@ -134,7 +134,7 @@ public class ActivityListTest {
 
     @Test
     public void listAndDeleteOverDueTasks_twoOverdueTasks_printAndDeleteTwoTask() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
         String expectedOutput2 = ("1. Read");
@@ -159,7 +159,7 @@ public class ActivityListTest {
 
     @Test
     public void listAndDeleteOverDueTasks_oneTutorial_printNoTask() {
-        testSetup result = startSetup();
+        TestSetup result = startSetup();
 
         LocalDate date = LocalDate.of(2025, 10, 18);
         String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
@@ -177,17 +177,17 @@ public class ActivityListTest {
         assertTrue(result.list().getListSize() == 1);
     }
 
-    private static testSetup startSetup() {
+    private static TestSetup startSetup() {
         ActivityList list = new ActivityList();
         Ui ui = new Ui();
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        testSetup result = new testSetup(list, ui, outContent, originalOut);
+        TestSetup result = new TestSetup(list, ui, outContent, originalOut);
         return result;
     }
 
-    private record testSetup(ActivityList list, Ui ui, ByteArrayOutputStream outContent, PrintStream originalOut) {
+    private record TestSetup(ActivityList list, Ui ui, ByteArrayOutputStream outContent, PrintStream originalOut) {
     }
 
 }
