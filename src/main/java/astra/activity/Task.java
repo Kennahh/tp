@@ -88,6 +88,7 @@ public class Task extends Activity {
                 + description + ", "
                 + deadlineDate.format(DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH)) + ", "
                 + deadlineTime.format(DateTimeFormatter.ofPattern("HHmm", Locale.ENGLISH)) + ", "
-                + priority;
+                + priority + ", "
+                + statusInIcon();
     }
 }
