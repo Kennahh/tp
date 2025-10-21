@@ -123,19 +123,20 @@ Output:
  5. CS2040C finals | Date: 29 Nov | Duration: 0900H to 1100H
 ------------------------------------------------------------
 ```
-### Deleting an Activity
-Deletes an activity at the specified index of the ActivityList
+### Deleting Activities
+Deletes one or more activities at the specified index of the ActivityList
 
-Format:`delete <index>`
+Format:`delete <index_1> <index_2> <...>`
 
 Example of usage:
 
-Input:`delete 1`
+Input:`delete 1 3`
 
 Output:
 ```
 ------------------------------------------------------------
 Erased: #1 [ ]tutorial | Deadline: 3 Apr, 1000H
+Erased: #3 CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -245,7 +246,7 @@ Listing and Checking Tasks:
 - checktutorial <day>              (lists all tutorials on a specific day)
 
 Editing entries in Astra:
-- delete <index>
+- delete <index_1> <index_2> <...>                      (can delete multiple tasks)
 - complete <index>                                      (mark as complete)
 - unmark <index>                                        (mark as incomplete)
 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>

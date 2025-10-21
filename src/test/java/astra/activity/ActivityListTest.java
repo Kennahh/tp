@@ -98,6 +98,85 @@ public class ActivityListTest {
         assertTrue(output.contains(expectedOutput2));
     }
 
+    @Test
+    public void listAndDeleteOverdueTasks_emptyList_printNoTask() {
+        testSetup result = startSetup();
+
+        LocalDate date = LocalDate.of(2025, 10, 18);
+        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
+        String expectedOutput2 = ("No overdue tasks have been deleted!");
+
+        result.list().listAndDeleteOverdueTasks(date);
+        String output = result.outContent().toString();
+        System.setOut(result.originalOut());
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
+    }
+
+    @Test
+    public void listAndDeleteOverdueTasks_singleTaskNotOverdue_printNoTask() {
+        testSetup result = startSetup();
+        LocalDate date = LocalDate.of(2025, 10, 18);
+        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
+        String expectedOutput2 = ("No overdue tasks have been deleted!");
+
+        new AddTaskCommand("task Read /by 2025-11-10 23:59 /priority 1").execute(result.list(), result.ui(), nb());
+        assertTrue(result.list().getActivity(0) instanceof Task);
+        assertTrue(result.list().getListSize() == 1);
+
+        result.list().listAndDeleteOverdueTasks(date);
+        String output = result.outContent().toString();
+        System.setOut(result.originalOut());
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
+        assertTrue(result.list().getListSize() == 1);
+    }
+
+    @Test
+    public void listAndDeleteOverDueTasks_twoOverdueTasks_printAndDeleteTwoTask() {
+        testSetup result = startSetup();
+        LocalDate date = LocalDate.of(2025, 10, 18);
+        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
+        String expectedOutput2 = ("1. Read");
+        String expectedOutput3 = ("2. CS2113 assignment");
+
+        new AddTaskCommand("task Read /by 2025-10-10 23:59 /priority 1")
+                .execute(result.list(), result.ui(), nb());
+        assertTrue(result.list().getActivity(0) instanceof Task);
+        new AddTaskCommand("task CS2113 assignment /by 2024-02-02 /priority 2")
+                .execute(result.list(), result.ui(), nb());
+        assertTrue(result.list().getActivity(1) instanceof Task);
+        assertTrue(result.list().getListSize() == 2);
+
+        result.list().listAndDeleteOverdueTasks(date);
+        String output = result.outContent().toString();
+        System.setOut(result.originalOut());
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
+        assertTrue(output.contains(expectedOutput3));
+        assertTrue(result.list().getListSize() == 0);
+    }
+
+    @Test
+    public void listAndDeleteOverDueTasks_oneTutorial_printNoTask() {
+        testSetup result = startSetup();
+
+        LocalDate date = LocalDate.of(2025, 10, 18);
+        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
+        String expectedOutput2 = ("No overdue tasks have been deleted!");
+
+        new AddTutorialCommand("tutorial CS /place COM1 /day " +
+                "Fri /from 14:00 /to 15:00").execute(result.list(), result.ui(), nb());
+        assertTrue(result.list().getActivity(0) instanceof Tutorial);
+
+        result.list().listAndDeleteOverdueTasks(date);
+        String output = result.outContent().toString();
+        System.setOut(result.originalOut());
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
+        assertTrue(result.list().getListSize() == 1);
+    }
+
     private static testSetup startSetup() {
         ActivityList list = new ActivityList();
         Ui ui = new Ui();

@@ -63,6 +63,8 @@ public class ActivityList {
 
     /**
      * Prints all tasks in ArrayList that is due within 3 days
+     *
+     * @param today is the date of which the user is using ASTRA
      */
     public void deadlineReminder(LocalDate today) {
         Ui ui = new Ui();
@@ -74,6 +76,7 @@ public class ActivityList {
             if (getAnActivity(index) instanceof Task) {
                 Task currTask = (Task) getAnActivity(index);
                 long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());
+                assert daysBetween >= 0 : "Deadline is over already: " + currTask.getDeadlineDate();
                 if (daysBetween <= 3) {
                     count += 1;
                     System.out.println(count + ". " + currTask.getDescription() + " | Days left: " + daysBetween);
@@ -82,6 +85,43 @@ public class ActivityList {
         }
         if (count == 0) {
             System.out.println("No task due for the next 3 days");
+        }
+        ui.showDash();
+        System.out.println();
+    }
+
+    /**
+     * Prints and delete all tasks in ArrayList that are overdue
+     *
+     * @param today is the date of which the user is using ASTRA
+     */
+    public void listAndDeleteOverdueTasks(LocalDate today) {
+        Ui ui = new Ui();
+        System.out.println();
+        ui.showOverdueTaskMessage();
+        ui.showDash();
+        int countOfDeletedTask = 0;
+        int arrayIndex = 0;
+        int arrayInitialLength = activities.size();
+        int count = 0;
+        while (count < arrayInitialLength) {
+            if (getAnActivity(arrayIndex) instanceof Task) {
+                Task currTask = (Task) getAnActivity(arrayIndex);
+                long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());
+                if (daysBetween < 0) {
+                    countOfDeletedTask++;
+                    System.out.println(countOfDeletedTask + ". " + currTask.getDescription());
+                    activities.remove(arrayIndex);
+                } else {
+                    arrayIndex++;
+                }
+            } else {
+                arrayIndex++;
+            }
+            count += 1;
+        }
+        if (countOfDeletedTask == 0) {
+            System.out.println("No overdue tasks have been deleted!");
         }
         ui.showDash();
         System.out.println();
@@ -107,8 +147,10 @@ public class ActivityList {
         return new ArrayList<>(activities);
     }
 
-    /** Adjusts priorities of existing tasks when a new task is added with a specified priority */
-    public void addTaskWithPriority(Task task, int priority){
+    /**
+     * Adjusts priorities of existing tasks when a new task is added with a specified priority
+     */
+    public void addTaskWithPriority(Task task, int priority) {
         // iterate through all task instances in activities and push up their priority if needed
         for (Activity activity : activities) {
             if (activity instanceof Task) {
@@ -117,7 +159,7 @@ public class ActivityList {
                     existingTask.setPriority(existingTask.getPriority() + 1);
                 }
             }
-        } 
+        }
         task.setPriority(priority);
         addActivity(task);
     }
