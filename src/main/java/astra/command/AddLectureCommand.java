@@ -4,13 +4,13 @@ import astra.activity.ActivityList;
 import astra.activity.Lecture;
 import astra.data.Notebook;
 import astra.exception.InputException;
+import astra.parser.DateTimeParser;
 import astra.parser.Parser;
 import astra.ui.Ui;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 public class AddLectureCommand extends AddCommand {
     private final String input;
@@ -69,14 +69,14 @@ public class AddLectureCommand extends AddCommand {
             LocalTime endTime;
 
             try {
-                startTime = LocalTime.parse(startTimeStr);
-            } catch (DateTimeParseException e) {
+                startTime = DateTimeParser.parseTime(startTimeStr);
+            } catch (InputException e) {
                 throw new InputException("Invalid start time format. Use HH:MM (24-hour).");
             }
 
             try {
-                endTime = LocalTime.parse(endTimeStr);
-            } catch (DateTimeParseException e) {
+                endTime = DateTimeParser.parseTime(endTimeStr);
+            } catch (InputException e) {
                 throw new InputException("Invalid end time format. Use HH:MM (24-hour).");
             }
 
