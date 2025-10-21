@@ -15,6 +15,8 @@ public class DeleteGpaCommand implements Command {
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        assert ui != null : "Ui should not be null";
+        assert notebook != null : "Notebook should not be null";
         try {
             String[] parts = input.trim().split("\\s+");
             if (parts.length < 3) {
@@ -26,6 +28,8 @@ public class DeleteGpaCommand implements Command {
                 return false;
             }
             int idx = Integer.parseInt(parts[2]);
+            assert idx > 0 : "Index must be positive";
+            assert notebook.getGpaList() != null : "GPA list should not be null";
             GpaEntry removed = notebook.getGpaList().remove(idx);
             notebook.saveGpa();
             ui.showMessage("Deleted GPA entry: " + removed.toString());

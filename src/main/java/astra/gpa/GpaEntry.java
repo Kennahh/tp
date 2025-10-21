@@ -22,6 +22,11 @@ public class GpaEntry {
         this.subject = subject.trim().toUpperCase(Locale.ROOT);
         this.grade = g;
         this.mc = mc;
+        // Assertions: postconditions/invariants
+        assert this.subject != null && !this.subject.isBlank() : "Subject must be non-blank after normalization";
+        assert !this.subject.contains(" ") : "Subject must remain a single token";
+        assert this.grade != null && !this.grade.isBlank() : "Grade must be non-blank after normalization";
+        assert this.mc >= 0 : "MC must be non-negative";
     }
 
     public String getSubject() {
@@ -41,6 +46,7 @@ public class GpaEntry {
     }
 
     public double gradePoints() {
+        assert grade != null && !grade.isBlank() : "Grade should be present when computing grade points";
         switch (grade) {
         case "A+":
         // fallthrough

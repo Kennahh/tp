@@ -25,8 +25,11 @@ public class AddGpaCommand implements Command {
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+        assert ui != null : "Ui should not be null";
+        assert notebook != null : "Notebook should not be null";
         try {
             String[] parts = input.trim().split("\\s+");
+            assert parts.length >= 1 : "Input should split into at least one token";
             if (parts.length < 5) { // expect: add gpa SUBJECT GRADE MC
                 ui.showError("Usage: add gpa <SUBJECT> <GRADE> <MC> (e.g., add gpa CS2040C A+ 4mc)");
                 return false;
@@ -52,6 +55,7 @@ public class AddGpaCommand implements Command {
                 ui.showError("MC must be non-negative.");
                 return false;
             }
+            assert mc >= 0 : "MC parsed should be non-negative";
             GpaEntry entry;
             try {
                 entry = new GpaEntry(subject, grade, mc);
@@ -59,6 +63,7 @@ public class AddGpaCommand implements Command {
                 ui.showError(e.getMessage());
                 return false;
             }
+            assert notebook.getGpaList() != null : "GPA list should not be null";
             notebook.getGpaList().add(entry);
             notebook.saveGpa();
             ui.showMessage("Added GPA entry: " + entry.toString());
