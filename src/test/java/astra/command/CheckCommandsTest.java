@@ -144,7 +144,7 @@ public class CheckCommandsTest {
     }
 
     @Test
-    public void checkCurrent_showsTopN() {
+    public void checkCurrent_valid_showsTopN() {
         ActivityList list = new ActivityList();
         // Deadlines in the future (adjust if needed)
         list.addActivity(new Task("Sooner", LocalDate.now().plusDays(1),
