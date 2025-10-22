@@ -9,6 +9,7 @@ import astra.command.Command;
 import astra.exception.InputException;
 import astra.exception.FileSystemException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -73,12 +74,13 @@ public class Astra {
                 boolean shouldExit = command.execute(activities, ui, notebook);
                 if (!shouldExit) {
                     notebook.writeToFile(activities.toList());
+                    notebook.saveToFile(activities);
                 }
                 if (shouldExit) {
                     ui.showEnd();
                     break;
                 }
-            } catch (InputException | FileSystemException e) {
+            } catch (InputException | FileSystemException | IOException e) {
                 ui.showError(e.getMessage());
             }
             ui.showDone();
