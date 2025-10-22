@@ -13,17 +13,18 @@ import astra.command.CheckTutorialsCommand;
 import astra.command.CheckPriorityCommand;
 import astra.command.CompleteCommand;
 import astra.command.DeleteCommand;
+import astra.command.DeleteGpaCommand;
 import astra.command.ExitCommand;
 import astra.command.HelpCommand;
 import astra.command.ListCommand;
+import astra.command.ListGpaCommand;
 import astra.command.UnmarkCommand;
 import astra.command.Command;
+import astra.command.AddGpaCommand;
+import astra.command.ComputeGpaCommand;
 import astra.exception.InputException;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ import java.util.Map;
  */
 public class Parser {
     private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
+
     /**
      * Parses a line of user input.
      *
@@ -47,7 +49,22 @@ public class Parser {
             throw new InputException("    [ERROR] Empty wish?! Please tell me your wish :(");
         }
 
-        String commandWord = getCommandWord(input).trim().toLowerCase();
+        String trimmed = input.trim();
+        String commandWord = getCommandWord(trimmed).trim().toLowerCase();
+
+        // GPA special-case commands that share base words
+        if (commandWord.equals("add") && trimmed.toLowerCase().startsWith("add gpa")) {
+            return new AddGpaCommand(trimmed);
+        }
+        if (commandWord.equals("list") && trimmed.toLowerCase().startsWith("list gpa")) {
+            return new ListGpaCommand();
+        }
+        if (commandWord.equals("delete") && trimmed.toLowerCase().startsWith("delete gpa")) {
+            return new DeleteGpaCommand(trimmed);
+        }
+        if (commandWord.equals("gpa")) {
+            return new ComputeGpaCommand();
+        }
 
         // further parsing and error checking of input arguments to be handled by individual commands
 
@@ -97,7 +114,7 @@ public class Parser {
             return new CheckTutorialsCommand(parts[1].trim());
         default:
             throw new InputException("    [ERROR] Unrecognized command: '" + input + "'.\n" +
-                    "    [ASTRA] Please use a valid command word:" + 
+                    "    [ASTRA] Please use a valid command word:" +
                     "    (use `help` to check known commands by me, a small digital notebook :( ).\n");
         }
 
@@ -105,6 +122,7 @@ public class Parser {
 
     /**
      * Splits the raw user input into the first word (the command) and the rest (the arguments)
+     *
      * @param input raw user input string
      * @return just the first word, the command
      */
@@ -121,7 +139,7 @@ public class Parser {
         }
     }
 
-    public static DayOfWeek dayOfWeekParser(String input) throws InputException{
+    public static DayOfWeek dayOfWeekParser(String input) throws InputException {
 
         String sanitisedInput = input.trim().toLowerCase();
 
@@ -140,27 +158,11 @@ public class Parser {
         }
         // input is at least 3 letters long
         DayOfWeek day;
-        day = dayMap.get(input.trim().toLowerCase().substring(0,3));
+        day = dayMap.get(input.trim().toLowerCase().substring(0, 3));
         if (day == null) {
             throw new InputException("This is not a valid day!");
         }
 
         return day;
-    }
-
-    /**
-     * Parses date and time string provided by user into date and time format
-     * @param dateAndTime user provided string
-     * @return parsed user provided date and time into LocalDateTime format
-     * @throws DateTimeParseException when the provided date and time does not match the expected formatting
-     */
-    public static LocalDateTime parseDateTime(String dateAndTime) throws DateTimeParseException {
-        // append 00:00 to the end of the string if no timing is provided
-        if (!dateAndTime.contains(" ")) { // no space, likely no timing, defaults to 2359H
-            dateAndTime += " 2359";
-        }
-        // the only accepted format is ISO and whatever is written below
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
-        return LocalDateTime.parse(dateAndTime, formatter);
     }
 }

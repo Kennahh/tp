@@ -9,23 +9,34 @@ import astra.command.Command;
 import astra.exception.InputException;
 import astra.exception.FileSystemException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class Astra {
-    /** User interface handler for displaying messages and interactions */
+    /**
+     * User interface handler for displaying messages and interactions
+     */
     private final Ui ui;
 
-    /** Scanner for reading user input from console */
+    /**
+     * Scanner for reading user input from console
+     */
     private final Scanner scanner;
 
-    /** Storage handler for saving and loading of activithelpies */
+    /**
+     * Storage handler for saving and loading of activithelpies
+     */
     private final Notebook notebook;
 
-    /** Stores user activities during runtime */
+    /**
+     * Stores user activities during runtime
+     */
     private final ActivityList activities;
 
-    /** Initializes the Astra application with necessary components. */
+    /**
+     * Initializes the Astra application with necessary components.
+     */
     public Astra(String filePath) {
         this.ui = new Ui();
         this.scanner = new Scanner(System.in);
@@ -47,11 +58,14 @@ public class Astra {
     public void run() {
         ui.showLogo();
         ui.showBotIntro();
+        LocalDate today = LocalDate.now();
+        activities.listAndDeleteOverdueTasks(today);
+        activities.deadlineReminder(today);
 
-        boolean isRunning = true;
-        while (isRunning) {
+        while (true) {
             try {
                 ui.showPrompt();
+                ui.showDash();
                 String input = scanner.nextLine();
                 ui.showDash();
 
@@ -62,7 +76,6 @@ public class Astra {
                 }
                 if (shouldExit) {
                     ui.showEnd();
-                    isRunning = false;
                     break;
                 }
             } catch (InputException | FileSystemException e) {
@@ -75,7 +88,7 @@ public class Astra {
 
     /**
      * Entry point of the astra application.
-     * 
+     *
      * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {

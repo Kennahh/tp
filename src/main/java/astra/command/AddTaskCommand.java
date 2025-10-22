@@ -5,12 +5,12 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.exception.InputException;
 
+import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 public class AddTaskCommand extends AddCommand {
     private final String input;
@@ -84,14 +84,14 @@ public class AddTaskCommand extends AddCommand {
             LocalDate deadlineDate;
             LocalTime deadlineTime;
             try {
-                deadlineDate = LocalDate.parse(deadlineDateStr);
-            } catch (DateTimeParseException e) {
+                deadlineDate = DateTimeParser.parseDate(deadlineDateStr);
+            } catch (InputException e) {
                 throw new InputException(
                     "Invalid date format. Use: YYYY-MM-DD");
             }
             try {
-                deadlineTime = LocalTime.parse(deadlineTimeStr);
-            } catch (DateTimeParseException e) {
+                deadlineTime = DateTimeParser.parseTime(deadlineTimeStr);
+            } catch (InputException e) {
                 throw new InputException(
                     "Invalid time format. Use: HH:MM");
             }
