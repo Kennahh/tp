@@ -63,7 +63,7 @@ public class AddTaskCommand extends AddCommand {
             if (priorityStr.isEmpty()) {
                 throw new InputException(
                     "Priority value is missing. Use: /priority <number>");
-            }
+            }   
             int priority;
             try {
                 priority = Integer.parseInt(priorityStr);
