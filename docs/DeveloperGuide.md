@@ -2,90 +2,116 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas are adapted and cited inline where applicable.
 
-## Design & implementation
+## Design & implementation - activity package
+This section shows the classes stored in the activity package and how they are associated to each other
 
-### GPA Tracker
-The GPA tracker lets users store module entries with subject code, grade, and MCs, and computes GPA in real time.
+### Overview
+The activity package defines the core domain model of the ASTRA application. It manages all user activities (e.g., tasks, tutorials, lectures, exams) and provides logic for creating, listing, and maintaining them through the ActivityList class.
 
-Key classes
-- Model
-  - `astra.gpa.GpaEntry`
-    - Fields: `subject` (uppercase, single token), `grade` (uppercase, validated), `mc` (non-negative int)
-    - Methods: `gradePoints()` (maps grade to points), `isSu()` (S/U exclusion), `toPipe()`/`toCsv()` for persistence
-  - `astra.gpa.GpaList`
-    - Holds entries, supports `add`, `remove(1-based)`, `toList()`, and `computeGpa()` excluding S/U
-- Persistence
-  - `astra.data.Notebook`
-    - New files: `data/gpa.txt` (pipe format) and `data/gpa.csv` (CSV)
-    - On construction, loads GPA entries (best-effort) and exposes `getGpaList()` and `saveGpa()`
-    - Uses try-with-resources to avoid file handle leaks (important on Windows)
-- Commands
-  - `AddGpaCommand` parses `add gpa <SUBJECT> <GRADE> <MC>` (MC may include `mc` suffix)
-  - `ListGpaCommand` prints current GPA entries with indexes
-  - `DeleteGpaCommand` deletes entry by 1-based index
-  - `ComputeGpaCommand` prints GPA to 2 decimal places
-- Parser
-  - `Parser.parse(...)` routes:
-    - `add gpa ...` → `AddGpaCommand`
-    - `list gpa` → `ListGpaCommand`
-    - `delete gpa <index>` → `DeleteGpaCommand`
-    - `gpa` → `ComputeGpaCommand`
-- UI
-  - `Ui.showHelp()` updated with GPA usage and notes
+Design Goals
+- Provide a flexible abstraction for all types of activities.
 
-Validation and rules
-- Allowed grades: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (excluded from GPA)
-- GPA formula: `sum(gradePoints * mc) / sum(mc)` excluding S/U
-- Subject must be a single token; both subject and grade are uppercased on storage
+- Support both academic activities (tutorials, lectures, exams) and personal tasks (assignments, projects etc).
 
-Error handling
-- Invalid formats and grades surface user-friendly errors via `Ui.showError`
-- Persistence errors throw `FileSystemException` and are caught at command level; the rest of the app continues
+- Centralize storage and management of activities using ActivityList.
 
-### Extending
-- To add new grade scales, update `GpaEntry.gradePoints()` and `VALID_GRADES` in `AddGpaCommand`
-- To support multi-word subjects, relax `GpaEntry` validation and extend parser to capture subject tokens
+- Facilitate extensibility — new activity types can be added easily by extending Activity.
+
+### Architecture context (class diagram)
+```plantuml
+@startuml
+'https://plantuml.com/class-diagram
+package activity {
+
+    abstract class Activity
+    abstract class SchoolActivity
+    class Task
+    class Tutorial
+    class Exam
+    class ActivityList
 
 
-## Product scope
-### Target user profile
+    Activity <|-- Task
+    Activity <|-- SchoolActivity
+    SchoolActivity <|-- Lecture
+    SchoolActivity <|-- Tutorial
+    SchoolActivity <|-- Exam
+    ActivityList "1" --> "0..*" Activity : activities
 
-{Describe the target user profile}
 
-### Value proposition
+    class ActivityList {
+    + getActivity(int) : Activity
+    + addActivity(Activity)
+    + deleteActivity(int)
+    + listActivities()
+    + deadlineReminder(LocalDate)
+    + listAndDeleteOverdueTasks(LocalDate)
+    + getListSize() : int
+    + getAnActivity(int) : Activity
+    + toList() : List<Activity>
+    + addTaskWithPriority(Task,int)
+    }
 
-{Describe the value proposition: what problem does it solve?}
 
-## User Stories
+    abstract class Activity {
+    # description : String
+    + toString()
+    + writeToFile() {abstract}
+    + getDescription() : String
+    }
+    abstract class SchoolActivity {
+    # venue : String
+    # startTime : LocalTime
+    # endTime : LocalTime
+    + SchoolActivity(String)
+    + getVenue() : String
+    + getStartTime() : LocalTime
+    + getEndTime() : LocalTime
+    }
 
-| Version | As a ... | I want to ... | So that I can ...|
-|---------|----------|---------------|------------------|
-| v1.0    |new user|see usage instructions|refer to them when I forget how to use the application|
-| v2.0    |user|find a to-do item by name|locate a to-do without having to go through the entire list|
-| v2.0    |student|track my modules and GPA|know my academic standing quickly|
+    class Tutorial {
+    - day : DayOfWeek
+    + getDayString() : String
+    + getDay() : DayOfWeek
+    + toString() : String
+    }
 
-## Non-Functional Requirements
+    class Exam {
+    - date : LocalDate
+    + getDate : LocalDate
+    + toString() : String
+    }
 
-{Give non-functional requirements}
+    class Lecture {
+    - day : DayOfWeek
+    + getDayString() : String
+    + getDay() : DayOfWeek
+    +toString() : String
+    }
 
-## Glossary
+    class Task {
+    - deadlineDate : LocalDate;
+    - deadlineTime : LocalTime;
+    - isComplete : boolean  = false;
+    - priority : integer = 1;
+    + getIsComplete() : boolean
+    + setIsComplete()
+    + clearIsComplete()
+    + setDeadline(LocalDate,LocalTime)
+    + getDeadlineDate() : LocalDate
+    + getDeadlineTime() : LocalTime
+    + getPriority() : integer
+    + setPriority(integer)
+    + toString : String
+    + statusInIcon() : String
+    }
+}
 
-* *glossary item* - Definition
 
-## Instructions for manual testing
 
-GPA Tracker manual testing
-- Add entries:
-  - `add gpa CS2040C A+ 4mc`
-  - `add gpa CFG1002 S 4`
-  - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
-- List entries:
-  - `list gpa` shows indexed list
-- Compute GPA:
-  - `gpa` prints `Current GPA: 4.25` for the above (S excluded)
-- Delete entry:
-  - `delete gpa 2` removes the second entry
-- Invalid grade:
-  - `add gpa CS1231X HH 4` shows an error
+@enduml
+```
+![Architecture diagram](images/activities_package.png)
+
