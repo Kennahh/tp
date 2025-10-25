@@ -7,6 +7,7 @@ import astra.exception.InputException;
 
 import astra.parser.DateTimeParser;
 import astra.ui.Ui;
+import astra.activity.Activity;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -29,31 +30,37 @@ public class AddTaskCommand extends AddCommand {
                     "Missing task description and deadline. "
                     + "Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
+
             String args = parts[1].trim();
             if (!args.contains("/by")) {
                 throw new InputException(
                     "Missing '/by' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
+
             if (!args.contains("/priority")) {
                 throw new InputException(
                     "Missing '/priority' keyword. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
+
             String[] tokens = args.split("/by", 2);
             if (tokens.length != 2) {
                 throw new InputException(
                     "Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
+
             String description = tokens[0].trim();
             if (description.isEmpty()) {
                 throw new InputException(
                     "Task description is missing.");
             }
+
             String deadlineAndPriority = tokens[1].trim();
             String[] priorityParts = deadlineAndPriority.split("/priority", 2);
             if (priorityParts.length != 2) {
                 throw new InputException(
                     "Invalid format. Use: task <description> /by <YYYY-MM-DD> <HH:MM> /priority <number>");
             }
+
             String deadlineStr = priorityParts[0].trim();
             String priorityStr = priorityParts[1].trim();
             if (deadlineStr.isEmpty()) {
@@ -64,6 +71,7 @@ public class AddTaskCommand extends AddCommand {
                 throw new InputException(
                     "Priority value is missing. Use: /priority <number>");
             }   
+
             int priority;
             try {
                 priority = Integer.parseInt(priorityStr);
@@ -75,12 +83,28 @@ public class AddTaskCommand extends AddCommand {
                 throw new InputException(
                     "Priority must be a valid integer.");
             }
+
+            int taskCount = 0;
+            for (Activity a : activities.toList()) {
+                if (a instanceof Task) {
+                    taskCount++;
+                }
+            }
+
+            if (priority > taskCount + 1) {
+                throw new InputException(
+                    "Priority value exceeds the number of existing tasks of " + taskCount + ". "
+                    + "Please enter a priority between 1 and " + (taskCount + 1) + ".");
+            }
+
+
             String[] deadlineParts = deadlineStr.split(" ", 2);
             String deadlineDateStr = deadlineParts[0];
             String deadlineTimeStr = "23:59"; // default
             if (deadlineParts.length > 1) {
                 deadlineTimeStr = deadlineParts[1];
             }
+
             LocalDate deadlineDate;
             LocalTime deadlineTime;
             try {
@@ -89,16 +113,20 @@ public class AddTaskCommand extends AddCommand {
                 throw new InputException(
                     "Invalid date format. Use: YYYY-MM-DD");
             }
+
             try {
                 deadlineTime = DateTimeParser.parseTime(deadlineTimeStr);
             } catch (InputException e) {
                 throw new InputException(
                     "Invalid time format. Use: HH:MM");
             }
+
+
             Task task = new Task(description, deadlineDate, deadlineTime, 1);
             activities.addTaskWithPriority(task, priority);
             ui.showMessage(task.toString());
             notebook.saveToFile(activities);
+
         } catch (IOException e) {
             ui.showError(e.getMessage());
         } catch (InputException formatError) {
