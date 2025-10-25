@@ -4,6 +4,14 @@ import astra.activity.ActivityList;
 import astra.activity.Task;
 import astra.data.Notebook;
 import astra.testutil.TestUi;
+import astra.command.AddLectureCommand;
+import astra.command.AddTaskCommand;
+import astra.command.ChangeDeadlineCommand;
+import astra.command.ChangePriorityCommand;
+import astra.command.CompleteCommand;
+import astra.command.DeleteCommand;
+import astra.command.UnmarkCommand;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -165,5 +173,91 @@ public class UpdateCommandsTest {
         new ChangePriorityCommand("changepriority 1 /to 1").execute(list, ui, nb());
         assertTrue(ui.errors.stream().anyMatch(s -> s.contains(
                 "The selected activity is not a task.")));
+    }
+
+    @Test
+    public void changePriority_validShiftUpwards_updatesAllPriorities() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 20:00 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-10-11 21:00 /priority 2").execute(list, ui, nb());
+        new AddTaskCommand("task C /by 2025-10-12 22:00 /priority 3").execute(list, ui, nb());
+
+        // Move task 3 to priority 1
+        new ChangePriorityCommand("changepriority 3 /to 1").execute(list, ui, nb());
+
+        Task t1 = (Task) list.getActivity(0);
+        Task t2 = (Task) list.getActivity(1);
+        Task t3 = (Task) list.getActivity(2);
+
+        assertEquals(2, t1.getPriority(), "A should now be priority 2");
+        assertEquals(3, t2.getPriority(), "B should now be priority 3");
+        assertEquals(1, t3.getPriority(), "C should now be priority 1");
+    }
+
+    @Test
+    public void changePriority_validShiftDownwards_updatesAllPriorities() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task X /by 2025-10-10 12:00 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task Y /by 2025-10-11 13:00 /priority 2").execute(list, ui, nb());
+        new AddTaskCommand("task Z /by 2025-10-12 14:00 /priority 3").execute(list, ui, nb());
+
+        // Move task 1 to priority 3
+        new ChangePriorityCommand("changepriority 1 /to 3").execute(list, ui, nb());
+
+        Task t1 = (Task) list.getActivity(0);
+        Task t2 = (Task) list.getActivity(1);
+        Task t3 = (Task) list.getActivity(2);
+
+        assertEquals(3, t1.getPriority());
+        assertEquals(1, t2.getPriority());
+        assertEquals(2, t3.getPriority());
+    }
+
+    @Test
+    public void changePriority_priorityOutOfUpperRange_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task Alpha /by 2025-10-10 20:00 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task Beta /by 2025-10-11 20:00 /priority 2").execute(list, ui, nb());
+
+        new ChangePriorityCommand("changepriority 1 /to 5").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains("Priority must be between 1 and 2.")));
+    }
+
+    @Test
+    public void changePriority_invalidFormat_missingSpace_error() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 20:00 /priority 1").execute(list, ui, nb());
+
+        new ChangePriorityCommand("changepriority1/to2").execute(list, ui, nb());
+        assertTrue(ui.errors.stream().anyMatch(s -> s.contains("Argument missing")));
+    }
+
+    @Test
+    public void deleteTask_updatesRemainingTaskPrioritiesCorrectly() {
+        ActivityList list = new ActivityList();
+        TestUi ui = new TestUi();
+        new AddTaskCommand("task A /by 2025-10-10 20:00 /priority 1").execute(list, ui, nb());
+        new AddTaskCommand("task B /by 2025-10-11 21:00 /priority 2").execute(list, ui, nb());
+        new AddTaskCommand("task C /by 2025-10-12 22:00 /priority 3").execute(list, ui, nb());
+
+        // Delete the middle task (priority 2)
+        new DeleteCommand("delete 2").execute(list, ui, nb());
+
+        assertEquals(2, list.getListSize(), "List should contain 2 tasks after deletion");
+
+        Task first = (Task) list.getActivity(0);
+        Task second = (Task) list.getActivity(1);
+
+        // Ensure priorities are renumbered correctly
+        assertEquals(1, first.getPriority(), "First remaining task should have priority 1");
+        assertEquals(2, second.getPriority(), "Second remaining task should have priority 2");
+
+        // Ensure task descriptions correspond correctly
+        assertEquals("A", first.getDescription());
+        assertEquals("C", second.getDescription());
     }
 }
