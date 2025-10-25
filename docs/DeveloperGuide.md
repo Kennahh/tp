@@ -1,15 +1,15 @@
 # Developer Guide
 
 - [Acknowledgements](#Acknowledgements)
-- [Design & implementation](#design)
-- [Documentation, logging, testing, configuration, dev-ops]()
+- [Design & implementation](#design--implementation)
+  - [GPA Tracker](#gpa-tracker)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
   - [User Stories](#user-stories)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
 - [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
-  - [GPA Tracker](#gpa-tracker)
+  - [GPA Tracker](#gpa-tracker-1)
 
 ---
 
