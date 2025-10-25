@@ -4,13 +4,6 @@ import astra.activity.ActivityList;
 import astra.activity.Task;
 import astra.data.Notebook;
 import astra.testutil.TestUi;
-import astra.command.AddLectureCommand;
-import astra.command.AddTaskCommand;
-import astra.command.ChangeDeadlineCommand;
-import astra.command.ChangePriorityCommand;
-import astra.command.CompleteCommand;
-import astra.command.DeleteCommand;
-import astra.command.UnmarkCommand;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -227,7 +220,7 @@ public class UpdateCommandsTest {
     }
 
     @Test
-    public void changePriority_invalidFormat_missingSpace_error() {
+    public void changePriority_invalidFormat_error() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
         new AddTaskCommand("task A /by 2025-10-10 20:00 /priority 1").execute(list, ui, nb());
