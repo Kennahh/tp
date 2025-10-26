@@ -65,6 +65,12 @@ Below is a partial class diagram of the `Command` component
 
 ![Class diagram](images/CommandComponent.png)
 
+How the `Command` component works:
+1. A Command object of the corresponding command (specifically command subclass) is created by the Parser class
+2. The command object is executed by main, by calling `execute()` on the object
+3. The command internally processes the input string, and is able to communicate with Activities and Notebook
+4. The result of command execution is done by a call to the `Ui` component to display the result
+
 ## Unmark/Complete Commands
 
 ### Overview
