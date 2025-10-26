@@ -127,7 +127,7 @@ public class AstraParserTest {
         Parser.parse("complete 1").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         String output = outContent.toString();
-        assertTrue(output.contains("has already completed"));
+        assertTrue(output.contains("is already completed"));
     }
 
     @Test
