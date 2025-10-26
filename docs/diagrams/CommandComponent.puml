@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMAND_COLOR_T4
+skinparam classBackgroundColor COMMAND_COLOR
+
+package Command as CommandPackage {
+Class "<<interface>>\nCommand" as Command
+Class "{abstract}\nXYZCommand" as XYZCommand
+Class XYZCommands
+}
+
+package Astra{}
+package Activity{}
+package Data{}
+package Ui{}
+
+Astra .right.> Command : <<create>>
+
+XYZCommand .up.> Command
+note right of XYZCommand: XYZCommand = Abstract AddCommand,\nAbstract CheckCommand
+
+
+XYZCommands -up-|> XYZCommand
+XYZCommands -up-> Activity : modifies
+XYZCommands -right-> Data : modifies
+XYZCommands -right-> Ui
+note bottom of XYZCommands: XYZCommands = AddTaskCommand,\n CheckExamCommand, etc
+
+@enduml
