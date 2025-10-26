@@ -2,6 +2,9 @@
 
 - [Acknowledgements](#Acknowledgements)
 - [Design & implementation](#design--implementation)
+  - [Activity Package](#activity-package) 
+  - [Command Package](#command-package)
+  - [Mark/Unmark commands](#unmarkcomplete-commands)
   - [GPA Tracker](#gpa-tracker)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
@@ -18,7 +21,11 @@
 This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
 are adapted and cited inline where applicable.
 
-## Design & implementation - activity package
+---
+
+## Design & implementation
+
+### Activity package
 
 This section shows the classes stored in the activity package and how they are associated to each other
 
@@ -42,6 +49,22 @@ Design Goals
 
 ![Architecture diagram](images/activities_package.png)
 
+## Command package
+
+This section details the design of the command package and how the classes are associated to each other
+
+### Overview
+
+The command package carries out all user input commands of the ASTRA application.
+
+Design goals:
+- Provide flexible abstraction for commands to easily make new command classes
+- Unify the inner workings of all commands
+
+Below is a partial class diagram of the `Command` component
+
+![Class diagram](images/CommandComponent.png)
+
 ## Unmark/Complete Commands
 
 ### Overview
@@ -63,11 +86,12 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
         return false;
 - Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
 - Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+
 ### Sequence Diagram (unmark)
+
 ![Architecture diagram](images/unmark_sequence.png)
 
 ---
-## Design & implementation
 
 ### GPA Tracker
 
@@ -332,6 +356,8 @@ with diagrams where useful. Replace the placeholder name with your own and add m
 - Diagram: import sequence (planned), activity diagram for merge policy.
 
 Add more member sections as needed following the same structure.
+
+
 
 ---
 
