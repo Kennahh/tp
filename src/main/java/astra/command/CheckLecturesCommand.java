@@ -6,7 +6,6 @@ import astra.activity.Lecture;
 import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.parser.DateTimeParser;
-import astra.parser.Parser;
 import astra.ui.Ui;
 
 import java.time.DayOfWeek;

@@ -24,10 +24,6 @@ import astra.command.AddGpaCommand;
 import astra.command.ComputeGpaCommand;
 import astra.exception.InputException;
 
-import java.time.DayOfWeek;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Handles all user raw command line strings into commands.
  */
