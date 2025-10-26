@@ -18,29 +18,25 @@
 This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
 are adapted and cited inline where applicable.
 
-## Design & implementation - activity package
 
-This section shows the classes stored in the activity package and how they are associated to each other
+## Setting up, getting started
 
-### Overview
+# Design
+### 💡 Tips
+The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
 
-The activity package defines the core domain model of the ASTRA application. It manages all user activities (e.g.,
-tasks, tutorials, lectures, exams) and provides logic for creating, listing, and maintaining them through the
-ActivityList class.
+## Activity(Type) Component
+API: `astra/activity`
 
-Design Goals
+![Architecture diagram](images/Activity_component.png)
 
-- Provide a flexible abstraction for all types of activities.
+The activity package consists of the different types of activities ASTRA can store and the ActivityList which these activities will be stored in.
+Data stored in our `data` folder will be stored by reading the ActivityList. Activities ASTRA can store are Task,Tutorial,Lecture and Exam where `Tutorial,Lecture and Exam` 
+are subclasses of abstract class `SchoolActivity` which is a subclass of `Activity` along with `Task`
 
-- Support both academic activities (tutorials, lectures, exams) and personal tasks (assignments, projects etc).
-
-- Centralize storage and management of activities using ActivityList.
-
-- Facilitate extensibility — new activity types can be added easily by extending Activity.
-
-### Architecture context (class diagram)
-
-![Architecture diagram](images/activities_package.png)
+ActivityList Component:
+- The main storage which all commands will execute on
+- Notebook reads from ActivityList to store activities into the respective text files in `data`
 
 ## Unmark/Complete Commands
 
