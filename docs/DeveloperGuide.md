@@ -1,5 +1,18 @@
 # Developer Guide
 
+- [Acknowledgements](#Acknowledgements)
+- [Design & implementation](#design--implementation)
+  - [GPA Tracker](#gpa-tracker)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+  - [GPA Tracker](#gpa-tracker-1)
+
+---
+
 ## Acknowledgements
 
 This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
@@ -53,7 +66,10 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
 ### Sequence Diagram (unmark)
 ![Architecture diagram](images/unmark_sequence.png)
 
-## Design and Implementation — GPA Tracker
+---
+## Design & implementation
+
+### GPA Tracker
 
 This section documents the GPA Tracker as implemented in the codebase, and how it interacts with the rest of the
 system (Ui, Parser, Commands, Notebook, and the Astra app). It also includes rationale, alternatives considered, and UML
@@ -283,6 +299,7 @@ Alternatives considered
 - File I/O failures: wrapped as `FileSystemException`, caught in commands or main loop so the app remains usable.
 - Empty GPA list: `computeGpa()` returns 0.0 and `list gpa` prints a helpful message.
 
+
 ### Per-member enhancement write-ups (templates)
 
 Each member should document at least one enhancement implemented or planned. Use the template below, include 1+ page
@@ -318,17 +335,22 @@ Add more member sections as needed following the same structure.
 
 ---
 
-## Product scope
+## Appendix: Requirements
 
-### Target user profile
+### Product scope
 
-Students who prefer a keyboard-driven CLI to track academic activities (tasks/lectures/tutorials/exams) and GPA.
+**Target user profile**:
+- University student needing to keep track of their schedule
+- Prefers simple desktop apps over others
+- Prefers typing over mouse interactions
+- Comfortable using command line interaction applications
+- Students who prefer a keyboard-driven CLI to track academic activities (tasks/lectures/tutorials/exams) and GPA.
 
-### Value proposition
+**Value proposition**
 
 Keep all academic planning and GPA tracking in one lightweight, fast, offline tool with transparent plain-text storage.
 
-## User Stories
+### User Stories
 
 | Version | As a ... | I want to ...             | So that I can ...                                      |
 |---------|----------|---------------------------|--------------------------------------------------------|
@@ -336,20 +358,20 @@ Keep all academic planning and GPA tracking in one lightweight, fast, offline to
 | v2.0    | user     | track tasks and schedules | plan my week efficiently                               |
 | v2.0    | student  | track my modules and GPA  | know my academic standing quickly                      |
 
-## Non-Functional Requirements
+### Non-Functional Requirements
 
 - Works on Windows/macOS/Linux with JDK 17.
 - Stores data in simple text files under `data/` directory.
 - Handles invalid inputs gracefully without crashing.
 
-## Glossary
+### Glossary
 
 - MC: Module Credits.
 - S/U: Satisfactory/Unsatisfactory grading; excluded from GPA.
 
 ## Instructions for manual testing
 
-GPA Tracker
+### GPA Tracker
 
 - Add entries:
     - `add gpa CS2040C A+ 4mc`
