@@ -3,9 +3,6 @@
 
 
 ## Quick Start
-
-
-
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest jar from GitHub releases
 3. Go to the terminal and run cd into the folder containing the jar file
@@ -28,17 +25,17 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <YYY-MM-DD> <HH:mm>`
+Format: `task <description> /by <YYY-MM-DD> <HH:mm> /priority <number>`
 
 Example of usage: 
 
-Input:`task tutorial assignment /by 2025-04-03 10:00`
+Input:`task tutorial assignment /by 2025-04-03 10:00 /priority 1`
 
 Output: Astra will show the task which has been added before awaiting the next command
 
 ```
 ------------------------------------------------------------
-[ ]tutorial assignment | Deadline: 3 Apr, 1000H
+[ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -117,7 +114,7 @@ Output:
 ```
 ------------------------------------------------------------
  1. [ ]tutorial | Deadline: 3 Apr, 1000H
- 2. [ ]tutorial assignment | Deadline: 3 Apr, 1000H
+ 2. [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
  3. CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
  4. CS2107 | Venue: LT16 | Monday | Duration: 1400H to 1600H
  5. CS2040C finals | Date: 29 Nov | Duration: 0900H to 1100H
@@ -157,7 +154,7 @@ Input:`complete 1`
 Output:
 ```
 ------------------------------------------------------------
-Marked complete: #1 [X]tutorial assignment | Deadline: 3 Apr, 1000H
+Marked complete: #1 [X]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -177,7 +174,7 @@ Input:`unmark 1`
 Output:
 ```
 ------------------------------------------------------------
-Unmarked: #1 [ ]tutorial assignment | Deadline: 3 Apr, 1000H
+Unmarked: #1 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -194,7 +191,7 @@ Input:`changedeadline 1 /to 2025-10-31 14:00`
 Output:
 ```
 ------------------------------------------------------------
-Deadline updated for task: [ ]tutorial assignment | Deadline: 31 Oct, 1400H
+Deadline updated for task: [ ]tutorial assignment | Deadline: 31 Oct, 1400H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
