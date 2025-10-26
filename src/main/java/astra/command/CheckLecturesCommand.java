@@ -5,6 +5,7 @@ import astra.activity.ActivityList;
 import astra.activity.Lecture;
 import astra.data.Notebook;
 import astra.exception.InputException;
+import astra.parser.DateTimeParser;
 import astra.parser.Parser;
 import astra.ui.Ui;
 
@@ -54,7 +55,7 @@ public class CheckLecturesCommand extends CheckCommand {
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
-            this.day = Parser.dayOfWeekParser(this.input);
+            this.day = DateTimeParser.dayOfWeekParser(this.input);
         } catch (InputException e) {
             ui.showError(e.getMessage());
             return false;

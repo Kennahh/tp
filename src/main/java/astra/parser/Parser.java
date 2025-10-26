@@ -32,7 +32,7 @@ import java.util.Map;
  * Handles all user raw command line strings into commands.
  */
 public class Parser {
-    private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
+
 
     /**
      * Parses a line of user input.
@@ -129,40 +129,5 @@ public class Parser {
     private static String getCommandWord(String input) {
         String[] splitString = input.split(" ", 2);
         return splitString[0];
-    }
-
-    static {
-        for (DayOfWeek day : DayOfWeek.values()) {
-            String full = day.name().toLowerCase();  // e.g. "monday"
-            String shortForm = full.substring(0, 3); // e.g. "mon"
-            dayMap.put(shortForm, day);
-        }
-    }
-
-    public static DayOfWeek dayOfWeekParser(String input) throws InputException {
-
-        String sanitisedInput = input.trim().toLowerCase();
-
-        if (sanitisedInput.isEmpty()) {
-            throw new InputException("Day string cannot be null");
-        }
-        // input not empty
-
-        if (input.matches("[1-7]")) {
-            int number = Integer.parseInt(sanitisedInput);
-            return DayOfWeek.of(number);
-        }
-
-        if (input.trim().length() < 3) {
-            throw new InputException("Provide at least 3 letters to specify day");
-        }
-        // input is at least 3 letters long
-        DayOfWeek day;
-        day = dayMap.get(input.trim().toLowerCase().substring(0, 3));
-        if (day == null) {
-            throw new InputException("This is not a valid day!");
-        }
-
-        return day;
     }
 }

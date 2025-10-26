@@ -54,11 +54,11 @@ public class ParserBasicTest {
 
     @Test
     public void dayOfWeekParser_variousForms_success() throws Exception {
-        assertEquals(DayOfWeek.MONDAY, Parser.dayOfWeekParser("mon"));
-        assertEquals(DayOfWeek.FRIDAY, Parser.dayOfWeekParser("Friday"));
-        assertEquals(DayOfWeek.TUESDAY, Parser.dayOfWeekParser("2"));
-        assertThrows(InputException.class, () -> Parser.dayOfWeekParser("x"));
-        assertThrows(InputException.class, () -> Parser.dayOfWeekParser("mo"));
+        assertEquals(DayOfWeek.MONDAY, DateTimeParser.dayOfWeekParser("mon"));
+        assertEquals(DayOfWeek.FRIDAY, DateTimeParser.dayOfWeekParser("Friday"));
+        assertEquals(DayOfWeek.TUESDAY, DateTimeParser.dayOfWeekParser("2"));
+        assertThrows(InputException.class, () -> DateTimeParser.dayOfWeekParser("x"));
+        assertThrows(InputException.class, () -> DateTimeParser.dayOfWeekParser("mo"));
     }
 }
 
