@@ -24,7 +24,11 @@ public class CompleteCommand implements Command {
                 return false;
             }
             int index = Integer.parseInt(parts[1].trim());
+            assert index > 0 : "Index should be positive";
+
             Activity currActivity = activities.getActivity(index-1);
+            assert currActivity != null : "Activity retrieved should not be null";
+
             if (!(currActivity instanceof Task)) {
                 ui.showError("Activity at index " + index + " is not a Task");
                 return false;
