@@ -95,11 +95,11 @@ Here we show the sequence diagram of CheckLecturesCommand:
 
 ![Architecture diagram](images/checkLecture_sequence.png)
 
-### CheckExamCommand
+#### CheckExamCommand
 ![Architecture diagram](images/checkExam_sequence.png)
 
-### CheckPriorityCommand
-
+#### CheckPriorityCommand
+![Architecture diagram](images/checkPriority_sequence.png)
 
 ---
 ## Design & implementation
