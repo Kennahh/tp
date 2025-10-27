@@ -67,7 +67,147 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
 ![Architecture diagram](images/unmark_sequence.png)
 
 ---
+
+
+
 ## Design & implementation
+
+### Task Deadline & Priority System
+
+This section documents the deadline and priority system among task instances and how it interacts with the rest of the system (Ui, Parser, Commands, Notebook, and the Astra app). It also includes UML diagrams to aid future developers.
+
+### Overview
+
+The **Task Deadline and Priority System** extends the `activity` package for `Task` instances to enhance user productivity by enabling time and priority management for all task-type activities.
+It introduces **two key features**:
+
+1. **ChangeDeadlineCommand** — allows users to modify the deadline of existing tasks.
+2. **Priority Management** — automatically manages task priorities upon creation, update, and deletion.
+3. **ChangePriorityCommand** — allows users to swap around the priority of existing tasks.
+
+Together, these features ensure that users can efficiently monitor their task by order of each task's deadline or what they define to be most critical tasks.
+
+---
+
+### Design Goals
+
+* Provide flexible management for task deadlines and priorities.
+* Ensure robust validation and error handling for all user inputs.
+* Integrate naturally into the existing `Command`, `ActivityList`, and `Task` class structure.
+* Keep separation of concerns — UI handles messages, Commands handle logic, ActivityList stores state.
+
+---
+
+### Architecture Context (Class Diagram)
+
+```plantuml
+@startuml
+package astra.activity {
+    class Activity
+    class Task {
+        - LocalDate deadlineDate
+        - LocalTime deadlineTime
+        - int priority
+        + setDeadline(LocalDate, LocalTime)
+        + setPriority(int)
+        + getDeadlineDate()
+        + getDeadlineTime()
+        + getPriority()
+    }
+    class ActivityList {
+        + getActivity(int)
+        + getListSize()
+        + updateTaskPriority()
+    }
+}
+
+package astra.command {
+    interface Command
+    class ChangeDeadlineCommand
+    class ChangePriorityCommand
+    class DeleteCommand
+}
+
+ActivityList *-- Activity
+Activity <|-- Task
+ChangeDeadlineCommand --> Task : update deadline
+ChangePriorityCommand --> Task : set priority
+DeleteCommand --> ActivityList : update priority after deletion
+@enduml
+```
+
+---
+
+
+
+### ChangeDeadlineCommand 
+**Purpose**: Allows the user to modify the deadline of an existing task.
+
+#### Command Syntax
+changepriority (task number) /to (priority)
+
+
+```
+plantuml
+@startuml
+actor User
+participant Ui
+participant Parser
+participant C as "ChangeDeadlineCommand"
+participant AL as "ActivityList"
+participant T as "Task"
+
+User -> Ui: enter "changedeadline 3 /to 2025-10-31 18:00"
+Ui -> Parser: parse(input)
+Parser --> Ui: new ChangeDeadlineCommand(input)
+Ui -> C: execute(activities, ui, notebook)
+C -> AL: getActivity(2)
+AL --> C: Task instance
+C -> T: setDeadline(LocalDate, LocalTime)
+C --> Ui: showMessage("Deadline updated for task: ...")
+@enduml
+```
+
+![Change Deadline Sequence](images/changeDeadline_sequence.png)
+
+
+---
+
+### ChangePriority System
+**Purpose**: Manages priorities for task instance activities.
+
+#### Command Syntax
+ (task number) /to (YYYY-MM-DD) (HH:MM)
+
+
+```
+plantuml
+@startuml
+class Task {
+  - int priority
+  + getPriority()
+  + setPriority(int)
+}
+class ChangePriorityCommand {
+  + execute(ActivityList, Ui, Notebook)
+}
+class DeleteCommand {
+  + execute(ActivityList, Ui, Notebook)
+}
+
+ChangePriorityCommand --> Task : update priority
+DeleteCommand --> ActivityList : reassign priorities
+@enduml
+```
+
+![Change Deadline Sequence](images/changeDeadline_sequence.png)
+
+---
+
+
+
+
+
 
 ### GPA Tracker
 
