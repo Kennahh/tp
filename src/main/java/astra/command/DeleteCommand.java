@@ -32,7 +32,8 @@ public class DeleteCommand implements Command{
                 String taskNumber = taskNumbers[i];
                 index = Integer.parseInt(taskNumber);
                 assert index > 0: "The task number should always be positive";
-                assert index <= activities.getListSize(): "The task number should not exceed total number of tasks in the list";
+                assert index <= activities.getListSize(): "The task number should not exceed total " +
+                        "number of tasks in the list";
                 numbers[i] = index;
             }
             Arrays.sort(numbers);
