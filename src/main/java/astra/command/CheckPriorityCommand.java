@@ -28,6 +28,8 @@ public class CheckPriorityCommand implements Command {
         } else {
             ui.showMessage("[ASTRA] Tasks sorted by priority:");
             for (Task task : tasks) {
+                assert task.getPriority() > 0: "Priority of a task should be positive";
+                assert task.getPriority() <= tasks.size(): "Priority of a task should not exceed number of tasks in the list";
                 ui.showMessage("Priority " + task.getPriority() + ": " + task.toString());
             }
         }

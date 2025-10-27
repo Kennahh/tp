@@ -22,6 +22,7 @@ public class CheckExamCommand extends CheckCommand {
                 filteredList.addActivity(activity);
             }
         }
+        assert filteredList.getListSize() <= activities.getListSize(): "Edge case: all activities in the list are exams";
         return filteredList;
     }
 
