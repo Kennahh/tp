@@ -2,6 +2,7 @@
 Actor User
 participant Parser
 participant CheckCurrentCommand
+participant "original_list: ActivityList" as original_list
 participant ActivityList
 participant Collections
 participant Task
@@ -27,10 +28,10 @@ activate ActivityList
 ActivityList --> CheckCurrentCommand: empty ActivityList<Task>
 deactivate ActivityList
 loop For activity in original ActivityList
-    CheckCurrentCommand -> ActivityList: getActivity
-    activate ActivityList
-    ActivityList --> CheckCurrentCommand: activity
-    deactivate ActivityList
+    CheckCurrentCommand -> original_list: getActivity
+    activate original_list
+    original_list --> CheckCurrentCommand: activity
+    deactivate original_list
     opt activity instanceof Task
         CheckCurrentCommand -> ActivityList: addActivity to ActivityList<Task>
     end
@@ -50,5 +51,9 @@ loop For task in ActivityList
     deactivate Task
     CheckCurrentCommand -> Ui: show message
 end
+
+CheckCurrentCommand --> User: return false
+note left: do not exit the program
+deactivate CheckLecturesCommand
 
 @enduml
