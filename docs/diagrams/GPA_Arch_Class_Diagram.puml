@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include style.puml
+package astra {
+  class Astra
+  package parser {
+    class Parser
+  }
+  package command {
+    interface Command
+    class AddGpaCommand
+    class ListGpaCommand
+    class DeleteGpaCommand
+    class ComputeGpaCommand
+  }
+  package data {
+    class Notebook
+  }
+  package gpa {
+    class GpaEntry
+    class GpaList
+  }
+  package ui {
+    class Ui
+  }
+}
+
+Astra --> Parser : parse(input)
+Parser --> Command : create
+Astra ..> Command : execute(...)
+Command --> Notebook : load/save/access GPA
+Notebook *-- GpaList
+GpaList o-- GpaEntry
+Command ..> Ui : showMessage/showError
+@enduml

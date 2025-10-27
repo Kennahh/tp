@@ -1,0 +1,10 @@
+@startuml
+!include style.puml
+start
+:now = LocalDateTime.now();
+:get all future Tasks (deadline > now);
+:sort by deadline asc;
+:take first N tasks;
+:Ui.show header and list each task;
+stop
+@enduml

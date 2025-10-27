@@ -46,11 +46,11 @@ skinparam Package {
 }
 
 skinparam Class {
-    FontColor #FFFFFF
+    FontColor #000000
     FontSize 15
     BorderThickness 1
-    BorderColor #FFFFFF
-    StereotypeFontColor #FFFFFF
+    BorderColor #000000
+    StereotypeFontColor #000000
     FontName Arial
 }
 
@@ -64,12 +64,12 @@ skinparam Sequence {
     MessageAlign center
     BoxFontSize 15
     BoxPadding 0
-    BoxFontColor #FFFFFF
+    BoxFontColor #000000
     FontName Arial
 }
 
 skinparam Participant {
-    FontColor #FFFFFFF
+    FontColor #000000
     Padding 20
 }
 
@@ -81,5 +81,4 @@ skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 
 hide footbox
-hide members
 hide circle

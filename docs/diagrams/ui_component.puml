@@ -1,0 +1,20 @@
+@startuml UIComponent
+!include style.puml
+skinparam componentStyle rectangle
+package astra.ui {
+  class Ui {
+    +showMessage(msg: String)
+    +showError(msg: String)
+    +showList(items: List)
+    +showHelp()
+  }
+}
+package astra.command {
+  interface Command
+}
+package astra.parser {
+  class Parser
+}
+Ui ..> Command : executes via
+Ui ..> Parser : delegates parse(input)
+@enduml
