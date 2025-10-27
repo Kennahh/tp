@@ -1,0 +1,47 @@
+@startuml
+Actor User
+participant Parser
+participant CheckExamCommand
+participant "original_activities: ActivityList" as original_list
+participant ActivityList
+participant Ui
+
+User -> Parser: input "checkexam"
+activate Parser
+create CheckExamCommand
+Parser -> CheckExamCommand:new CheckLecturesCommand
+activate CheckExamCommand
+CheckExamCommand --> Parser
+deactivate CheckExamCommand
+Parser --> User
+deactivate Parser
+
+User -> CheckExamCommand: execute
+activate CheckExamCommand
+CheckExamCommand -> CheckExamCommand: filterExams
+activate CheckExamCommand
+create ActivityList
+CheckExamCommand -> ActivityList: new ActivityList<Exam>
+activate ActivityList
+ActivityList --> CheckExamCommand
+deactivate ActivityList
+
+loop For activity in original_activities
+    CheckExamCommand -> original_list: getActivity
+    activate original_list
+    original_list --> CheckExamCommand: activity
+    deactivate original_list
+    opt activity instanceof Exam
+        CheckExamCommand -> ActivityList: addActivity to ActivityList<Exam>
+    end
+end
+CheckExamCommand --> CheckExamCommand: ActivityList of exams
+deactivate CheckExamCommand
+CheckExamCommand -> ActivityList: listActivities
+CheckExamCommand -> ActivityList: getListSize
+CheckExamCommand -> Ui: show message
+CheckExamCommand --> User: return false
+note left: do not exit the program
+deactivate CheckExamCommand
+
+@enduml
