@@ -7,25 +7,52 @@ participant UnmarkCommand
 participant ActivityList
 participant Task
 participant Ui
+participant Notebook
 
+' Step 1: User input is parsed
 User -> Parser : parse("unmark 3")
 activate Parser
-Parser -> UnmarkCommand : new UnmarkCommand(input)
+
+' Parser creates UnmarkCommand
+create UnmarkCommand
+Parser -> UnmarkCommand
 activate UnmarkCommand
-Parser <-- UnmarkCommand : return command
+UnmarkCommand --> Parser
+deactivate UnmarkCommand
+
+' Parser returns command to user
+Parser --> User : UnmarkCommand
 deactivate Parser
 
+' Step 2: User executes the command
 User -> UnmarkCommand : execute(activities, ui, notebook)
 activate UnmarkCommand
+
+' Get activity from the list
 UnmarkCommand -> ActivityList : getActivity(index - 1)
 activate ActivityList
 ActivityList --> UnmarkCommand : Activity
 deactivate ActivityList
+
+' Check if it is a Task and unmark it
 UnmarkCommand -> Task : clearIsComplete()
 activate Task
+Task --> UnmarkCommand
 deactivate Task
+
+' Show confirmation message
 UnmarkCommand -> Ui : showMessage("Unmarked: #3 ...")
 activate Ui
+Ui --> UnmarkCommand
 deactivate Ui
+
+' Save to file (optional)
+UnmarkCommand -> Notebook : saveToFile()
+activate Notebook
+Notebook --> UnmarkCommand
+deactivate Notebook
+
+' Return false to User
+UnmarkCommand --> User : false
 deactivate UnmarkCommand
 @enduml

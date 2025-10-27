@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+actor User
+participant Parser
+participant DeleteCommand
+participant ActivityList
+participant Task
+participant Ui
+participant Notebook
+
+User -> Parser : parse("delete 1")
+activate Parser
+create DeleteCommand
+Parser -> DeleteCommand
+activate DeleteCommand
+return
+return : DeleteCommand
+deactivate Parser
+
+User -> DeleteCommand : execute(activities, ui, notebook)
+activate DeleteCommand
+DeleteCommand -> ActivityList : deleteActivity(1)
+activate ActivityList
+return
+DeleteCommand -> Ui : ShowMessage()
+activate Ui
+return
+
+DeleteCommand->Notebook : saveToFile(activities)
+activate Notebook
+return
+return : false
+
+@enduml
