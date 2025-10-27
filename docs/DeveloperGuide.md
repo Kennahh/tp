@@ -124,6 +124,50 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
 Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
 ![Architecture diagram](images/Unmark_sequence.png)
 
+## Check Commands
+
+### Overview
+This section shows all commands to check all types of activities:
+- Check a specific number of immediate upcoming task deadlines: `checkcurrent <value(optional)>`
+- Check all lectures on a specific day: `checklecture <day>`
+- Check all tutorials on a specific day: `checktutorial <day>`
+- Check all exams: `checkexam`
+- Check the priority of all tasks: `checkpriority`
+
+Objectives:
+- Provide an easy way for the user to keep track of all school activities(lectures, tutorials, exams)
+- Help the user handle personal tasks:
+  - Check the most urgent task(s)
+  - Check the potential order in which the tasks should be completed.
+
+### Class Diagram
+![Architecture diagram](images/checkCommands_classDiagram.png)
+
+### Sequence Diagrams
+#### CheckCurrentCommand
+Input: `checkcurrent <value(optional)>`
+
+![Architecture diagram](images/checkCurrent_sequence.png)
+
+#### CheckLecturesCommand & CheckTutorialsCommand
+- Input for CheckLectureCommand: `checklecture <day>`
+- Input for CheckTutorialsCommand: `checktutorial <day>`
+
+Both CheckLecturesCommand and CheckTutorialsCommand have similar working flow, thus they have similar sequence diagram. 
+Here we show the sequence diagram of CheckLecturesCommand:
+
+![Architecture diagram](images/checkLecture_sequence.png)
+
+#### CheckExamCommand
+Input: `checkexam`
+
+![Architecture diagram](images/checkExam_sequence.png)
+
+#### CheckPriorityCommand
+Input: `checkpriority`
+
+![Architecture diagram](images/checkPriority_sequence.png)
+
 ---
 
 

@@ -95,13 +95,13 @@ Prints a list of activities of the specified class and date which are in the Act
 
 Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, default to 1
 
-Task: `list` lists all tasks only
-
 Tutorial:`checktutorial <day>` lists all tutorials on the specific day of the week
 
 Lecture:`checklecture <day>` lists all lectures on the specific day of the week
 
 Exam: `checkexam` lists all upcoming exams with their corresponding dates and duration
+
+Priority: `checkpriority` list the tasks only in order of priority 
 
 ### List all Activities
 Prints a list of all activities stored in the ActivityList
@@ -132,8 +132,8 @@ Input:`delete 1 3`
 Output:
 ```
 ------------------------------------------------------------
-Erased: #1 [ ]tutorial | Deadline: 3 Apr, 1000H
 Erased: #3 CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H
+Erased: #1 [ ]tutorial | Deadline: 3 Apr, 1000H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 ```
@@ -196,6 +196,23 @@ Deadline updated for task: [ ]tutorial assignment | Deadline: 31 Oct, 1400H | Pr
 [ASTRA] Done! Now, what's your next wish...
 ```
 
+### Changing priority
+Change the priority of a specific task. The command will also adjust the priority of other affected tasks.
+
+Format: `changepriority <task number> /to <new priority>`
+
+Example of usage:
+
+Input: `changepriority 1 /to 2`
+
+Output:
+```
+------------------------------------------------------------
+[ASTRA] Priority changed successfully for task: [ ]complete DG | Deadline: 29 Oct, 1200H | Priority: 1
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+```
+
 ### GPA Tracker
 Track modules and compute GPA in real-time. Grades are uppercased and S/U entries are excluded from GPA calculation.
 
@@ -214,9 +231,9 @@ Track modules and compute GPA in real-time. Grades are uppercased and S/U entrie
 Allowed grades: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (stored but not counted).
 
 ### Storage
-- Activities: `data/tasks.txt`
+- Activities: `data/tasks.txt` and `data/tasks.csv`
 - GPA: `data/gpa.txt` (pipe format) and `data/gpa.csv` (CSV)
-- 
+
 Note: since all storage files update during runtime, do NOT manually edit the contents of those files during runtime. 
 Users can edit before launch or after termination of astra instead.
 

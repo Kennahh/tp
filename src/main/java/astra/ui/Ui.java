@@ -151,6 +151,7 @@ public class Ui {
                 - checkexam                        (lists all upcoming exams with date and duration)
                 - checklecture <day>               (lists all lectures on a specific day)
                 - checktutorial <day>              (lists all tutorials on a specific day)  
+                - checkpriority                    (list all tasks in the order of priority)
                 
                 Editing entries in Astra:
                 - delete <index_1> <index_2> <...>                      (can delete multiple tasks)
@@ -158,6 +159,8 @@ public class Ui {
                 - unmark <index>                                        (mark as incomplete)
                 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
                     Example: changedeadline 1 /to 2025-10-31 14:00
+                - changepriority <task index> /to <new priority>
+                    Example: changepriority 2 /to 1  
                 
                 Help/Exit:
                 - help

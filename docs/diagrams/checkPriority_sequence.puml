@@ -1,0 +1,57 @@
+@startuml
+Actor User
+participant Parser
+participant CheckPriorityCommand
+participant "original_activities: ActivityList" as original_list
+participant "tasks: ArrayList<Task>" as tasks
+participant Collections
+participant Task
+participant Ui
+
+User -> Parser: input "checkpriority"
+activate Parser
+create CheckPriorityCommand
+Parser -> CheckPriorityCommand: new CheckPriorityCommand
+activate CheckPriorityCommand
+CheckPriorityCommand --> Parser
+deactivate CheckPriorityCommand
+Parser --> User
+deactivate Parser
+
+User -> CheckPriorityCommand: execute
+activate CheckPriorityCommand
+create tasks
+CheckPriorityCommand -> tasks: new ArrayList<Task>
+activate tasks
+tasks --> CheckPriorityCommand
+deactivate tasks
+
+loop For activity in original_activities
+    CheckPriorityCommand -> original_list: getActivity(index)
+    activate original_list
+    original_list --> CheckPriorityCommand: activity
+    deactivate original_list
+    opt activity instanceof Task
+        CheckPriorityCommand -> tasks: add the activity to list
+    end
+end
+
+CheckPriorityCommand -> Collections: sort tasks in the order of priority
+activate Collections
+Collections --> CheckPriorityCommand
+deactivate Collections
+
+CheckPriorityCommand -> Ui: show message
+loop For task in tasks
+    CheckPriorityCommand -> Task: getPriority
+    activate Task
+    Task --> CheckPriorityCommand: priority
+    deactivate Task
+    CheckPriorityCommand -> Ui: show the task
+end
+
+CheckPriorityCommand --> User: return false
+note left: do not exit the program
+deactivate CheckPriorityCommand
+
+@enduml
