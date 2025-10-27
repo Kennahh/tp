@@ -28,7 +28,7 @@ are adapted and cited inline where applicable.
 ### 💡 Tips
 The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
 
-## Activity(Type) Component
+## Activity Package
 API: `astra/activity`
 
 ![Architecture diagram](images/Activity_component.png)
@@ -63,6 +63,41 @@ How the `Command` component works:
 3. The command internally processes the input string, and is able to communicate with Activities and Notebook
 4. The result of command execution is done by a call to the `Ui` component to display the result
 
+---
+
+## Add Commands
+
+Add commands are executed when the user inputs the corresponding class name and the appropriate format of inputs. Includes `AddTaskCommand`,`AddTutorialCommand`, `AddLectureCommand`, `AddExamCommand` which involves creating a type of activity and storing it into the Data files.
+
+
+
+### Objectives:
+- Allows users to add in new activities which they need to track .
+- Helps them categorise the types of activities which will make it easier to filter them through the `CheckCommand`
+- Easy to create new activity subclasses such that their respective add commands are subclasses to abstract class `AddCommand`
+
+### Sequence Diagram (AddTaskCommand)
+
+Since all of them have similar sequence diagrams, AddTaskCommmand will be used as an example. Depending on the type of command identified by parser, the respective class object will be created and add to the ActivityList.
+![Architecture diagram](images/AddCommand_sequence.png)
+
+---
+
+## Delete Command
+
+Delete command is executed when the user inputs `delete <index>`
+
+### Objective:
+- Allows users to delete any activities which are either completed or no longer relevant to them.
+- Allows users to clean up and easily manage their data folder to make them more organise and take up minimal space
+- Allows users to delete multiple activities at once for ease and convenience (Done by listing more indexes in the input)
+
+### Sequence Diagram
+
+Only 1 index will be used in the sequence diagram of DeleteCommand
+![Architecture diagram](images/DeleteCommand_sequence.png)
+
+---
 ## Unmark/Complete Commands
 
 ### Overview
@@ -83,13 +118,15 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
         ui.showError("Activity at index " + index + " is already unmarked");
         return false;
 - Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
-- Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+
 
 ### Sequence Diagram (unmark)
-
-![Architecture diagram](images/unmark_sequence.png)
+Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+![Architecture diagram](images/Unmark_sequence.png)
 
 ---
+
+
 
 ### GPA Tracker
 
