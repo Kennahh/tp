@@ -2,6 +2,9 @@
 
 - [Acknowledgements](#Acknowledgements)
 - [Design & implementation](#design--implementation)
+  - [Activity Package](#activity-package) 
+  - [Command Package](#command-package)
+  - [Mark/Unmark commands](#unmarkcomplete-commands)
   - [GPA Tracker](#gpa-tracker)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
@@ -38,6 +41,28 @@ ActivityList Component:
 - The main storage which all commands will execute on
 - Notebook reads from ActivityList to store activities into the respective text files in `data`
 
+## Command package
+
+This section details the design of the command package and how the classes are associated to each other
+
+### Overview
+
+The command package carries out all user input commands of the ASTRA application.
+
+Design goals:
+- Provide flexible abstraction for commands to easily make new command classes
+- Unify the inner workings of all commands
+
+Below is a partial class diagram of the `Command` component
+
+![Class diagram](images/CommandComponent.png)
+
+How the `Command` component works:
+1. A Command object of the corresponding command (specifically command subclass) is created by the Parser class
+2. The command object is executed by main, by calling `execute()` on the object
+3. The command internally processes the input string, and is able to communicate with Activities and Notebook
+4. The result of command execution is done by a call to the `Ui` component to display the result
+
 ## Unmark/Complete Commands
 
 ### Overview
@@ -59,11 +84,12 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
         return false;
 - Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
 - Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+
 ### Sequence Diagram (unmark)
+
 ![Architecture diagram](images/unmark_sequence.png)
 
 ---
-## Design & implementation
 
 ### GPA Tracker
 
@@ -328,6 +354,8 @@ with diagrams where useful. Replace the placeholder name with your own and add m
 - Diagram: import sequence (planned), activity diagram for merge policy.
 
 Add more member sections as needed following the same structure.
+
+
 
 ---
 

@@ -2,6 +2,7 @@ package astra.parser;
 
 import astra.exception.InputException;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,9 +10,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class DateTimeParser {
+    private static final Map<String, DayOfWeek> dayMap = new HashMap<>();
+
     private static final String[] DATE_FORMATS_FULL = {
         "yyyy-MM-dd","yyyy-MMM-dd","yyyy-MMMM-dd","yyyy-MM-d","yyyy-MMM-d","yyyy-MMMM-d",
         "yyyy/MM/dd","yyyy/MMM/dd","yyyy/MMMM/dd","yyyy/MM/d","yyyy/MMM/d","yyyy/MMMM/d",
@@ -39,6 +44,14 @@ public class DateTimeParser {
         "HH mm"
     };
 
+    static {
+        for (DayOfWeek day : DayOfWeek.values()) {
+            String full = day.name().toLowerCase();  // e.g. "monday"
+            String shortForm = full.substring(0, 3); // e.g. "mon"
+            dayMap.put(shortForm, day);
+        }
+    }
+
     /**
      * Parses date string provided by user into date format
      * Supports multiple formats
@@ -47,6 +60,8 @@ public class DateTimeParser {
      * @throws DateTimeParseException when the provided date does not match the expected formatting
      */
     public static LocalDate parseDate(String input) throws InputException {
+        assert (input != null) : "parseDate input string should not be null";
+
         if (input.equalsIgnoreCase("today")) {
             return LocalDate.now();
         }
@@ -89,6 +104,7 @@ public class DateTimeParser {
      * @throws DateTimeParseException when the provided time does not match the expected formatting
      */
     public static LocalTime parseTime(String input) throws InputException {
+        assert (input != null) : "parseTime input string should not be null";
         for (String format : TIME_FORMATS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -107,6 +123,7 @@ public class DateTimeParser {
      * @throws DateTimeParseException when the provided date and time does not match the expected formatting
      */
     public static LocalDateTime parseDateTime(String dateAndTime) throws DateTimeParseException {
+        assert (dateAndTime != null) : "dateAndTime string should not be null";
         // append 00:00 to the end of the string if no timing is provided
         if (!dateAndTime.contains(" ")) { // no space, likely no timing, defaults to 2359H
             dateAndTime += " 2359";
@@ -114,5 +131,39 @@ public class DateTimeParser {
         // the only accepted format is ISO and whatever is written below
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         return LocalDateTime.parse(dateAndTime, formatter);
+    }
+
+    /**
+     * Parses day string provided by user into DayOfWeek enum
+     * Multiple formats of input supported, number, fully spelt and shorthand spelling
+     * @param input User input string
+     * @return The DayOfWeek enum corresponding to user input
+     * @throws InputException Thrown when user input does not correspond to the supported formats, or a nonexistent day
+     */
+    public static DayOfWeek dayOfWeekParser(String input) throws InputException {
+        assert (input != null) : "Input to dayOfWeekParser should not be null";
+
+        String sanitisedInput = input.trim().toLowerCase();
+
+        if (sanitisedInput.isEmpty()) {
+            throw new InputException("Day string cannot be empty");
+        }
+
+        if (input.matches("[1-7]")) {
+            int number = Integer.parseInt(sanitisedInput);
+            return DayOfWeek.of(number);
+        }
+
+        if (input.trim().length() < 3) {
+            throw new InputException("Provide at least 3 letters to specify day");
+        }
+        // input is at least 3 letters long
+        DayOfWeek day;
+        day = dayMap.get(input.trim().toLowerCase().substring(0, 3));
+        if (day == null) {
+            throw new InputException("This is not a valid day!");
+        }
+
+        return day;
     }
 }
