@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+ actor User
+ participant Parser
+ participant AddTaskCommand
+ participant Task
+ participant ActivityList
+ participant Ui
+ participant Notebook
+
+ ' Step 1: User input is parsed
+ User -> Parser : parse("task ....")
+ activate Parser
+
+ ' Parser creates AddTaskCommand
+ create AddTaskCommand
+ Parser -> AddTaskCommand
+ activate AddTaskCommand
+ AddTaskCommand --> Parser
+ deactivate AddTaskCommand
+
+ ' Parser returns command to User
+ Parser --> User : AddTaskCommand
+ deactivate Parser
+
+ ' Step 2: User executes the command
+ User -> AddTaskCommand : execute(activities, ui, notebook)
+ activate AddTaskCommand
+
+ ' Inside execute(): create a new Task
+ create Task
+ AddTaskCommand -> Task
+ activate Task
+ Task --> AddTaskCommand
+ deactivate Task
+
+ ' Add the task to ActivityList
+ AddTaskCommand -> ActivityList : addActivity(task)
+ activate ActivityList
+ ActivityList --> AddTaskCommand
+ deactivate ActivityList
+
+ ' Show a message through Ui
+ AddTaskCommand -> Ui : showMessage("Task added successfully")
+ activate Ui
+ Ui --> AddTaskCommand
+ deactivate Ui
+
+ ' Save to file using Notebook
+ AddTaskCommand -> Notebook : saveToFile()
+ activate Notebook
+ Notebook --> AddTaskCommand
+ deactivate Notebook
+
+ ' Return value to user
+ AddTaskCommand --> User : false
+ deactivate AddTaskCommand
+@enduml

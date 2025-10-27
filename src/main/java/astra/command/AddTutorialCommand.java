@@ -5,7 +5,6 @@ import astra.activity.Tutorial;
 import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.parser.DateTimeParser;
-import astra.parser.Parser;
 import astra.ui.Ui;
 
 import java.io.IOException;
@@ -44,7 +43,7 @@ public class AddTutorialCommand extends AddCommand {
                 if (detail.startsWith("place ")) {
                     venue = detail.substring(6).trim();
                 } else if (detail.startsWith("day ")) {
-                    day = Parser.dayOfWeekParser(detail.substring(4).trim());
+                    day = DateTimeParser.dayOfWeekParser(detail.substring(4).trim());
                 } else if (detail.startsWith("from ")) {
                     startTimeStr = detail.substring(5).trim();
                 } else if (detail.startsWith("to ")) {

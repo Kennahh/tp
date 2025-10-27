@@ -2,6 +2,9 @@
 
 - [Acknowledgements](#Acknowledgements)
 - [Design & implementation](#design--implementation)
+  - [Activity Package](#activity-package) 
+  - [Command Package](#command-package)
+  - [Mark/Unmark commands](#unmarkcomplete-commands)
   - [GPA Tracker](#gpa-tracker)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
@@ -18,30 +21,83 @@
 This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
 are adapted and cited inline where applicable.
 
-## Design & implementation - activity package
 
-This section shows the classes stored in the activity package and how they are associated to each other
+## Setting up, getting started
+
+# Design
+### 💡 Tips
+The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
+
+## Activity Package
+API: `astra/activity`
+
+![Architecture diagram](images/Activity_component.png)
+
+The activity package consists of the different types of activities ASTRA can store and the ActivityList which these activities will be stored in.
+Data stored in our `data` folder will be stored by reading the ActivityList. Activities ASTRA can store are Task,Tutorial,Lecture and Exam where `Tutorial,Lecture and Exam` 
+are subclasses of abstract class `SchoolActivity` which is a subclass of `Activity` along with `Task`
+
+ActivityList Component:
+- The main storage which all commands will execute on
+- Notebook reads from ActivityList to store activities into the respective text files in `data`
+
+## Command package
+
+This section details the design of the command package and how the classes are associated to each other
 
 ### Overview
 
-The activity package defines the core domain model of the ASTRA application. It manages all user activities (e.g.,
-tasks, tutorials, lectures, exams) and provides logic for creating, listing, and maintaining them through the
-ActivityList class.
+The command package carries out all user input commands of the ASTRA application.
 
-Design Goals
+Design goals:
+- Provide flexible abstraction for commands to easily make new command classes
+- Unify the inner workings of all commands
 
-- Provide a flexible abstraction for all types of activities.
+Below is a partial class diagram of the `Command` component
 
-- Support both academic activities (tutorials, lectures, exams) and personal tasks (assignments, projects etc).
+![Class diagram](images/CommandComponent.png)
 
-- Centralize storage and management of activities using ActivityList.
+How the `Command` component works:
+1. A Command object of the corresponding command (specifically command subclass) is created by the Parser class
+2. The command object is executed by main, by calling `execute()` on the object
+3. The command internally processes the input string, and is able to communicate with Activities and Notebook
+4. The result of command execution is done by a call to the `Ui` component to display the result
 
-- Facilitate extensibility — new activity types can be added easily by extending Activity.
+---
 
-### Architecture context (class diagram)
+## Add Commands
 
-![Architecture diagram](images/activities_package.png)
+Add commands are executed when the user inputs the corresponding class name and the appropriate format of inputs. Includes `AddTaskCommand`,`AddTutorialCommand`, `AddLectureCommand`, `AddExamCommand` which involves creating a type of activity and storing it into the Data files.
 
+
+
+### Objectives:
+- Allows users to add in new activities which they need to track .
+- Helps them categorise the types of activities which will make it easier to filter them through the `CheckCommand`
+- Easy to create new activity subclasses such that their respective add commands are subclasses to abstract class `AddCommand`
+
+### Sequence Diagram (AddTaskCommand)
+
+Since all of them have similar sequence diagrams, AddTaskCommmand will be used as an example. Depending on the type of command identified by parser, the respective class object will be created and add to the ActivityList.
+![Architecture diagram](images/AddCommand_sequence.png)
+
+---
+
+## Delete Command
+
+Delete command is executed when the user inputs `delete <index>`
+
+### Objective:
+- Allows users to delete any activities which are either completed or no longer relevant to them.
+- Allows users to clean up and easily manage their data folder to make them more organise and take up minimal space
+- Allows users to delete multiple activities at once for ease and convenience (Done by listing more indexes in the input)
+
+### Sequence Diagram
+
+Only 1 index will be used in the sequence diagram of DeleteCommand
+![Architecture diagram](images/DeleteCommand_sequence.png)
+
+---
 ## Unmark/Complete Commands
 
 ### Overview
@@ -53,20 +109,26 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
 - Help users to update their ActivityList when they either complete or unmark if they completed them by mistake
 - Ensure that the proper format of command is used and prompts users when necessary
 - Example Code Snippet
-    - ``` 
-      if (parts.length < 2) {
-        ui.showError("Please provide an index: unmark <index>");
-        return false;
-    - ```
-      if (!((Task) currActivity).getIsComplete()) {
-        ui.showError("Activity at index " + index + " is already unmarked");
-        return false;
+  - ```
+    if (parts.length < 2) {
+      ui.showError("Please provide an index: unmark <index>");
+      return false;
+    ```
+  - ```
+    if (!((Task) currActivity).getIsComplete()) {
+      ui.showError("Activity at index " + index + " is already unmarked");
+      return false;
+    ```
 - Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
-- Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+
+
 ### Sequence Diagram (unmark)
-![Architecture diagram](images/unmark_sequence.png)
+Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
+![Architecture diagram](images/Unmark_sequence.png)
 
 ---
+
+
 
 
 
@@ -223,20 +285,20 @@ command-based architecture.
 Key components and responsibilities
 
 - Parser and Commands
-    - `astra.parser.Parser` recognizes GPA-related commands and instantiates the corresponding command classes.
-    - Commands in `astra.command`: `AddGpaCommand`, `ListGpaCommand`, `DeleteGpaCommand`, `ComputeGpaCommand` implement
-      the behaviour.
+  - `astra.parser.Parser` recognizes GPA-related commands and instantiates the corresponding command classes.
+  - Commands in `astra.command`: `AddGpaCommand`, `ListGpaCommand`, `DeleteGpaCommand`, `ComputeGpaCommand` implement
+    the behaviour.
 - Model (GPA subcomponent)
-    - `astra.gpa.GpaEntry`: immutable value object for a single module entry; validates inputs and maps letter grades to
-      points.
-    - `astra.gpa.GpaList`: holds entries and computes GPA, excluding S/U entries.
+  - `astra.gpa.GpaEntry`: immutable value object for a single module entry; validates inputs and maps letter grades to
+    points.
+  - `astra.gpa.GpaList`: holds entries and computes GPA, excluding S/U entries.
 - Persistence
-    - `astra.data.Notebook`: owns a `GpaList`, loads GPA entries at startup, and persists them to `data/gpa.txt` and
-      `data/gpa.csv`.
+  - `astra.data.Notebook`: owns a `GpaList`, loads GPA entries at startup, and persists them to `data/gpa.txt` and
+    `data/gpa.csv`.
 - UI and Application
-    - `astra.ui.Ui`: prints feedback, errors, and help content including GPA usage.
-    - `astra.Astra`: application entrypoint; runs the REPL loop, wires Parser → Command → Model/Notebook → Ui, and
-      persists after each non-exiting command.
+  - `astra.ui.Ui`: prints feedback, errors, and help content including GPA usage.
+  - `astra.Astra`: application entrypoint; runs the REPL loop, wires Parser → Command → Model/Notebook → Ui, and
+    persists after each non-exiting command.
 
 ### Architecture context (class/component diagram)
 
@@ -439,7 +501,6 @@ Alternatives considered
 - File I/O failures: wrapped as `FileSystemException`, caught in commands or main loop so the app remains usable.
 - Empty GPA list: `computeGpa()` returns 0.0 and `list gpa` prints a helpful message.
 
-
 ### Per-member enhancement write-ups (templates)
 
 Each member should document at least one enhancement implemented or planned. Use the template below, include 1+ page
@@ -473,6 +534,8 @@ with diagrams where useful. Replace the placeholder name with your own and add m
 
 Add more member sections as needed following the same structure.
 
+
+
 ---
 
 ## Appendix: Requirements
@@ -480,6 +543,7 @@ Add more member sections as needed following the same structure.
 ### Product scope
 
 **Target user profile**:
+
 - University student needing to keep track of their schedule
 - Prefers simple desktop apps over others
 - Prefers typing over mouse interactions
@@ -493,7 +557,7 @@ Keep all academic planning and GPA tracking in one lightweight, fast, offline to
 ### User Stories
 
 | Version | As a ... | I want to ...             | So that I can ...                                      |
-|---------|----------|---------------------------|--------------------------------------------------------|
+| ------- | -------- | ------------------------- | ------------------------------------------------------ |
 | v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application |
 | v2.0    | user     | track tasks and schedules | plan my week efficiently                               |
 | v2.0    | student  | track my modules and GPA  | know my academic standing quickly                      |
@@ -514,15 +578,14 @@ Keep all academic planning and GPA tracking in one lightweight, fast, offline to
 ### GPA Tracker
 
 - Add entries:
-    - `add gpa CS2040C A+ 4mc`
-    - `add gpa CFG1002 S 4`
-    - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
+  - `add gpa CS2040C A+ 4mc`
+  - `add gpa CFG1002 S 4`
+  - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
 - List entries:
-    - `list gpa` shows indexed list
+  - `list gpa` shows indexed list
 - Compute GPA:
-    - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
+  - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
 - Delete entry:
-    - `delete gpa 2` removes the second entry
+  - `delete gpa 2` removes the second entry
 - Invalid grade:
-    - `add gpa CS1231X HH 4` shows an error
-
+  - `add gpa CS1231X HH 4` shows an error
