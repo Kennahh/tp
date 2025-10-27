@@ -6,7 +6,6 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 public class UnmarkCommand implements Command {
