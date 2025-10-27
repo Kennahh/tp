@@ -28,6 +28,7 @@ public class ActivityList {
 
     /**
      * deletes task of specified index
+     * @param index is the index of the activity to be deleted
      */
     public void deleteActivity(int index) {
         Activity removed = activities.get(index);
