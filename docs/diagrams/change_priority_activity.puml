@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+start
+:read taskIndex, newPriority;
+:fetch Task and oldPriority;
+if (newPriority invalid?) then (yes)
+  :error and return;
+  stop
+else (no)
+endif
+:Task.setPriority(newPriority);
+:for each other Task in list;
+if (oldPriority < newPriority?) then (yes)
+  if (t.priority > oldPriority and <= newPriority) then (yes)
+    :t.priority--;
+  endif
+else (no)
+  if (t.priority < oldPriority and >= newPriority) then (yes)
+    :t.priority++;
+  endif
+endif
+:sort tasks by priority (optional view);
+:save Notebook.writeToFile(...);
+stop
+@enduml

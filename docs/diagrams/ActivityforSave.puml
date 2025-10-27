@@ -1,0 +1,8 @@
+@startuml
+!include style.puml
+start
+:Command mutates GpaList;
+:Notebook.writeGpaToFile(entries);
+:Notebook.writeGpaCsv(entries);
+stop
+@enduml

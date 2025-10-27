@@ -1,0 +1,71 @@
+@startuml
+' System-wide component/class overview
+!include style.puml
+
+package astra {
+  class Astra
+  package parser {
+    class Parser
+    class DateTimeParser
+  }
+  package command {
+    interface Command
+    class AddTaskCommand
+    class AddLectureCommand
+    class AddTutorialCommand
+    class AddExamCommand
+    class DeleteCommand
+    class ListCommand
+    class ChangeDeadlineCommand
+    class ChangePriorityCommand
+    class CompleteCommand
+    class UnmarkCommand
+    class CheckExamCommand
+    class CheckLecturesCommand
+    class CheckTutorialsCommand
+    class CheckCurrentCommand
+    class CheckPriorityCommand
+    class HelpCommand
+    class ExitCommand
+    class AddGpaCommand
+    class ListGpaCommand
+    class DeleteGpaCommand
+    class ComputeGpaCommand
+  }
+  package data {
+    class Notebook
+  }
+  package activity {
+    abstract class Activity
+    abstract class SchoolActivity
+    class Task
+    class Lecture
+    class Tutorial
+    class Exam
+    class ActivityList
+  }
+  package gpa {
+    class GpaEntry
+    class GpaList
+  }
+  package ui {
+    class Ui
+  }
+}
+
+Astra --> Parser : parse(input)
+Parser --> Command : create
+Astra ..> Command : execute(...)
+Command --> Notebook : load/save
+Notebook *-- ActivityList
+ActivityList o-- Activity
+SchoolActivity <|-- Lecture
+SchoolActivity <|-- Tutorial
+SchoolActivity <|-- Exam
+Activity <|-- SchoolActivity
+Activity <|-- Task
+Notebook *-- GpaList
+GpaList o-- GpaEntry
+Command ..> Ui : showMessage()/showError()
+Parser ..> DateTimeParser : uses
+@enduml

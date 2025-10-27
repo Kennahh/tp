@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+actor User
+participant Astra
+participant Parser
+participant C as "ComputeGpaCommand"
+participant NB as "Notebook"
+participant GL as "GpaList"
+participant UI as "Ui"
+
+User -> Astra: input "gpa"
+Astra -> Parser: parse(input)
+Parser --> Astra: new ComputeGpaCommand()
+Astra -> C: execute(activities, UI, NB)
+C -> NB: getGpaList()
+C -> GL: computeGpa()
+C -> UI: showMessage("Current GPA: %.2f")
+C --> Astra: return shouldExit=false
+@enduml

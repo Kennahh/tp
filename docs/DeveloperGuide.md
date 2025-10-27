@@ -1,69 +1,216 @@
 # Developer Guide
 
-- [Acknowledgements](#Acknowledgements)
-- [Design & implementation](#design--implementation)
-  - [GPA Tracker](#gpa-tracker)
-- [Appendix: Requirements](#appendix-requirements)
-  - [Product Scope](#product-scope)
-  - [User Stories](#user-stories)
-  - [Non-Functional Requirements](#non-functional-requirements)
-  - [Glossary](#glossary)
-- [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
-  - [GPA Tracker](#gpa-tracker-1)
+- [Acknowledgements](#acknowledgements)
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [Parser](#parser-and-commands-component)
+  - [Commands](#parser-and-commands-component)
+  - [Activity](#activity-and-gpa)
+  - [Gpa](#activity-and-gpa)
+  - [Storage](#storage)
+  - [Ui](#ui)
+  - [Exceptions](#exceptions)
+- [Implementation](#implementation)
+  - [Activities](#activities)
+    - [Add Task with priority](#add-task-with-priority-and-robust-datetime-parsing)
+    - [Change priority rebalancing](#change-priority-rebalancing)
+    - [Check current tasks](#check-current-tasks-nearest-deadlines)
+  - [Gpa Tracker](#gpa-tracker)
+  - [Parsing helpers](#parsing-helpers)
+    - [Day-of-week parsing](#day-of-week-parsing)
+- [Appendix A: Product Scope](#appendix-a-product-scope-expanded)
+- [Appendix B: User Stories](#appendix-b-user-stories-additional)
+- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements-expanded)
+- [Appendix D: Glossary](#appendix-d-glossary-expanded)
+- [Appendix E: Instructions for Manual Testing](#appendix-e-instructions-for-manual-testing-full)
 
 ---
 
 ## Acknowledgements
 
-This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
-are adapted and cited inline where applicable.
+This Developer Guide follows the general structure and documentation practices used by SE‑EDU projects and other public references. We use PlantUML for diagrams. Below we cite all sources of ideas/code/documentation we reused or adapted, and the extent of reuse.
 
+- SE‑EDU AddressBook Level 3 (AB3)
+  - Documentation structure and examples were referenced from AB3’s Developer Guide and User Guide.
+  - Links: AB3 DG
+  - Extent: Documentation structure and some phrasing inspired; no production code copied unless explicitly stated below.
+- CS2113 Main Website
+  - Used as reference for diagram drawing, and expectations of what there is to be in DeveloperGuide.
+  - Extent: Concepts and notation guidance only.
+- SE‑EDU Guides — PlantUML Tutorial
+  - Used as reference for authoring and styling diagrams. Link: Using PlantUML @ SE‑EDU/guides.
+  - Extent: Concepts and notation guidance only.
 
 ## Setting up, getting started
+Refer to the project README for setup instructions: [README.md](../README.md)
 
-# Design
+## Design
 ### 💡 Tips
 The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
+To export all diagrams to PNGs for GitHub rendering, run `docs/diagrams/render_diagrams.ps1` in PowerShell (requires Java and a PlantUML jar).
 
-## Activity(Type) Component
-API: `astra/activity`
+### Architecture
 
-![Architecture diagram](images/Activity_component.png)
+This section gives a high-level overview of Astra’s components and how they interact in a typical command flow. (Astra → Parser → Command → Model/Storage → Ui).
 
-The activity package consists of the different types of activities ASTRA can store and the ActivityList which these activities will be stored in.
-Data stored in our `data` folder will be stored by reading the ActivityList. Activities ASTRA can store are Task,Tutorial,Lecture and Exam where `Tutorial,Lecture and Exam` 
-are subclasses of abstract class `SchoolActivity` which is a subclass of `Activity` along with `Task`
+**Key components and responsibilities**
 
-ActivityList Component:
-- The main storage which all commands will execute on
-- Notebook reads from ActivityList to store activities into the respective text files in `data`
+Astra (`astra.astra`): Main program in charge of the app launch and shut down.
+- At app launch, it initialises the other components and connects them up.
+- During program run, it scans user inputs and maintains the running of the Astra program.
+- At shut down, it shuts down the other components and invokes all necessary cleanup.
 
-## Unmark/Complete Commands
+Astra is built upon these main components:
+- [Parser](#parser) (`astra.parser.Parser`): Maps raw input to a concrete command.
+- [Commands](#commands) (`astra.command.*`): Execute logic using collaborators.
+- [Activity](#activitytype-component)/[Gpa](#gpa-model-details) (`astra.activity.*`, `astra.gpa.*`): In‑memory data for activities and GPA.
+- [Storage](#storage-component) (`astra.data.Notebook`): Centralized persistence for activities and GPA.
+- [Ui](#ui-component) (`astra.ui.Ui`): Console I/O and help printing.
+- [Exceptions](#exceptions) (`astra.exception.*`): Exceptions shared across components.
 
-### Overview
+![Architecture_Diagram](images/architecture_component.png)
 
-UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <index>` or `complete <index>`
+**Main loop overview**
 
-### Objectives:
+The main loop below shows how Astra orchestrates parsing, command execution, and persistence each cycle.
 
-- Help users to update their ActivityList when they either complete or unmark if they completed them by mistake
-- Ensure that the proper format of command is used and prompts users when necessary
-- Example Code Snippet
-    - ``` 
-      if (parts.length < 2) {
-        ui.showError("Please provide an index: unmark <index>");
-        return false;
-    - ```
-      if (!((Task) currActivity).getIsComplete()) {
-        ui.showError("Activity at index " + index + " is already unmarked");
-        return false;
-- Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
-- Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
-### Sequence Diagram (unmark)
-![Architecture diagram](images/unmark_sequence.png)
+![Main loop sequence](images/main_loop_sequence.png)
+
+**How the architecture components interact**
+
+The sequence diagram below shows how components interact when the user issues `delete 1` (or multiple indices like `delete 2`).
+  - Commands share a `Command` interface and are executed directly.
+  - `Parser`, `Ui`, and `Notebook` are concrete classes used directly.
+- Dependencies are passed explicitly into `Command.execute(ActivityList, Ui, Notebook)`, keeping flows easy to trace and limiting global coupling.
+
+![Delete flow sequence](images/architecture_sequence_delete.png)
+
+**Key points**
+- `Parser.parse(input)` returns a concrete `Command`.
+- `Command.execute(...)` returns `shouldExit`.
+- On non-exiting commands, Astra persists activities using both `writeToFile(activities.toList())` and `saveToFile(activities)`.
+- Some commands also call save methods (e.g., delete), which can lead to duplicate writes; see [Storage](#storage-component) for notes.
+
+
+
+### Parser and Commands component
+
+API: `astra.parser.Parser`, `astra.command.Command`
+
+How parsing works
+- The top-level `Parser` performs command-word routing by inspecting the first token(s) (e.g., add, list, delete, gpa).
+- Detailed argument parsing and validation is handled inside each concrete `Command` during construction and/or `execute`.
+- Helpers like `DateTimeParser` and `dayOfWeekParser` are used to keep date/day parsing consistent across commands.
+
+Command component then executes the necessary actions and amend data stored in other classes (see diagram below)
+
+How it fits together
+- `Parser.parse(input)` identifies the command and returns a concrete `Command`.
+- `Command.execute(ActivityList, Ui, Notebook)` validates, mutates ActivityList as needed, may persist via `Notebook`, and reports via `Ui`. It returns a boolean `shouldExit` to control the REPL.
+
+![Command component](images/CommandComponent.png)
+
+
+### Activity and GPA
+
+API: `astra.activity.*`, `astra.gpa.*`
+
+![Model component](images/model_component.png)
+
+The Model (consisting of Activity and GPA) component
+
+- Stores the app’s domain data in memory:
+  - Activities: `ActivityList` containing `Activity` subtypes `Task`, `Lecture`, `Tutorial`, `Exam`.
+  - GPA: `GpaList` of `GpaEntry` objects.
+- Provides operations to create, access, and modify domain objects:
+  - Activities: `addActivity`, `deleteActivity`, `getActivity`, `getListSize`, `toList`, and task-specific helpers
+    such as `addTaskWithPriority` (rebalances priorities) and deletion that re-denses priorities.
+  - GPA: `add`, `remove(1‑based)`, `toList` (unmodifiable), `computeGpa`, `clear`.
+- Validation and invariants:
+  - `GpaEntry` validates subject (single token), grade (must be in allowed set), and MC (non‑negative); S/U excluded from GPA.
+  - Assertions in `GpaList` guard arithmetic and index handling.
+- Independence and responsibilities:
+  - Activity/GPA is largely independent of Ui/Parser. It does not perform persistence; `Notebook` (Storage) handles file I/O.
+  - Note: `ActivityList` currently contains some printing utilities used by commands (e.g., reminders). These are harmless but can be refactored out to keep Activity purely non‑UI.
+
+#### Activities subcomponent
+
+Packages/classes: `astra.activity.*` — `Activity`, `SchoolActivity`, `Task`, `Lecture`, `Tutorial`, `Exam`, `ActivityList`.
+
+![Activity component](images/Activity_component.png)
+
+Key notes
+- Priority management is encapsulated in the model (`addTaskWithPriority`, deletion rebalancing) so multiple commands remain consistent.
+- Deadlines and day/time are represented using `java.time` types.
+
+#### GPA subcomponent
+
+Packages/classes: `astra.gpa.*` — `GpaEntry` (validation, grade mapping), `GpaList` (storage + `computeGpa`).
+
+Key notes
+- `GpaList.toList()` returns an unmodifiable view to prevent accidental mutation by callers.
+- `computeGpa()` ignores S/U and invalid grade points; returns 0.0 when there are no counted MCs.
+
+See [GPA Tracker](#gpa-tracker) for full implementation.
+
+### Storage
+
+API: `astra.data.Notebook`
+- Single owner for file I/O: activities (pipe format) and GPA (`gpa.txt` + `gpa.csv`).
+- On mutations, commands call save methods on `Notebook`.
+  - Activities use `saveToFile(ActivityList)` (CSV with headers written each save).
+  - GPA uses `saveGpa()` which writes both pipe (`gpa.txt`) and CSV (`gpa.csv`).
+ - Additionally, the main loop persists activities after each non-exiting command using `writeToFile(activities.toList())` (pipe format) and `saveToFile(activities)` (CSV). This ensures durability even if a command forgets to save, at the cost of potential duplicate writes when a command also saves. A future improvement is to standardize persistence in one place (either commands or the loop) to avoid duplication.
+
+### UI
+
+API: `astra.ui.Ui`
+- Presents results, lists, errors, and help.
+- Delegates parsing to `Parser` and triggers command execution.
+
+### Exceptions
+
+`astra.exception.*` — `InputException`, `GpaInputException`, `FileSystemException`; used to surface user-friendly errors and encapsulate file I/O failures.
 
 ---
-## Design & implementation
+## Implementation
+
+### Activities
+
+#### Add Task with priority and robust date/time parsing
+
+Flow: The user enters `task <desc> /by <YYYY-MM-DD> <HH:MM> /priority <n>`. The parser returns `AddTaskCommand`, which validates, uses `DateTimeParser` to parse date/time, and inserts the task at the desired priority by bumping existing priorities that are ≥ the requested priority. The command persists via `Notebook.saveToFile(activities)`.
+
+![Add task sequence](images/add_task_sequence.png)
+
+Why
+- Keeping parsing and validation in the command enables precise error messages and reuse of the generic `Parser`.
+- `ActivityList.addTaskWithPriority` encapsulates the re‑prioritization logic, avoiding scattered priority updates across commands.
+
+Alternatives considered
+- Assigning priority based on current list order was rejected as it breaks when tasks are filtered/sorted differently for view.
+
+#### Change priority rebalancing
+
+`changepriority <taskIndex> /to <newPriority>` updates the task and rebalances other tasks to keep a dense 1..N priority band so that the UI and logic remain predictable.
+
+![Change priority activity](images/change_priority_activity.png)
+
+Edge cases handled
+- Moving a task down (e.g., 2 → 5): tasks in (2,5] shift up by 1.
+- Moving a task up (e.g., 5 → 2): tasks in [2,5) shift down by 1.
+- Non‑task indices or out‑of‑range priorities produce user‑friendly errors.
+
+#### Check current tasks (nearest deadlines)
+
+`checkcurrent [n]` lists the n closest upcoming tasks (default 1). It filters for deadlines after “now”, sorts by deadline ascending, and prints the first n.
+
+![Check current activity](images/checkcurrent_activity.png)
+
+Rationale
+- Keeps the feature pure and deterministic; no mutation, only read and computation.
+
 
 ### GPA Tracker
 
@@ -82,7 +229,7 @@ Key components and responsibilities
     - `astra.parser.Parser` recognizes GPA-related commands and instantiates the corresponding command classes.
     - Commands in `astra.command`: `AddGpaCommand`, `ListGpaCommand`, `DeleteGpaCommand`, `ComputeGpaCommand` implement
       the behaviour.
-- Model (GPA subcomponent)
+- GPA subcomponent
     - `astra.gpa.GpaEntry`: immutable value object for a single module entry; validates inputs and maps letter grades to
       points.
     - `astra.gpa.GpaList`: holds entries and computes GPA, excluding S/U entries.
@@ -96,43 +243,7 @@ Key components and responsibilities
 
 ### Architecture context (class/component diagram)
 
-```plantuml
-@startuml
-package astra {
-  class Astra
-  package parser {
-    class Parser
-  }
-  package command {
-    interface Command
-    class AddGpaCommand
-    class ListGpaCommand
-    class DeleteGpaCommand
-    class ComputeGpaCommand
-  }
-  package data {
-    class Notebook
-  }
-  package gpa {
-    class GpaEntry
-    class GpaList
-  }
-  package ui {
-    class Ui
-  }
-}
-
-Astra --> Parser : parse(input)
-Parser --> Command : create
-Astra ..> Command : execute(...)
-Command --> Notebook : load/save/access GPA
-Notebook *-- GpaList
-GpaList o-- GpaEntry
-Command ..> Ui : showMessage/showError
-@enduml
-```
-
-![Architecture diagram](images/GPA_Arch_Class_Diagram.png)
+![GPA component](images/GPA_Arch_Class_Diagram.png)
 
 Notes
 
@@ -143,95 +254,17 @@ Notes
 
 Add GPA entry — `add gpa <SUBJECT> <GRADE> <MC>`
 
-```plantuml
-@startuml
-actor User
-participant UI as "Ui"
-participant Parser
-participant C as "AddGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-
-User -> UI: enter "add gpa CS2040C A+ 4mc"
-UI -> Parser: parse(input)
-Parser --> UI: new AddGpaCommand(input)
-UI -> C: execute(activities, ui, notebook)
-C -> NB: getGpaList()
-C -> GL: add(new GpaEntry("CS2040C","A+",4))
-C -> NB: saveGpa()
-C --> UI: showMessage("Added GPA entry: ...")
-@enduml
-```
-
 ![Add GPA entry sequence](images/AddGPAEntry.png)
 
 Compute GPA — `gpa`
-
-```plantuml
-@startuml
-actor User
-participant UI as "Ui"
-participant Parser
-participant C as "ComputeGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-
-User -> UI: enter "gpa"
-UI -> Parser: parse(input)
-Parser --> UI: new ComputeGpaCommand()
-UI -> C: execute(...)
-C -> NB: getGpaList()
-C -> GL: computeGpa()
-C --> UI: showMessage("Current GPA: %.2f")
-@enduml
-```
 
 ![Compute GPA sequence](images/ComputeGPA.png)
 
 List GPA entries — `list gpa`
 
-```plantuml
-@startuml
-actor User
-participant UI as "Ui"
-participant Parser
-participant C as "ListGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-
-User -> UI: enter "list gpa"
-UI -> Parser: parse(input)
-Parser --> UI: new ListGpaCommand()
-UI -> C: execute(...)
-C -> NB: getGpaList()
-C -> GL: toList()
-C --> UI: showMessage(indexed listing)
-@enduml
-```
-
-![List GPA entries sequence](images/LIstGPAEntries.png)
+![List GPA entries sequence](images/ListGPAEntries.png)
 
 Delete GPA entry — `delete gpa <INDEX>`
-
-```plantuml
-@startuml
-actor User
-participant UI as "Ui"
-participant Parser
-participant C as "DeleteGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-
-User -> UI: enter "delete gpa 2"
-UI -> Parser: parse(input)
-Parser --> UI: new DeleteGpaCommand(input)
-UI -> C: execute(...)
-C -> NB: getGpaList()
-C -> GL: remove(2)
-C -> NB: saveGpa()
-C --> UI: showMessage("Deleted GPA entry: ...")
-@enduml
-```
 
 ![Delete GPA entry sequence](images/DeleteGPAEntry.png)
 
@@ -260,16 +293,6 @@ C --> UI: showMessage("Deleted GPA entry: ...")
 
 Activity for save
 
-```plantuml
-@startuml
-start
-:Command mutates GpaList;
-:Notebook.writeGpaToFile(entries);
-:Notebook.writeGpaCsv(entries);
-stop
-@enduml
-```
-
 ![Activity for save](images/ActivityforSave.png)
 
 ### Why this design
@@ -279,14 +302,6 @@ stop
 - Treating S/U as excluded (via `isSu` and `NaN` in `gradePoints`) keeps the computation logic simple while surfacing
   invalid grades early.
 
-Alternatives considered
-
-- Store GPA entries in a separate storage component: rejected to avoid duplicating file-handling logic; `Notebook`
-  already owns app data.
-- Zero MC entries vs. S/U: representing S/U as zero MC distorts denominators; explicit exclusion is clearer and matches
-  domain semantics.
-- 0-based indices in `DeleteGpaCommand`: 1-based indexing matches user mental model and existing command patterns.
-
 ### Error handling and edge cases
 
 - Parser validation: GPA commands are routed early by prefix checks in `Parser.parse(...)` to avoid ambiguity with
@@ -295,90 +310,90 @@ Alternatives considered
 - File I/O failures: wrapped as `FileSystemException`, caught in commands or main loop so the app remains usable.
 - Empty GPA list: `computeGpa()` returns 0.0 and `list gpa` prints a helpful message.
 
+### Parsing helpers
 
-### Per-member enhancement write-ups (templates)
+#### Day-of-week parsing
 
-Each member should document at least one enhancement implemented or planned. Use the template below, include 1+ page
-with diagrams where useful. Replace the placeholder name with your own and add more sections if needed.
+`Parser.dayOfWeekParser` accepts both numerals (1–7) and text (e.g., mon/Mon/Monday). Errors are reported early with actionable messages.
 
-#### Member: <Your Name> — GPA Tracker core and persistence
+![Day-of-week parsing](images/parser_dayofweek.png)
 
-- Scope: Added GPA commands (`add gpa`, `list gpa`, `delete gpa`, `gpa`), model (`GpaEntry`, `GpaList`), and persistence
-  via `Notebook`.
-- Design and implementation: see sections above. Key code references: `astra.command.AddGpaCommand`,
-  `astra.gpa.GpaList`, `astra.data.Notebook`.
-- Rationale: centralized persistence, clear invariants, simple GPA arithmetic with S/U exclusion.
-- Alternatives: storing GPA separately; allowing multi-word subjects; different grade scale handling.
-- Sequence diagram: add flow (reuse diagram above); class diagram: GPA subcomponent (reuse architecture diagram
-  excerpt).
-- Future work: edit GPA entries; S/U toggling without deletion; semester tagging.
-
-#### Member: <Name> — Parser routing and help UX (planned/implemented)
-
-- Scope: Dedicated prefix checks for GPA to disambiguate overlapping verbs; extended `Ui.showHelp()` to include GPA
-  commands.
-- Rationale: reduces accidental routing to generic `add/list/delete` and guides users.
-- Alternatives: argument tokenization in Parser; sub-parser for GPA.
-- Diagram: short sequence diagram showing Parser routing to GPA commands.
-
-#### Member: <Name> — GPA CSV interoperability (planned)
-
-- Scope: CSV writer with header; potential CSV import with validation and merge policies.
-- Rationale: allow users to use spreadsheet tools; keep `gpa.txt` as the canonical text format.
-- Diagram: import sequence (planned), activity diagram for merge policy.
-
-Add more member sections as needed following the same structure.
+Design note
+- `DateTimeParser` centralizes date/time acceptance criteria while `Parser.dayOfWeekParser` handles day parsing; this separation simplifies testing and reduces coupling.
+---
 
 ---
 
-## Appendix: Requirements
+## Appendix A: Product Scope (expanded)
 
-### Product scope
+Primary users: students managing academic schedules (tasks, lectures, tutorials, exams) and monitoring GPA. Secondary: TAs/instructors demoing command‑driven planners.
 
-**Target user profile**:
-- University student needing to keep track of their schedule
-- Prefers simple desktop apps over others
-- Prefers typing over mouse interactions
-- Comfortable using command line interaction applications
-- Students who prefer a keyboard-driven CLI to track academic activities (tasks/lectures/tutorials/exams) and GPA.
+Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed future work).
 
-**Value proposition**
+## Appendix B: User Stories (additional)
 
-Keep all academic planning and GPA tracking in one lightweight, fast, offline tool with transparent plain-text storage.
+| Version | As a ... | I want to ... | So that I can ... |
+|---------|----------|---------------|-------------------|
+| v2.0    | student  | change a task’s priority quickly | focus on what matters first |
+| v2.0    | student  | see the next N deadlines | plan my immediate workload |
+| v2.0    | student  | list lectures/tutorials by day | plan my day efficiently |
+| v2.0    | student  | edit a task deadline | adapt when plans change |
 
-### User Stories
+## Appendix C: Non-Functional Requirements 
 
-| Version | As a ... | I want to ...             | So that I can ...                                      |
-|---------|----------|---------------------------|--------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application |
-| v2.0    | user     | track tasks and schedules | plan my week efficiently                               |
-| v2.0    | student  | track my modules and GPA  | know my academic standing quickly                      |
+- Data durability: writes either fully succeed or fail with a clear error; partial writes avoided via overwrite semantics.
+- Portability: no native dependencies; runs on JDK 17 across Windows/macOS/Linux.
 
-### Non-Functional Requirements
+## Appendix D: Glossary (expanded)
 
-- Works on Windows/macOS/Linux with JDK 17.
-- Stores data in simple text files under `data/` directory.
-- Handles invalid inputs gracefully without crashing.
+- Priority band — contiguous range 1..N used to rank tasks uniquely.
+- Upcoming — a deadline strictly after the current wall‑clock time.
 
-### Glossary
+## Appendix E: Instructions for Manual Testing (full)
 
-- MC: Module Credits.
-- S/U: Satisfactory/Unsatisfactory grading; excluded from GPA.
+The following complements existing GPA tests and covers activity features. Copy‑paste the commands as shown.
 
-## Instructions for manual testing
+1) Add tasks and priorities
+  - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
+  - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priority‑1 task to shift to 2)
+  - `list` (verify ordering/priority in output)
 
-### GPA Tracker
+2) Change priority (rebalance)
+  - `changepriority 2 /to 1` (the previously index‑2 task should become priority 1; others shift accordingly)
+  - `list` (verify priorities are a dense 1..N)
 
-- Add entries:
+3) Edit deadline
+  - `changedeadline 1 /to 2025-10-31 18:00` (updates date/time; verify in list)
+
+4) Check current deadlines
+  - `checkcurrent` (shows the single nearest task)
+  - `checkcurrent 3` (shows up to three tasks, in ascending deadline order)
+
+5) Filter by day and exam listing
+  - Add one lecture and one tutorial (use `lecture ...` and `tutorial ...` with day/time)
+  - `checklecture Friday`
+  - `checktutorial Wed`
+  - `checkexam` (after adding at least one exam)
+
+6) Delete and multiple delete
+  - `delete 1` removes item #1
+  - Add a few more then `delete 2 4` removes multiple items; list to confirm
+
+7) Error cases to verify guardrails
+  - `task X /priority 1` (missing `/by` → friendly error)
+  - `changedeadline 99 /to 2025-10-10 20:00` (out‑of‑range index)
+  - `changepriority 1 /to 0` (invalid priority)
+
+8) GPA Tracker quick tests
+  - Add entries:
     - `add gpa CS2040C A+ 4mc`
     - `add gpa CFG1002 S 4`
     - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
-- List entries:
+  - List entries:
     - `list gpa` shows indexed list
-- Compute GPA:
+  - Compute GPA:
     - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
-- Delete entry:
+  - Delete entry:
     - `delete gpa 2` removes the second entry
-- Invalid grade:
+  - Invalid grade:
     - `add gpa CS1231X HH 4` shows an error
-

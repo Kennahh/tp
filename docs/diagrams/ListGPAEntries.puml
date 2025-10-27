@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+actor User
+participant Astra
+participant Parser
+participant C as "ListGpaCommand"
+participant NB as "Notebook"
+participant GL as "GpaList"
+participant UI as "Ui"
+
+User -> Astra: input "list gpa"
+Astra -> Parser: parse(input)
+Parser --> Astra: new ListGpaCommand()
+Astra -> C: execute(activities, UI, NB)
+C -> NB: getGpaList()
+C -> GL: toList()
+alt list is empty
+	C -> UI: showMessage("No GPA entries yet.")
+else list has items
+	C -> UI: showMessage(" 1. <entry>\n 2. <entry> ...")
+end
+C --> Astra: return shouldExit=false
+@enduml
