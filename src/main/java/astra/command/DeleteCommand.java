@@ -26,10 +26,13 @@ public class DeleteCommand implements Command{
             String arguments = input.split(" ", 2)[1];
             String[] taskNumbers = arguments.split(" ");
             assert taskNumbers.length >= 1: "There should be at least one task number.";
+            assert taskNumbers.length <= activities.getListSize(): "Can delete all the tasks in the list at most";
             int[] numbers = new int[taskNumbers.length];
             for (int i = 0; i < taskNumbers.length; i++) {
                 String taskNumber = taskNumbers[i];
                 index = Integer.parseInt(taskNumber);
+                assert index > 0: "The task number should always be positive";
+                assert index <= activities.getListSize(): "The task number should not exceed total number of tasks in the list";
                 numbers[i] = index;
             }
             Arrays.sort(numbers);
