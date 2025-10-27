@@ -87,18 +87,27 @@ Objectives:
 
 ### Sequence Diagrams
 #### CheckCurrentCommand
+Input: `checkcurrent <value(optional)>`
+
 ![Architecture diagram](images/checkCurrent_sequence.png)
 
 #### CheckLecturesCommand & CheckTutorialsCommand
+- Input for CheckLectureCommand: `checklecture <day>`
+- Input for CheckTutorialsCommand: `checktutorial <day>`
+
 Both CheckLecturesCommand and CheckTutorialsCommand have similar working flow, thus they have similar sequence diagram. 
 Here we show the sequence diagram of CheckLecturesCommand:
 
 ![Architecture diagram](images/checkLecture_sequence.png)
 
 #### CheckExamCommand
+Input: `checkexam`
+
 ![Architecture diagram](images/checkExam_sequence.png)
 
 #### CheckPriorityCommand
+Input: `checkpriority`
+
 ![Architecture diagram](images/checkPriority_sequence.png)
 
 ---
