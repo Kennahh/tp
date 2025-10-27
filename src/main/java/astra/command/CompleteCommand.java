@@ -5,17 +5,20 @@ import astra.activity.Activity;
 import astra.activity.Task;
 import astra.data.Notebook;
 import astra.ui.Ui;
+
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class CompleteCommand implements Command {
     private static final Logger logger = Logger.getLogger("CompleteCommand");
     private final String input;
+
     public CompleteCommand(String input) {
         this.input = input;
     }
 
     /**
-     * Only works if the Activity is an instanceof Task.
+     * Sets the isComplete variable of the Task at the input index as true
      */
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
@@ -32,7 +35,7 @@ public class CompleteCommand implements Command {
             assert index > 0 : "Index should be positive";
             logger.info("Parsed index: " + index);
 
-            Activity currActivity = activities.getActivity(index-1);
+            Activity currActivity = activities.getActivity(index - 1);
             assert currActivity != null : "Activity retrieved should not be null";
             logger.info("Retrieved activity: " + currActivity);
 
