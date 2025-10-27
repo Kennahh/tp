@@ -4,7 +4,6 @@ participant Parser
 participant CheckLecturesCommand
 participant "original_activities: ActivityList" as original_list
 participant ActivityList
-participant Lecture
 participant Ui
 
 User -> Parser: input "checklecture <day>"
