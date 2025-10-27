@@ -85,14 +85,18 @@ Objectives:
 ### Class Diagram
 ![Architecture diagram](images/checkCommands_classDiagram.png)
 
-### CheckCurrentCommand
+### Sequence Diagrams
+#### CheckCurrentCommand
 ![Architecture diagram](images/checkCurrent_sequence.png)
 
-### CheckLecturesCommand
+#### CheckLecturesCommand & CheckTutorialsCommand
+Both CheckLecturesCommand and CheckTutorialsCommand have similar working flow, thus they have similar sequence diagram. 
+Here we show the sequence diagram of CheckLecturesCommand:
 
-### CheckTutorialsCommand
+![Architecture diagram](images/checkLecture_sequence.png)
 
 ### CheckExamCommand
+
 
 ### CheckPriorityCommand
 
