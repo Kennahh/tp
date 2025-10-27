@@ -66,6 +66,37 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
 ### Sequence Diagram (unmark)
 ![Architecture diagram](images/unmark_sequence.png)
 
+## Check Commands
+
+### Overview
+This section shows all commands to check all types of activities:
+- Check a specific number of immediate upcoming task deadlines: `checkcurrent <value(optional)>`
+- Check all lectures on a specific day: `checklecture <day>`
+- Check all tutorials on a specific day: `checktutorial <day>`
+- Check all exams: `checkexam`
+- Check the priority of all tasks: `checkpriority`
+
+Objectives:
+- Provide an easy way for the user to keep track of all school activities(lectures, tutorials, exams)
+- Help the user handle personal tasks:
+  - Check the most urgent task(s)
+  - Check the potential order in which the tasks should be completed.
+
+### Class Diagram
+![Architecture diagram](images/checkCommands_classDiagram.png)
+
+### CheckCurrentCommand
+![Architecture diagram](images/checkCurrent_sequence.png)
+
+### CheckLecturesCommand
+
+### CheckTutorialsCommand
+
+### CheckExamCommand
+
+### CheckPriorityCommand
+
+
 ---
 ## Design & implementation
 
