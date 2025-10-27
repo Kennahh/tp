@@ -4,6 +4,7 @@ import astra.activity.Activity;
 import astra.activity.ActivityList;
 import astra.activity.Task;
 import astra.data.Notebook;
+import astra.exception.InputException;
 import astra.ui.Ui;
 
 import java.time.LocalDateTime;
@@ -32,13 +33,20 @@ public class CheckCurrentCommand implements Command {
      */
     public CheckCurrentCommand(String input) {
         String[] parts = input.split(" ");
+        assert parts.length <= 2: "At most two elements in the input following the style: checkcurrent <value>";
         if (parts.length > 1) {
             try {
                 this.count = Integer.parseInt(parts[1].trim());
+                if (count < 1) {
+                    throw new InputException("Number of tasks to check should not be less than 1");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for " +
                         "checkcurrent, e.g., 'checkcurrent 3'");
                 this.count = 1; // fallback value
+            } catch (InputException e) {
+                System.out.println("[ASTRA] " + e.getMessage());
+                this.count = 1;
             }
         } else {
             this.count = 1;

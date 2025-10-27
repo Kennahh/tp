@@ -30,8 +30,12 @@ public class DeleteCommand implements Command{
             for (int i = 0; i < taskNumbers.length; i++) {
                 String taskNumber = taskNumbers[i];
                 index = Integer.parseInt(taskNumber);
+                if (index < 1) {
+                    throw new InputException("Task number should be positive");
+                }
                 numbers[i] = index;
             }
+            assert numbers.length <= activities.getListSize(): "Can delete all the tasks in the list at most";
             Arrays.sort(numbers);
             for (int i = numbers.length - 1; i >= 0; i--) {
                 index = numbers[i];

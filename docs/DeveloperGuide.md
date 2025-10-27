@@ -48,7 +48,6 @@ Refer to the project README for setup instructions: [README.md](../README.md)
 ## Design
 ### 💡 Tips
 The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
-To export all diagrams to PNGs for GitHub rendering, run `docs/diagrams/render_diagrams.ps1` in PowerShell (requires Java and a PlantUML jar).
 
 ### Architecture
 

@@ -11,13 +11,13 @@ import java.util.logging.Logger;
 public class UnmarkCommand implements Command {
     private static final Logger logger = Logger.getLogger("UnmarkCommand");
     private final String input;
+
     public UnmarkCommand(String input) {
         this.input = input;
     }
-    //private ActivityList activities;
 
     /**
-     * Only works if the Activity is an instanceof Task.
+     * Sets the isComplete variable of the Task at the input index as false
      */
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {

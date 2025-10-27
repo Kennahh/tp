@@ -5,7 +5,7 @@ import astra.activity.ActivityList;
 import astra.activity.Lecture;
 import astra.data.Notebook;
 import astra.exception.InputException;
-import astra.parser.Parser;
+import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 
 import java.time.DayOfWeek;
@@ -48,13 +48,15 @@ public class CheckLecturesCommand extends CheckCommand {
                 filteredList.addActivity(activity);
             }
         }
+        assert filteredList.getListSize() <= activities.getListSize(): "Edge case: all activities in the list " +
+                "are lectures on " + day;
         return filteredList;
     }
 
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         try {
-            this.day = Parser.dayOfWeekParser(this.input);
+            this.day = DateTimeParser.dayOfWeekParser(this.input);
         } catch (InputException e) {
             ui.showError(e.getMessage());
             return false;

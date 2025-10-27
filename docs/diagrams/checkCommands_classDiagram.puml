@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!include style.puml
+skinparam arrowThickness 1
+skinparam arrowColor Black
+skinparam classBackgroundColor grey
+
+package command{
+class Command <<interface>>
+class CheckCommand <<abstract>>
+class CheckCurrentCommand
+class CheckExamCommand
+class CheckLecturesCommand
+class CheckTutorialsCommand
+class CheckPriorityCommand
+}
+
+Command <|.. CheckCommand
+Command <|.. CheckCurrentCommand
+Command <|.. CheckPriorityCommand
+CheckCommand <|-- CheckExamCommand
+CheckCommand <|-- CheckLecturesCommand
+CheckCommand <|-- CheckTutorialsCommand
+
+@enduml
