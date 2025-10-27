@@ -74,6 +74,11 @@ Astra is built upon these main components:
 
 The main loop below shows how Astra orchestrates parsing, command execution, and persistence each cycle.
 
+- Inputs: a single line of user text (REPL), or a parsed token stream.
+- Outputs: a textual response to the user (via Ui) and, when needed, updated persisted state (via Notebook).
+- Error modes: parsing errors, command validation errors, IO/persistence failures.
+- Success criteria: correct command semantics, consistent persisted state, clear error messages, and no index corruption for list operations.
+
 ![Main loop sequence](images/main_loop_sequence.png)
 
 **How the architecture components interact**
@@ -91,7 +96,8 @@ The sequence diagram below shows how components interact when the user issues `d
 - On non-exiting commands, Astra persists activities using both `writeToFile(activities.toList())` and `saveToFile(activities)`.
 - Some commands also call save methods (e.g., delete), which can lead to duplicate writes; see [Storage](#storage-component) for notes.
 
-
+**Why this architecture (benefits)**
+Separation of concerns (SoC)
 
 ### Parser and Commands component
 
