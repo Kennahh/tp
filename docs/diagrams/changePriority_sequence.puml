@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "ChangePriorityCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+
+User -> UI: enter "changepriority 3 /to 1"
+UI -> Parser: parse(input)
+Parser --> UI: new ChangePriorityCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getActivity(2)
+AL --> C: Task instance
+C -> AL: reassign priorities (internal)
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Priority updated: ...")
+@enduml

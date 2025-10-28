@@ -70,9 +70,17 @@ public class ChangePriorityCommand extends AddCommand {
             Task task = (Task) activity;
             int oldPriority = task.getPriority();
 
-            if (newPriority <= 0 || newPriority > activities.getListSize()) {
+            // Determine number of tasks (only Task instances count towards priority range)
+            int taskCount = 0;
+            for (int i = 0; i < activities.getListSize(); i++) {
+                if (activities.getActivity(i) instanceof Task) {
+                    taskCount++;
+                }
+            }
+
+            if (newPriority <= 0 || newPriority > taskCount) {
                 throw new InputException(
-                        "Priority must be between 1 and " + activities.getListSize() + ".");
+                        "Priority must be between 1 and " + String.valueOf(taskCount) + ".");
             }
 
             if (newPriority == oldPriority) {
@@ -100,13 +108,7 @@ public class ChangePriorityCommand extends AddCommand {
                 }
             }
 
-            // Sort the list by priority
-            activities.toList().sort((a, b) -> {
-                if (a instanceof Task && b instanceof Task) {
-                    return Integer.compare(((Task) a).getPriority(), ((Task) b).getPriority());
-                }
-                return 0;
-            });
+            // Do not reorder activities list; only priorities are updated so positions remain stable
 
             // Save and confirm
             notebook.saveToFile(activities);
