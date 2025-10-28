@@ -16,7 +16,7 @@
     - [Add Task with priority](#add-task-with-priority-and-robust-datetime-parsing)
     - [Task Deadline & Priority System](#task-deadline--priority-system)
     - [Change priority rebalancing](#change-priority-rebalancing)
-    - [Check current tasks](#check-current-tasks-nearest-deadlines)
+    - [Check current tasks](#check-current-tasks-earliest-deadlines)
   - [Gpa Tracker](#gpa-tracker)
   - [Parsing helpers](#parsing-helpers)
     - [Day-of-week parsing](#day-of-week-parsing)
