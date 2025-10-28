@@ -1,0 +1,17 @@
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "CheckCurrentCommand"
+participant AL as "ActivityList"
+
+User -> UI: enter "checkcurrent 3"
+UI -> Parser: parse(input)
+Parser --> UI: new CheckCurrentCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getAllTasks()
+AL --> C: List<Task>
+C -> C: filter future tasks
+C -> C: sort by deadline (earliest first)
+C --> UI: showMessage(top N tasks)
+@enduml

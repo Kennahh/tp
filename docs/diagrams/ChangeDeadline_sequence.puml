@@ -1,0 +1,18 @@
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "ChangeDeadlineCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+
+User -> UI: enter "changedeadline 3 /to 2025-10-31 18:00"
+UI -> Parser: parse(input)
+Parser --> UI: new ChangeDeadlineCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getActivity(2)
+AL --> C: Task instance
+C -> T: setDeadline(LocalDate, LocalTime)
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Deadline updated for task: ...")
+@enduml
