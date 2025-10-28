@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "AddTaskCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+
+User -> UI: enter "task CS2113 Quiz /by 2025-10-10 23:59 /priority 2"
+UI -> Parser: parse(input)
+Parser --> UI: new AddTaskCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: addTaskWithPriority(Task, priority)
+AL --> C: confirmation
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Task ... has been added")
+@enduml
