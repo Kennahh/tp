@@ -424,12 +424,33 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 
 ## Appendix B: User Stories (additional)
 
-| Version | As a ... | I want to ...                    | So that I can ...           |
-| ------- | -------- | -------------------------------- | --------------------------- |
-| v2.0    | student  | change a task’s priority quickly | focus on what matters first |
-| v2.0    | student  | see the next N deadlines         | plan my immediate workload  |
-| v2.0    | student  | list lectures/tutorials by day   | plan my day efficiently     |
-| v2.0    | student  | edit a task deadline             | adapt when plans change     |
+
+| Version | As a ...| I want to ...                                        | So that I can ...                                       |
+|---------|---------|------------------------------------------------------|---------------------------------------------------------|
+| v1.0    | new user| see usage instructions                               | refer to them when I forget how to use the application  |
+| v1.0    | Student | view all the tasks I need to do                      | see what is scheduled ahead                             |
+| v1.0    | Student | Add tasks and their deadlines                        | track deadlines                                         |
+| v1.0    | user    | Delete tasks                                         | reduce clutter in my list of tasks                      |
+| v1.0    | Student | check what the current task is                       | know what mas be done right now                         |
+| v1.0    | Student | Mark tasks as complete/incomplete                    | know if I have finished a task                          |
+| v1.0    | Student | Change deadline of tasks                             | Change the deadline if i put it in wrongly              |
+| v1.0    | Student | Check upcoming examinations                          | see my upcoming examinations                            |
+| v1.0    | Student | Check what lectures I have                           | see what lecture I have for the day                     |
+| v1.0    | Student | Check what tutorials I have                          | see what tutorials I have for the day                   |
+| v1.0    | user    | See my added activities between startups             | have continuity between each start of the programme     |
+| v2.0    | Student | List tasks by their deadline                         | see the order of tasks, by the earliest deadline first  |
+| v2.0    | Student | List tasks by their priority                         | see the order of tasks, by the most important one first |
+| v2.0    | Student | Have more ways to input dates and times              | have an easier time entering them in                    |
+| v2.0    | Student | Be reminded of oncoming deadline                     | be reminded of the work to be done                      |
+| v2.0    | user    | Delete multiple tasks                                | quickly delete and clear completed tasks                |
+| v2.0    | user    | Have completed tasks or passed exams be auto-deleted | not have to manually clear them all                     |
+| v2.0    | user    | track tasks and schedules                            | plan my week efficiently                                |
+| v2.0    | student | track my modules and GPA                             | know my academic standing quickly                       |
+| v2.0    | student | change a task’s priority quickly                     | focus on what matters first                             |
+| v2.0    | student | see the next N deadlines                             | plan my immediate workload                              |
+| v2.0    | student | list lectures/tutorials by day                       | plan my day efficiently                                 |
+| v2.0    | student | edit a task deadline                                 | adapt when plans change                                 |
+
 
 ## Appendix C: Non-Functional Requirements
 
