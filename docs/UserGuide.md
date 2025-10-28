@@ -1,6 +1,23 @@
 # ASTRA ChatBot
 
+## Table of Contents
 
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Getting Help](#getting-help)
+    - [Adding a Task](#adding-a-task)
+    - [Adding a Tutorial](#adding-a-tutorial)
+    - [Adding a Lecture](#adding-a-lecture)
+    - [Adding an Exam](#adding-an-exam)
+    - [Checking specific Activities](#checking-specific-activity)
+    - [List all Activities](#list-all-activities)
+    - [Deleting Activites](#deleting-activities)
+    - [Completing a Task](#completing-a-task)
+    - [Unmarking a Taks](#unmarking-a-task)
+    - [Changing Deadline](#changing-deadline-)
+    - [GPA Tracker](#gpa-tracker)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
 
 ## Quick Start
 1. Ensure that you have Java 17 or above installed.
@@ -11,8 +28,17 @@ and run ```java -jar Astra.jar```
 
 ## Features 
 * All commands are case-insensitive for easier usability
-* All days of the week must be spelt in full
-* All timings must follow the format as stated
+* All days of the week may be input with either be spelt in full, in shorthand (minimum 3 letters), or numerical form, 1 to 7
+    * e.g. `mon`, `monday`, `1`
+* All dates and timings must be input in the supported formats
+    * Dates may be entered in `YYYY-MM-DD` or `DD-MM-YYYY` format, seperated by either `-` or `/`, months may be represented numerically or spelt
+        * e.g. `2025-12-03` or `03/12/2025` or `2025-dec-03`
+    * Dates may also be entered without year, in which ASTRA will default to the current year, format must be in `DD-MM`, or if month is spelled out, either order is fine
+        * e.g. `03-12`, `dec-03`, `03-december`
+    * Timings may be entered in `HHmm` or `HH:mm`
+        * e.g. `1300`, `13:00`
+* Arguments in square brackets are optional
+    * e.g. `/by <date> [time]` can be used as `/by 2025-12-03 14:00` or just `/by 2025-12-03`
 
 ### Getting Help
 Ask Astra to List all the available commands the user can use as well as the input format
@@ -25,7 +51,9 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <YYY-MM-DD> <HH:mm> /priority <number>`
+Format: `task <description> /by <date> [time] /priority <number>`
+
+If time is not provided, i.e. just a date, ASTRA will default to 2359H.
 
 Example of usage: 
 
@@ -76,7 +104,7 @@ CS2107 | Venue: LT16 | Monday | Duration: 1400H to 1600H
 ### Adding an Exam
 Adds a new exam to the ActivityList with the input **description**, **date**, **exam duration**
 
-Format: `exam <description> /place <venue> /date <YYYY-MMM-DD> /from <HH:mm> /to <HH:mm>`
+Format: `exam <description> /place <venue> /date <date> /from <time> /to <time>`
 
 Example of usage:
 
@@ -182,7 +210,9 @@ Unmarked: #1 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 ### Changing Deadline 
 Changes the deadline of a task at the specified index
 
-Format:`changedeadline <index> /to <YYYY-MM-DD> <HH:mm>`
+Format:`changedeadline <index> /to <date> [time]`
+
+If time is not provided, i.e. just a date, ASTRA will default to 2359H
 
 Example of usage:
 
