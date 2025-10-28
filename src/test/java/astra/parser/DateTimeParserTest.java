@@ -57,6 +57,17 @@ public class DateTimeParserTest {
     }
 
     @Test
+    public void parseTime_formats_failue() {
+        try {
+            LocalTime dt = DateTimeParser.parseTime("2500");
+            parseTimeTestHelper(dt, 25, 0);
+            fail("Expected InputException to be thrown");
+        } catch (InputException e) {
+            // test pass
+        }
+    }
+
+    @Test
     public void parseDate_formats_failure() {
         try {
             LocalDate dt = DateTimeParser.parseDate(" ");
