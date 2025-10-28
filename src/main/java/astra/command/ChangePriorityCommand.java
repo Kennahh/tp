@@ -70,9 +70,9 @@ public class ChangePriorityCommand extends AddCommand {
             Task task = (Task) activity;
             int oldPriority = task.getPriority();
 
-            if (newPriority <= 0 || newPriority > activities.getListSize()) {
+            if (newPriority <= 0 || newPriority > activities.getListSize() - 1) {
                 throw new InputException(
-                        "Priority must be between 1 and " + activities.getListSize() + ".");
+                        "Priority must be between 1 and " + String.valueOf(activities.getListSize() - 1) + ".");
             }
 
             if (newPriority == oldPriority) {
