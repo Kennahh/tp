@@ -31,6 +31,8 @@ return
 DeleteCommand->Notebook : saveToFile(activities)
 activate Notebook
 return
-return : false
+return false
+deactivate DeleteCommand
+destroy DeleteCommand
 
 @enduml
