@@ -3,6 +3,7 @@
 
 hide footbox
  actor User
+ participant Astra
  participant Parser
  participant AddTaskCommand
  participant Task
@@ -11,7 +12,9 @@ hide footbox
  participant Notebook
 
  ' Step 1: User input is parsed
- User -> Parser : parse("task ....")
+ User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
+ activate Astra
+ Astra -> Parser : parse(input)
  activate Parser
 
  ' Parser creates AddTaskCommand
@@ -22,11 +25,11 @@ hide footbox
  deactivate AddTaskCommand
 
  ' Parser returns command to User
- Parser --> User : AddTaskCommand
+ Parser --> Astra : AddTaskCommand
  deactivate Parser
 
  ' Step 2: User executes the command
- User -> AddTaskCommand : execute(activities, ui, notebook)
+ Astra -> AddTaskCommand : execute(activities, ui, notebook)
  activate AddTaskCommand
 
  ' Inside execute(): create a new Task
@@ -37,7 +40,7 @@ hide footbox
  deactivate Task
 
  ' Add the task to ActivityList
- AddTaskCommand -> ActivityList : addActivity(task)
+ AddTaskCommand -> ActivityList : addTaskWithPriority(task,int)
  activate ActivityList
  ActivityList --> AddTaskCommand
  deactivate ActivityList
@@ -55,7 +58,9 @@ hide footbox
  deactivate Notebook
 
  ' Return value to user
- AddTaskCommand --> User : false
+ AddTaskCommand --> Astra : false
  deactivate AddTaskCommand
+ AddTaskCommand -[hidden]-> AddTaskCommand
  destroy AddTaskCommand
+ Astra -->User
 @enduml
