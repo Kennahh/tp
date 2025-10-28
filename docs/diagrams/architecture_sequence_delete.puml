@@ -26,7 +26,7 @@ activate C
 '	C -> C: split args into tokens
 '	C -> C: parseInt[] and sort ascending
 'end
-loop until end of activity list
+loop For Activity in ActivityList
 	C -> AL: getActivity(i-1)
 	activate AL
 	AL --> C : Activity
