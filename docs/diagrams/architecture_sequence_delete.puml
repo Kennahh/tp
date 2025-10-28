@@ -3,24 +3,49 @@
 actor User
 participant Astra
 participant Parser
-participant C as "DeleteCommand"
+participant C as ":DeleteCommand"
 participant AL as "ActivityList"
 participant NB as "Notebook"
 participant UI as "Ui"
 
 User -> Astra: input "delete 2"
+activate Astra
 Astra -> Parser: parse(input)
-Parser --> Astra: new DeleteCommand(input)
+activate Parser
+create C
+Parser -> C: new DeleteCommand(input)
+activate C
+C --> Parser
+deactivate C
+Parser --> Astra : DeleteCommand
+deactivate Parser
+
 Astra -> C: execute(AL, UI, NB)
-group parse and prepare indices
-	C -> C: split args into tokens
-	C -> C: parseInt[] and sort ascending
-end
-loop for each index in reverse order
+activate C
+'group parse and prepare indices
+'	C -> C: split args into tokens
+'	C -> C: parseInt[] and sort ascending
+'end
+loop until end of activity list
 	C -> AL: getActivity(i-1)
+	activate AL
+	AL --> C : Activity
+	deactivate AL
 	C -> AL: deleteActivity(i-1)
+	activate AL
+    AL --> C
+    deactivate AL
 	C -> UI: showMessage("Erased: #i ...")
+	activate UI
+	UI --> C
+	deactivate UI
 end
 C -> NB: saveToFile(AL)
-C --> Astra: return shouldExit=false
+activate NB
+NB --> C
+deactivate NB
+
+C --> Astra: false
+deactivate C
+destroy C
 @enduml
