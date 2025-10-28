@@ -2,7 +2,7 @@
 
 - [Acknowledgements](#Acknowledgements)
 - [Design & implementation](#design--implementation)
-  - [Activity Package](#activity-package) 
+  - [Activity Package](#activity-package)
   - [Command Package](#command-package)
   - [Mark/Unmark commands](#unmarkcomplete-commands)
   - [GPA Tracker](#gpa-tracker)
@@ -21,23 +21,26 @@
 This Developer Guide builds upon the SE-EDU AB3 template and guidelines. We use PlantUML for diagrams. Any reused ideas
 are adapted and cited inline where applicable.
 
-
 ## Setting up, getting started
 
 # Design
+
 ### 💡 Tips
+
 The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
 
 ## Activity Package
+
 API: `astra/activity`
 
 ![Architecture diagram](images/Activity_component.png)
 
 The activity package consists of the different types of activities ASTRA can store and the ActivityList which these activities will be stored in.
-Data stored in our `data` folder will be stored by reading the ActivityList. Activities ASTRA can store are Task,Tutorial,Lecture and Exam where `Tutorial,Lecture and Exam` 
+Data stored in our `data` folder will be stored by reading the ActivityList. Activities ASTRA can store are Task,Tutorial,Lecture and Exam where `Tutorial,Lecture and Exam`
 are subclasses of abstract class `SchoolActivity` which is a subclass of `Activity` along with `Task`
 
 ActivityList Component:
+
 - The main storage which all commands will execute on
 - Notebook reads from ActivityList to store activities into the respective text files in `data`
 
@@ -50,6 +53,7 @@ This section details the design of the command package and how the classes are a
 The command package carries out all user input commands of the ASTRA application.
 
 Design goals:
+
 - Provide flexible abstraction for commands to easily make new command classes
 - Unify the inner workings of all commands
 
@@ -58,6 +62,7 @@ Below is a partial class diagram of the `Command` component
 ![Class diagram](images/CommandComponent.png)
 
 How the `Command` component works:
+
 1. A Command object of the corresponding command (specifically command subclass) is created by the Parser class
 2. The command object is executed by main, by calling `execute()` on the object
 3. The command internally processes the input string, and is able to communicate with Activities and Notebook
@@ -69,9 +74,8 @@ How the `Command` component works:
 
 Add commands are executed when the user inputs the corresponding class name and the appropriate format of inputs. Includes `AddTaskCommand`,`AddTutorialCommand`, `AddLectureCommand`, `AddExamCommand` which involves creating a type of activity and storing it into the Data files.
 
-
-
 ### Objectives:
+
 - Allows users to add in new activities which they need to track .
 - Helps them categorise the types of activities which will make it easier to filter them through the `CheckCommand`
 - Easy to create new activity subclasses such that their respective add commands are subclasses to abstract class `AddCommand`
@@ -88,6 +92,7 @@ Since all of them have similar sequence diagrams, AddTaskCommmand will be used a
 Delete command is executed when the user inputs `delete <index>`
 
 ### Objective:
+
 - Allows users to delete any activities which are either completed or no longer relevant to them.
 - Allows users to clean up and easily manage their data folder to make them more organise and take up minimal space
 - Allows users to delete multiple activities at once for ease and convenience (Done by listing more indexes in the input)
@@ -98,6 +103,7 @@ Only 1 index will be used in the sequence diagram of DeleteCommand
 ![Architecture diagram](images/DeleteCommand_sequence.png)
 
 ---
+
 ## Unmark/Complete Commands
 
 ### Overview
@@ -121,16 +127,12 @@ UnmarkCommand and CompleteCommand are executed when the user inputs `unmark <ind
     ```
 - Both Unmark and CompleteCommand have similar command formats, hence they have similar error conditions
 
-
 ### Sequence Diagram (unmark)
+
 Both have similar sequence codes with the only difference is the Command entity and method used.(unmark: clearIsComplete(), complete: setIsComplete())
 ![Architecture diagram](images/Unmark_sequence.png)
 
 ---
-
-
-
-
 
 ## Design & implementation
 
@@ -153,10 +155,9 @@ Together, these features ensure that users can efficiently monitor their task by
 
 ### Design Goals
 
-* Provide flexible management for task deadlines and priorities.
-* Ensure robust validation and error handling for all user inputs.
-* Integrate naturally into the existing `Command`, `ActivityList`, and `Task` class structure.
-* Keep separation of concerns — UI handles messages, Commands handle logic, ActivityList stores state.
+- Provide flexible management for task deadlines and priorities.
+- Ensure robust validation and error handling for all user inputs.
+- Integrate naturally into the existing `Command`, `ActivityList`, and `Task` class structure.
 
 ---
 
@@ -200,14 +201,13 @@ DeleteCommand --> ActivityList : update priority after deletion
 
 ---
 
+### ChangeDeadlineCommand
 
-
-### ChangeDeadlineCommand 
 **Purpose**: Allows the user to modify the deadline of an existing task.
 
 #### Command Syntax
-changepriority (task number) /to (priority)
 
+changepriority (task number) /to (priority)
 
 ```
 plantuml
@@ -232,15 +232,15 @@ C --> Ui: showMessage("Deadline updated for task: ...")
 
 ![Change Deadline Sequence](images/changeDeadline_sequence.png)
 
-
 ---
 
 ### ChangePriority System
+
 **Purpose**: Manages priorities for task instance activities.
 
 #### Command Syntax
- (task number) /to (YYYY-MM-DD) (HH:MM)
 
+(task number) /to (YYYY-MM-DD) (HH:MM)
 
 ```
 plantuml
@@ -266,10 +266,180 @@ DeleteCommand --> ActivityList : reassign priorities
 
 ---
 
+---
 
+### AddTaskCommand
 
+**Purpose**: Handles creation of `Task` activities. Supports an optional `/priority <n>` token; when omitted and tasks exist, the app prompts the user for a priority. When a task is inserted at priority `p`, all existing tasks with priority >= `p` are shifted up by 1.
 
+#### Command Syntax
 
+`task <description> /by <YYYY-MM-DD> <HH:MM> [/priority <n>]`
+
+```plantuml
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "AddTaskCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+
+User -> UI: enter "task CS2113 Quiz /by 2025-10-10 23:59 /priority 2"
+UI -> Parser: parse(input)
+Parser --> UI: new AddTaskCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: addTaskWithPriority(Task, priority)
+AL --> C: confirmation
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Task ... has been added")
+@enduml
+```
+
+![Add Task sequence](images/AddTask_sequence.png)
+
+---
+
+### CheckPriorityCommand
+
+**Purpose**: Display all tasks ordered by their `priority` field (ascending). Useful for users who want to review most-important items first.
+
+#### Command Syntax
+
+`checkpriority`
+
+```plantuml
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "CheckPriorityCommand"
+participant AL as "ActivityList"
+
+User -> UI: enter "checkpriority"
+UI -> Parser: parse(input)
+Parser --> UI: new CheckPriorityCommand()
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getAllTasks()
+AL --> C: List<Task>
+C --> UI: showMessage(list ordered by priority)
+@enduml
+```
+
+![Check Priority sequence](images/CheckPriority_sequence.png)
+
+---
+
+### ChangePriorityCommand (expanded)
+
+**Purpose**: Change the priority of an existing task and reassign other tasks' priorities so the ordering remains contiguous. Errors are surfaced when indices or priorities are out-of-range.
+
+#### Command Syntax
+
+`changepriority <index> /to <newPriority>`
+
+```plantuml
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "ChangePriorityCommand"
+participant AL as "ActivityList"
+
+User -> UI: enter "changepriority 3 /to 1"
+UI -> Parser: parse(input)
+Parser --> UI: new ChangePriorityCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getActivity(2)
+AL --> C: Task instance
+C -> AL: reassign priorities (internal)
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Priority updated: ...")
+@enduml
+```
+
+![Change Priority sequence](images/changePriority_sequence.png)
+
+---
+
+### ChangeDeadlineCommand (expanded — GPA style)
+
+**Purpose**: Modify deadline (date and/or time) of an existing `Task` instance. This command parses the task index and a new timestamp, validates the input, updates the `Task` model, and persists changes via `Notebook`.
+
+#### Command Syntax
+
+`changedeadline <taskNumber> /to <YYYY-MM-DD> <HH:MM>`
+
+```plantuml
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "ChangeDeadlineCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+
+User -> UI: enter "changedeadline 3 /to 2025-10-31 18:00"
+UI -> Parser: parse(input)
+Parser --> UI: new ChangeDeadlineCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getActivity(2)
+AL --> C: Task instance
+C -> T: setDeadline(LocalDate, LocalTime)
+C -> NB: saveToFile(activities)
+C --> UI: showMessage("Deadline updated for task: ...")
+@enduml
+```
+
+![Change Deadline sequence](images/changeDeadline_sequence.png)
+
+#### Behaviour and validation
+
+- Validates `/to` presence and the index argument.
+- Uses `DateTimeParser` to accept flexible date/time formats (YYYY-MM-DD, or day names where supported).
+- Ensures selected activity is a `Task`; otherwise shows an error via `Ui`.
+- Persists changes through `Notebook.writeToFile(...)` and `Notebook.saveToFile(...)` so the updated deadline survives restarts.
+
+---
+
+### CheckCurrentCommand (deadline-based)
+
+**Purpose**: Show the nearest upcoming task deadlines (future tasks), optionally limited by a count. Useful to get a quick glance at what is due soon.
+
+#### Command Syntax
+
+`checkcurrent [n]` — where `n` is optional number of tasks to show; defaults to 1.
+
+```plantuml
+@startuml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "CheckCurrentCommand"
+participant AL as "ActivityList"
+
+User -> UI: enter "checkcurrent 3"
+UI -> Parser: parse(input)
+Parser --> UI: new CheckCurrentCommand(input)
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getAllTasks()
+AL --> C: List<Task>
+C -> C: filter future tasks
+C -> C: sort by deadline (earliest first)
+C --> UI: showMessage(top N tasks)
+@enduml
+```
+
+![Check Current sequence](images/CheckCurrent_sequence.png)
+
+#### Behaviour and validation
+
+- Filters `ActivityList` for `Task` instances whose deadline is after current time.
+- Sorts matching tasks by combined `deadlineDate` + `deadlineTime` (earliest first).
+- Returns up to `n` tasks where `n` is provided by the user; defaults to 1 when omitted or invalid.
+- Uses `Ui` to display friendly messages when no future tasks exist.
+
+---
 
 ### GPA Tracker
 
@@ -533,8 +703,6 @@ with diagrams where useful. Replace the placeholder name with your own and add m
 - Diagram: import sequence (planned), activity diagram for merge policy.
 
 Add more member sections as needed following the same structure.
-
-
 
 ---
 

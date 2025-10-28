@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+actor User
+participant UI as "Ui"
+participant Parser
+participant C as "CheckPriorityCommand"
+participant AL as "ActivityList"
+
+User -> UI: enter "checkpriority"
+UI -> Parser: parse(input)
+Parser --> UI: new CheckPriorityCommand()
+UI -> C: execute(activities, ui, notebook)
+C -> AL: getAllTasks()
+AL --> C: List<Task>
+C --> UI: showMessage(list ordered by priority)
+@enduml
