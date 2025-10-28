@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Tutorial</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">astra.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: Tutorial (astra.activity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Tutorial</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package astra.activity;
+&nbsp;
+&nbsp;import java.time.DayOfWeek;
+&nbsp;import java.time.LocalTime;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;import java.util.Locale;
+&nbsp;
+&nbsp;public class Tutorial extends SchoolActivity{
+&nbsp;    private DayOfWeek day;
+&nbsp;
+&nbsp;    public Tutorial(String description, String venue, DayOfWeek day, LocalTime startTime, LocalTime endTime) {
+<b class="fc">&nbsp;        super(description);</b>
+<b class="fc">&nbsp;        this.venue = venue;</b>
+<b class="fc">&nbsp;        this.day = day;</b>
+<b class="fc">&nbsp;        this.startTime = startTime;</b>
+<b class="fc">&nbsp;        this.endTime = endTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getDayString() {
+<b class="fc">&nbsp;        String dayString = day.toString().substring(0,1)</b>
+<b class="fc">&nbsp;                + day.toString().substring(1).toLowerCase();</b>
+<b class="fc">&nbsp;        return dayString;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public DayOfWeek getDay() {
+<b class="fc">&nbsp;        return day;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return super.toString()</b>
+&nbsp;                + &quot; | Venue: &quot;
+&nbsp;                + venue
+&nbsp;                + &quot; | &quot;
+<b class="fc">&nbsp;                + getDayString()</b>
+&nbsp;                + &quot; | Duration: &quot;
+<b class="fc">&nbsp;                + startTime.format(DateTimeFormatter.ofPattern(&quot;HHmm&quot;, Locale.ENGLISH))</b>
+&nbsp;                + &quot;H to &quot;
+<b class="fc">&nbsp;                + endTime.format(DateTimeFormatter.ofPattern(&quot;HHmm&quot;, Locale.ENGLISH))</b>
+&nbsp;                + &quot;H&quot;;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String writeToFile() {
+<b class="fc">&nbsp;        return &quot;Tutorial, &quot;</b>
+&nbsp;                + description + &quot;, &quot;
+&nbsp;                + venue + &quot;, &quot;
+&nbsp;                + day + &quot;, &quot;
+<b class="fc">&nbsp;                + startTime.format(DateTimeFormatter.ofPattern(&quot;HHmm&quot;, Locale.ENGLISH)) + &quot;, &quot;</b>
+<b class="fc">&nbsp;                + endTime.format(DateTimeFormatter.ofPattern(&quot;HHmm&quot;, Locale.ENGLISH));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-22 12:53</div>
+</div>
+</body>
+</html>

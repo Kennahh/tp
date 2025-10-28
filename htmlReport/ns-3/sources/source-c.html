@@ -1,0 +1,187 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CheckLecturesCommand</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">astra.command</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckLecturesCommand (astra.command)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CheckLecturesCommand</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (20/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package astra.command;
+&nbsp;
+&nbsp;import astra.activity.Activity;
+&nbsp;import astra.activity.ActivityList;
+&nbsp;import astra.activity.Lecture;
+&nbsp;import astra.data.Notebook;
+&nbsp;import astra.exception.InputException;
+&nbsp;import astra.parser.Parser;
+&nbsp;import astra.ui.Ui;
+&nbsp;
+&nbsp;import java.time.DayOfWeek;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class CheckLecturesCommand extends CheckCommand {
+&nbsp;    private String input;
+&nbsp;    private DayOfWeek day;
+&nbsp;
+<b class="fc">&nbsp;    public CheckLecturesCommand(String input) {</b>
+<b class="fc">&nbsp;        this.input = input;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * check whether an activity is an instance of Lecture
+&nbsp;     *
+&nbsp;     * @param activity an activity of a certain type
+&nbsp;     * @return true if the activity is of type Lecture, false otherwise
+&nbsp;     */
+&nbsp;    private boolean filterActivity(Activity activity) {
+<b class="fc">&nbsp;        if (activity instanceof Lecture) {</b>
+<b class="fc">&nbsp;            if (Objects.equals(((Lecture) activity).getDay(), day)) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Filter the activities list for lectures.
+&nbsp;     *
+&nbsp;     * @param activities activities list of all types of activities
+&nbsp;     * @return an ActivityList containing lectures only
+&nbsp;     */
+&nbsp;    private ActivityList filterList(ActivityList activities) {
+<b class="fc">&nbsp;        ActivityList filteredList = new ActivityList();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; activities.getListSize(); i++) {</b>
+<b class="fc">&nbsp;            Activity activity = activities.getAnActivity(i);</b>
+<b class="fc">&nbsp;            if (filterActivity(activity)) {</b>
+<b class="fc">&nbsp;                filteredList.addActivity(activity);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return filteredList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+&nbsp;        try {
+<b class="fc">&nbsp;            this.day = Parser.dayOfWeekParser(this.input);</b>
+&nbsp;        } catch (InputException e) {
+<b class="nc">&nbsp;            ui.showError(e.getMessage());</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        ActivityList filteredList = filterList(activities);</b>
+<b class="fc">&nbsp;        if (filteredList.getListSize() == 0) {</b>
+<b class="fc">&nbsp;            ui.showMessage(&quot;You have no lecture on &quot; + day);</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        filteredList.listActivities();</b>
+<b class="fc">&nbsp;        ui.showMessage(&quot;You have &quot; + filteredList.getListSize() + &quot; lecture(s) on &quot; + day);</b>
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-22 12:53</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ActivityList</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">astra.activity</a>
+</div>
+
+<h1>Coverage Summary for Class: ActivityList (astra.activity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ActivityList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (30/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97.1%
+  </span>
+  <span class="absValue">
+    (67/69)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package astra.activity;
+&nbsp;
+&nbsp;import astra.ui.Ui;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.temporal.ChronoUnit;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;public class ActivityList {</b>
+&nbsp;    private final ArrayList&lt;Activity&gt; activities;
+&nbsp;
+<b class="fc">&nbsp;    public ActivityList() {</b>
+<b class="fc">&nbsp;        activities = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Activity getActivity(int index) {
+<b class="fc">&nbsp;        return activities.get(index);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * adds activities to ArrayList
+&nbsp;     */
+&nbsp;    public void addActivity(Activity activity) {
+<b class="fc">&nbsp;        activities.add(activity);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * deletes task of specified index
+&nbsp;     */
+&nbsp;    public void deleteActivity(int index) {
+<b class="fc">&nbsp;        Activity removed = activities.get(index);</b>
+<b class="fc">&nbsp;        activities.remove(index);</b>
+&nbsp;
+&nbsp;        // Adjust priorities of remaining tasks if a task was deleted
+<b class="fc">&nbsp;        if (removed instanceof Task) {</b>
+<b class="fc">&nbsp;            int removedPriority = ((Task) removed).getPriority();</b>
+<b class="fc">&nbsp;            for (Activity activity : activities) {</b>
+<b class="pc">&nbsp;                if (activity instanceof Task) {</b>
+<b class="fc">&nbsp;                    Task task = (Task) activity;</b>
+<b class="pc">&nbsp;                    if (task.getPriority() &gt; removedPriority) {</b>
+<b class="fc">&nbsp;                        task.setPriority(task.getPriority() - 1);</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * lists all activities in ArrayList
+&nbsp;     */
+&nbsp;    public void listActivities() {
+<b class="pc">&nbsp;        if (activities.isEmpty()) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No activities have been added!&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            for (int index = 0; index &lt; activities.size(); index++) {</b>
+<b class="fc">&nbsp;                System.out.print(&quot; &quot; + (index + 1) + &quot;. &quot;);</b>
+<b class="fc">&nbsp;                System.out.println(activities.get(index).toString());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prints all tasks in ArrayList that is due within 3 days
+&nbsp;     *
+&nbsp;     * @param today is the date of which the user is using ASTRA
+&nbsp;     */
+&nbsp;    public void deadlineReminder(LocalDate today) {
+<b class="fc">&nbsp;        Ui ui = new Ui();</b>
+<b class="fc">&nbsp;        System.out.println();</b>
+<b class="fc">&nbsp;        ui.showReminderMessage();</b>
+<b class="fc">&nbsp;        ui.showDash();</b>
+<b class="fc">&nbsp;        int count = 0;</b>
+<b class="fc">&nbsp;        for (int index = 0; index &lt; activities.size(); index++) {</b>
+<b class="fc">&nbsp;            if (getAnActivity(index) instanceof Task) {</b>
+<b class="fc">&nbsp;                Task currTask = (Task) getAnActivity(index);</b>
+<b class="fc">&nbsp;                long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());</b>
+<b class="pc">&nbsp;                assert daysBetween &gt;= 0 : &quot;Deadline is over already: &quot; + currTask.getDeadlineDate();</b>
+<b class="pc">&nbsp;                if (daysBetween &lt;= 3) {</b>
+<b class="fc">&nbsp;                    count += 1;</b>
+<b class="fc">&nbsp;                    System.out.println(count + &quot;. &quot; + currTask.getDescription() + &quot; | Days left: &quot; + daysBetween);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if (count == 0) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;No task due for the next 3 days&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        ui.showDash();</b>
+<b class="fc">&nbsp;        System.out.println();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prints and delete all tasks in ArrayList that are overdue
+&nbsp;     *
+&nbsp;     * @param today is the date of which the user is using ASTRA
+&nbsp;     */
+&nbsp;    public void listAndDeleteOverdueTasks(LocalDate today) {
+<b class="fc">&nbsp;        Ui ui = new Ui();</b>
+<b class="fc">&nbsp;        System.out.println();</b>
+<b class="fc">&nbsp;        ui.showOverdueTaskMessage();</b>
+<b class="fc">&nbsp;        ui.showDash();</b>
+<b class="fc">&nbsp;        int countOfDeletedTask = 0;</b>
+<b class="fc">&nbsp;        int arrayIndex = 0;</b>
+<b class="fc">&nbsp;        int arrayInitialLength = activities.size();</b>
+<b class="fc">&nbsp;        int count = 0;</b>
+<b class="fc">&nbsp;        while (count &lt; arrayInitialLength) {</b>
+<b class="fc">&nbsp;            if (getAnActivity(arrayIndex) instanceof Task) {</b>
+<b class="fc">&nbsp;                Task currTask = (Task) getAnActivity(arrayIndex);</b>
+<b class="fc">&nbsp;                long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());</b>
+<b class="fc">&nbsp;                if (daysBetween &lt; 0) {</b>
+<b class="fc">&nbsp;                    countOfDeletedTask++;</b>
+<b class="fc">&nbsp;                    System.out.println(countOfDeletedTask + &quot;. &quot; + currTask.getDescription());</b>
+<b class="fc">&nbsp;                    activities.remove(arrayIndex);</b>
+&nbsp;                } else {
+<b class="fc">&nbsp;                    arrayIndex++;</b>
+&nbsp;                }
+&nbsp;            } else {
+<b class="fc">&nbsp;                arrayIndex++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            count += 1;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (countOfDeletedTask == 0) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;No overdue tasks have been deleted!&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        ui.showDash();</b>
+<b class="fc">&nbsp;        System.out.println();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter of the size of ACTIVITIES
+&nbsp;     *
+&nbsp;     * @return size of the ArrayList
+&nbsp;     */
+&nbsp;    public int getListSize() {
+<b class="fc">&nbsp;        return activities.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Activity getAnActivity(int index) {
+<b class="fc">&nbsp;        return activities.get(index);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Provide a copy for persistence
+&nbsp;     */
+&nbsp;    public List&lt;Activity&gt; toList() {
+<b class="fc">&nbsp;        return new ArrayList&lt;&gt;(activities);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adjusts priorities of existing tasks when a new task is added with a specified priority
+&nbsp;     */
+&nbsp;    public void addTaskWithPriority(Task task, int priority) {
+&nbsp;        // iterate through all task instances in activities and push up their priority if needed
+<b class="fc">&nbsp;        for (Activity activity : activities) {</b>
+<b class="fc">&nbsp;            if (activity instanceof Task) {</b>
+<b class="fc">&nbsp;                Task existingTask = (Task) activity;</b>
+<b class="pc">&nbsp;                if (existingTask.getPriority() &gt;= priority) {</b>
+<b class="nc">&nbsp;                    existingTask.setPriority(existingTask.getPriority() + 1);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        task.setPriority(priority);</b>
+<b class="fc">&nbsp;        addActivity(task);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-22 12:53</div>
+</div>
+</body>
+</html>

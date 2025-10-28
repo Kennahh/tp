@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GpaList</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">astra.gpa</a>
+</div>
+
+<h1>Coverage Summary for Class: GpaList (astra.gpa)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GpaList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71.4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (17/34)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.2%
+  </span>
+  <span class="absValue">
+    (26/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package astra.gpa;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import astra.exception.GpaInputException;
+&nbsp;
+<b class="fc">&nbsp;public class GpaList {</b>
+<b class="fc">&nbsp;    private final List&lt;GpaEntry&gt; entries = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    public void add(GpaEntry e) {
+<b class="pc">&nbsp;        assert e != null : &quot;GpaEntry to add must not be null&quot;;</b>
+<b class="fc">&nbsp;        entries.add(e);</b>
+<b class="pc">&nbsp;        assert entries.size() &gt; 0 : &quot;Entries size should increase after add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public GpaEntry remove(int indexOneBased) {
+<b class="pc">&nbsp;        assert indexOneBased &gt; 0 : &quot;Index must be 1-based positive&quot;;</b>
+<b class="pc">&nbsp;        if (indexOneBased &lt;= 0 || indexOneBased &gt; entries.size()) {</b>
+<b class="nc">&nbsp;            throw new GpaInputException(&quot;Invalid GPA entry index: &quot; + indexOneBased);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        GpaEntry removed = entries.remove(indexOneBased - 1);</b>
+<b class="pc">&nbsp;        assert removed != null : &quot;Removed GPA entry should not be null&quot;;</b>
+<b class="fc">&nbsp;        return removed;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;GpaEntry&gt; toList() {
+<b class="pc">&nbsp;        assert entries != null : &quot;Internal entries list should be initialized&quot;;</b>
+<b class="fc">&nbsp;        return Collections.unmodifiableList(entries);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int size() {
+<b class="nc">&nbsp;        return entries.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void clear() {
+<b class="nc">&nbsp;        entries.clear();</b>
+<b class="nc">&nbsp;        assert entries.isEmpty() : &quot;Entries should be empty after clear&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double computeGpa() {
+<b class="fc">&nbsp;        double num = 0.0;</b>
+<b class="fc">&nbsp;        int denom = 0;</b>
+<b class="fc">&nbsp;        for (GpaEntry e : entries) {</b>
+<b class="pc">&nbsp;            assert e != null : &quot;GPA entry in list should not be null&quot;;</b>
+<b class="pc">&nbsp;            assert e.getMc() &gt;= 0 : &quot;MC should be non-negative&quot;;</b>
+<b class="fc">&nbsp;            if (e.isSu()) {</b>
+&nbsp;                continue;
+&nbsp;            }
+<b class="fc">&nbsp;            double gp = e.gradePoints();</b>
+<b class="pc">&nbsp;            if (Double.isNaN(gp)) {</b>
+&nbsp;                continue;
+&nbsp;            }
+<b class="fc">&nbsp;            num += gp * e.getMc();</b>
+<b class="fc">&nbsp;            denom += e.getMc();</b>
+&nbsp;        }
+<b class="pc">&nbsp;        if (denom == 0) {</b>
+<b class="nc">&nbsp;            assert num == 0.0 : &quot;Numerator should be zero if denominator is zero&quot;;</b>
+<b class="nc">&nbsp;            return 0.0;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        double result = num / denom;</b>
+<b class="pc">&nbsp;        assert result &gt;= 0.0 &amp;&amp; result &lt;= 5.0 : &quot;Computed GPA should be between 0.0 and 5.0&quot;;</b>
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-22 12:53</div>
+</div>
+</body>
+</html>

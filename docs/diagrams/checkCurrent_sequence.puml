@@ -3,7 +3,7 @@ Actor User
 participant Parser
 participant CheckCurrentCommand
 participant "original_list: ActivityList" as original_list
-participant ActivityList
+participant "tasks: ArrayList<Task>" as tasks
 participant Collections
 participant Task
 participant Ui
@@ -22,11 +22,11 @@ User -> CheckCurrentCommand: execute
 activate CheckCurrentCommand
 CheckCurrentCommand -> CheckCurrentCommand: getClosestTasks
 activate CheckCurrentCommand
-create ActivityList
-CheckCurrentCommand -> ActivityList: new ActivityList<Task>
-activate ActivityList
-ActivityList --> CheckCurrentCommand: empty ActivityList<Task>
-deactivate ActivityList
+create tasks
+CheckCurrentCommand -> tasks: new ArrayList<Task>
+activate tasks
+tasks --> CheckCurrentCommand: empty ArrayList<Task>
+deactivate tasks
 loop For activity in original ActivityList
     CheckCurrentCommand -> original_list: getActivity
     activate original_list
@@ -54,6 +54,6 @@ end
 
 CheckCurrentCommand --> User: return false
 note left: do not exit the program
-deactivate CheckLecturesCommand
+deactivate CheckCurrentCommand
 
 @enduml

@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AddGpaCommand</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">astra.command</a>
+</div>
+
+<h1>Coverage Summary for Class: AddGpaCommand (astra.command)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddGpaCommand</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    54.5%
+  </span>
+  <span class="absValue">
+    (12/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    69.2%
+  </span>
+  <span class="absValue">
+    (27/39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package astra.command;
+&nbsp;
+&nbsp;import astra.activity.ActivityList;
+&nbsp;import astra.data.Notebook;
+&nbsp;import astra.exception.FileSystemException;
+&nbsp;import astra.exception.GpaInputException;
+&nbsp;import astra.gpa.GpaEntry;
+&nbsp;import astra.ui.Ui;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.Set;
+&nbsp;
+<b class="fc">&nbsp;public class AddGpaCommand implements Command {</b>
+<b class="fc">&nbsp;    private static final Set&lt;String&gt; VALID_GRADES = new HashSet&lt;&gt;(Arrays.asList(</b>
+&nbsp;            &quot;A+&quot;,&quot;A&quot;,&quot;A-&quot;,&quot;B+&quot;,&quot;B&quot;,&quot;B-&quot;,&quot;C+&quot;,&quot;C&quot;,&quot;D+&quot;,&quot;D&quot;,&quot;F&quot;,&quot;S&quot;,&quot;U&quot;
+&nbsp;    ));
+&nbsp;
+&nbsp;    private final String input;
+&nbsp;
+<b class="fc">&nbsp;    public AddGpaCommand(String input) {</b>
+<b class="fc">&nbsp;        this.input = input;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
+<b class="pc">&nbsp;        assert ui != null : &quot;Ui should not be null&quot;;</b>
+<b class="pc">&nbsp;        assert notebook != null : &quot;Notebook should not be null&quot;;</b>
+&nbsp;        try {
+<b class="fc">&nbsp;            String[] parts = input.trim().split(&quot;\\s+&quot;);</b>
+<b class="pc">&nbsp;            assert parts.length &gt;= 1 : &quot;Input should split into at least one token&quot;;</b>
+<b class="pc">&nbsp;            if (parts.length &lt; 5) { // expect: add gpa SUBJECT GRADE MC</b>
+<b class="nc">&nbsp;                ui.showError(&quot;Usage: add gpa &lt;SUBJECT&gt; &lt;GRADE&gt; &lt;MC&gt; (e.g., add gpa CS2040C A+ 4mc)&quot;);</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="pc">&nbsp;            if (!parts[0].equalsIgnoreCase(&quot;add&quot;) || !parts[1].equalsIgnoreCase(&quot;gpa&quot;)) {</b>
+<b class="nc">&nbsp;                ui.showError(&quot;Usage: add gpa &lt;SUBJECT&gt; &lt;GRADE&gt; &lt;MC&gt;&quot;);</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            String subject = parts[2].toUpperCase(Locale.ROOT);</b>
+<b class="fc">&nbsp;            String grade = parts[3].toUpperCase(Locale.ROOT);</b>
+<b class="fc">&nbsp;            if (!VALID_GRADES.contains(grade)) {</b>
+<b class="fc">&nbsp;                ui.showError(&quot;Invalid grade. Allowed: A+, A, A-, B+, B, B-, C+, C, D+, D, F, S, U&quot;);</b>
+<b class="fc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            String mcToken = parts[4];</b>
+<b class="fc">&nbsp;            String digits = mcToken.replaceAll(&quot;[^0-9]&quot;, &quot;&quot;);</b>
+<b class="pc">&nbsp;            if (digits.isEmpty()) {</b>
+<b class="nc">&nbsp;                ui.showError(&quot;Invalid MC. Provide a number like &#39;4&#39; or &#39;4mc&#39;.&quot;);</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            int mc = Integer.parseInt(digits);</b>
+<b class="pc">&nbsp;            if (mc &lt; 0) {</b>
+<b class="nc">&nbsp;                ui.showError(&quot;MC must be non-negative.&quot;);</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="pc">&nbsp;            assert mc &gt;= 0 : &quot;MC parsed should be non-negative&quot;;</b>
+&nbsp;            GpaEntry entry;
+&nbsp;            try {
+<b class="fc">&nbsp;                entry = new GpaEntry(subject, grade, mc);</b>
+&nbsp;            } catch (GpaInputException e) {
+<b class="nc">&nbsp;                ui.showError(e.getMessage());</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="pc">&nbsp;            assert notebook.getGpaList() != null : &quot;GPA list should not be null&quot;;</b>
+<b class="fc">&nbsp;            notebook.getGpaList().add(entry);</b>
+<b class="fc">&nbsp;            notebook.saveGpa();</b>
+<b class="fc">&nbsp;            ui.showMessage(&quot;Added GPA entry: &quot; + entry.toString());</b>
+&nbsp;        } catch (FileSystemException e) {
+<b class="nc">&nbsp;            ui.showError(e.getMessage());</b>
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            ui.showError(&quot;Failed to add GPA entry.&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-22 12:53</div>
+</div>
+</body>
+</html>
