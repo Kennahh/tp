@@ -19,7 +19,7 @@ activate C
 return
 return DeleteGpaCommand
 
-Astra -> C: execute(activities, UI, NB)
+Astra -> C: execute(AL, UI, NB)
 activate C
 'group validate and parse
 '	C -> C: split tokens; check prefix "delete gpa"
