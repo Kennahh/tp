@@ -134,6 +134,8 @@ Both have similar sequence codes with the only difference is the Command entity 
 
 ---
 
+
+
 ## Design & implementation
 
 ### Task Deadline & Priority System
@@ -266,40 +268,6 @@ DeleteCommand --> ActivityList : reassign priorities
 
 ---
 
----
-
-### AddTaskCommand
-
-**Purpose**: Handles creation of `Task` activities. Supports an optional `/priority <n>` token; when omitted and tasks exist, the app prompts the user for a priority. When a task is inserted at priority `p`, all existing tasks with priority >= `p` are shifted up by 1.
-
-#### Command Syntax
-
-`task <description> /by <YYYY-MM-DD> <HH:MM> [/priority <n>]`
-
-```plantuml
-@startuml
-actor User
-participant UI as "Ui"
-participant Parser
-participant C as "AddTaskCommand"
-participant AL as "ActivityList"
-participant NB as "Notebook"
-
-User -> UI: enter "task CS2113 Quiz /by 2025-10-10 23:59 /priority 2"
-UI -> Parser: parse(input)
-Parser --> UI: new AddTaskCommand(input)
-UI -> C: execute(activities, ui, notebook)
-C -> AL: addTaskWithPriority(Task, priority)
-AL --> C: confirmation
-C -> NB: saveToFile(activities)
-C --> UI: showMessage("Task ... has been added")
-@enduml
-```
-
-![Add Task sequence](images/AddTask_sequence.png)
-
----
-
 ### CheckPriorityCommand
 
 **Purpose**: Display all tasks ordered by their `priority` field (ascending). Useful for users who want to review most-important items first.
@@ -330,7 +298,7 @@ C --> UI: showMessage(list ordered by priority)
 
 ---
 
-### ChangePriorityCommand (expanded)
+### ChangePriorityCommand
 
 **Purpose**: Change the priority of an existing task and reassign other tasks' priorities so the ordering remains contiguous. Errors are surfaced when indices or priorities are out-of-range.
 
@@ -362,7 +330,7 @@ C --> UI: showMessage("Priority updated: ...")
 
 ---
 
-### ChangeDeadlineCommand (expanded — GPA style)
+### ChangeDeadlineCommand
 
 **Purpose**: Modify deadline (date and/or time) of an existing `Task` instance. This command parses the task index and a new timestamp, validates the input, updates the `Task` model, and persists changes via `Notebook`.
 
@@ -402,7 +370,7 @@ C --> UI: showMessage("Deadline updated for task: ...")
 
 ---
 
-### CheckCurrentCommand (deadline-based)
+### CheckCurrentCommand (by deadline)
 
 **Purpose**: Show the nearest upcoming task deadlines (future tasks), optionally limited by a count. Useful to get a quick glance at what is due soon.
 
