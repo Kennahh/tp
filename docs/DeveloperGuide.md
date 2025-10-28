@@ -16,7 +16,7 @@
     - [Add Task with priority](#add-task-with-priority-and-robust-datetime-parsing)
     - [Task Deadline & Priority System](#task-deadline--priority-system)
     - [Change priority rebalancing](#change-priority-rebalancing)
-    - [Check current tasks](#check-current-tasks-earliest-deadlines)
+    - [Check current tasks](#check-current-tasks-nearest-deadlines)
   - [Gpa Tracker](#gpa-tracker)
   - [Parsing helpers](#parsing-helpers)
     - [Day-of-week parsing](#day-of-week-parsing)
@@ -449,6 +449,7 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 | v2.0    | student | see the next N deadlines                             | plan my immediate workload                              |
 | v2.0    | student | list lectures/tutorials by day                       | plan my day efficiently                                 |
 | v2.0    | student | edit a task deadline                                 | adapt when plans change                                 |
+
 
 ## Appendix C: Non-Functional Requirements
 
