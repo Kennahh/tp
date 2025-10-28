@@ -48,6 +48,8 @@ public class CheckTutorialsCommand extends CheckCommand {
                 filteredList.addActivity(activity);
             }
         }
+        assert filteredList.getListSize() <= activities.getListSize(): "Edge case: all activities in the list " +
+                "are tutorials on " + day;
         return filteredList;
     }
 

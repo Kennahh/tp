@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+actor User
+participant Astra
+participant Parser
+participant C as "DeleteGpaCommand"
+participant NB as "Notebook"
+participant GL as "GpaList"
+participant UI as "Ui"
+
+User -> Astra: input "delete gpa 2"
+Astra -> Parser: parse(input)
+Parser --> Astra: new DeleteGpaCommand(input)
+Astra -> C: execute(activities, UI, NB)
+group validate and parse
+	C -> C: split tokens; check prefix "delete gpa"
+	C -> C: idx = parseInt(parts[2]); assert idx > 0
+end
+C -> NB: getGpaList()
+C -> GL: remove(idx)
+alt success
+	C -> NB: saveGpa()
+	C -> UI: showMessage("Deleted GPA entry: ...")
+else invalid index/format
+	C -> UI: showError("Index must be a positive integer." or error message)
+end
+C --> Astra: return shouldExit=false
+@enduml

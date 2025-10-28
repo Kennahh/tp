@@ -1,0 +1,20 @@
+@startuml StorageComponent
+!include style.puml
+skinparam componentStyle rectangle
+package astra.data {
+  class Notebook {
+    +loadActivities(): ActivityList
+    +saveToFile(activities: ActivityList)
+    +getGpaList(): GpaList
+    +saveGpa()
+  }
+}
+package astra.activity {
+  class ActivityList
+}
+package astra.gpa {
+  class GpaList
+}
+Notebook *-- ActivityList
+Notebook *-- GpaList
+@enduml

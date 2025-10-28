@@ -1,0 +1,32 @@
+@startuml LogicComponent
+!include style.puml
+skinparam componentStyle rectangle
+package astra.parser {
+  class Parser {
+    +parse(input: String): Command
+    -tokenize(input: String)
+  }
+}
+package astra.command {
+  interface Command {
+    +execute(activities: ActivityList, ui: Ui, notebook: Notebook): boolean
+  }
+  class AddTaskCommand
+  class DeleteCommand
+  class AddGpaCommand
+  class ComputeGpaCommand
+}
+package astra.activity {
+  class ActivityList
+}
+package astra.data {
+  class Notebook
+}
+package astra.ui {
+  class Ui
+}
+Parser --> Command : creates
+Command ..> ActivityList
+Command ..> Notebook
+Command ..> Ui
+@enduml

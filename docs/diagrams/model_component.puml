@@ -1,0 +1,55 @@
+@startuml ModelComponent
+!include style.puml
+skinparam componentStyle rectangle
+show members
+show methods
+show attributes
+
+package astra.activity {
+  abstract class Activity
+  abstract class SchoolActivity
+  class Task
+  class Lecture
+  class Tutorial
+  class Exam
+  class ActivityList {
+    +addActivity(a: Activity)
+    +deleteActivity(index: int)
+    +getActivity(index: int): Activity
+    +getListSize(): int
+    +toList(): List<Activity>
+    +addTaskWithPriority(task: Task, priority: int)
+  }
+}
+
+package astra.gpa {
+  class GpaList {
+    +add(e: GpaEntry)
+    +remove(indexOneBased: int): GpaEntry
+    +toList(): List<GpaEntry>
+    +size(): int
+    +clear()
+    +computeGpa(): double
+  }
+  class GpaEntry {
+    -subject: String
+    -grade: String
+    -mc: int
+    +getSubject(): String
+    +getGrade(): String
+    +getMc(): int
+    +isSu(): boolean
+    +gradePoints(): double
+    +toPipe(): String
+    +toCsv(): String
+  }
+}
+
+Activity <|-- SchoolActivity
+SchoolActivity <|-- Lecture
+SchoolActivity <|-- Tutorial
+SchoolActivity <|-- Exam
+Activity <|-- Task
+GpaList o-- GpaEntry
+ActivityList o-- Activity
+@enduml

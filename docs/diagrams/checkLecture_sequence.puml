@@ -1,0 +1,61 @@
+@startuml
+Actor User
+participant Parser
+participant CheckLecturesCommand
+participant "original_activities: ActivityList" as original_list
+participant ActivityList
+participant Ui
+
+User -> Parser: input "checklecture <day>"
+activate Parser
+create CheckLecturesCommand
+Parser -> CheckLecturesCommand:new CheckLecturesCommand
+activate CheckLecturesCommand
+CheckLecturesCommand --> Parser
+deactivate CheckLecturesCommand
+Parser --> User
+deactivate Parser
+
+User -> CheckLecturesCommand: execute
+activate CheckLecturesCommand
+CheckLecturesCommand -> Parser: dayOfWeekParser
+activate Parser
+Parser --> CheckLecturesCommand: day
+deactivate Parser
+
+CheckLecturesCommand -> CheckLecturesCommand: filterList
+activate CheckLecturesCommand
+create ActivityList
+CheckLecturesCommand -> ActivityList: new ActivityList<Lecture>
+activate ActivityList
+ActivityList --> CheckLecturesCommand
+deactivate ActivityList
+
+loop For activity in original ActivityList
+    CheckLecturesCommand -> original_list: getActivity
+    activate original_list
+    original_list --> CheckLecturesCommand: activate
+    deactivate original_list
+    CheckLecturesCommand -> CheckLecturesCommand: filterActivity(activity)
+    activate CheckLecturesCommand
+
+    alt [(activity instanceof Lecture) and (lecture is on the day)]
+        CheckLecturesCommand --> CheckLecturesCommand: return true
+    else [else]
+        CheckLecturesCommand --> CheckLecturesCommand: return false
+        deactivate CheckLecturesCommand
+    end
+    opt filterActivity returns true
+        CheckLecturesCommand -> ActivityList: addActivity to ActivityList<Lecture>
+    end
+end
+CheckLecturesCommand --> CheckLecturesCommand: return ArrayList of lectures
+deactivate CheckLecturesCommand
+CheckLecturesCommand -> ActivityList: listActivities
+CheckLecturesCommand -> ActivityList: getListSize
+CheckLecturesCommand -> Ui: show message
+CheckLecturesCommand --> User: return false
+note left: do not exit the program
+deactivate CheckLecturesCommand
+
+@enduml

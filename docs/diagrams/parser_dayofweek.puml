@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+start
+:input dayStr;
+:trim+lowercase;
+if (empty?) then (yes)
+  :throw InputException;
+  stop
+endif
+if (matches [1-7]?) then (yes)
+  :return DayOfWeek.of(number);
+  stop
+endif
+if (length < 3?) then (yes)
+  :throw InputException;
+  stop
+endif
+:lookup first3 in map {mon..sun};
+if (found?) then (yes)
+  :return mapped DayOfWeek;
+else (no)
+  :throw InputException;
+endif
+stop
+@enduml

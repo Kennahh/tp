@@ -1,0 +1,32 @@
+@startuml MainLoopSequence
+!include style.puml
+
+actor User
+participant UI as "Ui"
+participant Astra
+participant Parser
+participant C as "Command"
+participant NB as "Notebook"
+participant AL as "ActivityList"
+
+User -> Astra: start()
+Astra -> UI: showLogo(), showBotIntro()
+Astra -> AL: listAndDeleteOverdueTasks(today)
+loop REPL
+  Astra -> UI: showPrompt(); showDash()
+  User -> Astra: input line
+  Astra -> UI: showDash()
+  Astra -> Parser: parse(input)
+  Parser --> Astra: new ConcreteCommand
+  Astra -> C: execute(AL, UI, NB)
+  alt shouldExit == false
+    Astra -> NB: writeToFile(AL.toList())
+    Astra -> NB: saveToFile(AL)
+  else shouldExit == true
+    Astra -> UI: showEnd()
+    break
+  end
+  Astra -> UI: showDone()
+end
+Astra -> Scanner: close()
+@enduml

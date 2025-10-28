@@ -1,0 +1,26 @@
+@startuml ArchitectureSequenceDelete
+!include style.puml
+actor User
+participant Astra
+participant Parser
+participant C as "DeleteCommand"
+participant AL as "ActivityList"
+participant NB as "Notebook"
+participant UI as "Ui"
+
+User -> Astra: input "delete 2"
+Astra -> Parser: parse(input)
+Parser --> Astra: new DeleteCommand(input)
+Astra -> C: execute(AL, UI, NB)
+group parse and prepare indices
+	C -> C: split args into tokens
+	C -> C: parseInt[] and sort ascending
+end
+loop for each index in reverse order
+	C -> AL: getActivity(i-1)
+	C -> AL: deleteActivity(i-1)
+	C -> UI: showMessage("Erased: #i ...")
+end
+C -> NB: saveToFile(AL)
+C --> Astra: return shouldExit=false
+@enduml
