@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,25 +18,25 @@ public class DateTimeParserTest {
         parseDateTestHelper(dt, 2025, 12, 10);
         dt = DateTimeParser.parseDate("2025-12-10");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("2025 11 25");
+        dt = DateTimeParser.parseDate("2025-nov-25");
         parseDateTestHelper(dt, 2025, 11, 25);
         dt = DateTimeParser.parseDate("2025/dec/10");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("2025 December 10");
+        dt = DateTimeParser.parseDate("2025-December-10");
         parseDateTestHelper(dt, 2025, 12, 10);
         dt = DateTimeParser.parseDate("December-10-2025");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("Dec 10 2025");
+        dt = DateTimeParser.parseDate("Dec-10-2025");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("10 December 2025");
+        dt = DateTimeParser.parseDate("10-December-2025");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("10 Dec 2025");
+        dt = DateTimeParser.parseDate("10/Dec/2025");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("December 10");
+        dt = DateTimeParser.parseDate("December-10");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("Dec 10");
+        dt = DateTimeParser.parseDate("Dec-10");
         parseDateTestHelper(dt, 2025, 12, 10);
-        dt = DateTimeParser.parseDate("10 Dec");
+        dt = DateTimeParser.parseDate("10-Dec");
         parseDateTestHelper(dt, 2025, 12, 10);
         dt = DateTimeParser.parseDate("10-dec");
         parseDateTestHelper(dt, 2025, 12, 10);
@@ -43,6 +44,16 @@ public class DateTimeParserTest {
         parseDateTestHelper(dt, 2025, 1, 1);
         dt = DateTimeParser.parseDate("2-jan");
         parseDateTestHelper(dt, 2025, 1, 2);
+    }
+
+    @Test
+    public void parseTime_formats_success() throws Exception {
+        LocalTime dt = DateTimeParser.parseTime("1400");
+        parseTimeTestHelper(dt, 14, 0);
+        dt = DateTimeParser.parseTime("07:39");
+        parseTimeTestHelper(dt, 7, 39);
+        dt = DateTimeParser.parseTime("00 01");
+        parseTimeTestHelper(dt, 0, 1);
     }
 
     @Test
@@ -60,6 +71,11 @@ public class DateTimeParserTest {
         assertEquals(year, dt.getYear());
         assertEquals(month, dt.getMonthValue());
         assertEquals(day, dt.getDayOfMonth());
+    }
+
+    private void parseTimeTestHelper(LocalTime dt, int h, int m) {
+        assertEquals(h, dt.getHour());
+        assertEquals(m, dt.getMinute());
     }
 
     @Test
