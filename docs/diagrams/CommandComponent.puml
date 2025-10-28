@@ -2,13 +2,14 @@
 'https://plantuml.com/class-diagram
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor COMMAND_COLOR_T4
-skinparam classBackgroundColor COMMAND_COLOR
+skinparam arrowColor black
+skinparam classBackgroundColor lightgrey
 
 package Command as CommandPackage {
 Class "<<interface>>\nCommand" as Command
 Class "{abstract}\nXYZCommand" as XYZCommand
 Class XYZCommands
+Class QRSCommands
 }
 
 package Astra{}

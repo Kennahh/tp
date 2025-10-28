@@ -9,18 +9,48 @@ participant NB as "Notebook"
 participant UI as "Ui"
 
 User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
+activate Astra
+
 Astra -> Parser: parse(input)
+activate Parser
+
 Parser --> Astra: new AddTaskCommand(input)
+deactivate Parser
+
 Astra -> C: execute(AL, UI, NB)
-group validate and parse
-	C -> C: check '/by' and '/priority'
-	C -> C: parse priority (int)
-	C -> AL: toList()
-	C -> C: count Task entries; validate bounds
-	C -> C: DateTimeParser.parseDate/parseTime
-end
+activate C
+
+'group validate and parse
+'	C -> C: check '/by' and '/priority'
+'	C -> C: parse priority (int)
+'
+'	activate AL
+'	C -> C: count Task entries; validate bounds
+'	C -> C: DateTimeParser.parseDate/parseTime
+'end
+C -> AL: toList()
+activate AL
+AL --> C: ArrayList<>
+deactivate AL
 C -> AL: addTaskWithPriority(Task(desc,date,time,1), priority)
+activate AL
+AL --> C
+deactivate AL
+
 C -> UI: showMessage(task.toString())
+activate UI
+UI --> C
+deactivate UI
+
 C -> NB: saveToFile(activities)
+activate NB
+C <-- NB
+deactivate NB
+
 C --> Astra: return shouldExit=false
+deactivate C
+
+'spacer
+'C -[hidden]-> C
+destroy C
 @enduml
