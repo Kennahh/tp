@@ -21,7 +21,7 @@
     - [Day-of-week parsing](#day-of-week-parsing)
 - [Appendix A: Product Scope](#appendix-a-product-scope-expanded)
 - [Appendix B: User Stories](#appendix-b-user-stories-additional)
-- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements-expanded)
+- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
 - [Appendix D: Glossary](#appendix-d-glossary-expanded)
 - [Appendix E: Instructions for Manual Testing](#appendix-e-instructions-for-manual-testing-full)
 
@@ -61,11 +61,11 @@ Astra (`astra.astra`): Main program in charge of the app launch and shut down.
 - At shut down, it shuts down the other components and invokes all necessary cleanup.
 
 Astra is built upon these main components:
-- [Parser](#parser) (`astra.parser.Parser`): Maps raw input to a concrete command.
-- [Commands](#commands) (`astra.command.*`): Execute logic using collaborators.
-- [Activity](#activitytype-component)/[Gpa](#gpa-model-details) (`astra.activity.*`, `astra.gpa.*`): In‑memory data for activities and GPA.
-- [Storage](#storage-component) (`astra.data.Notebook`): Centralized persistence for activities and GPA.
-- [Ui](#ui-component) (`astra.ui.Ui`): Console I/O and help printing.
+- [Parser](#parser-and-commands-component) (`astra.parser.Parser`): Maps raw input to a concrete command.
+- [Commands](#parser-and-commands-component) (`astra.command.*`): Execute logic using collaborators.
+- [Activity](#activity-and-gpa)/[Gpa](#gpa-model-details) (`astra.activity.*`, `astra.gpa.*`): In‑memory data for activities and GPA.
+- [Storage](#storage) (`astra.data.Notebook`): Centralized persistence for activities and GPA.
+- [Ui](#ui) (`astra.ui.Ui`): Console I/O and help printing.
 - [Exceptions](#exceptions) (`astra.exception.*`): Exceptions shared across components.
 
 ![Architecture_Diagram](images/architecture_component.png)
@@ -267,7 +267,7 @@ Compute GPA — `gpa`
 
 List GPA entries — `list gpa`
 
-![List GPA entries sequence](images/ListGPAEntries.png)
+![List GPA entries sequence](images/LIstGPAEntries.png)
 
 Delete GPA entry — `delete gpa <INDEX>`
 
@@ -344,7 +344,7 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 | v2.0    | student  | list lectures/tutorials by day | plan my day efficiently |
 | v2.0    | student  | edit a task deadline | adapt when plans change |
 
-## Appendix C: Non-Functional Requirements 
+## Appendix C: Non-Functional Requirements
 
 - Data durability: writes either fully succeed or fail with a clear error; partial writes avoided via overwrite semantics.
 - Portability: no native dependencies; runs on JDK 17 across Windows/macOS/Linux.
