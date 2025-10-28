@@ -2,8 +2,8 @@
 !include style.puml
 
 actor User
-participant UI as "Ui"
 participant Astra
+participant UI as "Ui"
 participant Parser
 participant C as "Command"
 participant NB as "Notebook"
@@ -22,11 +22,13 @@ loop REPL
   alt shouldExit == false
     Astra -> NB: writeToFile(AL.toList())
     Astra -> NB: saveToFile(AL)
-  else shouldExit == true
-    Astra -> UI: showEnd()
-    break
-  end
+    else shouldExit == true
+      Astra -> UI: showEnd()
+      break
+    end
   Astra -> UI: showDone()
+  Astra -> Scanner: close()
+  end
 end
-Astra -> Scanner: close()
+
 @enduml

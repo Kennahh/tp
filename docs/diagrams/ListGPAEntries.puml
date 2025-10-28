@@ -26,7 +26,7 @@ activate NB
 NB -> GL : toList()
 activate GL
 return List<GpaList>
-return List<GpaList>
+return GpaList
 
 alt list is empty
 	C -> UI: showMessage("No GPA entries yet.")
