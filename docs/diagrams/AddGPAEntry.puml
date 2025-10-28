@@ -3,28 +3,62 @@
 actor User
 participant Astra
 participant Parser
+
+box Command
 participant C as "AddGpaCommand"
+end box
+
+participant GpaEntry
 participant NB as "Notebook"
 participant GL as "GpaList"
 participant UI as "Ui"
 
+
 User -> Astra: input "add gpa CS2040C A+ 4mc"
+activate Astra
+
 Astra -> Parser: parse(input)
-Parser --> Astra: new AddGpaCommand(input)
+activate Parser
+
+create C
+Parser --> C: new AddGpaCommand(input)
+activate C
+C --> Astra
+deactivate C
+
 Astra -> C: execute(activities, UI, NB)
-group validate and normalize
-	C -> C: split tokens; expect 5
-	C -> C: check prefix "add gpa"
-	C -> C: subject = upper(subject)
-	C -> C: grade = upper(grade); validate in set
-	C -> C: mc = digits(mcToken); parse int; >= 0
-end
-group create and persist
-	C -> C: entry = new GpaEntry(subject, grade, mc)
+activate C
+'group validate and normalize
+'	C -> C: split tokens; expect 5
+'	C -> C: check prefix "add gpa"
+'	C -> C: subject = upper(subject)
+'	C -> C: grade = upper(grade); validate in set
+'	C -> C: mc = digits(mcToken); parse int; >= 0
+'end
+'group create and persist
+    create GpaEntry
+    C -> GpaEntry: new GpaEntry(\nsubject, grade, mc)
+    activate GpaEntry
+    C <-- GpaEntry
+    deactivate GpaEntry
+
 	C -> NB: getGpaList()
+	activate NB
+	C <-- NB
+	deactivate NB
+
 	C -> GL: add(entry)
+	activate GL
+	C <-- GL
+	deactivate GL
+
 	C -> NB: saveGpa()
-end
+	activate NB
+    C <-- NB
+    deactivate NB
+'end
 C -> UI: showMessage("Added GPA entry: " + entry)
 C --> Astra: return shouldExit=false
+deactivate C
+destroy C
 @enduml

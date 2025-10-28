@@ -57,4 +57,5 @@ hide footbox
  ' Return value to user
  AddTaskCommand --> User : false
  deactivate AddTaskCommand
+ destroy AddTaskCommand
 @enduml
