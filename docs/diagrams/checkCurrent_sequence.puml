@@ -1,50 +1,60 @@
 @startuml
+hide footbox
 Actor User
+participant Astra
 participant Parser
 participant CheckCurrentCommand
-participant "original_list: ActivityList" as original_list
-participant "tasks: ArrayList<Task>" as tasks
+participant ActivityList
+participant "closestTasks: ArrayList<Task>" as tasks
 participant Collections
 participant Task
 participant Ui
 
-User -> Parser: input "checkCurrent"
+User -> Astra: input "checkCurrent 3"
+activate Astra
+Astra-> Parser : parse(input)
 activate Parser
 create CheckCurrentCommand
 Parser -> CheckCurrentCommand: new CheckCurrentCommand(input)
 activate CheckCurrentCommand
 CheckCurrentCommand --> Parser
 deactivate CheckCurrentCommand
-Parser --> User
+Parser --> Astra
 deactivate Parser
 
-User -> CheckCurrentCommand: execute
+Astra -> CheckCurrentCommand: execute(AL,UL,NB)
 activate CheckCurrentCommand
 CheckCurrentCommand -> CheckCurrentCommand: getClosestTasks
 activate CheckCurrentCommand
 create tasks
 CheckCurrentCommand -> tasks: new ArrayList<Task>
 activate tasks
-tasks --> CheckCurrentCommand: empty ArrayList<Task>
+tasks --> CheckCurrentCommand:
 deactivate tasks
-loop For activity in original ActivityList
-    CheckCurrentCommand -> original_list: getActivity
-    activate original_list
-    original_list --> CheckCurrentCommand: activity
-    deactivate original_list
+loop For activity in ActivityList
+    CheckCurrentCommand -> ActivityList: getActivity
+    activate ActivityList
+    ActivityList --> CheckCurrentCommand: activity
+    deactivate ActivityList
+
     opt activity instanceof Task
-        CheckCurrentCommand -> ActivityList: addActivity to ActivityList<Task>
+        CheckCurrentCommand -> tasks : addActivity to ArrayList<Task>
+        activate tasks
     end
 end
-CheckCurrentCommand -> Collections: sort the ActivityList<Task>
+tasks -> Collections: sort()
 activate Collections
-Collections --> CheckCurrentCommand
+Collections --> tasks
 deactivate Collections
-CheckCurrentCommand --> CheckCurrentCommand: ArrayList<Task> sublist
+Collections -[hidden]-> Collections
+destroy Collections
+tasks -->CheckCurrentCommand
+deactivate tasks
+CheckCurrentCommand --> CheckCurrentCommand
 deactivate CheckCurrentCommand
 
 CheckCurrentCommand -> Ui: show message
-loop For task in ActivityList
+loop 3 or number > closestTasks.size()
     CheckCurrentCommand -> Task: toString
     activate Task
     Task --> CheckCurrentCommand: return String
@@ -52,8 +62,11 @@ loop For task in ActivityList
     CheckCurrentCommand -> Ui: show message
 end
 
-CheckCurrentCommand --> User: return false
-note left: do not exit the program
+CheckCurrentCommand --> Astra:false
 deactivate CheckCurrentCommand
+CheckCurrentCommand -[hidden]-> CheckCurrentCommand
+destroy CheckCurrentCommand
+
+Astra--> User
 
 @enduml
