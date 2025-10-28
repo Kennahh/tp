@@ -94,7 +94,7 @@ The sequence diagram below shows how components interact when the user issues `d
 - `Parser.parse(input)` returns a concrete `Command`.
 - `Command.execute(...)` returns `shouldExit`.
 - On non-exiting commands, Astra persists activities using both `writeToFile(activities.toList())` and `saveToFile(activities)`.
-- Some commands also call save methods (e.g., delete), which can lead to duplicate writes; see [Storage](#storage-component) for notes.
+- Some commands also call save methods (e.g., delete), which can lead to duplicate writes; see [Storage](#storage) for notes.
 
 **Why this architecture (benefits)**
 Separation of concerns (SoC)
