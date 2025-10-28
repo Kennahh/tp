@@ -16,7 +16,7 @@ hide footbox
 
  ' Parser creates AddTaskCommand
  create AddTaskCommand
- Parser -> AddTaskCommand
+ Parser -> AddTaskCommand : new AddTaskCommand(input)
  activate AddTaskCommand
  AddTaskCommand --> Parser
  deactivate AddTaskCommand

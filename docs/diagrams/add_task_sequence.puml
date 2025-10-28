@@ -13,8 +13,14 @@ activate Astra
 
 Astra -> Parser: parse(input)
 activate Parser
+create C
+Parser -> C : new AddTaskCommand(input)
+activate C
+C --> Parser
+deactivate C
 
-Parser --> Astra: new AddTaskCommand(\ninput)
+
+Parser --> Astra: AddTaskCommand
 deactivate Parser
 
 Astra -> C: execute(AL, UI, NB)
@@ -32,7 +38,7 @@ C -> AL: toList()
 activate AL
 AL --> C: ArrayList<>
 deactivate AL
-C -> AL: addTaskWithPriority(\nTask(desc,date,time,1), priority)
+C -> AL: addTaskWithPriority(Task(desc,date,time,1), priority)
 activate AL
 AL --> C
 deactivate AL
