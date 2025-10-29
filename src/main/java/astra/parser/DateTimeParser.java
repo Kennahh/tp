@@ -20,22 +20,19 @@ public class DateTimeParser {
     private static final String[] DATE_FORMATS_FULL = {
         "yyyy-MM-dd","yyyy-MMM-dd","yyyy-MMMM-dd","yyyy-MM-d","yyyy-MMM-d","yyyy-MMMM-d",
         "yyyy/MM/dd","yyyy/MMM/dd","yyyy/MMMM/dd","yyyy/MM/d","yyyy/MMM/d","yyyy/MMMM/d",
-        "yyyy MM dd","yyyy MMM dd","yyyy MMMM dd","yyyy MM d","yyyy MMM d","yyyy MMMM d",
         "dd-MM-yyyy","dd-MMM-yyyy","dd-MMMM-yyyy","d-MM-yyyy","d-MMM-yyyy","d-MMMM-yyyy",
         "dd/MM/yyyy","dd/MMM/yyyy","dd/MMMM/yyyy","d/MM/yyyy","d/MMM/yyyy","d/MMMM/yyyy",
-        "dd MM yyyy","dd MMM yyyy","dd MMMM yyyy","d MM yyyy","d MMM yyyy","d MMMM yyyy",
-        "MM-dd-yyyy","MMM-dd-yyyy","MMMM-dd-yyyy","MM-d-yyyy","MMM-d-yyyy","MMMM-d-yyyy",
-        "MM/dd/yyyy","MMM/dd/yyyy","MMMM/dd/yyyy","MM/d/yyyy","MMM/d/yyyy","MMMM/d/yyyy",
-        "MM dd yyyy","MMM dd yyyy","MMMM dd yyyy","MM d yyyy","MMM d yyyy","MMMM d yyyy"
+        "MMM-dd-yyyy","MMMM-dd-yyyy","MMM-d-yyyy","MMMM-d-yyyy",
+        "MMM/dd/yyyy","MMMM/dd/yyyy","MMM/d/yyyy","MMMM/d/yyyy",
     };
 
     private static final String[] DATE_FORMATS_DAY_MONTH = {
         "d-MMM","dd-MMM","d-MMMM","dd-MMMM","d-MM","dd-MM",
         "d MMM","dd MMM","d MMMM","dd MMMM","d MM","dd MM",
         "d/MMM","dd/MMM","d/MMMM","dd/MMMM","d/MM","dd/MM",
-        "MMM-d","MMM-dd","MMMM-d","MMMM-dd","MM-d","MM-dd",
-        "MMM d","MMM dd","MMMM d","MMMM dd","MM d","MM dd",
-        "MMM/d","MMM/dd","MMMM/d","MMMM/dd","MM/d","MM/dd"
+        "MMM-d","MMM-dd","MMMM-d","MMMM-dd",
+        "MMM d","MMM dd","MMMM d","MMMM dd",
+        "MMM/d","MMM/dd","MMMM/d","MMMM/dd",
     };
 
     private static final String[] TIME_FORMATS = {
@@ -93,7 +90,7 @@ public class DateTimeParser {
                 // try the next format
             }
         }
-        throw new InputException("Invalid time format");
+        throw new InputException("Invalid date format");
     }
 
 

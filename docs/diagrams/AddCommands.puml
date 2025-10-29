@@ -16,7 +16,7 @@ hide footbox
 
  ' Parser creates AddTaskCommand
  create AddTaskCommand
- Parser -> AddTaskCommand
+ Parser -> AddTaskCommand : new AddTaskCommand(input)
  activate AddTaskCommand
  AddTaskCommand --> Parser
  deactivate AddTaskCommand
@@ -57,4 +57,5 @@ hide footbox
  ' Return value to user
  AddTaskCommand --> User : false
  deactivate AddTaskCommand
+ destroy AddTaskCommand
 @enduml

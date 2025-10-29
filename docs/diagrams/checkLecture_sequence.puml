@@ -39,7 +39,7 @@ loop For activity in original ActivityList
     CheckLecturesCommand -> CheckLecturesCommand: filterActivity(activity)
     activate CheckLecturesCommand
 
-    alt [(activity instanceof Lecture) and (lecture is on the day)]
+    alt (activity instanceof Lecture) and (lecture is on the day)'
         CheckLecturesCommand --> CheckLecturesCommand: return true
     else [else]
         CheckLecturesCommand --> CheckLecturesCommand: return false
