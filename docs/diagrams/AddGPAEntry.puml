@@ -23,8 +23,10 @@ activate Parser
 create C
 Parser --> C: new AddGpaCommand(input)
 activate C
-C --> Astra
+C --> Parser
 deactivate C
+Parser --> Astra : AddGpaCommand
+deactivate Parser
 
 Astra -> C: execute(activities, UI, NB)
 activate C
@@ -37,7 +39,8 @@ activate C
 'end
 'group create and persist
     create GpaEntry
-    C -> GpaEntry: new GpaEntry(\nsubject, grade, mc)
+
+    C -> GpaEntry: new GpaEntry(subject, grade, mc)
     activate GpaEntry
     C <-- GpaEntry
     deactivate GpaEntry
@@ -58,7 +61,11 @@ activate C
     deactivate NB
 'end
 C -> UI: showMessage("Added GPA entry: " + entry)
-C --> Astra: return shouldExit=false
+activate UI
+C <-- UI
+deactivate UI
+
+C --> Astra: shouldExit=false
 deactivate C
 destroy C
 @enduml

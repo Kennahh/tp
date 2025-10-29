@@ -3,26 +3,47 @@
 actor User
 participant Astra
 participant Parser
-participant C as "DeleteGpaCommand"
+participant C as ":DeleteGpaCommand"
 participant NB as "Notebook"
 participant GL as "GpaList"
 participant UI as "Ui"
 
 User -> Astra: input "delete gpa 2"
+Activate Astra
 Astra -> Parser: parse(input)
-Parser --> Astra: new DeleteGpaCommand(input)
-Astra -> C: execute(activities, UI, NB)
-group validate and parse
-	C -> C: split tokens; check prefix "delete gpa"
-	C -> C: idx = parseInt(parts[2]); assert idx > 0
-end
+Activate Parser
+
+create C
+Parser -> C: new DeleteGpaCommand(input)
+activate C
+return
+return DeleteGpaCommand
+
+Astra -> C: execute(AL, UI, NB)
+activate C
+'group validate and parse
+'	C -> C: split tokens; check prefix "delete gpa"
+'	C -> C: idx = parseInt(parts[2]); assert idx > 0
+'end
 C -> NB: getGpaList()
-C -> GL: remove(idx)
-alt success
+activate NB
+NB -> GL: remove(idx)
+activate GL
+return
+return
+'alt success
 	C -> NB: saveGpa()
+	activate NB
+	return
 	C -> UI: showMessage("Deleted GPA entry: ...")
-else invalid index/format
-	C -> UI: showError("Index must be a positive integer." or error message)
-end
-C --> Astra: return shouldExit=false
+	activate UI
+	return
+
+'else invalid index/format
+'	C -> UI: showError("Index must be a positive integer." or error message)
+'	activate UI
+'	return
+'end
+return false
+destroy C
 @enduml

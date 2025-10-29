@@ -9,15 +9,35 @@ participant GL as "GpaList"
 participant UI as "Ui"
 
 User -> Astra: input "list gpa"
+activate Astra
 Astra -> Parser: parse(input)
-Parser --> Astra: new ListGpaCommand()
-Astra -> C: execute(activities, UI, NB)
+activate Parser
+create C
+Parser -> C: new ListGpaCommand()
+activate C
+return
+return ListGpaCommand
+
+Astra -> C: execute(AL, UI, NB)
+activate C
+
 C -> NB: getGpaList()
-C -> GL: toList()
+activate NB
+NB -> GL : toList()
+activate GL
+return List<GpaList>
+return List<GpaList>
+
 alt list is empty
 	C -> UI: showMessage("No GPA entries yet.")
+	activate UI
+	return
+	C --> Astra: false
 else list has items
 	C -> UI: showMessage(" 1. <entry>\n 2. <entry> ...")
+	activate UI
+	return
 end
 C --> Astra: return shouldExit=false
+destroy C
 @enduml
