@@ -1,25 +1,29 @@
 @startuml
 !include style.puml
 Actor User
-participant Parser
-participant CheckCurrentCommand
+participant ":Astra" as Astra
+participant ":Parser" as Parser
+participant ":CheckCurrentCommand" as CheckCurrentCommand
 participant "original_list: ActivityList" as original_list
 participant "tasks: ArrayList<Task>" as tasks
-participant Collections
-participant Task
-participant Ui
+participant ":Collections" as Collections
+participant ":Task" as Task
+participant ":Ui" as Ui
+participant ":ActivityList" as ActivityList
 
-User -> Parser: input "checkCurrent"
+User -> Astra : "checkcurrent"
+activate Astra
+Astra-> Parser: input "checkcurrent"
 activate Parser
 create CheckCurrentCommand
 Parser -> CheckCurrentCommand: new CheckCurrentCommand(input)
 activate CheckCurrentCommand
 CheckCurrentCommand --> Parser
 deactivate CheckCurrentCommand
-Parser --> User
+Parser --> Astra
 deactivate Parser
 
-User -> CheckCurrentCommand: execute
+Astra -> CheckCurrentCommand: execute(AL, UI, NB)
 activate CheckCurrentCommand
 CheckCurrentCommand -> CheckCurrentCommand: getClosestTasks
 activate CheckCurrentCommand
@@ -35,6 +39,9 @@ loop For activity in original ActivityList
     deactivate original_list
     opt activity instanceof Task
         CheckCurrentCommand -> ActivityList: addActivity to ActivityList<Task>
+        activate ActivityList
+        return
+        deactivate ActivityList
     end
 end
 CheckCurrentCommand -> Collections: sort the ActivityList<Task>
@@ -44,17 +51,25 @@ deactivate Collections
 CheckCurrentCommand --> CheckCurrentCommand: ArrayList<Task> sublist
 deactivate CheckCurrentCommand
 
-CheckCurrentCommand -> Ui: show message
+CheckCurrentCommand -> Ui: showMessage()
+activate Ui
+return
+deactivate Ui
 loop For task in ActivityList
     CheckCurrentCommand -> Task: toString
     activate Task
     Task --> CheckCurrentCommand: return String
     deactivate Task
-    CheckCurrentCommand -> Ui: show message
+    CheckCurrentCommand -> Ui: showMessage()
+    activate Ui
+    return
+    deactivate Ui
 end
-
-CheckCurrentCommand --> User: return false
 note left: do not exit the program
+CheckCurrentCommand --> Astra: false
 deactivate CheckCurrentCommand
+Astra --> User
+destroy CheckCurrentCommand
+destroy tasks
 
 @enduml
