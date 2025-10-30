@@ -1,20 +1,20 @@
 @startuml
 !include style.puml
 actor User
-participant Astra
-participant Parser
-participant C as ":DeleteGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-participant UI as "Ui"
+participant Astra as ":Astra"
+participant Parser as ":Parser"
+participant C as "::DeleteGpaCommand"
+participant NB as ":Notebook"
+participant GL as ":GpaList"
+participant UI as ":Ui"
 
-User -> Astra: input \n"delete gpa 2"
+User -> Astra: "delete gpa 2"
 Activate Astra
-Astra -> Parser: parse(input)
+Astra -> Parser: parse("delete gpa 2")
 Activate Parser
 
 create C
-Parser -> C: new DeleteGpaCommand(input)
+Parser -> C: new DeleteGpaCommand("delete gpa 2")
 activate C
 return
 return DeleteGpaCommand
@@ -45,5 +45,7 @@ return
 '	return
 'end
 return false
+deactivate C
+Astra --> User
 destroy C
 @enduml
