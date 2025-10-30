@@ -273,7 +273,7 @@ Display all tasks ordered by their priority — `checkpriority`
 
 
 #### Behaviour
-- Filters `ActivityList` for all `Task` instances and plac into new `ActivityList` instance.
+- Filters `ActivityList` for all `Task` instances and places into new `ActivityList` instance.
 - Sorts matching tasks by priority through `task.getPriority`.
 - Uses `Ui` to display friendly messages when no tasks exist.
 
@@ -430,7 +430,7 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 | v1.0    | Student | view all the tasks I need to do                      | see what is scheduled ahead                             |
 | v1.0    | Student | Add tasks and their deadlines                        | track deadlines                                         |
 | v1.0    | user    | Delete tasks                                         | reduce clutter in my list of tasks                      |
-| v1.0    | Student | check what the current task is                       | know what mas be done right now                         |
+| v1.0    | Student | check what the current task is                       | know what must be done right now                        |
 | v1.0    | Student | Mark tasks as complete/incomplete                    | know if I have finished a task                          |
 | v1.0    | Student | Change deadline of tasks                             | Change the deadline if i put it in wrongly              |
 | v1.0    | Student | Check upcoming examinations                          | see my upcoming examinations                            |
