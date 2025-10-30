@@ -1,22 +1,22 @@
 @startuml
 !include style.puml
 actor User
-participant Astra
-participant Parser
-participant C as "ListGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-participant UI as "Ui"
+participant Astra as ":Astra"
+participant Parser as ":Parser"
+participant C as ":ListGpaCommand"
+participant NB as ":Notebook"
+participant GL as ":GpaList"
+participant UI as ":Ui"
 
-User -> Astra: input "list gpa"
+User -> Astra:"list gpa"
 activate Astra
-Astra -> Parser: parse(input)
+Astra -> Parser: parse("list gpa")
 activate Parser
 create C
 Parser -> C: new ListGpaCommand()
 activate C
 return
-return ListGpaCommand
+return
 
 Astra -> C: execute(AL, UI, NB)
 activate C
@@ -38,6 +38,8 @@ else list has items
 	activate UI
 	return
 end
-C --> Astra: return shouldExit=false
+C --> Astra:false
+deactivate C
+Astra --> User
 destroy C
 @enduml
