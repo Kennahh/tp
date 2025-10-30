@@ -4,7 +4,8 @@
 !include style.puml
 skinparam arrowThickness 1
 skinparam arrowColor Black
-skinparam classBackgroundColor grey
+
+hide member
 
 package activity {
 class ActivityList
