@@ -251,7 +251,7 @@ Together, these features ensure that users can efficiently monitor their task by
 
 #### Change Deadline Command
 
-Code format — `changedeadline <taskNumber> /to <YYYY-MM-DD> <HH:MM>`. Finds the <taskNumber> activity in the activity list, checks if its a task before changing and validating the deadline based on DateTime format
+Code format — `changedeadline <taskNumber> /to <YYYY-MM-DD> <HH:MM>`. Finds the <taskNumber> activity in the activity list, checks if it is a task before changing and validating the deadline based on DateTime format
 
 Change Deadline of task 3 — `changedeadline 3 /to 2025-10-31 18:00`
 ![Change Deadline sequence](images/changeDeadline_sequence.png)
@@ -351,7 +351,7 @@ Compute GPA — `gpa`
 
 List GPA entries — `list gpa`
 
-![List GPA entries sequence](images/LIstGPAEntries.png)
+![List GPA entries sequence](images/ListGPAEntries.png)
 
 Delete GPA entry — `delete gpa <INDEX>`
 

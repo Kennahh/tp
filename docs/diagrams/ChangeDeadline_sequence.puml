@@ -5,15 +5,25 @@ participant UI as "Ui"
 participant Parser
 participant C as "ChangeDeadlineCommand"
 participant AL as "ActivityList"
+participant T as "Task"
 participant NB as "Notebook"
 
 User -> UI: enter "changedeadline 3 /to 2025-10-31 18:00"
+activate UI
 UI -> Parser: parse(input)
-Parser --> UI: new ChangeDeadlineCommand(input)
+activate Parser
+create C
+Parser -> C :new ChangeDeadlineCommand(input)
+activate C
+return
+return ChangeDeadlineCommand
 UI -> C: execute(activities, ui, notebook)
-C -> AL: getActivity(2)
-AL --> C: Task instance
+activate C
+C -> AL: getActivity()
+activate AL
+return Task
 C -> T: setDeadline(LocalDate, LocalTime)
 C -> NB: saveToFile(activities)
-C --> UI: showMessage("Deadline updated for task: ...")
+return showMessage("Deadline updated for task: ...")
+destroy C
 @enduml
