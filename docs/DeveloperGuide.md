@@ -200,7 +200,7 @@ API: `astra.ui.Ui`
 
 Flow: The user enters `task <desc> /by <YYYY-MM-DD> <HH:MM> /priority <n>`. The parser returns an `AddCommand` (task variant), which validates, uses `DateTimeParser` to parse date/time, and inserts the task at the desired priority by bumping existing priorities that are ≥ the requested priority. The command persists via `Notebook.saveToFile(activities)`.
 
-![Add task sequence](images/add_task_sequence.png)
+![Add task sequence](images/AddCommand_sequence.png)
 
 Why
 
@@ -238,7 +238,7 @@ Together, these features ensure that users can efficiently monitor their task by
 
 `checkcurrent [n]` lists the n closest upcoming tasks (default 1). It filters for deadlines after “now”, sorts by deadline ascending, and prints the first n.
 
-![Check Current sequence](images/CheckCurrent_sequence.png)
+![Check Current sequence](images/checkCurrent_sequence.png)
 
 #### Behaviour
 
