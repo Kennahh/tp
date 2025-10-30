@@ -2,15 +2,18 @@
 'https://plantuml.com/sequence-diagram
 hide footbox
 actor User
-participant Parser
-participant UnmarkCommand
-participant ActivityList
-participant Task
-participant Ui
-participant Notebook
+participant ":Astra" as Astra
+participant ":Parser" as Parser
+participant ":UnmarkCommand" as UnmarkCommand
+participant ":ActivityList" as ActivityList
+participant "currActivity:Task" as Task
+participant ":Ui" as Ui
+participant ":Notebook" as Notebook
 
 ' Step 1: User input is parsed
-User -> Parser : parse("unmark 3")
+User -> Astra : "unmark 3"
+activate Astra
+Astra -> Parser: parse("unmark 3")
 activate Parser
 
 ' Parser creates UnmarkCommand
@@ -21,11 +24,11 @@ UnmarkCommand --> Parser
 deactivate UnmarkCommand
 
 ' Parser returns command to user
-Parser --> User : UnmarkCommand
+Parser --> Astra : UnmarkCommand
 deactivate Parser
 
 ' Step 2: User executes the command
-User -> UnmarkCommand : execute(activities, ui, notebook)
+Astra -> UnmarkCommand : execute(AL, UI, NB)
 activate UnmarkCommand
 
 ' Get activity from the list
@@ -53,6 +56,9 @@ Notebook --> UnmarkCommand
 deactivate Notebook
 
 ' Return false to User
-UnmarkCommand --> User : false
+UnmarkCommand --> Astra : false
 deactivate UnmarkCommand
+Astra --> User
+destroy UnmarkCommand
+
 @enduml
