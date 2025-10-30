@@ -36,6 +36,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 - Authored CommandComponent diagram, style file
 - Vetting, editing and consistency checking of all other member's UML diagrams
   - `ListGPAEntries`,`AddGPAEntry`,`DeleteGPAEntry`,`add_task_sequence`,`architecture_sequence_delete`
+- Vetting of the DG 
 
 ### Contributions to team-based tasks
 
