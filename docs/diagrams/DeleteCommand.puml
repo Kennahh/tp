@@ -3,23 +3,25 @@
 
 hide footbox
 actor User
-participant Parser
-participant DeleteCommand
-participant ActivityList
-participant Task
-participant Ui
-participant Notebook
+participant ":Astra" as Astra
+participant ":Parser" as Parser
+participant ":DeleteCommand" as DeleteCommand
+participant ":ActivityList" as ActivityList
+participant ":Ui" as Ui
+participant ":Notebook" as Notebook
 
-User -> Parser : parse("delete 1")
+User -> Astra : "delete 1"
+activate Astra
+Astra -> Parser : parse("delete 1")
 activate Parser
 create DeleteCommand
 Parser -> DeleteCommand
 activate DeleteCommand
-return
 return : DeleteCommand
+return
 deactivate Parser
 
-User -> DeleteCommand : execute(activities, ui, notebook)
+Astra -> DeleteCommand : execute(AL, UI, NB)
 activate DeleteCommand
 DeleteCommand -> ActivityList : deleteActivity(1)
 activate ActivityList
@@ -32,7 +34,9 @@ DeleteCommand->Notebook : saveToFile(activities)
 activate Notebook
 return
 return false
+Astra --> User
 deactivate DeleteCommand
 destroy DeleteCommand
+
 
 @enduml
