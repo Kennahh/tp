@@ -6,8 +6,6 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 
 ## Summary of Contributions
 
-This section follows the PPP format required for the module. Each subsection below documents a distinct contribution area.
-
 1) Code contributed
 
 - Code Dashboard: ([ekko-technology-dashboard-link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=ekko&sort=totalCommits%20dsc&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByNone&breakdown=true&checkedFileTypes=functional-code~other~test-code~docs&since=2025-09-19T00%3A00%3A00&filteredFileName=))
