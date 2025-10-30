@@ -38,11 +38,6 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
   - `docs/diagrams/changePriority_sequence.puml` → `docs/images/changePriority_sequence.png`
   - `docs/diagrams/ChangeDeadline_sequence.puml` → `docs/images/changeDeadline_sequence.png`
 
-- Implementation notes for DG work:
-  - Added explicit diagram names after `@startuml` to avoid unnamed-diagram warnings.
-  - Corrected lifelines and deactivation semantics where diagrams diverged from code (e.g., `CheckCurrent` uses a local `ArrayList<Task>` in code rather than creating a new `ActivityList`).
-  - Ensured diagrams show `Notebook.saveToFile(...)` persistence steps where applicable.
-
 5) Contributions to team-based tasks
 
 - Helped debug parsing and priority edge cases across the codebase.
