@@ -1,9 +1,9 @@
 @startuml ModelComponent
 !include style.puml
 skinparam componentStyle rectangle
-show members
-show methods
-show attributes
+'hide members
+'show methods
+'show attributes
 
 package astra.activity {
   abstract class Activity

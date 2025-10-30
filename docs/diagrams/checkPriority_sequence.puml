@@ -2,7 +2,7 @@
 !include style.puml
 actor User
 participant Astra as ":Astra"
-participant Parser
+participant Parser as ":Parser"
 participant C as ":CheckPriorityCommand"
 participant AL as ":ActivityList"
 participant UI as ":Ui"

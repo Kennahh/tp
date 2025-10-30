@@ -1,11 +1,11 @@
 @startuml
 !include style.puml
 actor User
-participant UI as "Ui"
-participant Parser
-participant C as "AddTaskCommand"
-participant AL as "ActivityList"
-participant NB as "Notebook"
+participant UI as ":Ui"
+participant Parser as ":Parser"
+participant C as ":AddTaskCommand"
+participant AL as ":ActivityList"
+participant NB as ":Notebook"
 
 User -> UI: enter "task CS2113 Quiz /by 2025-10-10 23:59 /priority 2"
 UI -> Parser: parse(input)

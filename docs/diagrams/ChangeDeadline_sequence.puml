@@ -3,10 +3,10 @@
 actor User
 participant Astra as ":Astra"
 
-participant Parser
+participant Parser as ":Parser"
 participant C as ":ChangeDeadlineCommand"
-participant AL as "ActivityList"
-participant T as "Task"
+participant AL as ":ActivityList"
+participant T as ":Task"
 participant UI as ":Ui"
 participant NB as ":Notebook"
 
