@@ -38,6 +38,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 
 ### Contribution to DG:
 - Sections i did were the activity Package and the Unmark/Complete Commands
+- Checked as well as edit sequence diagrams in DG for errors
 - Diagrams Created include:
   1. Activity Class diagram
   2. DeleteCommand sequence diagram
