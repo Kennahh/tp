@@ -2,14 +2,14 @@
 'https://plantuml.com/sequence-diagram
 !include style.puml
 hide footbox
- actor User
- participant Astra
- participant Parser
- participant AddTaskCommand
- participant Task
- participant ActivityList
- participant Ui
- participant Notebook
+actor User
+participant ":Astra" as Astra
+participant ":Parser" as Parser
+participant ":AddTaskCommand" as AddTaskCommand
+participant "Task" as Task
+participant ":ActivityList" as ActivityList
+participant ":Ui" as Ui
+participant ":Notebook" as Notebook
 
  ' Step 1: User input is parsed
  User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
@@ -29,7 +29,7 @@ hide footbox
  deactivate Parser
 
  ' Step 2: User executes the command
- Astra -> AddTaskCommand : execute(activities, ui, notebook)
+ Astra -> AddTaskCommand : execute(AL, UI, NB)
  activate AddTaskCommand
 
  ' Inside execute(): create a new Task
@@ -52,7 +52,7 @@ hide footbox
  deactivate Ui
 
  ' Save to file using Notebook
- AddTaskCommand -> Notebook : saveToFile()
+ AddTaskCommand -> Notebook : saveToFile(activities)
  activate Notebook
  Notebook --> AddTaskCommand
  deactivate Notebook
@@ -62,5 +62,6 @@ hide footbox
  deactivate AddTaskCommand
  AddTaskCommand -[hidden]-> AddTaskCommand
  destroy AddTaskCommand
+ destroy Task
  Astra -->User
 @enduml
