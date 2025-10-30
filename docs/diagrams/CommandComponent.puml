@@ -4,6 +4,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor black
 skinparam classBackgroundColor lightgrey
+hide members
 
 package Command as CommandPackage {
 Class "<<interface>>\nCommand" as Command
@@ -22,11 +23,15 @@ Astra .right.> Command : <<create>>
 XYZCommand .up.> Command
 note right of XYZCommand: XYZCommand = Abstract AddCommand,\nAbstract CheckCommand
 
-
-XYZCommands -up-|> XYZCommand
-XYZCommands -up-> Activity : modifies
-XYZCommands -right-> Data : modifies
-XYZCommands -right-> Ui
+XYZCommands -left-|> XYZCommand
+XYZCommands -left-> Activity : modifies
+XYZCommands -left-> Data : modifies
+XYZCommands -left-> Ui
 note bottom of XYZCommands: XYZCommands = AddTaskCommand,\n CheckExamCommand, etc
 
+QRSCommands .right.> Command
+QRSCommands -left-> Activity : modifies
+QRSCommands -left-> Data : modifies
+QRSCommands -left-> Ui
+note left of QRSCommands: QRSCommands = HelpCommand,\nListCommand, etc
 @enduml

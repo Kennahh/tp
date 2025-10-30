@@ -1,6 +1,7 @@
 @startuml
 ' System-wide component/class overview
 !include style.puml
+hide member
 
 package astra {
   class Astra
