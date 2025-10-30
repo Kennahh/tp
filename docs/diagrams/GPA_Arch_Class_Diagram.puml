@@ -1,6 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 !include style.puml
+hide member
 package astra {
   class Astra
   package parser {

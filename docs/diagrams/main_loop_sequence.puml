@@ -2,12 +2,12 @@
 !include style.puml
 
 actor User
-participant Astra
-participant UI as "Ui"
-participant Parser
-participant C as "Command"
-participant NB as "Notebook"
-participant AL as "ActivityList"
+participant Astra as ":Astra"
+participant UI as ":Ui"
+participant Parser as "Parser"
+participant C as ":Command"
+participant NB as ":Notebook"
+participant AL as ":ActivityList"
 
 User -> Astra: start()
 Astra -> UI: showLogo(), showBotIntro()
@@ -17,9 +17,14 @@ loop REPL
   User -> Astra: input line
   Astra -> UI: showDash()
   Astra -> Parser: parse(input)
+  create C
+  Parser -> C
+  return
   Parser --> Astra: new ConcreteCommand
   Astra -> C: execute(AL, UI, NB)
   alt shouldExit == false
+    C -[Hidden]> C
+    destroy C
     Astra -> NB: writeToFile(AL.toList())
     Astra -> NB: saveToFile(AL)
     else shouldExit == true

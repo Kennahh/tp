@@ -1,12 +1,12 @@
 @startuml ArchitectureSequenceDelete
 !include style.puml
 actor User
-participant Astra
-participant Parser
+participant Astra as ":Astra"
+participant Parser as ":Parser"
 participant C as ":DeleteCommand"
-participant AL as "ActivityList"
-participant NB as "Notebook"
-participant UI as "Ui"
+participant AL as ":ActivityList"
+participant NB as ":Notebook"
+participant UI as ":Ui"
 
 User -> Astra: input "delete 2"
 activate Astra

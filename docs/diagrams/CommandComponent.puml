@@ -21,17 +21,20 @@ package Ui{}
 Astra .right.> Command : <<create>>
 
 XYZCommand .up.> Command
-note right of XYZCommand: XYZCommand = Abstract AddCommand,\nAbstract CheckCommand
+
+
+
+QRSCommands .down.> Command
+QRSCommands -left-> Activity : modifies
+QRSCommands -left--> Data : modifies
+QRSCommands -left-> Ui
+
 
 XYZCommands -left-|> XYZCommand
-XYZCommands -left-> Activity : modifies
+XYZCommands -up-> Activity : modifies
 XYZCommands -left-> Data : modifies
 XYZCommands -left-> Ui
 note bottom of XYZCommands: XYZCommands = AddTaskCommand,\n CheckExamCommand, etc
-
-QRSCommands .right.> Command
-QRSCommands -left-> Activity : modifies
-QRSCommands -left-> Data : modifies
-QRSCommands -left-> Ui
-note left of QRSCommands: QRSCommands = HelpCommand,\nListCommand, etc
+note top of QRSCommands: QRSCommands = HelpCommand,\nListCommand, etc
+note bottom of XYZCommand: XYZCommand = Abstract AddCommand,\nAbstract CheckCommand
 @enduml

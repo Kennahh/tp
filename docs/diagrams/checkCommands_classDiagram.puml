@@ -4,7 +4,7 @@
 !include style.puml
 skinparam arrowThickness 1
 skinparam arrowColor Black
-skinparam classBackgroundColor lightgrey
+hide member
 
 package command{
 class Command <<interface>>
