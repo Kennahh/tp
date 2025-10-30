@@ -36,7 +36,7 @@ deactivate UI
 C -> NB: saveToFile(activities)
 activate NB
 return
-C-->Astra
+C-->Astra : false
 deactivate C
 Astra-->User
 destroy C
