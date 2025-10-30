@@ -1,16 +1,31 @@
 @startuml
 !include style.puml
 actor User
-participant UI as "Ui"
+participant Astra as ":Astra"
 participant Parser
-participant C as "CheckPriorityCommand"
-participant AL as "ActivityList"
+participant C as ":CheckPriorityCommand"
+participant AL as ":ActivityList"
+participant UI as ":Ui"
 
-User -> UI: enter "checkpriority"
-UI -> Parser: parse(input)
-Parser --> UI: new CheckPriorityCommand()
-UI -> C: execute(activities, ui, notebook)
+User -> Astra: "checkpriority"
+activate Astra
+Astra -> Parser: parse("checkpriority")
+activate Parser
+create C
+Parser -->C : new CheckPriorityCommand()
+activate C
+return
+return
+Astra -> C: execute(AL, UI, NB)
+activate C
 C -> AL: getAllTasks()
+activate AL
 AL --> C: List<Task>
+deactivate AL
 C --> UI: showMessage(list ordered by priority)
+activate UI
+return
+return false
+return
+destroy C
 @enduml

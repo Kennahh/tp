@@ -1,19 +1,38 @@
 @startuml
 !include style.puml
 actor User
-participant UI as "Ui"
+participant Astra as ":Astra"
 participant Parser
-participant C as "ChangePriorityCommand"
-participant AL as "ActivityList"
-participant NB as "Notebook"
+participant C as ":ChangePriorityCommand"
+participant AL as ":ActivityList"
+participant UI as ":Ui"
+participant NB as ":Notebook"
 
-User -> UI: enter "changepriority 3 /to 1"
-UI -> Parser: parse(input)
-Parser --> UI: new ChangePriorityCommand(input)
-UI -> C: execute(activities, ui, notebook)
+User -> Astra: "changepriority 3 /to 1"
+activate Astra
+Astra -> Parser: parse("changepriority 3 /to 1")
+activate Parser
+create C
+Parser --> C: new ChangePriorityCommand(input)
+activate C
+return
+return
+Astra -> C: execute(AL, UI, NB)
+activate C
 C -> AL: getActivity(2)
-AL --> C: Task instance
+activate AL
+AL --> C: Task
 C -> AL: reassign priorities (internal)
+return
+deactivate AL
 C -> NB: saveToFile(activities)
+activate NB
+return
 C --> UI: showMessage("Priority updated: ...")
+activate UI
+return
+C-->Astra : false
+deactivate C
+Astra --> User
+destroy C
 @enduml

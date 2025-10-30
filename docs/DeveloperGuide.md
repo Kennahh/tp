@@ -214,6 +214,17 @@ Alternatives considered
 
 ---
 
+### Task Unmarking and Completing(marking)
+Flow: The user enters `unmark/complete <index>`. The parser returns either `UnmarkCommand` or `CompleteCommand` and does the execute() method accordingly. Activity at the index is retrieved and marked/unmarked it if it is a task.
+UnmarkCommand will be used as an example for the sequence diagram as they share similar sequences. The main difference is unmarkCommand will call clearIsComplete() while CompleteCommand will call setIsComplete().
+![UnmarkCommand_sequence](images/unmark_sequence.png)
+
+---
+
+### Delete 
+Flow: The user enters `delete <index>`. The parser returns `DeleteCOmmand` and does execute(). Activity at index is deleted from the ActivityList which is then saved to the data folder.
+![DeleteCommand_sequence](images/DeleteCommand_sequence.png)
+
 ### Task Deadline & Priority System
 
 This section documents the deadline and priority system among task instances and how it interacts with the rest of the system (Ui, Parser, Commands, Notebook, and the Astra app). It also includes UML diagrams to aid future developers.
@@ -233,13 +244,14 @@ Together, these features ensure that users can efficiently monitor their task by
 
 ---
 
+
 #### Check current tasks (Earliest Deadlines)
 
 **Purpose**: Show the nearest upcoming task deadlines (future tasks), optionally limited by a count. Useful to get a quick glance at what is due soon.
 
 `checkcurrent [n]` lists the n closest upcoming tasks (default 1). It filters for deadlines after “now”, sorts by deadline ascending, and prints the first n.
 
-![Check Current sequence](images/checkCurrent_sequence.png)
+![Check Current sequence](images/CheckCurrent_sequence.png)
 
 #### Behaviour
 
@@ -255,7 +267,7 @@ Together, these features ensure that users can efficiently monitor their task by
 Code format — `changedeadline <taskNumber> /to <YYYY-MM-DD> <HH:MM>`. Finds the <taskNumber> activity in the activity list, checks if it is a task before changing and validating the deadline based on DateTime format
 
 Change Deadline of task 3 — `changedeadline 3 /to 2025-10-31 18:00`
-![Change Deadline sequence](images/changeDeadline_sequence.png)
+![Change Deadline sequence](images/ChangeDeadline_sequence.png)
 
 #### Validation checks and behaviours
 
@@ -270,7 +282,7 @@ Change Deadline of task 3 — `changedeadline 3 /to 2025-10-31 18:00`
 
 Display all tasks ordered by their priority — `checkpriority`
 
-![Check Priority sequence](images/CheckPriority_sequence.png)
+![Check Priority sequence](images/checkPriority_sequence.png)
 
 
 #### Behaviour
@@ -292,7 +304,7 @@ Update and rebalance task priority — `changepriority <taskIndex> /to <newPrior
 
 Change priority of task 3 — `changepriority 3 /to 1`
 
-![Change Priority sequence](images/changePriority_sequence.png)
+![Change Priority sequence](images/Change_Priority_sequence.png)
 
 #### Behavior Edge cases handled
 

@@ -1,17 +1,17 @@
 @startuml
 !include style.puml
 actor User
-participant Astra
-participant Parser
+participant Astra as ":Astra"
+participant Parser as ":Parser"
 
 
-participant C as "AddGpaCommand"
+participant C as ":AddGpaCommand"
 
 
-participant GpaEntry
-participant NB as "Notebook"
-participant GL as "GpaList"
-participant UI as "Ui"
+participant GpaEntry as ":GpaEntry"
+participant NB as ":Notebook"
+participant GL as ":GpaList"
+participant UI as ":Ui"
 
 
 User -> Astra: input \n"add gpa CS2040C A+ 4mc"
@@ -60,5 +60,6 @@ deactivate UI
 
 C --> Astra: false
 deactivate C
+Astra --> User
 destroy C
 @enduml

@@ -1,19 +1,36 @@
 @startuml
 !include style.puml
 actor User
-participant Astra
-participant Parser
-participant C as "ComputeGpaCommand"
-participant NB as "Notebook"
-participant GL as "GpaList"
-participant UI as "Ui"
+participant Astra as ":Astra"
+participant Parser as ":Parser"
+participant C as ":ComputeGpaCommand"
+participant NB as ":Notebook"
+participant GL as ":GpaList"
+participant UI as ":Ui"
 
-User -> Astra: input "gpa"
-Astra -> Parser: parse(input)
-Parser --> Astra: new ComputeGpaCommand()
-Astra -> C: execute(activities, UI, NB)
+User -> Astra: "gpa"
+activate Astra
+Astra -> Parser: parse("gpa")
+activate Parser
+create C
+Parser -> C : new ComputeGpaCommand()
+activate C
+return
+Parser --> Astra
+deactivate Parser
+Astra -> C: execute(AL, UI, NB)
+activate C
 C -> NB: getGpaList()
+activate NB
+return
 C -> GL: computeGpa()
+activate GL
+return
 C -> UI: showMessage("Current GPA: %.2f")
-C --> Astra: return shouldExit=false
+activate UI
+return
+C --> Astra: false
+deactivate C
+Astra-->User
+destroy C
 @enduml
