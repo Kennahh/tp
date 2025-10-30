@@ -1,12 +1,12 @@
 @startuml
 !include style.puml
 actor User
-participant Astra
-participant Parser
-participant C as "AddTaskCommand"
-participant AL as "ActivityList"
-participant NB as "Notebook"
-participant UI as "Ui"
+participant Astra as ":Astra"
+participant Parser as ":Parser"
+participant C as ":AddTaskCommand"
+participant AL as ":ActivityList"
+participant NB as ":Notebook"
+participant UI as ":Ui"
 
 User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
 activate Astra
@@ -26,14 +26,6 @@ deactivate Parser
 Astra -> C: execute(AL, UI, NB)
 activate C
 
-'group validate and parse
-'	C -> C: check '/by' and '/priority'
-'	C -> C: parse priority (int)
-'
-'	activate AL
-'	C -> C: count Task entries; validate bounds
-'	C -> C: DateTimeParser.parseDate/parseTime
-'end
 C -> AL: toList()
 activate AL
 AL --> C: ArrayList<>
