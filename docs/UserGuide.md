@@ -2,7 +2,7 @@
 
 ASTRA is a **desktop app that tracks tasks, lectures, tutorials, exams and GPA, optimised for use via Command Line Interface (CLI)**
 
-It is targetted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
+It is targeted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
 
 ## Table of Contents
 
@@ -55,9 +55,9 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <date> [time] /priority <number>`
+Format: `task <description> /by <YYYY-MMM-DD> [HH:mm] /priority <number>`
 
-If time is not provided, i.e. just a date, ASTRA will default to 2359H.
+If time is not provided, i.e. just a date, ASTRA will default to 2359H. Additionally, <HHmm> and <HH:mm> are both valid format
 
 Example of usage: 
 
@@ -125,7 +125,7 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent [n]` shows `n` immediate upcoming task deadlines, defaults to 1 if no number is specified
+Upcoming deadlines:`checkcurrent [Number of tasks(n)]` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
 
 Note: Astra will **not display deadlines that have passed**
 
@@ -237,11 +237,7 @@ Change the priority of a specific task. The command will also adjust the priorit
 
 Format: `changepriority <task number> /to <new priority>`
 
-Additional Notes: 
-- `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
-- `<new priority>` must be 1 or greater, and less than or equal to the total number of tasks.
-  - e.g. If you have 5 tasks in total, `<new priority>` must between 1 and 5 inclusive.
-
+Note: `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
 
 Example of usage:
 
