@@ -125,7 +125,9 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, default to 1
+Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, defaults to 1 if no number is specified
+
+Note: Astra will **not display deadlines that have passed**
 
 Tutorial:`checktutorial <day>` lists all tutorials on the specific day of the week
 
