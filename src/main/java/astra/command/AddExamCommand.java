@@ -26,7 +26,7 @@ public class AddExamCommand extends AddCommand {
             String[] parts = input.split(" ", 2);
             if (parts.length != 2) {
                 throw new InputException("Missing exam description and Datetime details. Use: exam <description> " +
-                        "/date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>");
+                        "/place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>");
             }
 
             String args = parts[1];
@@ -52,6 +52,9 @@ public class AddExamCommand extends AddCommand {
                 }
             }
 
+            if (venue.isEmpty()) {
+                throw new InputException("Missing venue. Use: /place <venue>");
+            }
             if (dateStr.isEmpty()) {
                 throw new InputException("Missing exam date. Use: /date <YYYY-MM-DD>");
             }

@@ -33,6 +33,8 @@ activate UI
 return
 C-->Astra : false
 deactivate C
-Astra --> User
 destroy C
+Astra --> User
+deactivate Astra
+
 @enduml

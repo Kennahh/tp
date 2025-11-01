@@ -59,6 +59,7 @@ public class CheckTutorialsCommand extends CheckCommand {
             this.day = DateTimeParser.dayOfWeekParser(this.input);
         } catch (InputException e) {
             ui.showError(e.getMessage());
+            return false;
         }
         ActivityList filteredList = filterList(activities);
         if (filteredList.getListSize() == 0) {

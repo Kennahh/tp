@@ -69,7 +69,7 @@ public class AstraParserTest {
 
     @Test
     public void addExam_valid_success() throws Exception {
-        Command c = Parser.parse("exam test /date 2025-12-12 /from 12:00 /to 18:00");
+        Command c = Parser.parse("exam test /place MPSH5 /date 2025-12-12 /from 12:00 /to 18:00");
         c.execute(activities, ui, notebook);
         assertEquals(1, activities.getListSize());
         assertTrue(activities.getActivity(0) instanceof Exam);
