@@ -530,3 +530,12 @@ The following complements existing GPA tests and covers activity features. Copyâ
      - `delete gpa 2` removes the second entry
    - Invalid grade:
      - `add gpa CS1231X HH 4` shows an error
+9. Unmarking and Completing Tasks
+
+   - Add a task into ActivityList.`task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
+   - Run `list` to get the index of the task
+   - Run `unmark <index>` or `complete <index>` to either set the task to not completed or completed accordingly.
+   - run `list` to check if the command has been executed
+   - To error test:
+     -  run unmark on a task which has not been completed or complete on a task which has been completed
+     -  run unmark/complete <index> on an activity that is not a task
