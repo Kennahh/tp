@@ -44,6 +44,7 @@ public class DateTimeParser {
     static {
         for (DayOfWeek day : DayOfWeek.values()) {
             String full = day.name().toLowerCase();  // e.g. "monday"
+            dayMap.put(full, day);
             String shortForm = full.substring(0, 3); // e.g. "mon"
             dayMap.put(shortForm, day);
         }
