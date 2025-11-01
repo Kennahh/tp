@@ -486,7 +486,7 @@ The following complements existing GPA tests and covers activity features. Copy�
 
 2. Change priority (rebalance)
 
-   - `changepriority 2 /to 1` (the previously index‑2 task should become priority 1; others shift accordingly)
+   - `changepriority 1 /to 1` (the index‑1, priority 2 task should become priority 1; others shift accordingly)
    - `list` (verify priorities are a dense 1..N)
 
 3. Edit deadline
