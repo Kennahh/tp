@@ -64,7 +64,6 @@ Example of usage:
 Input:`task tutorial assignment /by 2025-04-03 10:00 /priority 1`
 
 Output: Astra will show the task which has been added before awaiting the next command
-
 ```
 ------------------------------------------------------------
 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
