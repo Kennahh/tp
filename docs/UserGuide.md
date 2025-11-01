@@ -55,9 +55,9 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <date> [time] /priority <number>`
+Format: `task <description> /by <YYYY-MMM-DD> <HH:mm> /priority <number>`
 
-If time is not provided, i.e. just a date, ASTRA will default to 2359H.
+If time is not provided, i.e. just a date, ASTRA will default to 2359H. Additionally, <HHmm> and <HH:mm> are both valid format
 
 Example of usage: 
 
