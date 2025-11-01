@@ -237,6 +237,8 @@ Change the priority of a specific task. The command will also adjust the priorit
 
 Format: `changepriority <task number> /to <new priority>`
 
+Note: `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
+
 Example of usage:
 
 Input: `changepriority 1 /to 2`
