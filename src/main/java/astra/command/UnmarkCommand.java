@@ -6,11 +6,16 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UnmarkCommand implements Command {
     private static final Logger logger = Logger.getLogger("UnmarkCommand");
     private final String input;
+
+    static {
+        logger.setLevel(Level.OFF);
+    }
 
     public UnmarkCommand(String input) {
         this.input = input;
