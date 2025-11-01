@@ -480,53 +480,53 @@ The following complements existing GPA tests and covers activity features. Copy�
 
 1. Add tasks and priorities
 
-- `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
-- `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priority‑1 task to shift to 2)
-- `list` (verify ordering/priority in output)
+   - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
+   - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priority‑1 task to shift to 2)
+   - `list` (verify ordering/priority in output)
 
 2. Change priority (rebalance)
 
-- `changepriority 2 /to 1` (the previously index‑2 task should become priority 1; others shift accordingly)
-- `list` (verify priorities are a dense 1..N)
+   - `changepriority 1 /to 1` (the index‑1, priority 2 task should become priority 1; others shift accordingly)
+   - `list` (verify priorities are a dense 1..N)
 
 3. Edit deadline
 
-- `changedeadline 1 /to 2025-10-31 18:00` (updates date/time; verify in list)
+   - `changedeadline 1 /to 2025-10-31 18:00` (updates date/time; verify in list)
 
 4. Check current deadlines
 
-- `checkcurrent` (shows the single nearest task)
-- `checkcurrent 3` (shows up to three tasks, in ascending deadline order)
+   - `checkcurrent` (shows the single nearest task)
+   - `checkcurrent 3` (shows up to three tasks, in ascending deadline order)
 
 5. Filter by day and exam listing
 
-- Add one lecture and one tutorial (use `lecture ...` and `tutorial ...` with day/time)
-- `checklecture Friday`
-- `checktutorial Wed`
-- `checkexam` (after adding at least one exam)
+   - Add one lecture and one tutorial (use `lecture ...` and `tutorial ...` with day/time)
+   - `checklecture Friday`
+   - `checktutorial Wed`
+   - `checkexam` (after adding at least one exam)
 
 6. Delete and multiple delete
 
-- `delete 1` removes item #1
-- Add a few more then `delete 2 4` removes multiple items; list to confirm
+   - `delete 1` removes item #1
+   - Add a few more then `delete 2 4` removes multiple items; list to confirm
 
 7. Error cases to verify guardrails
 
-- `task X /priority 1` (missing `/by` → friendly error)
-- `changedeadline 99 /to 2025-10-10 20:00` (out‑of‑range index)
-- `changepriority 1 /to 0` (invalid priority)
+   - `task X /priority 1` (missing `/by` → friendly error)
+   - `changedeadline 99 /to 2025-10-10 20:00` (out‑of‑range index)
+   - `changepriority 1 /to 0` (invalid priority)
 
 8. GPA Tracker quick tests
 
-- Add entries:
-  - `add gpa CS2040C A+ 4mc`
-  - `add gpa CFG1002 S 4`
-  - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
-- List entries:
-  - `list gpa` shows indexed list
-- Compute GPA:
-  - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
-- Delete entry:
-  - `delete gpa 2` removes the second entry
-- Invalid grade:
-  - `add gpa CS1231X HH 4` shows an error
+   - Add entries:
+     - `add gpa CS2040C A+ 4mc`
+     - `add gpa CFG1002 S 4`
+     - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
+   - List entries:
+     - `list gpa` shows indexed list
+   - Compute GPA:
+     - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
+   - Delete entry:
+     - `delete gpa 2` removes the second entry
+   - Invalid grade:
+     - `add gpa CS1231X HH 4` shows an error

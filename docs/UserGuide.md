@@ -1,5 +1,9 @@
 # ASTRA ChatBot
 
+ASTRA is a **desktop app that tracks tasks, lectures, tutorials, exams and GPA, optimised for use via Command Line Interface (CLI)**
+
+It is targetted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
@@ -121,7 +125,9 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, default to 1
+Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, defaults to 1 if no number is specified
+
+Note: Astra will **not display deadlines that have passed**
 
 Tutorial:`checktutorial <day>` lists all tutorials on the specific day of the week
 
@@ -230,6 +236,8 @@ Deadline updated for task: [ ]tutorial assignment | Deadline: 31 Oct, 1400H | Pr
 Change the priority of a specific task. The command will also adjust the priority of other affected tasks.
 
 Format: `changepriority <task number> /to <new priority>`
+
+Note: `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
 
 Example of usage:
 

@@ -6,11 +6,17 @@ import astra.activity.Task;
 import astra.data.Notebook;
 import astra.ui.Ui;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CompleteCommand implements Command {
     private static final Logger logger = Logger.getLogger("CompleteCommand");
     private final String input;
+
+    static {
+        // Set level of logging, OFF disables it entirely
+        logger.setLevel(Level.OFF);
+    }
 
     public CompleteCommand(String input) {
         this.input = input;
@@ -26,7 +32,7 @@ public class CompleteCommand implements Command {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2) {
                 ui.showError("Please provide an index: complete <index>");
-                logger.warning("Invalid input — no index provided");
+                logger.warning("Invalid input - no index provided");
 
                 return false;
             }

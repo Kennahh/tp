@@ -9,6 +9,9 @@ cd ..
 cd text-ui-test
 
 rm "./data/tasks.txt"
+rm "./data/tasks.csv"
+rm "./data/gpa.txt"
+rm "./data/gpa.csv"
 
 java  -jar $(find ../build/libs/ -mindepth 1 -print -quit) < input.txt > ACTUAL.TXT
 
