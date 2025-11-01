@@ -304,7 +304,7 @@ run it in the same folder as data
 ```
 
 Adding entries to Astra:
-- task <description> /by <YYYY-MM-DD> <HH:MM>
+- task <description> /by <YYYY-MM-DD> <HH:MM> /priority <priority number>
 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
