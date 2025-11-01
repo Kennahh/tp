@@ -94,6 +94,7 @@ public class CheckCurrentCommand implements Command {
             for (Task task : closestTasks) {
                 ui.showMessage(task.toString());
             }
+            ui.showMessage("[ASTRA] Please note that overdue tasks are not displayed!");
         }
         return false;
     }
