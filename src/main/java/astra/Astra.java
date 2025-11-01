@@ -75,6 +75,7 @@ public class Astra {
                 if (!shouldExit) {
                     notebook.writeToFile(activities.toList());
                     notebook.saveToFile(activities);
+                    ui.showDone();
                 }
                 if (shouldExit) {
                     ui.showEnd();
@@ -83,7 +84,6 @@ public class Astra {
             } catch (InputException | FileSystemException | IOException e) {
                 ui.showError(e.getMessage());
             }
-            ui.showDone();
         }
         scanner.close();
     }
