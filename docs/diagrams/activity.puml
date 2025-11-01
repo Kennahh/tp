@@ -23,7 +23,7 @@ class Ui
 
 Notebook -left..> Activity
 SchoolActivity -right--> Activity
-ActivityList -left->"*" Activity : contains
+ActivityList -left-->"*" Activity : contains
 Task -up-->Activity
 XYZActivityClasses -up-->SchoolActivity
 Notebook -left...> ActivityList : Stores values of

@@ -34,9 +34,11 @@ DeleteCommand->Notebook : saveToFile(activities)
 activate Notebook
 return
 return false
-Astra --> User
 deactivate DeleteCommand
 destroy DeleteCommand
+Astra --> User
+deactivate Astra
+
 
 
 @enduml

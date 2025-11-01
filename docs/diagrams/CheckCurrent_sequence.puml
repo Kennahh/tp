@@ -68,8 +68,10 @@ end
 note left: do not exit the program
 CheckCurrentCommand --> Astra: false
 deactivate CheckCurrentCommand
-Astra --> User
 destroy CheckCurrentCommand
+Astra --> User
+deactivate Astra
+
 destroy tasks
 
 @enduml
