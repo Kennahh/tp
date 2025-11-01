@@ -32,88 +32,48 @@ No task due for the next 3 days
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
@@ -127,11 +87,6 @@ Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Top 1 closest tasks:
@@ -140,11 +95,6 @@ Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Top 2 closest tasks:
@@ -154,11 +104,6 @@ Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
@@ -167,11 +112,6 @@ You have 2 exam(s)
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
@@ -180,33 +120,18 @@ You have 2 lecture(s) on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 You have no lecture on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 You have no tutorial on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
@@ -215,44 +140,24 @@ You have 2 tutorial(s) on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Marked complete: #1 [X]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Marked complete: #2 [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
@@ -266,22 +171,12 @@ Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Deadline updated for task: [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Erased: #6 T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
@@ -289,11 +184,6 @@ Erased: #1 [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 1
@@ -305,176 +195,96 @@ Erased: #1 [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CFG1002 | S | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CG1111A | A+ | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS1010 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: EG1311 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1511 | A | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1512 | S | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: UTW1001I | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CG2111A | A- | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS1231 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS2040C | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: DTK1234 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: GEA1000 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1508E | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: PF1101 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: UTC1702F | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 1. CFG1002 | S | 2 MC
@@ -495,33 +305,18 @@ Added GPA entry: UTC1702F | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Current GPA: 4.93
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 Deleted GPA entry: EG1311 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 1. CFG1002 | S | 2 MC
@@ -541,11 +336,6 @@ Deleted GPA entry: EG1311 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
-[ASTRA] Ready to help you stay on top of your academic game!
->>     Type in a command for me to fulfill your wish!
->>     Type 'help' to see the list of wishes I can fulfill!
->>     Type 'close' to close this digital notebook of yours.
-[ASTRA] Monitoring your deepest wishes...
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Keep up the great work! Your academic triumph awaits!
