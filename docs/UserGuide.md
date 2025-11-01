@@ -125,7 +125,7 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent <value(optional)>` shows [value] of immediate upcoming task deadlines, defaults to 1 if no number is specified
+Upcoming deadlines:`checkcurrent [n]` shows `n` immediate upcoming task deadlines, defaults to 1 if no number is specified
 
 Note: Astra will **not display deadlines that have passed**
 
@@ -237,7 +237,11 @@ Change the priority of a specific task. The command will also adjust the priorit
 
 Format: `changepriority <task number> /to <new priority>`
 
-Note: `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
+Additional Notes: 
+- `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
+- `<new priority>` must be 1 or greater, and less than or equal to the total number of tasks.
+  - e.g. If you have 5 tasks in total, `<new priority>` must between 1 and 5 inclusive.
+
 
 Example of usage:
 
