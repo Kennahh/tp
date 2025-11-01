@@ -62,10 +62,10 @@ public class Astra {
         LocalDate today = LocalDate.now();
         activities.listAndDeleteOverdueTasks(today);
         activities.deadlineReminder(today);
+        ui.showPrompt();
 
         while (true) {
             try {
-                ui.showPrompt();
                 ui.showDash();
                 String input = scanner.nextLine();
                 ui.showDash();
