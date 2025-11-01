@@ -87,6 +87,9 @@ public class CheckCurrentCommand implements Command {
         if (closestTasks.isEmpty()) {
             ui.showMessage("[ASTRA] No tasks found!");
         } else {
+            if (closestTasks.size() < count) {
+                ui.showMessage("[ASTRA] You only have " + closestTasks.size() + " tasks! Displaying all of them.");
+            }
             ui.showMessage("[ASTRA] Top " + closestTasks.size() + " closest tasks:");
             for (Task task : closestTasks) {
                 ui.showMessage(task.toString());
