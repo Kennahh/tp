@@ -125,7 +125,7 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent <Number of tasks(n)>` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written, Astra will return the task which deadline is closest to the current date.
+Upcoming deadlines:`checkcurrent <Number of tasks(n)>` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
 
 Note: Astra will **not display deadlines that have passed**
 
