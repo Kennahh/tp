@@ -55,7 +55,7 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <YYYY-MMM-DD> <HH:mm> /priority <number>`
+Format: `task <description> /by <YYYY-MMM-DD> [HH:mm] /priority <number>`
 
 If time is not provided, i.e. just a date, ASTRA will default to 2359H. Additionally, <HHmm> and <HH:mm> are both valid format
 
@@ -125,7 +125,7 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent <Number of tasks(n)>` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
+Upcoming deadlines:`checkcurrent [Number of tasks(n)]` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
 
 Note: Astra will **not display deadlines that have passed**
 
