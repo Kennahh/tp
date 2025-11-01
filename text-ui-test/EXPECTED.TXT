@@ -136,6 +136,7 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Top 1 closest tasks:
 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
+[ASTRA] Please note that overdue tasks are not displayed!
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
@@ -149,6 +150,7 @@ Midterm B | Venue:  | Date: 5 Dec | Duration: 0900H to 1030H
 [ASTRA] Top 2 closest tasks:
 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 [ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
+[ASTRA] Please note that overdue tasks are not displayed!
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
 
