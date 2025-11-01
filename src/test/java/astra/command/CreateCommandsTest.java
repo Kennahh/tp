@@ -62,7 +62,7 @@ public class CreateCommandsTest {
     public void addExam_valid_adds() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
-        new AddExamCommand("exam Finals /date 2025-11-25 /from 09:00 /to 11:00").execute(list, ui, nb());
+        new AddExamCommand("exam Finals /place MPSH /date 2025-11-25 /from 09:00 /to 11:00").execute(list, ui, nb());
         assertEquals(1, list.getListSize());
         assertTrue(list.getActivity(0) instanceof Exam);
     }
@@ -71,7 +71,7 @@ public class CreateCommandsTest {
     public void addExam_endBeforeStart_showsError() {
         ActivityList list = new ActivityList();
         TestUi ui = new TestUi();
-        new AddExamCommand("exam Finals /date 2025-11-25 /from 11:00 /to 10:00").execute(list, ui, nb());
+        new AddExamCommand("exam Finals /place MPSH /date 2025-11-25 /from 11:00 /to 10:00").execute(list, ui, nb());
         assertTrue(ui.errors.stream().anyMatch(s -> s.contains("End time must be after start time")));
     }
 }
