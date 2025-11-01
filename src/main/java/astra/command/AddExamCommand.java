@@ -97,13 +97,17 @@ public class AddExamCommand extends AddCommand {
             activities.addActivity(exam);
             ui.showMessage(exam.toString());
             notebook.saveToFile(activities);
+            ui.showDone();
 
         } catch (IOException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid exam command format.");
+            ui.showErrorMessage();
         } 
         return false;
     }

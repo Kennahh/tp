@@ -75,7 +75,6 @@ public class Astra {
                 if (!shouldExit) {
                     notebook.writeToFile(activities.toList());
                     notebook.saveToFile(activities);
-                    ui.showDone();
                 }
                 if (shouldExit) {
                     ui.showEnd();

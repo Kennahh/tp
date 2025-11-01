@@ -10,6 +10,7 @@ public class ListCommand implements Command {
     @Override
     public boolean execute(ActivityList activities, Ui ui, Notebook notebook) {
         activities.listActivities();
+        ui.showDone();
         return false;
     }
 }

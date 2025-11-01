@@ -34,6 +34,7 @@ public class CheckPriorityCommand implements Command {
                 ui.showMessage("Priority " + task.getPriority() + ": " + task.toString());
             }
         }
+        ui.showDone();
         return false;
     }
 }
