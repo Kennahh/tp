@@ -2,7 +2,7 @@
 
 ASTRA is a **desktop app that tracks tasks, lectures, tutorials, exams and GPA, optimised for use via Command Line Interface (CLI)**
 
-It is targetted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
+It is targeted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
 
 ## Table of Contents
 
