@@ -47,6 +47,9 @@ public class DateTimeParser {
             String shortForm = full.substring(0, 3); // e.g. "mon"
             dayMap.put(shortForm, day);
         }
+        dayMap.put("tues", DayOfWeek.TUESDAY);
+        dayMap.put("thur", DayOfWeek.THURSDAY);
+        dayMap.put("thurs", DayOfWeek.THURSDAY);
     }
 
     /**
@@ -154,9 +157,10 @@ public class DateTimeParser {
         if (input.trim().length() < 3) {
             throw new InputException("Provide at least 3 letters to specify day");
         }
+
         // input is at least 3 letters long
         DayOfWeek day;
-        day = dayMap.get(input.trim().toLowerCase().substring(0, 3));
+        day = dayMap.get(input.trim().toLowerCase());
         if (day == null) {
             throw new InputException("This is not a valid day!");
         }
