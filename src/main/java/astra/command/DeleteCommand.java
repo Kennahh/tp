@@ -44,15 +44,20 @@ public class DeleteCommand implements Command{
                 ui.showMessage("Erased: #" + index + " " + removed.toString());
             }
             notebook.saveToFile(activities);
+            ui.showDone();
             return false;
         } catch (NumberFormatException e) {
             ui.showError("Index provided is not a number!");
+            ui.showErrorMessage();
         } catch (IndexOutOfBoundsException e) {
             ui.showError("Activity of matching index does not exist/No index provided!");
+            ui.showErrorMessage();
         } catch (IOException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         } catch (InputException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         }
         return false;
     }

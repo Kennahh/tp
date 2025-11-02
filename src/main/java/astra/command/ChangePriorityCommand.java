@@ -113,11 +113,14 @@ public class ChangePriorityCommand extends AddCommand {
             // Save and confirm
             notebook.saveToFile(activities);
             ui.showMessage("[ASTRA] Priority changed successfully for task: " + task.toString());
+            ui.showDone();
 
         } catch (InputException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid changepriority command format or index.");
+            ui.showErrorMessage();
         }
 
         return false;

@@ -59,15 +59,18 @@ public class CheckTutorialsCommand extends CheckCommand {
             this.day = DateTimeParser.dayOfWeekParser(this.input);
         } catch (InputException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
             return false;
         }
         ActivityList filteredList = filterList(activities);
         if (filteredList.getListSize() == 0) {
             ui.showMessage("You have no tutorial on " + day);
+            ui.showDone();
             return false;
         }
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " tutorial(s) on " + day);
+        ui.showDone();
         return false;
     }
 }

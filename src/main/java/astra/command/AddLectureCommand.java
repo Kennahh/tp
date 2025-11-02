@@ -87,13 +87,17 @@ public class AddLectureCommand extends AddCommand {
             activities.addActivity(lecture);
             ui.showMessage(lecture.toString());
             notebook.saveToFile(activities);
+            ui.showDone();
             
         } catch (IOException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid lecture command format.");
+            ui.showErrorMessage();
         } 
         return false;
     }
