@@ -114,8 +114,8 @@ public class ActivityListTest {
         System.setOut(new PrintStream(outContent));
 
         LocalDate date = LocalDate.of(2025, 10, 18);
-        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
-        String expectedOutput2 = ("No overdue tasks have been deleted!");
+        String expectedOutput1 = ("These tasks are either overdue or completed and have been removed from the list");
+        String expectedOutput2 = ("No overdue or completed tasks have been deleted!");
 
         list.listAndDeleteOverdueTasks(date);
         String output = outContent.toString();
@@ -133,8 +133,8 @@ public class ActivityListTest {
         System.setOut(new PrintStream(outContent));
 
         LocalDate date = LocalDate.of(2025, 10, 18);
-        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
-        String expectedOutput2 = ("No overdue tasks have been deleted!");
+        String expectedOutput1 = ("These tasks are either overdue or completed and have been removed from the list");
+        String expectedOutput2 = ("No overdue or completed tasks have been deleted!");
 
         new AddTaskCommand("task Read /by 2025-11-10 23:59 /priority 1").execute(list, ui, nb());
         assertTrue(list.getActivity(0) instanceof Task);
@@ -157,7 +157,7 @@ public class ActivityListTest {
         System.setOut(new PrintStream(outContent));
 
         LocalDate date = LocalDate.of(2025, 10, 18);
-        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
+        String expectedOutput1 = ("These tasks are either overdue or completed and have been removed from the list");
         String expectedOutput2 = ("1. Read");
         String expectedOutput3 = ("2. CS2113 assignment");
 
@@ -187,8 +187,8 @@ public class ActivityListTest {
         System.setOut(new PrintStream(outContent));
 
         LocalDate date = LocalDate.of(2025, 10, 18);
-        String expectedOutput1 = ("These tasks are overdue and have been removed from the list");
-        String expectedOutput2 = ("No overdue tasks have been deleted!");
+        String expectedOutput1 = ("These tasks are either overdue or completed and have been removed from the list");
+        String expectedOutput2 = ("No overdue or completed tasks have been deleted!");
 
         new AddTutorialCommand("tutorial CS /place COM1 /day " +
                 "Fri /from 14:00 /to 15:00").execute(list, ui, nb());
@@ -202,4 +202,31 @@ public class ActivityListTest {
         assertTrue(list.getListSize() == 1);
     }
 
+    @Test
+    public void listAndDeleteOverdueTasks_singleTaskCompleted_printTask() {
+        ActivityList list = new ActivityList();
+        Ui ui = new Ui();
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        LocalDate date = LocalDate.of(2025, 10, 18);
+        String expectedOutput1 = ("These tasks are either overdue or completed and have been removed from the list");
+        String expectedOutput2 = ("1. Read");
+
+        new AddTaskCommand("task Read /by 2025-11-10 23:59 /priority 1").execute(list, ui, nb());
+        assertTrue(list.getActivity(0) instanceof Task);
+        assertTrue(list.getListSize() == 1);
+        Task currTask = (Task) list.getActivity(0);
+        currTask.setIsComplete();
+        assertTrue(currTask.getIsComplete());
+
+        list.listAndDeleteOverdueTasks(date);
+        String output = outContent.toString();
+        System.setOut(originalOut);
+        assertTrue(output.contains(expectedOutput1));
+        assertTrue(output.contains(expectedOutput2));
+        assertTrue(list.getListSize() == 0);
+    }
 }
+
