@@ -20,6 +20,6 @@ else (no)
   endif
 endif
 :sort tasks by priority (optional view);
-:save Notebook.writeToFile(...);
+:save Notebook.saveToFile(...) & Notebook.writeToFile(...);
 stop
 @enduml

@@ -31,11 +31,14 @@ return
 C-->Astra : false
 deactivate C
 destroy C
+Astra -> NB: writeToFile(activities)
+activate NB
+NB --> Astra
+deactivate NB
 Astra -> NB: saveToFile(activities)
 activate NB
 NB --> Astra
-Astra -> NB: writeToFile(activities)
-return
+deactivate NB
 Astra --> User
 deactivate Astra
 
