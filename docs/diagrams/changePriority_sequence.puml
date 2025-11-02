@@ -25,15 +25,20 @@ AL --> C: Task
 C -> AL: reassign priorities (internal)
 return
 deactivate AL
-C -> NB: saveToFile(activities)
-activate NB
-return
 C --> UI: showMessage("Priority updated: ...")
 activate UI
 return
 C-->Astra : false
 deactivate C
 destroy C
+Astra -> NB: writeToFile(activities)
+activate NB
+NB --> Astra
+deactivate NB
+Astra -> NB: saveToFile(activities)
+activate NB
+NB --> Astra
+deactivate NB
 Astra --> User
 deactivate Astra
 
