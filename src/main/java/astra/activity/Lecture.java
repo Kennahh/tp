@@ -29,7 +29,8 @@ public class Lecture extends SchoolActivity {
 
     @Override
     public String toString() {
-        return super.toString()
+        return "Lecture | "
+                + super.toString()
                 + " | Venue: "
                 + venue
                 + " | "
