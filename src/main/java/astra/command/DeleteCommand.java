@@ -43,7 +43,6 @@ public class DeleteCommand implements Command{
                 activities.deleteActivity(index - 1);
                 ui.showMessage("Erased: #" + index + " " + removed.toString());
             }
-            notebook.saveToFile(activities);
             ui.showDone();
             return false;
         } catch (NumberFormatException e) {
@@ -51,9 +50,6 @@ public class DeleteCommand implements Command{
             ui.showErrorMessage();
         } catch (IndexOutOfBoundsException e) {
             ui.showError("Activity of matching index does not exist/No index provided!");
-            ui.showErrorMessage();
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
             ui.showErrorMessage();
         } catch (InputException e) {
             ui.showError(e.getMessage());

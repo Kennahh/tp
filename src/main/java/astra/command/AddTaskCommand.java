@@ -125,12 +125,7 @@ public class AddTaskCommand extends AddCommand {
             Task task = new Task(description, deadlineDate, deadlineTime, 1);
             activities.addTaskWithPriority(task, priority);
             ui.showMessage(task.toString());
-            notebook.saveToFile(activities);
             ui.showDone();
-
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
-            ui.showErrorMessage();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
             ui.showErrorMessage();

@@ -86,12 +86,8 @@ public class AddLectureCommand extends AddCommand {
             Lecture lecture = new Lecture(description, venue, day, startTime, endTime);
             activities.addActivity(lecture);
             ui.showMessage(lecture.toString());
-            notebook.saveToFile(activities);
             ui.showDone();
-            
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
-            ui.showErrorMessage();
+
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
             ui.showErrorMessage();

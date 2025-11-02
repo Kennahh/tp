@@ -111,7 +111,6 @@ public class ChangePriorityCommand extends AddCommand {
             // Do not reorder activities list; only priorities are updated so positions remain stable
 
             // Save and confirm
-            notebook.saveToFile(activities);
             ui.showMessage("[ASTRA] Priority changed successfully for task: " + task.toString());
             ui.showDone();
 

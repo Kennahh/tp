@@ -86,12 +86,8 @@ public class AddTutorialCommand extends AddCommand {
             Tutorial tutorial = new Tutorial(description, venue, day, startTime, endTime);
             activities.addActivity(tutorial);
             ui.showMessage(tutorial.toString());
-            notebook.saveToFile(activities);
             ui.showDone();
 
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
-            ui.showErrorMessage();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
             ui.showErrorMessage();

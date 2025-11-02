@@ -12,8 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AddExamCommand extends AddCommand {
-    // private LocalTime startTime;
-    // private LocalTime endTime;
     private final String input;
 
     public AddExamCommand(String input) {
@@ -96,12 +94,7 @@ public class AddExamCommand extends AddCommand {
             Exam exam = new Exam(description, venue, date, startTime, endTime);
             activities.addActivity(exam);
             ui.showMessage(exam.toString());
-            notebook.saveToFile(activities);
             ui.showDone();
-
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
-            ui.showErrorMessage();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
             ui.showErrorMessage();
