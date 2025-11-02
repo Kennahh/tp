@@ -30,12 +30,14 @@ DeleteCommand -> Ui : ShowMessage()
 activate Ui
 return
 
-DeleteCommand->Notebook : saveToFile(activities)
-activate Notebook
-return
 return false
 deactivate DeleteCommand
 destroy DeleteCommand
+Astra ->Notebook : saveToFile(activities)
+activate Notebook
+Notebook --> Astra
+Astra -> Notebook : writeToFile(activities)
+return
 Astra --> User
 deactivate Astra
 
