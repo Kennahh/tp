@@ -13,6 +13,7 @@ public class ComputeGpaCommand implements Command {
         double gpa = notebook.getGpaList().computeGpa();
         assert gpa >= 0.0 && gpa <= 5.0 : "Computed GPA should be in [0.0, 5.0]";
         ui.showMessage(String.format("Current GPA: %.2f", gpa));
+        ui.showDone();
         return false;
     }
 }

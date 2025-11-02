@@ -109,7 +109,7 @@ public class ActivityList {
             if (getAnActivity(arrayIndex) instanceof Task) {
                 Task currTask = (Task) getAnActivity(arrayIndex);
                 long daysBetween = ChronoUnit.DAYS.between(today, currTask.getDeadlineDate());
-                if (daysBetween < 0) {
+                if (daysBetween < 0 || currTask.getIsComplete()) {
                     countOfDeletedTask++;
                     System.out.println(countOfDeletedTask + ". " + currTask.getDescription());
                     activities.remove(arrayIndex);
@@ -122,7 +122,7 @@ public class ActivityList {
             count += 1;
         }
         if (countOfDeletedTask == 0) {
-            System.out.println("No overdue tasks have been deleted!");
+            System.out.println("No overdue or completed tasks have been deleted!");
         }
         ui.showDash();
         System.out.println();

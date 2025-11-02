@@ -38,7 +38,8 @@ public class CheckCurrentCommand implements Command {
             try {
                 this.count = Integer.parseInt(parts[1].trim());
                 if (count < 1) {
-                    throw new InputException("Number of tasks to check should not be less than 1");
+                    throw new InputException("Number of tasks to check should not be less than 1. Defaulting " +
+                            "to 1 upcoming task.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("[ASTRA] Defaulting to 1 upcoming task. Please enter a whole number for " +
@@ -86,6 +87,7 @@ public class CheckCurrentCommand implements Command {
         List<Task> closestTasks = getClosestTasks(activities, this.count);
         if (closestTasks.isEmpty()) {
             ui.showMessage("[ASTRA] No tasks found!");
+            ui.showDone();
         } else {
             if (closestTasks.size() < count) {
                 ui.showMessage("[ASTRA] You only have " + closestTasks.size() + " tasks! Displaying all of them.");
@@ -95,6 +97,7 @@ public class CheckCurrentCommand implements Command {
                 ui.showMessage(task.toString());
             }
             ui.showMessage("[ASTRA] Please note that overdue tasks are not displayed!");
+            ui.showDone();
         }
         return false;
     }

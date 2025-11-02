@@ -9,7 +9,6 @@ import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 import astra.activity.Activity;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -125,14 +124,13 @@ public class AddTaskCommand extends AddCommand {
             Task task = new Task(description, deadlineDate, deadlineTime, 1);
             activities.addTaskWithPriority(task, priority);
             ui.showMessage(task.toString());
-            notebook.saveToFile(activities);
-
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
+            ui.showDone();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid task command format.");
+            ui.showErrorMessage();
         }
         return false;
     }

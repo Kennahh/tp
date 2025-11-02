@@ -10,9 +10,9 @@
 I am here to support your academic universe!
 
 
-These tasks are overdue and have been removed from the list
+These tasks are either overdue or completed and have been removed from the list
 ------------------------------------------------------------
-No overdue tasks have been deleted!
+No overdue or completed tasks have been deleted!
 ------------------------------------------------------------
 
 
@@ -31,62 +31,53 @@ No task due for the next 3 days
 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
-Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
-------------------------------------------------------------
-[ASTRA] Done! Now, what's your next wish...
-
-------------------------------------------------------------
-------------------------------------------------------------
-Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
+Lecture | Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
-T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
-------------------------------------------------------------
-[ASTRA] Done! Now, what's your next wish...
-
-------------------------------------------------------------
-------------------------------------------------------------
-T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+Lecture | Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
-Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
-------------------------------------------------------------
-[ASTRA] Done! Now, what's your next wish...
-
-------------------------------------------------------------
-------------------------------------------------------------
-Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+Tutorial | T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
+------------------------------------------------------------
+------------------------------------------------------------
+Tutorial | T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+------------------------------------------------------------
+Exam | Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+------------------------------------------------------------
+Exam | Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
  2. [ ]Task B | Deadline: 2 Dec, 2359H | Priority: 2
- 3. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
- 4. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
- 5. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
- 6. T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
- 7. Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
- 8. Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+ 3. Lecture | Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
+ 4. Lecture | Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
+ 5. Tutorial | T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
+ 6. Tutorial | T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+ 7. Exam | Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
+ 8. Exam | Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Top 1 closest tasks:
@@ -94,7 +85,6 @@ Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 [ASTRA] Please note that overdue tasks are not displayed!
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Top 2 closest tasks:
@@ -103,188 +93,160 @@ Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 [ASTRA] Please note that overdue tasks are not displayed!
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
- 1. Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
- 2. Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+ 1. Exam | Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
+ 2. Exam | Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 You have 2 exam(s)
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
- 1. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
- 2. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
+ 1. Lecture | Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
+ 2. Lecture | Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
 You have 2 lecture(s) on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 You have no lecture on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 You have no tutorial on MONDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
- 1. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
- 2. T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+ 1. Tutorial | T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
+ 2. Tutorial | T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
 You have 2 tutorial(s) on TUESDAY
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Marked complete: #1 [X]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Marked complete: #2 [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Unmarked: #1 [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [ ]Task A | Deadline: 1 Dec, 2359H | Priority: 1
  2. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 2
- 3. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
- 4. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
- 5. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
- 6. T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
- 7. Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
- 8. Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+ 3. Lecture | Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
+ 4. Lecture | Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
+ 5. Tutorial | T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
+ 6. Tutorial | T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+ 7. Exam | Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
+ 8. Exam | Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Deadline updated for task: [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
-Erased: #6 T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
+Erased: #6 Tutorial | T2 | Venue: COM 2 | Tuesday | Duration: 1300H to 1430H
 Erased: #1 [ ]Task A | Deadline: 12 Dec, 2359H | Priority: 1
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
  1. [X]Task B | Deadline: 2 Dec, 2359H | Priority: 1
- 2. Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
- 3. Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
- 4. T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
- 5. Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
- 6. Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
+ 2. Lecture | Lec A | Venue: LT9 | Monday | Duration: 1200H to 1400H
+ 3. Lecture | Lec B | Venue: LT27 | Monday | Duration: 1600H to 1800H
+ 4. Tutorial | T1 | Venue: COM 1 | Tuesday | Duration: 1100H to 1200H
+ 5. Exam | Midterm A | Venue: MPSH | Date: 9 Oct | Duration: 1415H to 1515H
+ 6. Exam | Midterm B | Venue: MPSH | Date: 5 Dec | Duration: 0900H to 1030H
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CFG1002 | S | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CG1111A | A+ | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS1010 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: EG1311 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1511 | A | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1512 | S | 2 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: UTW1001I | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CG2111A | A- | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS1231 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: CS2040C | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: DTK1234 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: GEA1000 | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: MA1508E | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: PF1101 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Added GPA entry: UTC1702F | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 1. CFG1002 | S | 2 MC
@@ -304,19 +266,16 @@ Added GPA entry: UTC1702F | S | 4 MC
  15. UTC1702F | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Current GPA: 4.93
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 Deleted GPA entry: EG1311 | A | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 1. CFG1002 | S | 2 MC
@@ -335,7 +294,6 @@ Deleted GPA entry: EG1311 | A | 4 MC
  14. UTC1702F | S | 4 MC
 ------------------------------------------------------------
 [ASTRA] Done! Now, what's your next wish...
-
 ------------------------------------------------------------
 ------------------------------------------------------------
 [ASTRA] Keep up the great work! Your academic triumph awaits!

@@ -81,11 +81,14 @@ public class ChangeDeadlineCommand extends AddCommand {
             Task task = (Task) activity;
             task.setDeadline(newDate, newTime);
             ui.showMessage("Deadline updated for task: " + task.toString());
+            ui.showDone();
 
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid changedeadline command format or index.");
+            ui.showErrorMessage();
         }
         return false;
     }

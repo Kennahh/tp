@@ -17,6 +17,7 @@ public class ListGpaCommand implements Command {
         assert list != null : "Returned GPA list should not be null";
         if (list.isEmpty()) {
             ui.showMessage("No GPA entries yet.");
+            ui.showErrorMessage();
             return false;
         }
         StringBuilder sb = new StringBuilder();
@@ -26,6 +27,7 @@ public class ListGpaCommand implements Command {
               .append(list.get(i).toString()).append("\n");
         }
         ui.showMessage(sb.toString().trim());
+        ui.showDone();
         return false;
     }
 }

@@ -50,15 +50,17 @@ Ui --> UnmarkCommand
 deactivate Ui
 
 ' Save to file (optional)
-UnmarkCommand -> Notebook : saveToFile()
-activate Notebook
-Notebook --> UnmarkCommand
-deactivate Notebook
 
 ' Return false to User
 return false
 deactivate UnmarkCommand
 destroy UnmarkCommand
+Astra -> Notebook : saveToFile()
+activate Notebook
+Notebook --> Astra
+Astra -> Notebook : writeToFile()
+return
+deactivate Notebook
 Astra --> User
 deactivate Astra
 
