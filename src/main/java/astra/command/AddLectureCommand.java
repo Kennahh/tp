@@ -7,7 +7,6 @@ import astra.exception.InputException;
 import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 

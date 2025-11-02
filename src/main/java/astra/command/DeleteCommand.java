@@ -6,7 +6,6 @@ import astra.data.Notebook;
 import astra.exception.InputException;
 import astra.ui.Ui;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 public class DeleteCommand implements Command{

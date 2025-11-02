@@ -9,7 +9,6 @@ import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 import astra.activity.Activity;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

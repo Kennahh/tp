@@ -462,7 +462,7 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 | v2.0    | Student                                     | see the next N deadlines                             | plan my immediate workload                              |
 | v2.0    | Student                                     | list lectures/tutorials by day                       | plan my day efficiently                                 |
 | v2.0    | Student whose deadlines always change       | edit a task deadline                                 | adapt when plans change                                 |
-
+git
 
 ## Appendix C: Non-Functional Requirements
 

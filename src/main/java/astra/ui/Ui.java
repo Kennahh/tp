@@ -17,7 +17,8 @@ public class Ui {
             "[ASTRA] Monitoring your deepest wishes..."
     );
     private static final String REMINDER_MESSAGE = ("These tasks are due soon. Reminder to complete them!");
-    private static final String OVERDUE_TASKS_MESSAGE = ("These tasks are either overdue or completed and have been removed from the list");
+    private static final String OVERDUE_TASKS_MESSAGE = ("These tasks are either overdue or " +
+            "completed and have been removed from the list");
     private static final String EMPTY_LIST_MESSAGE = ("List is Empty...");
     private static final String DONE_COMMAND = "[ASTRA] Done! Now, what's your next wish...";
     private static final String ERROR_COMMAND = "[ASTRA] Command failed! Please input another command! " +
@@ -142,18 +143,18 @@ public class Ui {
                 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
                 - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
-           
+                
                     Example: task CS2113 Quiz /by 2025-10-10 23:59 /priority 1
                              lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
                              tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
                              exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00
-                             
+                
                 GPA Tracker:
                 - add gpa <SUBJECT> <GRADE> <MC>      (e.g., add gpa CS2040C A+ 4mc)
                 - list gpa                             (lists all GPA entries)
                 - delete gpa <INDEX>                   (deletes entry at index)
                 - gpa                                  (computes and shows current GPA)
-
+                
                 Listing and Checking Tasks:
                 - checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
                 - list                             (lists all activities, apart from GPA)
