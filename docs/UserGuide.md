@@ -43,6 +43,20 @@ and run ```java -jar Astra.jar```
         * e.g. `1300`, `13:00`
 * Arguments in square brackets are optional
     * e.g. `/by <date> [time]` can be used as `/by 2025-12-03 14:00` or just `/by 2025-12-03`
+* Automated deletion of overdue tasks and reminder of tasks which are due within the next 3 days.
+          
+        ```
+        These tasks are overdue and have been removed from the list
+        ------------------------------------------------------------
+        No overdue tasks have been deleted!
+        ------------------------------------------------------------
+        
+    
+        These tasks are due soon. Reminder to complete them!
+        ------------------------------------------------------------
+        No task due for the next 3 days
+        ------------------------------------------------------------
+        ```
 
 ### Getting Help
 Ask Astra to List all the available commands the user can use as well as the input format
