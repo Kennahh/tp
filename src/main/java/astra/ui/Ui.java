@@ -19,7 +19,7 @@ public class Ui {
     private static final String REMINDER_MESSAGE = ("These tasks are due soon. Reminder to complete them!");
     private static final String OVERDUE_TASKS_MESSAGE = ("These tasks are overdue and have been removed from the list");
     private static final String EMPTY_LIST_MESSAGE = ("List is Empty...");
-    private static final String DONE_COMMAND = "[ASTRA] Done! Now, what's your next wish...\n";
+    private static final String DONE_COMMAND = "[ASTRA] Done! Now, what's your next wish...";
     private static final String ERROR_COMMAND = "[ASTRA] Command failed! Please input another command! " +
             "Type 'help' to see possible commands!";
     private static final String END_COMMAND = "[ASTRA] Keep up the great work! Your academic triumph awaits!";
