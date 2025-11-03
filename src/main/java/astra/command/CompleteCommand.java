@@ -32,6 +32,7 @@ public class CompleteCommand implements Command {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2) {
                 ui.showError("Please provide an index: complete <index>");
+                ui.showErrorMessage();
                 logger.warning("Invalid input - no index provided");
 
                 return false;
@@ -46,22 +47,27 @@ public class CompleteCommand implements Command {
 
             if (!(currActivity instanceof Task)) {
                 ui.showError("Activity at index " + index + " is not a Task");
+                ui.showErrorMessage();
                 logger.warning("Activity at index " + index + " is not a Task");
                 return false;
             }
             if (((Task) currActivity).getIsComplete()) {
                 ui.showError("Activity at index " + index + " is already completed");
+                ui.showErrorMessage();
                 logger.warning("Task at index " + index + " is already completed");
                 return false;
             }
             ((Task) currActivity).setIsComplete();
             ui.showMessage("Marked complete: #" + index + " " + currActivity.toString());
+            ui.showDone();
             logger.info("Task at index " + index + " has been marked as completed");
         } catch (NumberFormatException e) {
             ui.showError("Index provided is not a number!");
+            ui.showErrorMessage();
             logger.warning("Invalid index format");
         } catch (IndexOutOfBoundsException e) {
             ui.showError("index out of bounds.");
+            ui.showErrorMessage();
             logger.warning("Index out of bounds");
         }
         return false;

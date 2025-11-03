@@ -31,6 +31,7 @@ public class UnmarkCommand implements Command {
             String[] parts = input.split("\\s+", 2);
             if (parts.length < 2) {
                 ui.showError("Please provide an index: unmark <index>");
+                ui.showErrorMessage();
                 logger.warning("Invalid input — no index provided");
                 return false;
             }
@@ -44,22 +45,27 @@ public class UnmarkCommand implements Command {
 
             if (!(currActivity instanceof Task)) {
                 ui.showError("Activity at index " + index + " is not a Task");
+                ui.showErrorMessage();
                 logger.warning("Activity at index " + index + " is not a Task");
                 return false;
             }
             if (!((Task) currActivity).getIsComplete()) {
                 ui.showError("Activity at index " + index + " is already unmarked");
+                ui.showErrorMessage();
                 logger.warning("Task at index " + index + " is already unmarked");
 
                 return false;
             }
             ((Task) currActivity).clearIsComplete();
             ui.showMessage("Unmarked: #" + index + " " + currActivity.toString());
+            ui.showDone();
         } catch (NumberFormatException e) {
             ui.showError("Index provided is not a number!");
+            ui.showErrorMessage();
             logger.warning("Invalid index format");
         } catch (IndexOutOfBoundsException e) {
             ui.showError("Index out of bounds.");
+            ui.showErrorMessage();
             logger.warning("Index out of bounds");
         }
         return false;

@@ -21,10 +21,12 @@ public class DeleteGpaCommand implements Command {
             String[] parts = input.trim().split("\\s+");
             if (parts.length < 3) {
                 ui.showError("Usage: delete gpa <INDEX>");
+                ui.showErrorMessage();
                 return false;
             }
             if (!parts[0].equalsIgnoreCase("delete") || !parts[1].equalsIgnoreCase("gpa")) {
                 ui.showError("Usage: delete gpa <INDEX>");
+                ui.showErrorMessage();
                 return false;
             }
             int idx = Integer.parseInt(parts[2]);
@@ -33,12 +35,16 @@ public class DeleteGpaCommand implements Command {
             GpaEntry removed = notebook.getGpaList().remove(idx);
             notebook.saveGpa();
             ui.showMessage("Deleted GPA entry: " + removed.toString());
+            ui.showDone();
         } catch (NumberFormatException e) {
             ui.showError("Index must be a positive integer.");
+            ui.showErrorMessage();
         } catch (GpaInputException e) {
             ui.showError(e.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Failed to delete GPA entry.");
+            ui.showErrorMessage();
         }
         return false;
     }

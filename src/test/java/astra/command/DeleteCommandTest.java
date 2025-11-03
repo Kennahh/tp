@@ -56,6 +56,6 @@ class DeleteCommandTest {
         TestUi ui = new TestUi();
         new DeleteCommand("delete 1").execute(list, ui, nb());
         assertTrue(ui.messages.stream().anyMatch(s -> s.contains("Erased: #1 " +
-                "CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H")));
+                "Lecture | CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H")));
     }
 }

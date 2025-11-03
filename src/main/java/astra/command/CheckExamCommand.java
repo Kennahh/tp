@@ -31,10 +31,12 @@ public class CheckExamCommand extends CheckCommand {
         ActivityList filteredList = filterExams(activities);
         if (filteredList.getListSize() == 0) {
             ui.showMessage("No exams in your list!");
+            ui.showDone();
             return false;
         }
         filteredList.listActivities();
         ui.showMessage("You have " + filteredList.getListSize() + " exam(s)");
+        ui.showDone();
         return false;
     }
 }

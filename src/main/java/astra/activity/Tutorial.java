@@ -27,7 +27,8 @@ public class Tutorial extends SchoolActivity{
     }
 
     public String toString() {
-        return super.toString()
+        return "Tutorial | "
+                + super.toString()
                 + " | Venue: "
                 + venue
                 + " | "

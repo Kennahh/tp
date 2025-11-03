@@ -6,64 +6,59 @@ actor User
 participant ":Astra" as Astra
 participant ":Parser" as Parser
 participant ":AddTaskCommand" as AddTaskCommand
-participant ":Task" as Task
+participant "Task" as Task
 participant ":ActivityList" as ActivityList
 participant ":Ui" as Ui
 participant ":Notebook" as Notebook
 
- ' Step 1: User input is parsed
- User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
- activate Astra
- Astra -> Parser : parse(input)
- activate Parser
+User -> Astra: input "task <desc> /by <date> <time> /priority <n>"
+activate Astra
+Astra -> Parser : parse(input)
+activate Parser
 
- ' Parser creates AddTaskCommand
- create AddTaskCommand
- Parser -> AddTaskCommand : new AddTaskCommand(input)
- activate AddTaskCommand
- AddTaskCommand --> Parser
- deactivate AddTaskCommand
+create AddTaskCommand
+Parser -> AddTaskCommand : new AddTaskCommand(input)
+activate AddTaskCommand
+AddTaskCommand --> Parser
+deactivate AddTaskCommand
 
- ' Parser returns command to User
- Parser --> Astra : AddTaskCommand
- deactivate Parser
+Parser --> Astra : AddTaskCommand
+deactivate Parser
 
- ' Step 2: User executes the command
- Astra -> AddTaskCommand : execute(AL, UI, NB)
- activate AddTaskCommand
+Astra -> AddTaskCommand : execute(AL, UI, NB)
+activate AddTaskCommand
 
- ' Inside execute(): create a new Task
- create Task
- AddTaskCommand -> Task
- activate Task
- Task --> AddTaskCommand
- deactivate Task
+create Task
+AddTaskCommand -> Task
+activate Task
+Task --> AddTaskCommand
+deactivate Task
+destroy Task
 
- ' Add the task to ActivityList
- AddTaskCommand -> ActivityList : addTaskWithPriority(task,int)
- activate ActivityList
- ActivityList --> AddTaskCommand
- deactivate ActivityList
+AddTaskCommand -> ActivityList : addTaskWithPriority(task,int)
+activate ActivityList
+ActivityList --> AddTaskCommand
+deactivate ActivityList
 
- ' Show a message through Ui
- AddTaskCommand -> Ui : showMessage("Task added successfully")
- activate Ui
- Ui --> AddTaskCommand
- deactivate Ui
+' Show a message through Ui
+AddTaskCommand -> Ui : showMessage("Task added successfully")
+activate Ui
+Ui --> AddTaskCommand
+deactivate Ui
 
- ' Save to file using Notebook
- AddTaskCommand -> Notebook : saveToFile(activities)
- activate Notebook
- Notebook --> AddTaskCommand
- deactivate Notebook
+' Save to file using Notebook
 
- ' Return value to user
- AddTaskCommand --> Astra : false
- deactivate AddTaskCommand
+' Return value to user
+AddTaskCommand --> Astra : false
+deactivate AddTaskCommand
+destroy AddTaskCommand
+Astra -> Notebook : saveToFile(activities)
+activate Notebook
+Notebook --> Astra
 
- destroy AddTaskCommand
-' destroy Task
- Astra -->User
+Astra -> Notebook : writeToFile(activities)
 
- note left Task: Task is not destroyed \n as it is stored in ActivityList
+Notebook --> Astra
+deactivate Notebook
+Astra -->User
 @enduml

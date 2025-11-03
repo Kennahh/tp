@@ -6,7 +6,6 @@ import astra.ui.Ui;
 
 public abstract class AddCommand implements Command {
     protected String description;
-    //protected ActivityList activities;
 
     @Override
     public abstract boolean execute(

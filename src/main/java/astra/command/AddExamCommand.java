@@ -7,13 +7,10 @@ import astra.exception.InputException;
 import astra.parser.DateTimeParser;
 import astra.ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AddExamCommand extends AddCommand {
-    // private LocalTime startTime;
-    // private LocalTime endTime;
     private final String input;
 
     public AddExamCommand(String input) {
@@ -96,14 +93,13 @@ public class AddExamCommand extends AddCommand {
             Exam exam = new Exam(description, venue, date, startTime, endTime);
             activities.addActivity(exam);
             ui.showMessage(exam.toString());
-            notebook.saveToFile(activities);
-
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
+            ui.showDone();
         } catch (InputException formatError) {
             ui.showError(formatError.getMessage());
+            ui.showErrorMessage();
         } catch (Exception e) {
             ui.showError("Invalid exam command format.");
+            ui.showErrorMessage();
         } 
         return false;
     }

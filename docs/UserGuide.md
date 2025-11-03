@@ -2,7 +2,7 @@
 
 ASTRA is a **desktop app that tracks tasks, lectures, tutorials, exams and GPA, optimised for use via Command Line Interface (CLI)**
 
-It is targetted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
+It is targeted towards students who prefer typing over graphical user interfaces, and wish to have a quick and simple way to schedule and view their timetable.
 
 ## Table of Contents
 
@@ -29,6 +29,7 @@ It is targetted towards students who prefer typing over graphical user interface
 3. Go to the terminal and run cd into the folder containing the jar file
 and run ```java -jar Astra.jar```
 4. Time to start making full use of Astra to make your academic life a breeze!!!
+5. **Do not manually change any data or text inside the Data folder. This may cause corruption of the data which will cause errors when Astra tries to read from them**
 
 ## Features 
 * All commands are case-insensitive for easier usability
@@ -43,6 +44,20 @@ and run ```java -jar Astra.jar```
         * e.g. `1300`, `13:00`
 * Arguments in square brackets are optional
     * e.g. `/by <date> [time]` can be used as `/by 2025-12-03 14:00` or just `/by 2025-12-03`
+* Automated deletion of overdue tasks and reminder of tasks which are due within the next 3 days.
+          
+        ```
+        These tasks are overdue and have been removed from the list
+        ------------------------------------------------------------
+        No overdue tasks have been deleted!
+        ------------------------------------------------------------
+        
+    
+        These tasks are due soon. Reminder to complete them!
+        ------------------------------------------------------------
+        No task due for the next 3 days
+        ------------------------------------------------------------
+        ```
 
 ### Getting Help
 Ask Astra to List all the available commands the user can use as well as the input format
@@ -55,9 +70,9 @@ Output: Astra will print a list for all the commands available for the user to t
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <date> [time] /priority <number>`
+Format: `task <description> /by <YYYY-MMM-DD> [HH:mm] /priority <number>`
 
-If time is not provided, i.e. just a date, ASTRA will default to 2359H.
+If time is not provided, i.e. just a date, ASTRA will default to 2359H. Additionally, <HHmm> and <HH:mm> are both valid format
 
 Example of usage: 
 
@@ -124,7 +139,7 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 ### Checking specific Activity
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent [n]` shows `n` immediate upcoming task deadlines, defaults to 1 if no number is specified
+Upcoming deadlines:`checkcurrent [Number of tasks(n)]` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
 
 Note: Astra will **not display deadlines that have passed**
 
@@ -236,11 +251,7 @@ Change the priority of a specific task. The command will also adjust the priorit
 
 Format: `changepriority <task number> /to <new priority>`
 
-Additional Notes: 
-- `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
-- `<new priority>` must be 1 or greater, and less than or equal to the total number of tasks.
-  - e.g. If you have 5 tasks in total, `<new priority>` must between 1 and 5 inclusive.
-
+Note: `<task number>` refers to the **index of the task when using the `list` command, not the priority of the task.**
 
 Example of usage:
 
