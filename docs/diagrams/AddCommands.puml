@@ -6,7 +6,7 @@ actor User
 participant ":Astra" as Astra
 participant ":Parser" as Parser
 participant ":AddTaskCommand" as AddTaskCommand
-participant "Task" as Task
+participant ":Task" as Task
 participant ":ActivityList" as ActivityList
 participant ":Ui" as Ui
 participant ":Notebook" as Notebook
