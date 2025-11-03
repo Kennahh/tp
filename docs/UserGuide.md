@@ -34,7 +34,7 @@ It is targeted towards students who prefer typing over graphical user interfaces
 and run ```java -jar ASTRA.jar```
 4. Time to start making full use of ASTRA to make your academic life a breeze!!!
 
-## Features 
+## Features
 * All commands are case-insensitive for easier usability
 * All days of the week may be input with either be spelt in full, in shorthand (minimum 3 letters), or numerical form, 1 to 7
     * e.g. `mon`, `monday`, `1`
@@ -390,7 +390,7 @@ Unmarked: #1 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 [ASTRA] Done! Now, what's your next wish...
 ```
 
-### Changing Deadline 
+### Changing Deadline
 Changes the deadline of a task at the specified index
 
 Format:`changedeadline <index> /to <date> [time]`
