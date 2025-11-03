@@ -22,6 +22,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 - Enhance delete command (`DeleteCommand`)
   - Enable multiple deletions of activities
 - Junit tests for `DeleteCommand` and `CheckCommand`
+  - Tests for `DeleteCommand` in `DeleteCommandTest.java`
   - For `CheckCommand`: write some test cases for `CheckLecturesCommand`, `CheckTutorialsCommand` and `CheckExamCommand`
 
 ### Contribution to UG
@@ -36,11 +37,14 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
   - Check Command class diagram (`checkCommands_classDiagram.puml`)
   - Check current sequence diagram (`CheckCurrent_sequence.puml`)
   - Check lecture sequence diagram (`checkLecture_sequence.puml`)
+  - Check exam sequence diagram (`checkExam_sequence.puml`)
   - Check priority sequence diagram (`checkPriority_sequence_original.puml`)
+- Correct the diagrams related to `ChangePriorityCommand`
 
 ### Contribution to team-based tasks
 - Help to correct code styling problems
 - Add some exception and assertion
+- Fix issues after PE-D
 
 ### Review/mentoring contributions
 - Help review some of the PRs, for example:
