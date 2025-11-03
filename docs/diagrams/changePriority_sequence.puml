@@ -16,7 +16,7 @@ create C
 Parser --> C: new ChangePriorityCommand(input)
 activate C
 return
-return
+return ChangePriorityCommand
 Astra -> C: execute(AL, UI, NB)
 activate C
 C -> AL: getActivity(2)

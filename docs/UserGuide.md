@@ -38,25 +38,25 @@ and run ```java -jar Astra.jar```
     * Dates may be entered in `YYYY-MM-DD` or `DD-MM-YYYY` format, seperated by either `-` or `/`, months may be represented numerically or spelt
         * e.g. `2025-12-03` or `03/12/2025` or `2025-dec-03`
     * Dates may also be entered without year, in which ASTRA will default to the current year, format must be in `DD-MM`, or if month is spelled out, either order is fine
-        * e.g. `03-12`, `dec-03`, `03-december`
+        * e.g. `03/12`, `dec-03`, `03-december`
     * Timings may be entered in `HHmm` or `HH:mm`
         * e.g. `1300`, `13:00`
 * Arguments in square brackets are optional
     * e.g. `/by <date> [time]` can be used as `/by 2025-12-03 14:00` or just `/by 2025-12-03`
 * Automated deletion of overdue tasks and reminder of tasks which are due within the next 3 days.
           
-        ```
-        These tasks are overdue and have been removed from the list
-        ------------------------------------------------------------
-        No overdue tasks have been deleted!
-        ------------------------------------------------------------
-        
+    ```
+    These tasks are overdue and have been removed from the list
+    ------------------------------------------------------------
+    No overdue tasks have been deleted!
+    ------------------------------------------------------------
     
-        These tasks are due soon. Reminder to complete them!
-        ------------------------------------------------------------
-        No task due for the next 3 days
-        ------------------------------------------------------------
-        ```
+
+    These tasks are due soon. Reminder to complete them!
+    ------------------------------------------------------------
+    No task due for the next 3 days
+    ------------------------------------------------------------
+    ```
 
 ### Getting Help
 Ask Astra to List all the available commands the user can use as well as the input format
@@ -66,12 +66,14 @@ Input:`help`
 
 Output: Astra will print a list for all the commands available for the user to try out
 
+Note: For brevity, the help command will not list all supported date and time formats.
+
 ### Adding a Task
 Adds a new task to the ActivityList with the input **description** and deadline **date and time**.
 
-Format: `task <description> /by <YYYY-MMM-DD> [HH:mm] /priority <number>`
+Format: `task <description> /by <date> [time] /priority <number>`
 
-If time is not provided, i.e. just a date, ASTRA will default to 2359H. Additionally, <HHmm> and <HH:mm> are both valid format
+If time is not provided, i.e. just a date, ASTRA will default to 2359H.
 
 Example of usage: 
 
@@ -149,6 +151,9 @@ Lecture:`checklecture <day>` lists all lectures on the specific day of the week
 Exam: `checkexam` lists all upcoming exams with their corresponding dates and duration
 
 Priority: `checkpriority` list the tasks only in order of priority 
+
+Note: for `checkexam` and `checkpriority`, arguments entered after the command word will be ignored
+- e.g. User input is `checkexam mon`, `mon` will be ignored and only `checkexam` will be carried out 
 
 ### List all Activities
 Prints a list of all activities stored in the ActivityList

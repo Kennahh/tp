@@ -16,7 +16,7 @@ create C
 Parser -> C: new ListGpaCommand()
 activate C
 return
-return
+return ListGpaCommand
 
 Astra -> C: execute(AL, UI, NB)
 activate C

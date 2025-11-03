@@ -20,7 +20,7 @@ Parser -> CheckCurrentCommand: new CheckCurrentCommand(input)
 activate CheckCurrentCommand
 CheckCurrentCommand --> Parser
 deactivate CheckCurrentCommand
-Parser --> Astra
+Parser --> Astra: CheckCurrentCommand
 deactivate Parser
 
 Astra -> CheckCurrentCommand: execute(AL, UI, NB)
