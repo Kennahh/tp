@@ -10,8 +10,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 
 - Code Dashboard: [kurokishi592-dashboard-link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=kuro&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-09-19T00%3A00%3A00&filteredFileName=&tabOpen=true&tabType=authorship&tabAuthor=Kurokishi592&tabRepo=AY2526S1-CS2113-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 - GitHub commits: [kurokishi592-github-commits](https://github.com/AY2526S1-CS2113-W12-1/tp/commits/master?author=Kurokishi592)
-- Commit volume (since 2025-09-19): 31 commits under "Kurokishi592" (+ 8 under alias "Kenneth Wong").
-- Lines changed (approx.): +3792 additions, -1032 deletions.
+- Commit volume (since 2025-09-19): 31 commits under "Kurokishi592" (+ 8 under alias "Kenneth Wong"). Lines changed (approx.): +3792 additions, -1032 deletions.
 
 ### Enhancement Implemented 
 
@@ -24,10 +23,8 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 - Astra's architecture
     - determined the high-level overview of Astra’s components and how they interact in a typical command flow. (`Astra → Parser → Command → Model/Storage → Ui`).
     - established the REPL flow in `Astra`: `parse → execute → persist` on non-exit.
-        - This is for better Separation of Concerns: each component has one responsibility: Parser understands language, Command implements behaviour, Model holds state and invariants, Notebook persists, Ui handles I/O.
-        - Ensures testability: commands expose behaviour in methods that can be called for unit tests.
-        - The REPL orchestration stays short and obvious. New contributors can quickly find where to add new commands or fix parsing without tracing tangled code.
-        - Extensibility (command pattern): Adding features is straightforward: implement a new Command subclass + parser entry. Example: GPA features were added as new commands (`AddGpaCommand`, `ComputeGpaCommand`) and integrated without rewriting the REPL loop.
+        - for better Separation of Concerns, unit testability and extensibility:
+            - each component has one responsibility: Parser understands language, Command implements behaviour, Model holds state and invariants, Notebook persists, Ui handles I/O. Commands expose behaviour in methods that can be called for unit tests. The REPL orchestration stays short and obvious. New contributors can quickly find where to add new commands or fix parsing without tracing tangled code. Adding features is straightforward: implement a new Command subclass + parser entry. Example: GPA features were added as new commands (`AddGpaCommand`, `ComputeGpaCommand`) and integrated without rewriting the REPL loop.
 
 - JUnit test codes
     - Achieved around 80% test coverage for all packages by class, method, line and branch
@@ -39,10 +36,8 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 ### Contributions to the Developer Guide (DG)
 - Authored the following DG contents to guide current/future developers through Astra’s architecture, design and implementation.
     - Design (`Architecture, Parser, Commands, Activity, Gpa, Storage, Ui, Exceptions`) - Implementation.
-        - `Activities` (Add Task with priority, Change priority rebalancing, Check current tasks)
-        - `Gpa Tracker`
-- Authored diagrams (PlantUML + exported PNGs) and integrated them near relevant prose, with notable ones such as:
-	- `main_loop_sequence.puml`, `architecture_component.puml`, `architecture_sequence_delete.puml`, `model_component.puml`, `add_task_sequence.puml`, and all GPA architecture and sequence diagrams such as `AddGPAEntry.puml`, `ComputeGPA.puml`, `ListGPAEntries.puml`, `DeleteGPAEntry.puml`.
+        - `Activities` (Add Task with priority, Change priority rebalancing, Check current tasks) and `Gpa Tracker`
+- Authored diagrams (PlantUML + exported PNGs) and integrated them near relevant prose, with notable ones such as: `main_loop_sequence.puml`, `architecture_component.puml`, `architecture_sequence_delete.puml`, `model_component.puml`, `add_task_sequence.puml`, and all GPA architecture and sequence diagrams such as `AddGPAEntry.puml`, `ComputeGPA.puml`, `ListGPAEntries.puml`, `DeleteGPAEntry.puml`.
 - Added/updated manual testing instructions for GPA and activities (Appendix E) and usage examples to complement GPA commands.
 
 Developer Guide is under `docs/DeveloperGuide.md` and PlantUML sources under `docs/diagrams/` with exported PNGs in `docs/images/`
