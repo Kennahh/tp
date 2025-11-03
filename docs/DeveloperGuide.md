@@ -424,15 +424,13 @@ Activity for save
 
 #### Day-of-week parsing
 
-`Parser.dayOfWeekParser` accepts both numerals (1â€“7) and text (e.g., mon/Mon/Monday). Errors are reported early with actionable messages.
+`dayOfWeekParser` accepts both numerals (1â€“7) and text (e.g., mon/Mon/Monday). Errors are reported early with actionable messages.
 
 ![Day-of-week parsing](images/parser_dayofweek.png)
 
 Design note
 
-- `DateTimeParser` centralizes date/time acceptance criteria while `Parser.dayOfWeekParser` handles day parsing; this separation simplifies testing and reduces coupling.
-
----
+- `DateTimeParser` centralizes all date, time and day parsing; this separation simplifies testing and reduces coupling.
 
 ---
 
@@ -497,7 +495,7 @@ The following complements existing GPA tests and covers activity features. Copyâ
        - `list` to show the output
 
         Expected Output:
-       ````
+       ```
           ------------------------------------------------------------
           1. [ ]CS2113 Quiz | Deadline: 1 Nov, 2359H | Priority: 2
           2. [ ]CG2271 Lab | Deadline: 30 Oct, 2000H | Priority: 1
@@ -505,7 +503,7 @@ The following complements existing GPA tests and covers activity features. Copyâ
           4. Tutorial | CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
           5. Exam | CS2107 Midterm | Venue: MPSH1 | Date: 10 Oct | Duration: 1000H to 1200H
           ------------------------------------------------------------
-       ````
+       ```
     2. Test Case: `task CS2113 Quiz /by 2025-11-01 23:59`
        - Expected Output: error showing missing input
        - Similar output for other add commands with missing inputs
