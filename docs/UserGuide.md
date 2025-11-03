@@ -292,6 +292,23 @@ Allowed grades: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (store
 Note: since all storage files update during runtime, do NOT manually edit the contents of those files during runtime. 
 Users can edit before launch or after termination of astra instead.
 
+If storage files are detected to have incorrect formatting at startup, whether due to file corruption or user intervention, ASTRA will display an warning message, along with the affected lines
+
+Example of error:
+
+`tasks.txt`:
+
+```
+Example
+```
+
+Output:
+```
+[WARNING!] Detected errors in saved activities! See lines:
+1: Example
+These line(s) will be deleted if any activity is added, deleted or modified!
+```
+
 ### Exiting Astra
 Exits out of the program
 

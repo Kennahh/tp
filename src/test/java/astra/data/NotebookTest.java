@@ -88,6 +88,7 @@ public class NotebookTest {
         Path p = temp.resolve("bad.txt");
         Files.writeString(p, "BAD | 0 | x");
         Notebook nb = new Notebook(p.toString());
-        assertThrows(FileSystemException.class, nb::loadFromFile);
+        nb.loadFromFile();
+        assertTrue(nb.getErrors().contains("BAD | 0 | x"));
     }
 }

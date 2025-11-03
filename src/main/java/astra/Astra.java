@@ -61,7 +61,7 @@ public class Astra {
         ui.showLogo();
         ui.showBotIntro();
         LocalDate today = LocalDate.now();
-        notebook.displayErrors();
+        ui.showError(notebook.getErrors());
         activities.listAndDeleteOverdueTasks(today);
         activities.deadlineReminder(today);
         ui.showPrompt();

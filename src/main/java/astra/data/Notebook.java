@@ -459,16 +459,18 @@ public class Notebook {
         writeGpaCsv(gpaList.toList());
     }
 
-    public void displayErrors() {
+    public String getErrors() {
+        String errors = "";
         if (!erroredTaskLines.isEmpty()) {
-            System.out.println("Detected errors in saved activities! See lines:");
-            System.out.print(erroredTaskLines);
-            System.out.println("These line(s) will be deleted if any activity is added, deleted or modified!\n");
+            errors += "[WARNING!] Detected errors in saved activities! See lines:\n"
+                    + erroredTaskLines
+                    + "These line(s) will be deleted if any activity is added, deleted or modified!\n\n";
         }
         if (!erroredGpaLines.isEmpty()) {
-            System.out.println("Detected errors in saved GPA! See lines:");
-            System.out.print(erroredGpaLines);
-            System.out.println("These line(s) will be deleted if any gpa is added, deleted or modified!");
+            errors += "[WARNING!] Detected errors in saved GPA! See lines:\n"
+                    + erroredGpaLines
+                    + "These line(s) will be deleted if any gpa is added, deleted or modified!";
         }
+        return errors;
     }
 }
