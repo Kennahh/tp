@@ -180,7 +180,8 @@ public class AstraParserTest {
 
     @Test
     public void complete_onExam_errorShown() throws Exception {
-        Parser.parse("exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
+        Parser.parse("exam CS2107 Midterm /place MPSH1 " +
+                "/date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
         Parser.parse("complete 1").execute(activities, ui, notebook);
         String output = outContent.toString();
         assertTrue(output.contains("is not a Task"));
@@ -188,7 +189,8 @@ public class AstraParserTest {
 
     @Test
     public void unmark_onExam_errorShown() throws Exception {
-        Parser.parse("exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
+        Parser.parse("exam CS2107 Midterm /place MPSH1 " +
+                "/date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
         Parser.parse("unmark 1").execute(activities, ui, notebook);
         String output = outContent.toString();
         assertTrue(output.contains("is not a Task"));
