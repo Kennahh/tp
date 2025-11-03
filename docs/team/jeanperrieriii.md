@@ -2,9 +2,8 @@
 
 ## Overview
 
-Astra is a fast, keyboard-driven CLI planner for students to track academic activities (tasks, lectures, tutorials, exams) and compute their GPA. It stores data in simple text/CSV files for transparency and portability. 
-
-My role focused on writing skeleton code and bare bones functionality of ASTRA at the start for project members to start expanding on and implementing features. I also focused on the entire flexible date and time parsing functionality of ASTRA and editing and vetting of the developer guide diagrams. 
+Astra is a fast, keyboard-driven CLI planner for students to track academic activities (tasks, lectures, tutorials, exams) and compute their GPA. It stores data in simple text/CSV files for transparency and portability.
+My role focused on writing skeleton code and bare bones functionality of ASTRA at start of project, entirety of the flexible date and time parsing functionality of ASTRA and editing and vetting of the developer guide diagrams.
 
 ## Summary of Contributions
 
@@ -37,7 +36,7 @@ My role focused on writing skeleton code and bare bones functionality of ASTRA a
 - The table of contents
 - Provide details on how the date and time parsing for user input works
 - Provide examples on acceptable date and time formats, and when ASTRA will make assumptions
-- Features or notes missed by other group members
+- Features or notes missed by other group members 
 
 ### Contributions to the DG
 
@@ -50,12 +49,10 @@ My role focused on writing skeleton code and bare bones functionality of ASTRA a
 
 ### Contributions to team-based tasks
 
-- Created GitHub team organisation and repo
-- Set up all GitHub features as per project requirements
+- Created GitHub team organisation, repo, setup features as per project requirements
 - Maintaining the issue tracker, including creation of tags, closing of duplicate issues, assigning members
 - Review and approval of pull requests
 - Manage releases
-- Update README.md
 
 ### Review/mentoring contributions:
 
