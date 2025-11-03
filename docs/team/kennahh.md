@@ -40,6 +40,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
   - Check exam sequence diagram (`checkExam_sequence.puml`)
   - Check priority sequence diagram (`checkPriority_sequence_original.puml`)
 - Correct the diagrams related to `ChangePriorityCommand`
+- Add exception test cases to manual testing
 
 ### Contribution to team-based tasks
 - Help to correct code styling problems
@@ -50,4 +51,5 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 - Help review some of the PRs, for example:
   - [PR review 1](https://github.com/AY2526S1-CS2113-W12-1/tp/pull/74)
   - [PR review 2](https://github.com/AY2526S1-CS2113-W12-1/tp/pull/51)
+  - [PR review 3](https://github.com/AY2526S1-CS2113-W12-1/tp/pull/190)
 
