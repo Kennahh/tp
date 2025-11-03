@@ -373,7 +373,9 @@ Editing entries in Astra:
 - unmark <index>                                        (mark as incomplete)
 - changedeadline <task index> /to <YYYY-MM-DD> <HH:MM>
     Example: changedeadline 1 /to 2025-10-31 14:00
-
+- changepriority <task index> /to <new priority>
+    Example: changepriority 2 /to 1 
+     
 Help/Exit:
 - help
 - close

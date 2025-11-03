@@ -1,4 +1,4 @@
-# ekko-technology — Project Portfolio Page
+# Joshua Yeo — Project Portfolio Page
 
 ## Overview
 
