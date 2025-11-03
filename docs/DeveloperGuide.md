@@ -411,7 +411,9 @@ Activity for save
   general `add/list/delete`.
 - Command input validation: friendly error messages via `Ui.showError(...)` for invalid grades, MC tokens, or indices.
 - File I/O failures: wrapped as `FileSystemException`, caught in commands or main loop so the app remains usable.
+- Invalid entries: Skipped and displayed to user so not all data is lost due to single invalid entry.
 - Empty GPA list: `computeGpa()` returns 0.0 and `list gpa` prints a helpful message.
+- Non-numerical characters in `<MC>` field: Ignored, only the integer in the field is parsed, allowing for typos to be handled somewhat gracefully
 
 ### Parsing helpers
 
