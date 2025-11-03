@@ -554,33 +554,48 @@ The following complements existing GPA tests and covers activity features. Copyâ
        - Expected Output: Delete the activity at index 1;
     3. Test Case: `delete 1 and 2`
        - Expected Output: Delete the activities at index 1 and 2
+    4. Test Case: `delete a`
+       - Expected Output: Prompts user that index is not a number
+    5. Test Case `delete -1`
+       - Expected Output: Prompts user that index should be positive 
 
 
-8. GPA Tracker quick tests
+7. GPA Tracker quick tests
    1. Test Case: `add gpa CS2040C A+ 4mc`
       - Expected Output: success messages printed; and the gpa is added into files `data/gpa.txt` and `data/gpa.csv`
    2. Test Case: `list gpa`
       - Expected Output: Produce a list of all gpa
    3. Test Case: `gpa`
       - Expected Output: prints the current overall gpa
-   4. Test Case: `delete gpa 1`
+   4. Test Case: `gpa 1000` (random input after gpa)
+      - Expected Output: still prints the current overall gpa
+   5. Test Case: `delete gpa 1`
       - Expected Output: delete the gpa at index 1
-   5. Test Case: `add gpa CS1231X HH 4` 
-      - Expected Output: shows an error due to invalid grade
-   
+   6. Test Case: `add gpa CS1231X HH 4` 
+      - Expected Output: Prompts user that grade given was invalid 
+   7. Test Case: `add gpa CS2113`
+      - Expected Output: Prompts user the correct format for addGpaCommand
 
-9. Unmarking and Completing Tasks
+
+8. Unmarking and Completing Tasks
     1. Prerequisite:
        1. Have a task which is unmarked in ActivityList
        2. Use the task command to add if necessary
        3. Get the index of the task by running `list`
+       4. All Test Case are done on the same Task in the given order
    2. Test Case: `complete <index>` where index is the index of the task 
-      - Expected Output: Task at the index will be marked as completed
-   3. Test Case: On the same index run `unmark <index>`
+       - Expected Output: Task at the index will be marked as completed
+   3. Test Case: `complete <index>`
+      - Expected Output: Prompts user that activity at index is already completed
+   4. Test Case: `unmark <index>`
       - Expected Output: Task at the index will be unmarked.
+   5. Test Case: `unmark <index>`
+      - Expected Output: Prompts user that activity at index is already unmarked
+   
   
-
-10. Getting a command summary
+9. Getting a command summary
     
     1. Test Case:`help`
        - Expected Output: Produce a command summary of all available commands in Astra as well as the proper format for them 
+    2. Test Case: `help 209ss` (random input after help)
+       - Expected Output: Still produces the command summary of all available commands in Astra as well as the proper format for them
