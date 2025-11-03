@@ -29,7 +29,6 @@ It is targeted towards students who prefer typing over graphical user interfaces
 3. Go to the terminal and run cd into the folder containing the jar file
 and run ```java -jar Astra.jar```
 4. Time to start making full use of Astra to make your academic life a breeze!!!
-5. **Do not manually change any data or text inside the Data folder. This may cause corruption of the data which will cause errors when Astra tries to read from them**
 
 ## Features 
 * All commands are case-insensitive for easier usability
@@ -344,16 +343,19 @@ Adding entries to Astra:
 - exam <description> /place <venue> /date <YYYY-MM-DD> /from <HH:MM> /to <HH:MM>
 - add gpa <SUBJECT> <GRADE> <MC>
 
-    Example: task CS2113 Quiz /by 2025-10-10 23:59
-             lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
-             tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00
-             exam CS2107 Midterm /place mpsh1 /date 2025-10-10 /from 10:00 /to 12:00
-             add gpa CS2040C A+ 4mc
+    Example: 
+     - task CS2113 Quiz /by 2025-10-10 23:59
+     - lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00
+     - tutorial CS2113 T1 /place COM2-0207 /day Wednesday  /from 12:00 /to 13:00
+     - exam CS2107 Midterm /place mpsh1 /date 2025-10-10 /from 10:00 /to 12:00
+     - add gpa CS2040C A+ 4mc
 
 Listing and Checking Tasks:
-- checkcurrent [value (optional)]  (Shows [value] of immediate upcoming task deadlines, defaults to 1)
+- checkcurrent [value (optional)]  (Shows [value] of immediate upcoming 
+                                    task deadlines, defaults to 1)
 - list                             (lists all tasks only)
-- checkexam                        (lists all upcoming exams with date and duration)
+- checkexam                        (lists all upcoming exams with date 
+                                    and duration)
 - checklecture <day>               (lists all lectures on a specific day)
 - checktutorial <day>              (lists all tutorials on a specific day)
 - list gpa                         (lists all GPA entries)

@@ -224,6 +224,11 @@ UnmarkCommand will be used as an example for the sequence diagram as they share 
 
 ### Delete 
 Flow: The user enters `delete <index>`. The parser returns `DeleteCOmmand` and does execute(). Activity at index is deleted from the ActivityList which is then saved to the data folder.
+
+Deleting multiple activities: delete activities in descending order of activity index.
+- Reasonability: deleting the activity with the largest index will not affect the indexes of previous activities, so no need to change the index of the activities to be deleted.
+- For example: `delete 1 3`: delete the third activity in the ActivityList first, then delete the first one.
+
 ![DeleteCommand_sequence](images/DeleteCommand_sequence.png)
 
 ### Task Deadline & Priority System
@@ -479,66 +484,147 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 
 ## Appendix E: Instructions for Manual Testing (full)
 
-The following complements existing GPA tests and covers activity features. Copy‑paste the commands as shown.
+The following complements existing GPA tests and covers activity features. Copy‑paste the commands as shown after starting Astra.
 
-1. Add tasks and priorities
+1. Add tasks and priorities and all schoolActivities
+    
+    1. Test Case:
+       - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
+       - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priority‑1 task to shift to 2)
+       - `lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00`
+       - `tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00`
+       - `exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00`
+       - `list` to show the output
 
-   - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
-   - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priority‑1 task to shift to 2)
-   - `list` (verify ordering/priority in output)
+        Expected Output:
+       ````
+          ------------------------------------------------------------
+          1. [ ]CS2113 Quiz | Deadline: 1 Nov, 2359H | Priority: 2
+          2. [ ]CG2271 Lab | Deadline: 30 Oct, 2000H | Priority: 1
+          3. Lecture | CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H
+          4. Tutorial | CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
+          5. Exam | CS2107 Midterm | Venue: MPSH1 | Date: 10 Oct | Duration: 1000H to 1200H
+          ------------------------------------------------------------
+       ````
+    2. Test Case: `task CS2113 Quiz /by 2025-11-01 23:59`
+       - Expected Output: error showing missing input
+       - Similar output for other add commands with missing inputs
 
 2. Change priority (rebalance)
-
-   - `changepriority 1 /to 1` (the index‑1, priority 2 task should become priority 1; others shift accordingly)
-   - `list` (verify priorities are a dense 1..N)
+   
+    1. Prerequisite:
+       1) Ensure there are 2 tasks in the ActivityList
+       2) Use the task command to add if necessary
+       3) Ensure that the task at the first index has priority 2 
+   
+   2. Test Case: `changepriority 1 /to 1`
+      - Expected Output: The first task's priority will change to 1 while the previous task with priority 1 will change to 2
+   3. Test Case: `changepriority 1 /to 2`
+      - Expected Output: The first task's priority will change to 2 while the previous task with priority 2 will change to 1
+   4. Test Case: `changepriority 1 /to a`
+      - Expepted Output: error showing new priority must be an integer
+   5. Test Case: `changepriority a /to 1`
+      - Expected Output: error showing task number must be integer
+   6. Test Case: `changepriority 1 /to 3` where there are only two tasks in the list
+      - Excepted Output: error showing new priority must be between 1 and 2
+   7. Test Case: `changepriority 1 /to 2` where priority of task in index 1 is already 2
+      - Expected Output: error showing the task already has this priority
 
 3. Edit deadline
-
-   - `changedeadline 1 /to 2025-10-31 18:00` (updates date/time; verify in list)
+    1. Prerequisite:
+        1) Ensure that there is at least 1 task in the ActivityList
+        2) Use the task command to add if necessary
+        3) Choose an index that contains a task
+   2. Test Case: `changedeadline <index> /to 2025-10-31 18:00` where index is the chosen index in prerequisite
+      - Expected Output: The task at the index will change its deadline to 31 Oct, 1800H
+   3. Test Case: `changedeadline a /to 2025-10-31 18:00`
+      - Expected Output: error showing task number must be integer
+   4. Test Case: `changedeadline <index> /to 2025-10-31` where index is the chosen index in prerequisite
+      - Expected Output: error showing invalid date or time format
+   5. Test Case: `changedeadline <index> /to 2025-10-31 18:00` where activity of the index is not a task
+      - Expected Output: error showing the chosen activity is not a task
+   
 
 4. Check current deadlines
+   1. Prerequisite:
+      1) Ensure you there are at least 1-3 tasks whose deadline is after the current date of testing
+      2) Use the task command to add if necessary
+   2. Test Case: `checkcurrent` 
+      - Expected Output: The task with the closest deadline will be shown
+   3. Test Case: `checkcurrent 3` 
+      - Expected Output: A list of up to 3 task whose deadline is closest to the current date will be shown
+   4. Test Case: `checkcurrent 0`
+      - Expected Output: error showing number of tasks to check should not be less than 1 and show the task with the closest deadline
+   5. Test Case: `checkcurrent a`
+       - Expected Output: error showing the number should be integer and show the task with the closest deadline
 
-   - `checkcurrent` (shows the single nearest task)
-   - `checkcurrent 3` (shows up to three tasks, in ascending deadline order)
 
 5. Filter by day and exam listing
+    1. Prerequisite:
+        1) Ensure there is at least one lecture(date:Friday), one tutorial(date:Wednesday) and one exam
+        2) Use lecture or tutorial command to add if necessary
+   2. Test Case: `checklecture Friday` 
+       - Expected Output: Produce a list of all lectures on Friday
+   3. Test Case: `checktutorial Wed` 
+       - Expected Output: Produce a list of all tutorials on Wednesday
+   4. Test Case: `checkexam` 
+      - Expected Output: Produce a list of all exams in ActivityList
+   5. Test Case: `checklecture a`
+      - Expected Output: error showing input day is invalid
+   6. Test Case: `checktutorial a`
+       - Expected Output: error showing input day is invalid
 
-   - Add one lecture and one tutorial (use `lecture ...` and `tutorial ...` with day/time)
-   - `checklecture Friday`
-   - `checktutorial Wed`
-   - `checkexam` (after adding at least one exam)
 
 6. Delete and multiple delete
+    1. Prerequisite:
+       1) Have a nonempty ActivityList
+       2) Have at least 3 Activities in ActivityList
+    2. Test Case:`delete 1` 
+       - Expected Output: Delete the activity at index 1;
+    3. Test Case: `delete 1 and 2`
+       - Expected Output: Delete the activities at index 1 and 2
+    4. Test Case: `delete a`
+       - Expected Output: Prompts user that index is not a number
+    5. Test Case `delete -1`
+       - Expected Output: Prompts user that index should be positive 
 
-   - `delete 1` removes item #1
-   - Add a few more then `delete 2 4` removes multiple items; list to confirm
 
-7. Error cases to verify guardrails
+7. GPA Tracker quick tests
+   1. Test Case: `add gpa CS2040C A+ 4mc`
+      - Expected Output: success messages printed; and the gpa is added into files `data/gpa.txt` and `data/gpa.csv`
+   2. Test Case: `list gpa`
+      - Expected Output: Produce a list of all gpa
+   3. Test Case: `gpa`
+      - Expected Output: prints the current overall gpa
+   4. Test Case: `gpa 1000` (random input after gpa)
+      - Expected Output: still prints the current overall gpa
+   5. Test Case: `delete gpa 1`
+      - Expected Output: delete the gpa at index 1
+   6. Test Case: `add gpa CS1231X HH 4` 
+      - Expected Output: Prompts user that grade given was invalid 
+   7. Test Case: `add gpa CS2113`
+      - Expected Output: Prompts user the correct format for addGpaCommand
 
-   - `task X /priority 1` (missing `/by` → friendly error)
-   - `changedeadline 99 /to 2025-10-10 20:00` (out‑of‑range index)
-   - `changepriority 1 /to 0` (invalid priority)
 
-8. GPA Tracker quick tests
-
-   - Add entries:
-     - `add gpa CS2040C A+ 4mc`
-     - `add gpa CFG1002 S 4`
-     - Expected: success messages printed; files `data/gpa.txt` and `data/gpa.csv` updated
-   - List entries:
-     - `list gpa` shows indexed list
-   - Compute GPA:
-     - `gpa` prints `Current GPA: 5.00` for the first entry; with the S entry, it’s still 5.00 as S is excluded
-   - Delete entry:
-     - `delete gpa 2` removes the second entry
-   - Invalid grade:
-     - `add gpa CS1231X HH 4` shows an error
-9. Unmarking and Completing Tasks
-
-   - Add a task into ActivityList.`task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
-   - Run `list` to get the index of the task
-   - Run `unmark <index>` or `complete <index>` to either set the task to not completed or completed accordingly.
-   - run `list` to check if the command has been executed
-   - To error test:
-     -  run unmark on a task which has not been completed or complete on a task which has been completed
-     -  run unmark/complete <index> on an activity that is not a task
+8. Unmarking and Completing Tasks
+    1. Prerequisite:
+       1. Have a task which is unmarked in ActivityList
+       2. Use the task command to add if necessary
+       3. Get the index of the task by running `list`
+       4. All Test Case are done on the same Task in the given order
+   2. Test Case: `complete <index>` where index is the index of the task 
+       - Expected Output: Task at the index will be marked as completed
+   3. Test Case: `complete <index>`
+      - Expected Output: Prompts user that activity at index is already completed
+   4. Test Case: `unmark <index>`
+      - Expected Output: Task at the index will be unmarked.
+   5. Test Case: `unmark <index>`
+      - Expected Output: Prompts user that activity at index is already unmarked
+   
+  
+9. Getting a command summary
+    
+    1. Test Case:`help`
+       - Expected Output: Produce a command summary of all available commands in Astra as well as the proper format for them 
+    2. Test Case: `help 209ss` (random input after help)
+       - Expected Output: Still produces the command summary of all available commands in Astra as well as the proper format for them
