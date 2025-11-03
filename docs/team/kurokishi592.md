@@ -21,8 +21,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 	- Other design choices: 1-based indexing and explicit error handling via `GpaInputException` for consistency with the rest of the app.
 
 - Astra's architecture
-    - determined the high-level overview of Astra’s components and how they interact in a typical command flow. (`Astra → Parser → Command → Model/Storage → Ui`) and established the REPL flow in `Astra`: `parse → execute → persist` on non-exit; for better Separation of Concerns, unit testability and extensibility:
-        - each component has one responsibility: Parser understands language, Command implements behaviour, Model holds state and invariants, Notebook persists, Ui handles I/O. Commands expose behaviour in methods that can be called for unit tests. The REPL orchestration stays short and obvious. New contributors can quickly find where to add new commands or fix parsing without tracing tangled code. Adding features is straightforward: implement a new Command subclass + parser entry. Example: GPA features were added as new commands (`AddGpaCommand`, `ComputeGpaCommand`) and integrated without rewriting the REPL loop.
+    - determined the high-level overview of Astra’s components and how they interact in a typical command flow. (`Astra → Parser → Command → Model/Storage → Ui`) and established the REPL flow in `Astra`: `parse → execute → persist` on non-exit; for better Separation of Concerns, unit testability and extensibility.
 
 - JUnit test codes
     - Achieved around 80% test coverage for all packages by class, method, line and branch
