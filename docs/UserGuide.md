@@ -29,7 +29,6 @@ It is targeted towards students who prefer typing over graphical user interfaces
 3. Go to the terminal and run cd into the folder containing the jar file
 and run ```java -jar Astra.jar```
 4. Time to start making full use of Astra to make your academic life a breeze!!!
-5. **Do not manually change any data or text inside the Data folder. This may cause corruption of the data which will cause errors when Astra tries to read from them**
 
 ## Features 
 * All commands are case-insensitive for easier usability
