@@ -2,7 +2,9 @@
 
 ## Overview
 
-Astra is a fast, keyboard-driven CLI planner for students to track academic activities (tasks, lectures, tutorials, exams) and compute their GPA. It stores data in simple text/CSV files for transparency and portability. My role focused on the entire GPA feature set, Astra's architecture, parser functionalities, key activity commands, and elevating the Developer Guide with accurate, maintainable diagrams.
+Astra is a fast, keyboard-driven CLI planner for students to track academic activities (tasks, lectures, tutorials, exams) and compute their GPA. It stores data in simple text/CSV files for transparency and portability. 
+
+My role focused on writing skeleton code and bare bones functionality of ASTRA at the start for project members to start expanding on and implementing features. I also focused on the entire flexible date and time parsing functionality of ASTRA and editing and vetting of the developer guide diagrams. 
 
 ## Summary of Contributions
 
