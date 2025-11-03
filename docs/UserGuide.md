@@ -13,12 +13,16 @@ It is targeted towards students who prefer typing over graphical user interfaces
     - [Adding a Tutorial](#adding-a-tutorial)
     - [Adding a Lecture](#adding-a-lecture)
     - [Adding an Exam](#adding-an-exam)
-    - [Checking specific Activities](#checking-specific-activity)
+    - [Checking tasks by deadline](#checking-closest-task-deadlines)
+    - [Checking tasks by priority](#checking-tasks-by-order-of-priority)
+    - [Checking tutorials](#check-tutorials)
+    - [Checking lecture](#check-lectures)
+    - [Checking exams](#check-exams)
     - [List all Activities](#list-all-activities)
     - [Deleting Activities](#deleting-activities)
     - [Completing a Task](#completing-a-task)
     - [Unmarking a Task](#unmarking-a-task)
-    - [Changing Deadline](#changing-deadline-)
+    - [Changing Deadline](#changing-deadline)
     - [GPA Tracker](#gpa-tracker)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
@@ -27,10 +31,10 @@ It is targeted towards students who prefer typing over graphical user interfaces
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest jar from GitHub releases
 3. Go to the terminal and run cd into the folder containing the jar file
-and run ```java -jar Astra.jar```
-4. Time to start making full use of Astra to make your academic life a breeze!!!
+and run ```java -jar ASTRA.jar```
+4. Time to start making full use of ASTRA to make your academic life a breeze!!!
 
-## Features 
+## Features
 * All commands are case-insensitive for easier usability
 * All days of the week may be input with either be spelt in full, in shorthand (minimum 3 letters), or numerical form, 1 to 7
     * e.g. `mon`, `monday`, `1`
@@ -59,12 +63,12 @@ and run ```java -jar Astra.jar```
     ```
 
 ### Getting Help
-Ask Astra to List all the available commands the user can use as well as the input format
+Ask ASTRA to List all the available commands the user can use as well as the input format
 which is required for each command
 
 Input:`help`
 
-Output: Astra will print a list for all the commands available for the user to try out
+Output: ASTRA will print a list for all the commands available for the user to try out
 
 Note: For brevity, the help command will not list all supported date and time formats.
 
@@ -79,7 +83,7 @@ Example of usage:
 
 Input:`task tutorial assignment /by 2025-04-03 10:00 /priority 1`
 
-Output: Astra will show the task which has been added before awaiting the next command
+Output: ASTRA will show the task which has been added before awaiting the next command
 ```
 ------------------------------------------------------------
 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
@@ -137,23 +141,178 @@ CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
 [ASTRA] Done! Now, what's your next wish...
 ```
 
-### Checking specific Activity
+### Checking closest task deadlines
 Prints a list of activities of the specified class and date which are in the ActivityList
 
-Upcoming deadlines:`checkcurrent [Number of tasks(n)]` shows up to n number of tasks whose deadlines are the closest to the current date. If n is not written or if n is not a number, Astra will return the task which deadline is closest to the current date.
+Shows up to `n` number of tasks whose deadlines are the closest to, and after the current date and time. 
 
-Note: Astra will **not display deadlines that have passed**
+If `n` is not specified or not a number, ASTRA will return the first task with the closest deadline, that is after current date and time.
 
-Tutorial:`checktutorial <day>` lists all tutorials on the specific day of the week
+Format: `checkcurrent [Number of tasks(n)]`
 
-Lecture:`checklecture <day>` lists all lectures on the specific day of the week
+Example of usage:
 
-Exam: `checkexam` lists all upcoming exams with their corresponding dates and duration
+input: `checkcurrent 2`
 
-Priority: `checkpriority` list the tasks only in order of priority 
+Output:
+```
+------------------------------------------------------------
+[ASTRA] Top 2 closest tasks:
+[ ]tutorial assignment | Deadline: 3 Dec, 1000H | Priority: 2
+[ ]other tutorial assignment | Deadline: 4 Dec, 1000H | Priority: 1
+[ASTRA] Please note that overdue tasks are not displayed!
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
 
-Note: for `checkexam` and `checkpriority`, arguments entered after the command word will be ignored
-- e.g. User input is `checkexam mon`, `mon` will be ignored and only `checkexam` will be carried out 
+If there are no tasks to display, or the deadline has already passed:
+```
+------------------------------------------------------------
+[ASTRA] No tasks found!
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+Notes:
+- ASTRA will **not display deadlines that have passed**
+- ASTRA will tell you if the requested `n` number of tasks is greater than tasks present in the ActivityList
+
+### Checking tasks by order of priority
+
+List the tasks only in order of priority
+
+Format: `checkpriority`
+
+Example of usage:
+
+Input: `checkpriority`
+
+Output:
+
+```
+------------------------------------------------------------
+[ASTRA] Tasks sorted by priority:
+Priority 1: [ ]other tutorial assignment | Deadline: 4 Dec, 1000H | Priority: 1
+Priority 2: [ ]tutorial assignment | Deadline: 3 Dec, 1000H | Priority: 2
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+If there are no tasks to display:
+
+```
+------------------------------------------------------------
+[ASTRA] No tasks found!
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+Note:
+- Arguments entered after the command word will be ignored
+- e.g. User input is `checkpriority 3`, `3` will be ignored and only `checkpriority` will be carried out.
+- Unlike checkcurrent, checkpriority will display the tasks that already have a passed deadline. This is as the criteria for ordering is no longer the date.
+
+### Check tutorials
+
+Lists all tutorials on the specific day of the week
+
+Format: `checktutorial <day>`
+
+Example of usage:
+
+Input: `checktutorial wed`
+
+Output:
+
+```
+------------------------------------------------------------
+ 1. Tutorial | CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
+You have 1 tutorial(s) on WEDNESDAY
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+If there are no tutorials on that day:
+
+```
+------------------------------------------------------------
+You have no tutorial on WEDNESDAY
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+### Check lectures
+
+Lists all lectures on the specific day of the week
+
+Format: `checklecture <day>` 
+
+Example of usage:
+
+Input: `checklecture mon`
+
+Output:
+
+```
+------------------------------------------------------------
+ 1. Lecture | CS2107 | Venue: LT16 | Monday | Duration: 1400H to 1600H
+You have 1 lecture(s) on MONDAY
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+If there are not lectures on that day:
+
+```
+------------------------------------------------------------
+You have no lecture on MONDAY
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+
+### Check exams
+
+Lists all upcoming exams with their corresponding dates and duration
+
+Format: `checkexam` 
+
+Example of usage:
+
+Input: `checkexam`
+
+Output:
+
+```
+------------------------------------------------------------
+ 1. Exam | CS2040C finals | Venue: mpsh5 | Date: 29 Nov | Duration: 0900H to 1100H
+You have 1 exam(s)
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+If there are no exams:
+
+```
+------------------------------------------------------------
+No exams in your list!
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+Note: 
+- arguments entered after the command word will be ignored
+- e.g. User input is `checkexam mon`, `mon` will be ignored and only `checkexam` will be carried out
 
 ### List all Activities
 Prints a list of all activities stored in the ActivityList
@@ -231,7 +390,7 @@ Unmarked: #1 [ ]tutorial assignment | Deadline: 3 Apr, 1000H | Priority: 1
 [ASTRA] Done! Now, what's your next wish...
 ```
 
-### Changing Deadline 
+### Changing Deadline
 Changes the deadline of a task at the specified index
 
 Format:`changedeadline <index> /to <date> [time]`
@@ -278,7 +437,7 @@ Inputs summary (read this before using GPA commands):
 - MC: non-negative integer; ASTRA parses the integer portion and ignores trailing letters (e.g., `4mc` → `4`). Avoid decimals/spaces (e.g., not `4.0`, not `4 mc`).
 - Any deviation from the above may cause the program to not work as expected.
 
-#### Add GPA entry 
+#### Add GPA entry
 This command adds a GPA entry with the corresponding grade and mc count to the current list of GPAs.
   - Format: `add gpa <SUBJECT> <GRADE> <MC>`
   - Example: `add gpa CS2040C A+ 4mc`
@@ -405,7 +564,7 @@ Output:
 These line(s) will be deleted if any activity is added, deleted or modified!
 ```
 
-### Exiting Astra
+### Exiting ASTRA
 Exits out of the program
 
 Example of usage:
@@ -433,7 +592,7 @@ run it in the same folder as data
 ## Command Summary
 ```
 
-Adding entries to Astra:
+Adding entries to ASTRA:
 - task <description> /by <YYYY-MM-DD> <HH:MM> /priority <priority number>
 - lecture <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
 - tutorial <description> /place <venue> /day <day> /from <HH:MM> /to <HH:MM>
@@ -458,7 +617,7 @@ Listing and Checking Tasks:
 - list gpa                         (lists all GPA entries)
 - gpa                              (computes current GPA)
 
-Editing entries in Astra:
+Editing entries in ASTRA:
 - delete <index_1> <index_2> <...>                      (can delete multiple tasks)
 - delete gpa <INDEX>                                    (delete GPA entry)
 - complete <index>                                      (mark as complete)
