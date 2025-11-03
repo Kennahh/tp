@@ -14,10 +14,8 @@ My role focused on writing skeleton code and bare bones functionality of ASTRA a
 ### Enhancements implemented
 
 
-- Skeleton code for Command classes
-  - Allowed for basic functionality of the program without actual functioning commands at the start
-- dateTimeParser class
-  - Enables for the flexible input of multiple date and time formats by users
+- Skeleton code for Command classes - for barely functioning program at the start
+- dateTimeParser class - enables for the flexible input of date and time formats by users
   - Quality of life features:
     - Defaults to current year if not provided
     - Defaults time to 2359H if time is not provided, only for deadlines
@@ -25,7 +23,6 @@ My role focused on writing skeleton code and bare bones functionality of ASTRA a
 - Rewrote various command classes to make use of flexible date time parser, see `AddTaskCommand`, `AddExamCommand`, `AddLectureCommand`, `AddTutorialCommand`, `ChangeDeadlineCommand`
 - Implemented exception handling for invalid entries within save files
   - On startup, errored or invalid entries in save files will be skipped and shown to users, with line number.
-  - Makes it easier for users to determine errored entries in their saves.
 - JUnitTesting for `DateTimeParser`,`CheckPriority`
 - getCommandWord method
   - Seperates user input from the first word, the command word, and the rest of the input
@@ -45,7 +42,6 @@ My role focused on writing skeleton code and bare bones functionality of ASTRA a
 - Authored CommandComponent diagram, style file
 - Vetting, editing and consistency checking of all other member's UML diagrams
   - `ListGPAEntries`,`AddGPAEntry`,`DeleteGPAEntry`,`add_task_sequence`,`architecture_sequence_delete`,`CheckCurrent_sequence`
-- Vetting of the DG 
 
 ### Contributions to team-based tasks
 
