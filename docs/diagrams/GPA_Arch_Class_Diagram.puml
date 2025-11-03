@@ -31,6 +31,12 @@ Parser --> Command : create
 Astra ..> Command : execute(...)
 Command --> Notebook : load/save/access GPA
 Notebook *-- GpaList
-GpaList o-- GpaEntry
+GpaList *-- GpaEntry
 Command ..> Ui : showMessage/showError
+
+AddGpaCommand .right.> Command
+DeleteGpaCommand .up.> Command
+ListGpaCommand .up.> Command
+ComputeGpaCommand .up.> Command
+
 @enduml

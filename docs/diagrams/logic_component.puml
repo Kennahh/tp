@@ -25,8 +25,14 @@ package astra.data {
 package astra.ui {
   class Ui
 }
+
 Parser --> Command : creates
 Command ..> ActivityList
 Command ..> Notebook
 Command ..> Ui
+
+AddTaskCommand .right.> Command
+DeleteCommand .up.> Command
+AddGpaCommand .up.> Command
+ComputeGpaCommand .up.> Command
 @enduml
