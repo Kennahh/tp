@@ -10,7 +10,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 
 - Code Dashboard: ([ekko-technology-dashboard-link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=ekko&sort=totalCommits%20dsc&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByNone&breakdown=true&checkedFileTypes=functional-code~other~test-code~docs&since=2025-09-19T00%3A00%3A00&filteredFileName=))
 
-- GitHub commits (selected): https://github.com/AY2526S1-CS2113-W12-1/tp/commits/master?author=Ekko-Technology&after=4c1099ebbc3fd8d8f4204742700d8897518b15ae+34
+- GitHub commits: ([ekko-technology-github-commits](https://github.com/AY2526S1-CS2113-W12-1/tp/commits/master?author=Ekko-Technology&after=4c1099ebbc3fd8d8f4204742700d8897518b15ae+34)) 
 
 
 ### Enhancements implemented
@@ -32,7 +32,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 
 ### Contributions to the Developer Guide (DG)
 
-- Authored and updated several PlantUML sequence diagrams and their exported PNGs used in the Developer Guide. My DG contributions focused on making diagrams accurate and maintainable. Key diagrams I added/updated:
+- Authored and updated several PlantUML sequence diagrams and their exported PNGs used in the Developer Guide. Key diagrams added/updated:
   - `docs/diagrams/checkCurrent_sequence.puml` → `docs/images/checkCurrent_sequence.png`
   - `docs/diagrams/checkPriority_sequence.puml` → `docs/images/checkPriority_sequence.png`
   - `docs/diagrams/changePriority_sequence.puml` → `docs/images/changePriority_sequence.png`
