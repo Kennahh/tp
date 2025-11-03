@@ -223,6 +223,11 @@ UnmarkCommand will be used as an example for the sequence diagram as they share 
 
 ### Delete 
 Flow: The user enters `delete <index>`. The parser returns `DeleteCOmmand` and does execute(). Activity at index is deleted from the ActivityList which is then saved to the data folder.
+
+Deleting multiple activities: delete activities in descending order of activity index.
+- Reasonability: deleting the activity with the largest index will not affect the indexes of previous activities, so no need to change the index of the activities to be deleted.
+- For example: `delete 1 3`: delete the third activity in the ActivityList first, then delete the first one.
+
 ![DeleteCommand_sequence](images/DeleteCommand_sequence.png)
 
 ### Task Deadline & Priority System
@@ -462,7 +467,7 @@ Outâ€‘ofâ€‘scope: authentication, networked sharing, and calendar sync (proposed
 | v2.0    | Student                                     | see the next N deadlines                             | plan my immediate workload                              |
 | v2.0    | Student                                     | list lectures/tutorials by day                       | plan my day efficiently                                 |
 | v2.0    | Student whose deadlines always change       | edit a task deadline                                 | adapt when plans change                                 |
-git
+
 
 ## Appendix C: Non-Functional Requirements
 
@@ -480,24 +485,27 @@ The following complements existing GPA tests and covers activity features. Copyâ
 
 1. Add tasks and priorities and all schoolActivities
     
-    Test Case:
-   - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
-   - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priorityâ€‘1 task to shift to 2)
-   - `lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00`
-   - `tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00`
-   - `exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00`
-   - `list` to show the output
+    1. Test Case:
+       - `task CS2113 Quiz /by 2025-11-01 23:59 /priority 1`
+       - `task CG2271 Lab /by 2025-10-30 20:00 /priority 1` (expect previously priorityâ€‘1 task to shift to 2)
+       - `lecture CS2113 /place LT9 /day Friday /from 16:00 /to 18:00`
+       - `tutorial CS2113 T1 /place COM2-0207 /day Wednesday /from 12:00 /to 13:00`
+       - `exam CS2107 Midterm /place MPSH1 /date 2025-10-10 /from 10:00 /to 12:00`
+       - `list` to show the output
 
-    Expected Output:
-   ````
-      ------------------------------------------------------------
-      1. [ ]CS2113 Quiz | Deadline: 1 Nov, 2359H | Priority: 2
-      2. [ ]CG2271 Lab | Deadline: 30 Oct, 2000H | Priority: 1
-      3. Lecture | CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H
-      4. Tutorial | CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
-      5. Exam | CS2107 Midterm | Venue: MPSH1 | Date: 10 Oct | Duration: 1000H to 1200H
-      ------------------------------------------------------------
-   ````
+        Expected Output:
+       ````
+          ------------------------------------------------------------
+          1. [ ]CS2113 Quiz | Deadline: 1 Nov, 2359H | Priority: 2
+          2. [ ]CG2271 Lab | Deadline: 30 Oct, 2000H | Priority: 1
+          3. Lecture | CS2113 | Venue: LT9 | Friday | Duration: 1600H to 1800H
+          4. Tutorial | CS2113 T1 | Venue: COM2-0207 | Wednesday | Duration: 1200H to 1300H
+          5. Exam | CS2107 Midterm | Venue: MPSH1 | Date: 10 Oct | Duration: 1000H to 1200H
+          ------------------------------------------------------------
+       ````
+    2. Test Case: `task CS2113 Quiz /by 2025-11-01 23:59`
+       - Expected Output: error showing missing input
+       - Similar output for other add commands with missing inputs
 
 2. Change priority (rebalance)
    
@@ -510,7 +518,14 @@ The following complements existing GPA tests and covers activity features. Copyâ
       - Expected Output: The first task's priority will change to 1 while the previous task with priority 1 will change to 2
    3. Test Case: `changepriority 1 /to 2`
       - Expected Output: The first task's priority will change to 2 while the previous task with priority 2 will change to 1
-      
+   4. Test Case: `changepriority 1 /to a`
+      - Expepted Output: error showing new priority must be an integer
+   5. Test Case: `changepriority a /to 1`
+      - Expected Output: error showing task number must be integer
+   6. Test Case: `changepriority 1 /to 3` where there are only two tasks in the list
+      - Excepted Output: error showing new priority must be between 1 and 2
+   7. Test Case: `changepriority 1 /to 2` where priority of task in index 1 is already 2
+      - Expected Output: error showing the task already has this priority
 
 3. Edit deadline
     1. Prerequisite:
@@ -519,6 +534,12 @@ The following complements existing GPA tests and covers activity features. Copyâ
         3) Choose an index that contains a task
    2. Test Case: `changedeadline <index> /to 2025-10-31 18:00` where index is the chosen index in prerequisite
       - Expected Output: The task at the index will change its deadline to 31 Oct, 1800H
+   3. Test Case: `changedeadline a /to 2025-10-31 18:00`
+      - Expected Output: error showing task number must be integer
+   4. Test Case: `changedeadline <index> /to 2025-10-31` where index is the chosen index in prerequisite
+      - Expected Output: error showing invalid date or time format
+   5. Test Case: `changedeadline <index> /to 2025-10-31 18:00` where activity of the index is not a task
+      - Expected Output: error showing the chosen activity is not a task
    
 
 4. Check current deadlines
@@ -527,8 +548,12 @@ The following complements existing GPA tests and covers activity features. Copyâ
       2) Use the task command to add if necessary
    2. Test Case: `checkcurrent` 
       - Expected Output: The task with the closest deadline will be shown
-   3. Test Case:`checkcurrent 3` 
+   3. Test Case: `checkcurrent 3` 
       - Expected Output: A list of up to 3 task whose deadline is closest to the current date will be shown
+   4. Test Case: `checkcurrent 0`
+      - Expected Output: error showing number of tasks to check should not be less than 1 and show the task with the closest deadline
+   5. Test Case: `checkcurrent a`
+       - Expected Output: error showing the number should be integer and show the task with the closest deadline
 
 
 5. Filter by day and exam listing
@@ -541,6 +566,10 @@ The following complements existing GPA tests and covers activity features. Copyâ
        - Expected Output: Produce a list of all tutorials on Wednesday
    4. Test Case: `checkexam` 
       - Expected Output: Produce a list of all exams in ActivityList
+   5. Test Case: `checklecture a`
+      - Expected Output: error showing input day is invalid
+   6. Test Case: `checktutorial a`
+       - Expected Output: error showing input day is invalid
 
 
 6. Delete and multiple delete
