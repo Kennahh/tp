@@ -272,31 +272,123 @@ Output:
 ### GPA Tracker
 Track modules and compute GPA in real-time. Grades are uppercased and S/U entries are excluded from GPA calculation.
 
-- Add GPA entry 
+Inputs summary (read this before using GPA commands):
+- SUBJECT: single token (no spaces), letters/digits/underscores only; case-insensitive (stored uppercase). Examples: `CS2040C`, `ma1521` → `MA1521`.
+- GRADE: one of `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted) or `S, U` (stored but not counted); case-insensitive.
+- MC: non-negative integer; ASTRA parses the integer portion and ignores trailing letters (e.g., `4mc` → `4`). Avoid decimals/spaces (e.g., not `4.0`, not `4 mc`).
+- Any deviation from the above may cause the program to not work as expected.
+
+#### Add GPA entry 
+This command adds a GPA entry with the corresponding grade and mc count to the current list of GPAs.
   - Format: `add gpa <SUBJECT> <GRADE> <MC>`
   - Example: `add gpa CS2040C A+ 4mc`
   - Example: `add gpa ma1521 s 4` (case-insensitive)
-  - Notes: 
-    - ASTRA will only parse integers entered in `<MC>` and ignore all alphabetical characters. This is to allow for a more pleasant user experience in the event of typos, or if the user accidentally types a negative number.
-    - There is no upper limit on integers entered in `<MC>`. This is to allow for future higher MC modules to be added.
-- List GPA entries
-  - Format: `list gpa`
-- Compute current GPA
-  - Format: `gpa`
-  - Output is to 2 decimal places
-- Delete a GPA entry by index
-  - Format: `delete gpa <INDEX>`
+  
+  - Input contract (expected inputs):
+    - SUBJECT
+      - Must be a single token (no spaces). Case-insensitive; stored in uppercase. Examples: `CS2040C`, `ma1521` → stored as `MA1521`.
+      - Avoid spaces or extra symbols inside the subject (e.g., `CS 2040C`, `CS2040C!`). Any deviation may cause parsing to fail.
+    - GRADE
+      - Must be one of: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (stored but not counted). Case-insensitive (e.g., `a+`, `s`).
+      - Any other grade value will be rejected with an invalid grade error.
+    - MC (Modular Credits)
+      - Enter a non-negative integer. ASTRA will parse the integer portion and ignore alphabetical characters (e.g., `4mc` is parsed as `4`).
+      - There is no upper limit enforced on `<MC>` to allow for future higher-MC modules.
+      - Do not include decimals or spaces inside the number (e.g., prefer `4mc` or `4`, not `4.0` or `4 mc`). Any deviation may cause the program to not behave as expected.
 
-Allowed grades: `A+, A, A-, B+, B, B-, C+, C, D+, D, F` (counted), `S, U` (stored but not counted).
+  - Examples
+    - Valid: `add gpa CS2040C A+ 4mc` → subject `CS2040C`, grade `A+`, mc `4`
+    - Valid: `add gpa ma1521 s 4` → subject `MA1521`, grade `S` (excluded from GPA), mc `4`
+    - Invalid: `add gpa CS1010 R 4` → `R` is not an allowed grade
+    - Invalid: `add gpa CS2040C A+ four` → `four` does not contain digits for `<MC>`
+
+  - Output for `add gpa CS2040C A+ 4mc`:
+  ```
+  ------------------------------------------------------------
+Added GPA entry: CS2040C | A+ | 4 MC
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+- Output for `add gpa ma1521 s 4`:
+```
+------------------------------------------------------------
+Added GPA entry: MA1521 | S | 4 MC
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+  
+#### List GPA entries
+  - Format: `list gpa`
+  - Input expectations:
+    - Exactly `list gpa` (case-insensitive). Do not provide extra arguments.
+  - Output format:
+    - One entry per line in the form `SUBJECT | GRADE | MC`, reflecting the stored list order.
+- Example output of `list gpa` after adding the GPA Entries  in [Add GPA Entry](#add-gpa-entry) section:
+```
+------------------------------------------------------------
+1. CS2040C | A+ | 4 MC
+2. MA1521 | S | 4 MC
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+#### Compute current GPA
+  - Format: `gpa`
+  - Input expectations:
+    - Exactly `gpa` (case-insensitive). Do not provide extra arguments.
+  - Output behaviour:
+    - Computes a weighted average by MC for counted grades only (S/U entries are excluded from the calculation) and displays the result to 2 decimal places.
+-  Example output of `gpa` after adding the GPA Entries  in [Add GPA Entry](#add-gpa-entry) section:
+```
+------------------------------------------------------------
+Current GPA: 5.00
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
+
+#### Delete a GPA entry by index
+  - Format: `delete gpa <INDEX>`
+  - Input contract (expected inputs):
+    - `<INDEX>` must be a positive whole number within the current GPA list size (1-based).
+    - Do not include extra tokens or suffixes (e.g., prefer `delete gpa 2`, not `delete gpa #2` or `delete gpa 2nd`).
+    - Any deviation may cause the program to not behave as expected.
+-  Example output of `delete gpa 1` after adding the GPA Entries  in [Add GPA Entry](#add-gpa-entry) section:
+```
+------------------------------------------------------------
+Deleted GPA entry: CS2040C | A+ | 4 MC
+------------------------------------------------------------
+[ASTRA] Done! Now, what's your next wish...
+------------------------------------------------------------
+```
 
 ### Storage
 - Activities: `data/tasks.txt` and `data/tasks.csv`
 - GPA: `data/gpa.txt` (pipe format) and `data/gpa.csv` (CSV)
 
-Note: since all storage files update during runtime, do NOT manually edit the contents of those files during runtime. 
-Users can edit before launch or after termination of astra instead.
+GPA storage formats
+- `data/gpa.txt` (pipe format, one entry per line)
+  - Syntax: `GPA | SUBJECT | GRADE | MC`
+  - Example lines after adding the GPA Entries  in [Add GPA Entry](#add-gpa-entry) section:
+    - `GPA | CS2040C | A+ | 4`
+    - `GPA | MA1521 | S | 4` (stored but excluded from GPA computation)
+  - Normalization: SUBJECT and GRADE are uppercased on save; MC stored as a non-negative integer.
 
-If storage files are detected to have incorrect formatting at startup, whether due to file corruption or user intervention, ASTRA will display an warning message, along with the affected lines
+- `data/gpa.csv` (comma-separated)
+  - Headerless rows in the form: `Subject,Grade,MC`
+  - Example lines after adding the GPA Entries  in [Add GPA Entry](#add-gpa-entry) section:
+    - `CS2040C,A+,4`
+    - `MA1521,S,4`
+  - Normalization: same as above; fields are written uppercased for SUBJECT and GRADE.
+
+Loading and data integrity
+- On startup, ASTRA loads both activity and GPA entries. Since all storage files update during runtime, do NOT manually edit the contents of those files during runtime. 
+Users can edit before launch or after termination of astra instead.
+- If storage files are detected to have incorrect formatting at startup, whether due to file corruption or user intervention, ASTRA will display an warning message, along with the affected lines
 
 Example of error:
 
