@@ -170,4 +170,31 @@ public class AstraParserTest {
         assertTrue(output.contains("is not a Task"));
     }
 
+    @Test
+    public void complete_onLecture_errorShown() throws Exception {
+        Parser.parse("lecture cs2113 /place com1 /day Mon /from 10:00 /to 11:00").execute(activities, ui, notebook);
+        Parser.parse("complete 1").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("is not a Task"));
+    }
+
+    @Test
+    public void complete_onExam_errorShown() throws Exception {
+        Parser.parse("exam CS2107 Midterm /place MPSH1 " +
+                "/date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
+        Parser.parse("complete 1").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("is not a Task"));
+    }
+
+    @Test
+    public void unmark_onExam_errorShown() throws Exception {
+        Parser.parse("exam CS2107 Midterm /place MPSH1 " +
+                "/date 2025-10-10 /from 10:00 /to 12:00").execute(activities, ui, notebook);
+        Parser.parse("unmark 1").execute(activities, ui, notebook);
+        String output = outContent.toString();
+        assertTrue(output.contains("is not a Task"));
+    }
+
+
 }
