@@ -179,6 +179,7 @@ API: `astra.data.Notebook`
   - Activities use `saveToFile(ActivityList)` (CSV with headers written each save).
   - GPA uses `saveGpa()` which writes both pipe (`gpa.txt`) and CSV (`gpa.csv`).
 - Additionally, the main loop persists activities after each non-exiting command using `writeToFile(activities.toList())` (pipe format) and `saveToFile(activities)` (CSV). This ensures durability even if a command forgets to save, at the cost of potential duplicate writes when a command also saves. A future improvement is to standardize persistence in one place (either commands or the loop) to avoid duplication.
+- On startup, will cycle through each entry in the saved files (`gpa.txt` and `tasks.txt`), only loading valid entried, while skipping and reporting invalid ones
 
 ### UI
 
@@ -410,7 +411,9 @@ Activity for save
   general `add/list/delete`.
 - Command input validation: friendly error messages via `Ui.showError(...)` for invalid grades, MC tokens, or indices.
 - File I/O failures: wrapped as `FileSystemException`, caught in commands or main loop so the app remains usable.
+- Invalid entries: Skipped and displayed to user so not all data is lost due to single invalid entry.
 - Empty GPA list: `computeGpa()` returns 0.0 and `list gpa` prints a helpful message.
+- Non-numerical characters in `<MC>` field: Ignored, only the integer in the field is parsed, allowing for typos to be handled somewhat gracefully
 
 ### Parsing helpers
 
@@ -462,7 +465,7 @@ Out‑of‑scope: authentication, networked sharing, and calendar sync (proposed
 | v2.0    | Student                                     | see the next N deadlines                             | plan my immediate workload                              |
 | v2.0    | Student                                     | list lectures/tutorials by day                       | plan my day efficiently                                 |
 | v2.0    | Student whose deadlines always change       | edit a task deadline                                 | adapt when plans change                                 |
-git
+
 
 ## Appendix C: Non-Functional Requirements
 

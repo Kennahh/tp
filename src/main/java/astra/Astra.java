@@ -26,7 +26,7 @@ public class Astra {
     private final Scanner scanner;
 
     /**
-     * Storage handler for saving and loading of activithelpies
+     * Storage handler for saving and loading of activities
      */
     private final Notebook notebook;
 
@@ -48,6 +48,7 @@ public class Astra {
             for (Activity activity : loaded) {
                 this.activities.addActivity(activity);
             }
+            notebook.loadGpa();
         } catch (FileSystemException e) {
             System.out.println(e.getMessage());
         }
@@ -60,6 +61,7 @@ public class Astra {
         ui.showLogo();
         ui.showBotIntro();
         LocalDate today = LocalDate.now();
+        ui.showError(notebook.getErrors());
         activities.listAndDeleteOverdueTasks(today);
         activities.deadlineReminder(today);
         ui.showPrompt();

@@ -100,6 +100,7 @@ public class AddTaskCommand extends AddCommand {
             String[] deadlineParts = deadlineStr.split(" ", 2);
             String deadlineDateStr = deadlineParts[0];
             String deadlineTimeStr = "23:59"; // default
+
             if (deadlineParts.length > 1) {
                 deadlineTimeStr = deadlineParts[1];
             }
