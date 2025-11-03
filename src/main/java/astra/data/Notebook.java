@@ -201,16 +201,17 @@ public class Notebook {
                 return activities; // empty list
             }
 
-            Scanner s = new Scanner(f);
-            String line = "";
-            int lineNumber = 0;
-            while (s.hasNextLine()) {
-                try {
-                    line = s.nextLine();
-                    lineNumber += 1;
-                    activities.add(parseLine(line));
-                } catch (FileSystemException e) {
-                    erroredTaskLines += lineNumber + ": " + line + '\n';
+            try (Scanner s = new Scanner(f)) {
+                String line = "";
+                int lineNumber = 0;
+                while (s.hasNextLine()) {
+                    try {
+                        line = s.nextLine();
+                        lineNumber += 1;
+                        activities.add(parseLine(line));
+                    } catch (FileSystemException e) {
+                        erroredTaskLines += lineNumber + ": " + line + '\n';
+                    }
                 }
             }
         } catch (IOException e) {
@@ -386,26 +387,27 @@ public class Notebook {
                 f.createNewFile();
                 return list;
             }
-            Scanner s = new Scanner(f);
-            String line = "";
-            int lineNumber = 0;
-            while (s.hasNextLine()) {
-                try {
-                    line = s.nextLine().trim();
-                    lineNumber += 1;
-                    if (line.isEmpty()) {
-                        continue;
+            try (Scanner s = new Scanner(f)) {
+                String line = "";
+                int lineNumber = 0;
+                while (s.hasNextLine()) {
+                    try {
+                        line = s.nextLine().trim();
+                        lineNumber += 1;
+                        if (line.isEmpty()) {
+                            continue;
+                        }
+                        String[] parts = line.split(SPLIT_REGEX);
+                        if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
+                            throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
+                        }
+                        String subject = parts[1].trim();
+                        String grade = parts[2].trim();
+                        int mc = Integer.parseInt(parts[3].trim());
+                        list.add(new GpaEntry(subject, grade, mc));
+                    } catch (FileSystemException e) {
+                        erroredGpaLines += lineNumber + ": " + line + '\n';
                     }
-                    String[] parts = line.split(SPLIT_REGEX);
-                    if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
-                        throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
-                    }
-                    String subject = parts[1].trim();
-                    String grade = parts[2].trim();
-                    int mc = Integer.parseInt(parts[3].trim());
-                    list.add(new GpaEntry(subject, grade, mc));
-                } catch (FileSystemException e) {
-                    erroredGpaLines += lineNumber + ": " + line + '\n';
                 }
             }
         } catch (IOException | RuntimeException e) {
