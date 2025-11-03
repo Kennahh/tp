@@ -272,6 +272,9 @@ Track modules and compute GPA in real-time. Grades are uppercased and S/U entrie
   - Format: `add gpa <SUBJECT> <GRADE> <MC>`
   - Example: `add gpa CS2040C A+ 4mc`
   - Example: `add gpa ma1521 s 4` (case-insensitive)
+  - Notes: 
+    - ASTRA will only parse integers entered in `<MC>` and ignore all alphabetical characters. This is to allow for a more pleasant user experience in the event of typos, or if the user accidentally types a negative number.
+    - There is no upper limit on integers entered in `<MC>`. This is to allow for future higher MC modules to be added.
 - List GPA entries
   - Format: `list gpa`
 - Compute current GPA

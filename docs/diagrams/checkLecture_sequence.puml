@@ -55,9 +55,10 @@ deactivate CheckLecturesCommand
 CheckLecturesCommand -> ActivityList: listActivities
 CheckLecturesCommand -> ActivityList: getListSize
 CheckLecturesCommand -> Ui: show message
-CheckLecturesCommand --> User: return false
-destroy CheckLecturesCommand
+CheckLecturesCommand --> User:  false
+destroy ActivityList
 note left: do not exit the program
 deactivate CheckLecturesCommand
+destroy CheckLecturesCommand
 
 @enduml

@@ -58,7 +58,7 @@ deactivate Ui
 loop For task in ActivityList
     CheckCurrentCommand -> Task: toString
     activate Task
-    Task --> CheckCurrentCommand: return String
+    Task --> CheckCurrentCommand: String
     deactivate Task
     CheckCurrentCommand -> Ui: showMessage()
     activate Ui

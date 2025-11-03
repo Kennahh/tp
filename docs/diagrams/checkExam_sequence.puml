@@ -41,7 +41,8 @@ deactivate CheckExamCommand
 CheckExamCommand -> ActivityList: listActivities
 CheckExamCommand -> ActivityList: getListSize
 CheckExamCommand -> Ui: show message
-CheckExamCommand --> User: return false
+CheckExamCommand --> User:  false
+destroy ActivityList
 destroy CheckExamCommand
 note left: do not exit the program
 deactivate CheckExamCommand

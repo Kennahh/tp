@@ -32,7 +32,7 @@ loop REPL
       break
     end
   Astra -> UI: showDone()
-  Astra -> Scanner: close()
+  Astra -> ":Scanner": close()
   end
 end
 

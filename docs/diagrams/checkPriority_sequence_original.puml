@@ -1,5 +1,6 @@
 @startuml
 Actor User
+!include style.puml
 participant Parser
 participant CheckPriorityCommand
 participant "original_activities: ActivityList" as original_list

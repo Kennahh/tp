@@ -24,11 +24,11 @@ class Ui
 Notebook -left..> Activity
 SchoolActivity -right--> Activity
 ActivityList -left-->"*" Activity : contains
-Task -up-->Activity
+Task -up--> Activity
 XYZActivityClasses -up-->SchoolActivity
 Notebook -left...> ActivityList : Stores values of
 Command -up..> ActivityList : modifies
 Command -right..>Ui
-ActivityList o-- Notebook : Reads from
+ActivityList *-- Notebook : Reads from
 
 @enduml
