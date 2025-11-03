@@ -46,11 +46,9 @@ public class Notebook {
         this.gpaTxtPath = baseDir + File.separator + "gpa.txt";
         this.gpaCsvPath = baseDir + File.separator + "gpa.csv";
 
-
-        loadGpa();
     }
 
-    private void loadGpa() {
+    public void loadGpa() {
         // attempt to load existing GPA entries
         try {
             List<GpaEntry> loadedGpa = loadGpaFromFile();
@@ -211,7 +209,6 @@ public class Notebook {
                     line = s.nextLine();
                     lineNumber += 1;
                     activities.add(parseLine(line));
-                    //todo: fail gracefully
                 } catch (FileSystemException e) {
                     erroredTaskLines += lineNumber + ": " + line + '\n';
                 }
@@ -389,9 +386,13 @@ public class Notebook {
                 f.createNewFile();
                 return list;
             }
-            try (Scanner s = new Scanner(f)) {
-                while (s.hasNextLine()) {
-                    String line = s.nextLine().trim();
+            Scanner s = new Scanner(f);
+            String line = "";
+            int lineNumber = 0;
+            while (s.hasNextLine()) {
+                try {
+                    line = s.nextLine().trim();
+                    lineNumber += 1;
                     if (line.isEmpty()) {
                         continue;
                     }
@@ -403,6 +404,8 @@ public class Notebook {
                     String grade = parts[2].trim();
                     int mc = Integer.parseInt(parts[3].trim());
                     list.add(new GpaEntry(subject, grade, mc));
+                } catch (FileSystemException e) {
+                    erroredGpaLines += lineNumber + ": " + line + '\n';
                 }
             }
         } catch (IOException | RuntimeException e) {
@@ -460,10 +463,12 @@ public class Notebook {
         if (!erroredTaskLines.isEmpty()) {
             System.out.println("Detected errors in saved activities! See lines:");
             System.out.print(erroredTaskLines);
+            System.out.println("These line(s) will be deleted if any activity is added, deleted or modified!\n");
         }
         if (!erroredGpaLines.isEmpty()) {
             System.out.println("Detected errors in saved GPA! See lines:");
             System.out.print(erroredGpaLines);
+            System.out.println("These line(s) will be deleted if any gpa is added, deleted or modified!");
         }
     }
 }
