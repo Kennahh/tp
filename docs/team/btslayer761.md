@@ -11,13 +11,8 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
   - Implemented the skeleton codes and overall structure of the activity classes and the command classes
   - Allowed the structure of the project to be established before further implementation were done
 - UnmarkCommand / CompleteCommand
-  -  Parsing of Unmark and Complete Command inputs
-  - Handled errors/exceptions caused by
-    1. Wrong input format
-    2. User giving an input other than a number
-    3. Number input received exceeds list size (out of bound)
-    4. Activity at the index not being a Task 
-    5. When unmarking/Completing a Task that is already unmarked/completed
+  - Parsing of Unmark and Complete Command inputs
+  - Handled errors/exceptions 
 - deadlineReminder method
   - List Tasks which are due within the next 3 days from when the user runs Astra
   - Takes in the date the program is being run and compares it with all Activities in ActivityList
@@ -39,12 +34,7 @@ Astra is a fast, keyboard-driven CLI planner for students to track academic acti
 - Sections I did were the activity Package and the Unmark/Complete Commands
 - Improved and assisted in Manual Testing section
 - Checked as well as edit sequence diagrams in DG for errors
-- Diagrams Created include:
-  1. Activity Class diagram
-  2. DeleteCommand sequence diagram
-  3. UnmarkCommand sequence diagram
-  4. Edited checkCurrent sequence diagram
-  5. AddCommands sequence diagram
+- Diagrams Created include: Activity Class diagram, AddCommands sequence diagram, DeleteCommand sequence diagram, UnmarkCommand sequence diagram and edited checkCurrent sequence diagram
 
 ### Contribution to team-based tasks
 - Ensured coding quality and correct styling
