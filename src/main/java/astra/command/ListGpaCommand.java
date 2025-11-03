@@ -23,7 +23,7 @@ public class ListGpaCommand implements Command {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             assert list.get(i) != null : "GPA entry should not be null";
-            sb.append(" ").append(i + 1).append(". ")
+            sb.append(i + 1).append(". ")
               .append(list.get(i).toString()).append("\n");
         }
         ui.showMessage(sb.toString().trim());
