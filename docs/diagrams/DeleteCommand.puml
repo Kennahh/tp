@@ -17,7 +17,7 @@ activate Parser
 create DeleteCommand
 Parser -> DeleteCommand
 activate DeleteCommand
-return : DeleteCommand
+return DeleteCommand
 return
 deactivate Parser
 
@@ -26,7 +26,7 @@ activate DeleteCommand
 DeleteCommand -> ActivityList : deleteActivity(1)
 activate ActivityList
 return
-DeleteCommand -> Ui : ShowMessage()
+DeleteCommand -> Ui : showMessage()
 activate Ui
 return
 
@@ -35,8 +35,8 @@ activate Notebook
 return
 return false
 deactivate DeleteCommand
-destroy DeleteCommand
 Astra --> User
+destroy DeleteCommand
 deactivate Astra
 
 

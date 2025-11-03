@@ -58,8 +58,9 @@ deactivate Notebook
 ' Return false to User
 return false
 deactivate UnmarkCommand
-destroy UnmarkCommand
+
 Astra --> User
+destroy UnmarkCommand
 deactivate Astra
 
 @enduml

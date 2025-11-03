@@ -60,6 +60,8 @@ deactivate UI
 
 C --> Astra: false
 deactivate C
-Astra --> User
 destroy C
+Astra --> User
+
+note left GpaEntry: GpaEntry is stored in GpaList\n hence not destroyed
 @enduml

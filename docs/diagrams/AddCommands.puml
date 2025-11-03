@@ -6,7 +6,7 @@ actor User
 participant ":Astra" as Astra
 participant ":Parser" as Parser
 participant ":AddTaskCommand" as AddTaskCommand
-participant "Task" as Task
+participant ":Task" as Task
 participant ":ActivityList" as ActivityList
 participant ":Ui" as Ui
 participant ":Notebook" as Notebook
@@ -60,8 +60,10 @@ participant ":Notebook" as Notebook
  ' Return value to user
  AddTaskCommand --> Astra : false
  deactivate AddTaskCommand
- AddTaskCommand -[hidden]-> AddTaskCommand
+
  destroy AddTaskCommand
- destroy Task
+' destroy Task
  Astra -->User
+
+ note left Task: Task is not destroyed \n as it is stored in ActivityList
 @enduml

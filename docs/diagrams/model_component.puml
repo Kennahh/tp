@@ -50,6 +50,6 @@ SchoolActivity <|-- Lecture
 SchoolActivity <|-- Tutorial
 SchoolActivity <|-- Exam
 Activity <|-- Task
-GpaList o-- GpaEntry
-ActivityList o-- Activity
+GpaList *-- GpaEntry
+ActivityList *-- Activity
 @enduml
