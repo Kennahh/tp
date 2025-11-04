@@ -15,7 +15,7 @@ create C
 Parser -->C : new CheckPriorityCommand()
 activate C
 return
-return
+return CheckPriorityCommand
 Astra -> C: execute(AL, UI, NB)
 activate C
 C -> AL: getAllTasks()
