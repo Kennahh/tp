@@ -27,6 +27,8 @@ public class Notebook {
     private static final String SPLIT_REGEX = "\\s*\\|\\s*";
 
     private String filePath;
+    private String erroredTaskLines = ""; // stores errored lines when reading
+    private String erroredGpaLines = ""; // stores errored GPA
 
     // GPA related
     private final String gpaTxtPath;
@@ -44,6 +46,9 @@ public class Notebook {
         this.gpaTxtPath = baseDir + File.separator + "gpa.txt";
         this.gpaCsvPath = baseDir + File.separator + "gpa.csv";
 
+    }
+
+    public void loadGpa() {
         // attempt to load existing GPA entries
         try {
             List<GpaEntry> loadedGpa = loadGpaFromFile();
@@ -195,14 +200,20 @@ public class Notebook {
                 f.createNewFile();
                 return activities; // empty list
             }
+
             try (Scanner s = new Scanner(f)) {
+                String line = "";
+                int lineNumber = 0;
                 while (s.hasNextLine()) {
-                    String line = s.nextLine();
-                    activities.add(parseLine(line));
+                    try {
+                        line = s.nextLine();
+                        lineNumber += 1;
+                        activities.add(parseLine(line));
+                    } catch (FileSystemException e) {
+                        erroredTaskLines += lineNumber + ": " + line + '\n';
+                    }
                 }
             }
-        } catch (FileSystemException e) {
-            throw e;
         } catch (IOException e) {
             throw new FileSystemException("[ERROR] Failed to read file: " + e.getMessage());
         }
@@ -252,65 +263,69 @@ public class Notebook {
         boolean done = "1".equals(parts[1]);
         String description = parts[2];
 
-        switch (type) {
-        case "TASK":
-        case "T": 
-            if (parts.length < 5) {
-                throw new FileSystemException("[ERROR] Corrupted. Invalid task: " + line);
+        try {
+            switch (type) {
+            case "TASK":
+            case "T":
+                if (parts.length < 5) {
+                    throw new FileSystemException("[ERROR] Corrupted. Invalid task: " + line);
+                }
+                LocalDate d = LocalDate.parse(parts[3]);
+                LocalTime tm = LocalTime.parse(parts[4]);
+                Integer priority = Integer.parseInt(parts[5]);
+                Task t = new Task(description, d, tm, priority);
+                if (done) {
+                    t.setIsComplete();
+                }
+                return t;
+            case "LECTURE":
+            case "LEC": {
+                // LECTURE | done | description | venue | day | start | end
+                if (parts.length < 7) {
+                    throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
+                }
+                String desc = parts[2];
+                String venue = parts[3];
+                DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
+                LocalTime start = LocalTime.parse(parts[5]);
+                LocalTime end = LocalTime.parse(parts[6]);
+                Lecture lec = new Lecture(desc, venue, day, start, end);
+                return lec;
             }
-            LocalDate d = LocalDate.parse(parts[3]);
-            LocalTime tm = LocalTime.parse(parts[4]);
-            Integer priority = Integer.parseInt(parts[5]);
-            Task t = new Task(description, d, tm, priority);
-            if (done) {
-                t.setIsComplete();
+            case "TUTORIAL":
+            case "TUT": {
+                // TUTORIAL | done | description | venue | day | start | end
+                if (parts.length < 7) {
+                    throw new FileSystemException("[ERROR] Corrupted. Invalid tutorial: " + line);
+                }
+                String desc = parts[2];
+                String venue = parts[3];
+                DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
+                LocalTime start = LocalTime.parse(parts[5]);
+                LocalTime end = LocalTime.parse(parts[6]);
+                Tutorial tut = new Tutorial(desc, venue, day, start, end);
+                return tut;
             }
-            return t;
-        case "LECTURE":
-        case "LEC": {
-            // LECTURE | done | description | venue | day | start | end
-            if (parts.length < 7) {
-                throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
+            case "EXAM":
+            case "EX": {
+                // EXAM | done | description | venue | date | start | end
+                if (parts.length < 7) {
+                    throw new FileSystemException("[ERROR] Corrupted. Invalid exam: " + line);
+                }
+                String desc = parts[2];
+                String venue = parts[3];
+                LocalDate date = LocalDate.parse(parts[4]);
+                LocalTime start = LocalTime.parse(parts[5]);
+                LocalTime end = LocalTime.parse(parts[6]);
+                Exam ex = new Exam(desc, venue, date, start, end);
+                return ex;
             }
-            String desc = parts[2];
-            String venue = parts[3];
-            DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
-            LocalTime start = LocalTime.parse(parts[5]);
-            LocalTime end = LocalTime.parse(parts[6]);
-            Lecture lec = new Lecture(desc, venue, day, start, end);
-            return lec;
-        }
-        case "TUTORIAL":
-        case "TUT": {
-            // TUTORIAL | done | description | venue | day | start | end
-            if (parts.length < 7) {
-                throw new FileSystemException("[ERROR] Corrupted. Invalid tutorial: " + line);
-            }
-            String desc = parts[2];
-            String venue = parts[3];
-            DayOfWeek day = DayOfWeek.of(Integer.parseInt(parts[4]));
-            LocalTime start = LocalTime.parse(parts[5]);
-            LocalTime end = LocalTime.parse(parts[6]);
-            Tutorial tut = new Tutorial(desc, venue, day, start, end);
-            return tut;
-        }
-        case "EXAM":
-        case "EX": {
-            // EXAM | done | description | venue | date | start | end
-            if (parts.length < 7) {
-                throw new FileSystemException("[ERROR] Corrupted. Invalid exam: " + line);
-            }
-            String desc = parts[2];
-            String venue = parts[3];
-            LocalDate date = LocalDate.parse(parts[4]);
-            LocalTime start = LocalTime.parse(parts[5]);
-            LocalTime end = LocalTime.parse(parts[6]);
-            Exam ex = new Exam(desc, venue, date, start, end);
-            return ex;
-        }
 
-        default:
-            throw new FileSystemException("[ERROR] Corrupted. Unknown task type: " + type);
+            default:
+                throw new FileSystemException("[ERROR] Corrupted. Unknown task type: " + type);
+            }
+        } catch (Exception e) {
+            throw new FileSystemException("[ERROR] Corrupted. Invalid lecture: " + line);
         }
     }
 
@@ -373,19 +388,26 @@ public class Notebook {
                 return list;
             }
             try (Scanner s = new Scanner(f)) {
+                String line = "";
+                int lineNumber = 0;
                 while (s.hasNextLine()) {
-                    String line = s.nextLine().trim();
-                    if (line.isEmpty()) {
-                        continue;
+                    try {
+                        line = s.nextLine().trim();
+                        lineNumber += 1;
+                        if (line.isEmpty()) {
+                            continue;
+                        }
+                        String[] parts = line.split(SPLIT_REGEX);
+                        if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
+                            throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
+                        }
+                        String subject = parts[1].trim();
+                        String grade = parts[2].trim();
+                        int mc = Integer.parseInt(parts[3].trim());
+                        list.add(new GpaEntry(subject, grade, mc));
+                    } catch (FileSystemException e) {
+                        erroredGpaLines += lineNumber + ": " + line + '\n';
                     }
-                    String[] parts = line.split(SPLIT_REGEX);
-                    if (parts.length != 4 || !parts[0].equalsIgnoreCase("GPA")) {
-                        throw new FileSystemException("[ERROR] Corrupted. Invalid GPA line: " + line);
-                    }
-                    String subject = parts[1].trim();
-                    String grade = parts[2].trim();
-                    int mc = Integer.parseInt(parts[3].trim());
-                    list.add(new GpaEntry(subject, grade, mc));
                 }
             }
         } catch (IOException | RuntimeException e) {
@@ -437,5 +459,20 @@ public class Notebook {
     public void saveGpa() throws FileSystemException {
         writeGpaToFile(gpaList.toList());
         writeGpaCsv(gpaList.toList());
+    }
+
+    public String getErrors() {
+        String errors = "";
+        if (!erroredTaskLines.isEmpty()) {
+            errors += "[WARNING!] Detected errors in saved activities! See lines:\n"
+                    + erroredTaskLines
+                    + "These line(s) will be deleted if any activity is added, deleted or modified!\n\n";
+        }
+        if (!erroredGpaLines.isEmpty()) {
+            errors += "[WARNING!] Detected errors in saved GPA! See lines:\n"
+                    + erroredGpaLines
+                    + "These line(s) will be deleted if any gpa is added, deleted or modified!";
+        }
+        return errors;
     }
 }

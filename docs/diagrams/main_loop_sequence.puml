@@ -4,7 +4,7 @@
 actor User
 participant Astra as ":Astra"
 participant UI as ":Ui"
-participant Parser as "Parser"
+participant Parser as ":Parser"
 participant C as ":Command"
 participant NB as ":Notebook"
 participant AL as ":ActivityList"

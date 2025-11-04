@@ -6,7 +6,7 @@ import astra.activity.Exam;
 import astra.activity.Lecture;
 import astra.activity.Task;
 import astra.activity.Tutorial;
-import astra.exception.FileSystemException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class NotebookTest {
 
@@ -88,6 +88,7 @@ public class NotebookTest {
         Path p = temp.resolve("bad.txt");
         Files.writeString(p, "BAD | 0 | x");
         Notebook nb = new Notebook(p.toString());
-        assertThrows(FileSystemException.class, nb::loadFromFile);
+        nb.loadFromFile();
+        assertTrue(nb.getErrors().contains("BAD | 0 | x"));
     }
 }
