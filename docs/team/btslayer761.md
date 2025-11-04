@@ -3,7 +3,7 @@
 ## Overview
 Astra is a fast, keyboard-driven CLI planner for students to track academic activities (tasks, lectures, tutorials, exams) and compute their GPA. It stores data in simple text/CSV files for transparency and portability. 
 My role focused on the implementation of unmark/Complete command, deadline reminders, automating deletion of overdue/completed task for easier management of ActivityList, improving the Developer Guide with the use of 
-uml diagrams and implementing/improving the User Guide.sou
+uml diagrams and implementing/improving the User Guide.
 
 ## Summary of Contributions
 ### Code DashBoard: ([BTslayer761-dashboard-link](https://nus-cs2113-ay2526s1.github.io/tp-dashboard/?search=Bren&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-09-19T00%3A00%3A00&filteredFileName=&tabOpen=true&tabType=authorship&tabAuthor=Kurokishi592&tabRepo=AY2526S1-CS2113-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false))
